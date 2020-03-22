@@ -1,3 +1,8 @@
+1. install nodejs
+2. add to path
+3. install angular
+4. clone the project
+5. run ng serve to test the example
 # MyRecipeApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.5.
