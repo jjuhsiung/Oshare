@@ -1,10 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
 # Create your models here.
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
     date = models.DateTimeField()
     likes = models.IntegerField(default=0)
     text = models.CharField(max_length=1500)
@@ -18,6 +17,6 @@ class PostImage(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
     date = models.DateTimeField()
     text = models.CharField(max_length=300)
