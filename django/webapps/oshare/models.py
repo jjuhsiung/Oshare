@@ -26,7 +26,7 @@ class FollowModel(models.Model):
         return '{} follows {}'.format(self.follower, self.followed) + ' at ' + str(self.follow_time)
 
 class Post(models.Model):
-    user = models.ForeignKey('UserModel', on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     date = models.DateTimeField()
     likes = models.IntegerField(default=0)
     text = models.CharField(max_length=1500)
@@ -39,7 +39,7 @@ class PostImage(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey('UserModel', on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     date = models.DateTimeField()
     text = models.CharField(max_length=300)
 
@@ -56,12 +56,12 @@ class ProductCount(models.Model):
     count = models.IntegerField(default=0)
 
 class Order(models.Model):
-	user = models.ForeignKey('UserModel', on_delete=models.CASCADE)
+	user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 	total = models.IntegerField(default=0)
 	ship_addr = models.CharField(max_length=100)
 	order_time = models.DateTimeField()
 
 class Cart(models.Model):
-	user = models.ForeignKey('UserModel', on_delete=models.CASCADE)
+	user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 	total = models.IntegerField(default=0)
 
