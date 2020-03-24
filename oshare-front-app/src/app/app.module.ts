@@ -17,14 +17,15 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ReviewListComponent } from './product/review-list/review-list.component';
 import { ReviewItemComponent } from './product/review-list/review-item/review-item.component';
 import { PostItemComponent } from './shared/post-list/post-item/post-item.component';
+
 import { HomeSearchComponent } from './home-search/home-search.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductCountListComponent } from './cart/product-count-list/product-count-list.component';
 import { ProductCountItemComponent } from './cart/product-count-item/product-count-item.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { PostComponent } from './post/post.component';
-import { PostDetailComponent } from './post/post-detail/post-detail.component';
+// import { PostComponent } from './post/post.component';
+// import { PostDetailComponent } from './post/post-detail/post-detail.component';
 
 const appRoutes:Routes = [
   {path:'', component: LoginComponent},
@@ -46,21 +47,21 @@ const appRoutes:Routes = [
     ProfileComponent,
     ProductComponent,
     ProfileHeaderComponent,
-    PostListComponent,
+    // PostListComponent,
     ProductListComponent,
-    ProductItemComponent,
+    // ProductItemComponent,
     ProductDetailComponent,
     ReviewListComponent,
     ReviewItemComponent,
-    PostItemComponent,
+    // PostItemComponent,
     HomeSearchComponent,
     SearchResultComponent,
     CartComponent,
     ProductCountListComponent,
     ProductCountItemComponent,
     CheckoutComponent,
-    PostComponent,
-    PostDetailComponent
+    // PostComponent,
+    // PostDetailComponent
   ],
   imports: [
     BrowserModule,
