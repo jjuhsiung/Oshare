@@ -25,6 +25,7 @@ import { ProductCountItemComponent } from './cart/product-count-item/product-cou
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PostComponent } from './post/post.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 const appRoutes:Routes = [
   {path:'', component: LoginComponent},
@@ -60,7 +61,8 @@ const appRoutes:Routes = [
     ProductCountItemComponent,
     CheckoutComponent,
     PostComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    NavigationBarComponent
   ],
   imports: [
     BrowserModule,
