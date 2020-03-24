@@ -1,1 +1,29 @@
-<p>checkout works!</p>
+<h1>Checkout</h1>
+
+<form method="POST">
+	<div>
+        <h2>Shipping Info</h2>
+        <table>
+            {{form}}
+        </table>
+	</div>
+    <div>
+        <h2>Payment</h2>
+        <button>paypal</button>
+    </div>
+    
+    <div>
+    	<h2>Price</h2>
+        <ul>
+          <li>Merchandise subtotal: {{subtotal}}</li>
+          <li>Tax: {{tax}}</li>
+          <li>Shipping: {{shipping}}</li>
+          <li>Total: {{total}}</li>
+        </ul>
+    </div>
+    
+    <div>
+    	<h2></h2>
+    	<button type="submit">Place Order</button>
+	</div>
+</form>
