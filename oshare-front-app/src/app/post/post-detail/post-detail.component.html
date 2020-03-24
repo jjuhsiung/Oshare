@@ -1,1 +1,16 @@
-<p>post-detail works!</p>
+<div>
+    <div>
+        <img src="{{post.user.image}}"> {{post.user.username}} | {{post.date}} | {{post.reads}}
+
+    <div>
+    	<h2>{{post.topic}}</h2>
+        <p>{{post.content}}</p>
+	</div>
+    
+    <div>
+    	{% for comment in post.comment.all %}
+        	<p><img src="{{comment.user.image}}"> {{comment.content}}</p>
+            
+        {% endfor %}
+	</div>
+</div>
