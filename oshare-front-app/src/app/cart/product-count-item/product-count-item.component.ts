@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCountItemComponent implements OnInit {
 
+  product = [];
+
   constructor() { }
 
   ngOnInit(): void {

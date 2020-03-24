@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "my-recipe-app": {
@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "my-recipe-app"
+    }
+  },
+  "defaultProject": "my-recipe-app",
+  "cli": {
+    "analytics": "a2e52ba2-cfaa-4d2f-a5de-2e65f4150df7"
+  }
 }
