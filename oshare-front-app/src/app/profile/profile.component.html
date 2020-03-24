@@ -1,1 +1,13 @@
-<p>profile works!</p>
+<div>
+    <navigation-bar></navigation-bar>
+    <div id="profile-head">
+        <img id="id_profile_picture" src="image/img_snow.jpg">
+        <span id="start-rating"></span>
+        <button id="send-message"></span>
+            <button id="follow"></button>
+    </div>
+    <div>
+        <post *ngFor="let postEl of posts" [post]="postEl">
+        </post>
+    </div>
+</div>
