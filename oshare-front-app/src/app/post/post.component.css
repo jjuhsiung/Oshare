@@ -1,0 +1,47 @@
+#id_like_button {
+    width: 25px;
+    height: 23px;
+    background-color: #000000;
+    box-sizing: border-box;
+    font-family: 'Arial Regular', 'Arial', sans-serif;
+    color: #333333;
+    text-align: center;
+    line-height: normal;
+}
+
+#id_like_button:hover {
+    background-color: black;
+}
+
+#id_share_post {
+    width: 21px;
+    height: 20px;
+    background-color: #02a7f0;
+    box-sizing: border-box;
+    font-family: 'Arial Regular', 'Arial', sans-serif;
+    color: #333333;
+    text-align: center;
+    line-height: normal;
+}
+
+#id_post_picture {
+    width: 314px;
+    height: 208px;
+    background-color: #f2f2f2;
+    box-sizing: border-box;
+    font-family: 'Arial Regular', 'Arial', sans-serif;
+    color: #333333;
+    text-align: center;
+    line-height: normal;
+}
+
+#id_post_box {
+    width: 351px;
+    height: 333px;
+    background-color: #f2f2f2;
+    box-sizing: border-box;
+    font-family: 'Arial Regular', 'Arial', sans-serif;
+    color: #333333;
+    text-align: center;
+    line-height: normal;
+}

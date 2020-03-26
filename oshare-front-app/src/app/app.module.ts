@@ -17,6 +17,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ReviewListComponent } from './product/review-list/review-list.component';
 import { ReviewItemComponent } from './product/review-list/review-item/review-item.component';
 import { PostItemComponent } from './shared/post-list/post-item/post-item.component';
+
 import { HomeSearchComponent } from './home-search/home-search.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { CartComponent } from './cart/cart.component';
@@ -25,6 +26,8 @@ import { ProductCountItemComponent } from './cart/product-count-item/product-cou
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PostComponent } from './post/post.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+
 
 const appRoutes:Routes = [
   {path:'', component: LoginComponent},
@@ -60,7 +63,8 @@ const appRoutes:Routes = [
     ProductCountItemComponent,
     CheckoutComponent,
     PostComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    NavigationBarComponent
   ],
   imports: [
     BrowserModule,
