@@ -7,7 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor() { }
+  shipping_info = {
+    first_name: '',
+    last_name: '',
+    phone: '',
+    street_address: '',
+    city: '',
+    state: '',
+    zip_code: ''
+  }
+
+  constructor() { 
+
+  }
 
   ngOnInit(): void {
   }
