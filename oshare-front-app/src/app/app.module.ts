@@ -24,14 +24,10 @@ import { CartComponent } from './cart/cart.component';
 import { ProductCountListComponent } from './cart/product-count-list/product-count-list.component';
 import { ProductCountItemComponent } from './cart/product-count-item/product-count-item.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-<<<<<<< HEAD
-// import { PostComponent } from './post/post.component';
-// import { PostDetailComponent } from './post/post-detail/post-detail.component';
-=======
 import { PostComponent } from './post/post.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
->>>>>>> 5453bfa31c8776fdd2084c1f2052828188737e92
+
 
 const appRoutes:Routes = [
   {path:'', component: LoginComponent},
@@ -53,20 +49,19 @@ const appRoutes:Routes = [
     ProfileComponent,
     ProductComponent,
     ProfileHeaderComponent,
-    // PostListComponent,
+    PostListComponent,
     ProductListComponent,
-    // ProductItemComponent,
+    ProductItemComponent,
     ProductDetailComponent,
     ReviewListComponent,
     ReviewItemComponent,
-    // PostItemComponent,
+    PostItemComponent,
     HomeSearchComponent,
     SearchResultComponent,
     CartComponent,
     ProductCountListComponent,
     ProductCountItemComponent,
     CheckoutComponent,
-
     PostComponent,
     PostDetailComponent,
     NavigationBarComponent
