@@ -1,46 +1,76 @@
+
 <div class="container">
 
     <div class="page-header">
         <h1>Checkout</h1>
     </div>
 
-    <div>
-        <h3>Shipping Info</h3>
-        <div class="form-group">
-            <label>First Name:</label>
-            <input [value]="shipping_info.first_name"/>
+    <div class="row">
+
+        <div class="col-lg-8">
+            <h3>Shipping Info</h3>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="shipping_first_name" class="col-form-label col-lg-2">First Name:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control form-control-lg" id="shipping_first_name" [value]="shipping_info.first_name" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_last_name" class="col-form-label col-lg-2">Last Name:</label>
+                    <div class="col-lg-6">     
+                        <input type="text" class="form-control" id="shipping_last_name" [value]="shipping_info.last_name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_phone" class="col-form-label col-lg-2">Phone:</label>
+                    <div class="col-lg-6">    
+                        <input type="text" class="form-control" id="shipping_phone" [value]="shipping_info.phone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_street_address" class="col-form-label col-lg-2">Street Address:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="shipping_street_address" [value]="shipping_info.street_address">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_city" class="col-form-label col-lg-2">City:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="shipping_city" [value]="shipping_info.city">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_state" class="col-form-label col-lg-2">State:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="shipping_state" [value]="shipping_info.state">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_zip_code" class="col-form-label col-lg-2">Zip Code:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="shipping_zip_code" [value]="shipping_info.zip_code">
+                    </div>
+                </div>
+                
+
+            </form>
         </div>
 
-        <div class="form-group">
-            <label>Last Name:</label>
-            <input [value]="shipping_info.last_name"/>
-        </div>
-
-        <div class="form-group">
-            <label>Phone:</label>
-            <input [value]="shipping_info.phone"/>
-        </div>
-
-        <div class="form-group">
-            <label>Street Address:</label>
-            <input [value]="shipping_info.street_address"/>
-        </div>
-
-        <div class="form-group">
-            <label>City:</label>
-            <input [value]="shipping_info.city"/>
-        </div>
-
-        <div class="form-group">
-            <label>State:</label>
-            <input [value]="shipping_info.state"/>
-        </div>
-
-        <div class="form-group">
-            <label>Zip Code:</label>
-            <input [value]="shipping_info.zip_code"/>
+        <div class="col-lg-4">
+            <p>
+            <p>Merchandise subtotal:</p>
+            <p>Tax:</p>
+            <p>Shipping:</p>
+            <p>Total:</p>
+            <button type="submit" class="btn btn-dark">Place Order</button>
         </div>
 
     </div>
-
 </div>
