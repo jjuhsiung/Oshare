@@ -27,6 +27,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PostComponent } from './post/post.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const appRoutes:Routes = [
@@ -65,7 +66,8 @@ const appRoutes:Routes = [
     CheckoutComponent,
     PostComponent,
     PostDetailComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

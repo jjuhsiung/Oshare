@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
+  loading = false;
   constructor(private formBuilder: FormBuilder) {
 
   }
@@ -22,14 +23,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
+  get f() { return this.loginForm.controls; }
 
   onSubmit() {
     this.submitted = true;
+    console.log(this.submitted)
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
+    this.loading = false;
 
   }
 }
