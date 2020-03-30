@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
@@ -17,7 +16,6 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ReviewListComponent } from './product/review-list/review-list.component';
 import { ReviewItemComponent } from './product/review-list/review-item/review-item.component';
 import { PostItemComponent } from './shared/post-list/post-item/post-item.component';
-
 import { HomeSearchComponent } from './home-search/home-search.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { CartComponent } from './cart/cart.component';
@@ -40,6 +38,7 @@ const appRoutes:Routes = [
   {path:'profile', component:ProfileComponent},
   {path:'cart', component:CartComponent},
   {path:'checkout', component:CheckoutComponent},
+  {path:'register', component:RegisterComponent},
 ]
 
 @NgModule({
