@@ -28,6 +28,7 @@ import { PostDetailComponent } from './post/post-detail/post-detail.component';
 
 const appRoutes:Routes = [
   {path:'', component: LoginComponent},
+  {path:'post-list', component: PostListComponent},
   {path:'search', component: HomeSearchComponent},
   {path:'search-result', component: SearchResultComponent},
   {path:'post', component:PostComponent},
