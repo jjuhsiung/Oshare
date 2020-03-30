@@ -14,6 +14,7 @@ export class PostItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Post detail page could subscribe to this event and use information in this.post
   onSelected() {
     this.postService.postSelected.emit(this.post);
   }
