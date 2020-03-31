@@ -9,19 +9,24 @@ export class ProductCountItemComponent implements OnInit {
 
   @Input() imgURL: String;
   @Input() productName: String;
-  @Input() count: number;
+  @Input() count: number = 0;
   @Input() color: String;
-  @Input() price: number;
-  @Input() totalPrice: number;
+  @Input() price: number = 0;
   
+  totalPrice: number;
+
+  countChange(count: number){
+    this.totalPrice = this.price * count;
+  }
   
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.totalPrice = this.price * this.count;
   }
 
   removeButtonClicked(){
-
   }
 
 }

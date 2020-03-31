@@ -1,7 +1,7 @@
 import { firstNameValidators } from './validators/firstname.validator';
 import { CheckoutService } from './../services/checkout.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -11,17 +11,19 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 })
 export class CheckoutComponent implements OnInit {
 
-  form = new FormGroup({
-    firstname: new FormControl('', 
-      Validators.required, 
-      firstNameValidators.lengthCheck),
-    lastname: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    zipcode: new FormControl('', Validators.required)
-  });
+  form;
+
+  constructor(private api:CheckoutService, fb: FormBuilder) { 
+    this.form = fb.group({
+      firstname: ['', Validators.required, firstNameValidators.lengthCheck],
+      lastname: ['', Validators.required],
+      phone: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipcode: ['', Validators.required],
+    });
+  }
 
   get firstname(){
     return this.form.get('firstname');
@@ -55,9 +57,7 @@ export class CheckoutComponent implements OnInit {
     console.log(this.form.value);
   }
 
-  constructor(private api:CheckoutService) { 
 
-  }
 
   ngOnInit(): void {
   }
