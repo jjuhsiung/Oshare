@@ -1,3 +1,4 @@
+import { CheckoutService } from './services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PostComponent } from './post/post.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { CartService } from './services/cart.service';
 
 
 const appRoutes:Routes = [
@@ -69,9 +71,12 @@ const appRoutes:Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
+  providers: [
+    CartService,
+    CheckoutService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
