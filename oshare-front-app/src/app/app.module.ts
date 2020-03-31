@@ -1,3 +1,4 @@
+import { CheckoutService } from './services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,11 +27,15 @@ import { PostComponent } from './post/post.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { RegisterComponent } from './register/register.component';
+import { CartService } from './services/cart.service';
+import { PostService } from './shared/post-list/post.service';
 
 
 const appRoutes:Routes = [
   {path:'', component: LoginComponent},
   {path:'login', component: LoginComponent},
+  {path:'post-list', component: PostListComponent},
+  {path:'post-item', component: PostItemComponent},
   {path:'search', component: HomeSearchComponent},
   {path:'search-result', component: SearchResultComponent},
   {path:'post', component:PostComponent},
@@ -74,7 +79,10 @@ const appRoutes:Routes = [
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    CartService,
+    CheckoutService,
+    PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

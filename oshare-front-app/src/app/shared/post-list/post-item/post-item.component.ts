@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { PostService } from '../post.service';
+import { Post } from '../post.model';
 
 @Component({
   selector: 'app-post-item',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-item.component.css']
 })
 export class PostItemComponent implements OnInit {
-
-  constructor() { }
+  @Input() post: Post;
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
   }
 
+  // Post detail page could subscribe to this event and use information in this.post
+  onSelected() {
+    this.postService.postSelected.emit(this.post);
+  }
 }

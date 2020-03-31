@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-product-count-item',
@@ -7,11 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCountItemComponent implements OnInit {
 
-  product = [];
+  @Input() imgURL: String;
+  @Input() productName: String;
+  @Input() count: number = 0;
+  @Input() color: String;
+  @Input() price: number = 0;
+  
+  totalPrice: number;
 
-  constructor() { }
+  countChange(count: number){
+    this.totalPrice = this.price * count;
+  }
+  
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.totalPrice = this.price * this.count;
+  }
+
+  removeButtonClicked(){
   }
 
 }

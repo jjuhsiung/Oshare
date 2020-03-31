@@ -1,46 +1,115 @@
+
 <div class="container">
 
     <div class="page-header">
         <h1>Checkout</h1>
     </div>
 
-    <div>
-        <h3>Shipping Info</h3>
-        <div class="form-group">
-            <label>First Name:</label>
-            <input [value]="shipping_info.first_name"/>
+    <h3>Shipping Info</h3>
+    <form [formGroup]="form" (ngSubmit)="checkout()" class="form-horizontal">
+
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="form-group">
+                    <label for="shipping_firstname" class="col-form-label col-lg-2">First Name:</label>
+                    <div class="col-lg-6">
+                        <input
+                            formControlName="firstname"
+                            type="text"
+                            class="form-control form-control-lg"
+                            id="shipping_firstname">
+                        <div *ngIf="firstname.touched && firstname.invalid" class="alert alert-danger">
+                            <div *ngIf="firstname.errors.required">First name is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_lastname" class="col-form-label col-lg-2">Last Name:</label>
+                    <div class="col-lg-6">     
+                        <input
+                            formControlName="lastname" 
+                            type="text"
+                            class="form-control"
+                            id="shipping_lastname">
+                        <div *ngIf="lastname.touched && lastname.invalid" class="alert alert-danger">Last name is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_phone" class="col-form-label col-lg-2">Phone:</label>
+                    <div class="col-lg-6">    
+                        <input
+                            formControlName="phone"
+                            type="text"
+                            class="form-control" 
+                            id="shipping_phone">
+                        <div *ngIf="phone.touched && phone.invalid" class="alert alert-danger">Phone is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_address" class="col-form-label col-lg-2">Street Address:</label>
+                    <div class="col-lg-6">
+                        <input 
+                            formControlName="address"
+                            type="text" 
+                            class="form-control" 
+                            id="shipping_address">
+                        <div *ngIf="address.touched && address.invalid" class="alert alert-danger">Address is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_city" class="col-form-label col-lg-2">City:</label>
+                    <div class="col-lg-6">
+                        <input
+                            formControlName="city"
+                            type="text" 
+                            class="form-control" 
+                            id="shipping_city">
+                        <div *ngIf="city.touched && city.invalid" class="alert alert-danger">City is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_state" class="col-form-label col-lg-2">State:</label>
+                    <div class="col-lg-6">
+                        <input
+                            formControlName="state"
+                            type="text" 
+                            class="form-control" 
+                            id="shipping_state">
+                        <div *ngIf="state.touched && state.invalid" class="alert alert-danger">State is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping_zipcode" class="col-form-label col-lg-2">Zip Code:</label>
+                    <div class="col-lg-6">
+                        <input 
+                            formControlName="zipcode"
+                            type="text" 
+                            class="form-control" 
+                            id="shipping_zipcode">
+                        <div *ngIf="zipcode.touched && zipcode.invalid" class="alert alert-danger">Zip code is required.</div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="col-lg-4">
+                <p>
+                <p>Merchandise subtotal:</p>
+                <p>Tax:</p>
+                <p>Shipping:</p>
+                <p>Total:</p>
+                <button type="submit" class="btn btn-dark" (click)="placeOrderButtonClicked()">Place Order</button>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>Last Name:</label>
-            <input [value]="shipping_info.last_name"/>
-        </div>
+    </form>
+        
 
-        <div class="form-group">
-            <label>Phone:</label>
-            <input [value]="shipping_info.phone"/>
-        </div>
-
-        <div class="form-group">
-            <label>Street Address:</label>
-            <input [value]="shipping_info.street_address"/>
-        </div>
-
-        <div class="form-group">
-            <label>City:</label>
-            <input [value]="shipping_info.city"/>
-        </div>
-
-        <div class="form-group">
-            <label>State:</label>
-            <input [value]="shipping_info.state"/>
-        </div>
-
-        <div class="form-group">
-            <label>Zip Code:</label>
-            <input [value]="shipping_info.zip_code"/>
-        </div>
-
-    </div>
 
 </div>
