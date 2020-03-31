@@ -24,4 +24,12 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  placeOrderButtonClicked(){
+    console.log("first name: " + this.shipping_info.first_name);
+    console.log("last name: " + this.shipping_info.last_name);
+    console.log("phone: " + this.shipping_info.phone);
+    console.log("street address: " + this.shipping_info.street_address);
+    console.log("city: " + this.shipping_info.city);
+  }
+
 }

@@ -1,1 +1,27 @@
-<p>cart works!</p>
+<div class="container">
+
+    <div class="page-header">
+        <h1>Cart</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-8">
+            <app-product-count-list [products]="cart.products"></app-product-count-list>
+        </div>
+    </div>
+
+    <div class="space"></div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <p class="text-lg-right">Merchandise Subtotal: {{cart.subtotal}}</p>
+            <p class="text-lg-right">Shipping: {{cart.shipping}}</p>
+            <p class="text-lg-right">Tax: {{cart.tax}}</p>
+            <p class="text-lg-right"><a href="http://localhost:4200/checkout" class="btn btn-outline-secondary">Checkout</a></p>
+        </div>       
+    </div>
+
+</div>

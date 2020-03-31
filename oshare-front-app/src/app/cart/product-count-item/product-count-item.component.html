@@ -1,1 +1,22 @@
-<h1>Product Count</h1>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-1">
+            <img [src]=imgURL class="rounded float-right" height="100" width="100">
+        </div>
+        <div class="col-sm-3 my-auto">
+            <p class="text-lg-left">{{productName}}</p>
+            <p class="text-lg-left">Color: {{color}}</p>
+            <button type="submit" class="btn btn-outline-secondary" (click)="removeButtonClicked()">Remove</button>
+        </div>
+        <div class="col-sm-1 my-auto">
+            <input type="number" value="{{count}}" min="1" max="10" step="1"/>
+        </div>
+        <div class="col-sm-2 my-auto">
+            <p class="text-lg-right">{{totalPrice}}</p>
+        </div>
+    </div>
+
+</div>
+

@@ -1,1 +1,8 @@
-<p>product-count-list works!</p>
+<ul class="list-group list-group-flush">
+    <li *ngFor="let product of products" class="list-group-item">
+
+    <app-product-count-item [imgURL]="product.imgURL" [count]="product.count"
+    [productName]="product.productName" [totalPrice]="product.totalPrice"></app-product-count-item>
+
+    </li>
+</ul>
