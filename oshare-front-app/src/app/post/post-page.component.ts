@@ -4,8 +4,8 @@ import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  templateUrl: './post-page.component.html',
+  styleUrls: ['./post-page.component.css']
 })
 
 export class PostComponent implements OnInit {
