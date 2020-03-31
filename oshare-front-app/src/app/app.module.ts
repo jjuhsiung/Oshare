@@ -29,10 +29,13 @@ import { PostComponent } from './post/post.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { CartService } from './services/cart.service';
+import { PostService } from './shared/post-list/post.service';
 
 
 const appRoutes:Routes = [
   {path:'', component: LoginComponent},
+  {path:'post-list', component: PostListComponent},
+  {path:'post-item', component: PostItemComponent},
   {path:'search', component: HomeSearchComponent},
   {path:'search-result', component: SearchResultComponent},
   {path:'post', component:PostComponent},
@@ -76,8 +79,8 @@ const appRoutes:Routes = [
   ],
   providers: [
     CartService,
-    CheckoutService
-  ],
+    CheckoutService,
+    PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,1 +1,17 @@
-<p>post-item works!</p>
+<div class="card mb-4 shadow-sm">
+    <svg class="bd-placeholder-img card-img-top" width="80%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+        <title>Placeholder</title>
+        <image attr.xlink:href="{{post.imagePath}}" height="100%" width="100%"/>
+        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+    </svg>
+    <div class="card-body">
+      <p class="card-text">{{post.postText}}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <button id="id_like_button" type="button" class="btn btn-sm btn-outline-secondary">❤️</button>
+          <button (click)="onSelected()" type="button" class="btn btn-sm btn-outline-secondary">↪️</button>
+        </div>
+        <small class="text-muted">{{post.likes}} likes</small>
+      </div>
+    </div>
+</div>
