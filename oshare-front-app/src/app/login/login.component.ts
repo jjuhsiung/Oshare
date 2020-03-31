@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.loading = false;
+    this.loading = true;
 
   }
 }

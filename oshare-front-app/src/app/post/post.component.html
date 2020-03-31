@@ -1,9 +1,32 @@
-<app-navigation-bar></app-navigation-bar>
-<div id="id_post_box">
-    <div class="img-container">
-        <img id="id_post_picture" src="image/img_snow.jpg">
-        <button id="id_like_button">❤️</button>
+<app-navigation-bar></app-navigation-bar><br><br>
+
+<div>
+    <div id="id_post_container">
+        <div id="id_post_header">
+            <img id="id_profile_picture" src="image/img_snow.jpg">
+            <span id="id_post_name">Sheryl Hsiung </span>
+            <span id="id_post_time"> Mar 31 </span><br>
+            <h1 id="id_post_title">Know your brushes</h1>
+            <p id="id_post_text">Having a variety of quality makeup brushes is sooo important for your beauty routine.
+                Agreed?</p>
+        </div>
+        <div id="id_post_btns">
+            <button id="id_like_btn">❤️</button>
+            <button id="id_share_post_btn">↪️</button>
+        </div>
+    </div><br>
+
+    <div id="id_related_comments">
+        
     </div>
-    <p id="id_post_text">This is a post!</p>
-    <button id="id_share_post">↪️</button>
+
+    <div id="id_comment_input">
+        <form [formGroup]="commentForm" (submit)="onSubmit()">
+            <div>
+                <label for="comment">Comment: </label>
+                <input type="text" formControlName="comment">
+                <button>Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
