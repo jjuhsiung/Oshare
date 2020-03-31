@@ -1,25 +1,14 @@
-<div class="row">
-    <div class="col-md-12">
-        <app-header></app-header>
+<main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+          <h1>Osha're</h1>
+          <div style="height: 50px;"></div>
+          <app-search-bar></app-search-bar>
+        </div>
+    </section>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <app-post-list></app-post-list> 
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <form>
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <app-search-bar></app-search-bar>
-                </div>
-                <div class="col-md-3"></div>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-5"></div>
-    <div class="col-md-3">
-        <app-post-list></app-post-list>
-    </div>  
-    <div class="col-md-4"></div>
-</div>
+</main>
