@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-post',
@@ -16,16 +16,14 @@ export class PostComponent implements OnInit {
   fullName: string;
   postDate: Date;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
     this.commentForm = this.formBuilder.group({
-      username: String,
       comment: '',
       commenyTime: ''
     });
   }
 
   ngOnInit(): void {
-
   }
 
   onSubmit() {
