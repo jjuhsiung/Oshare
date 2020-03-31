@@ -7,8 +7,11 @@
             <span id="id_post_name">Sheryl Hsiung </span>
             <span id="id_post_time"> Mar 31 </span><br>
             <h1 id="id_post_title">Know your brushes</h1>
-            <p id="id_post_text">Having a variety of quality makeup brushes is sooo important for your beauty routine.
-                Agreed?</p>
+            <div id="id_post_text">
+                <ul *ngFor="let pt in postText">
+                    <p>{{pt.text}}</p>
+                </ul>
+            </div>
         </div>
         <div id="id_post_btns">
             <button id="id_like_btn">❤️</button>
@@ -17,7 +20,9 @@
     </div><br>
 
     <div id="id_related_comments">
-        
+        <li *ngFor="let cmt in comments">
+            <p>{{cmt.text}}</p>
+        </li>
     </div>
 
     <div id="id_comment_input">
