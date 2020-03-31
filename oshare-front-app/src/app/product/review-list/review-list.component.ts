@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Review} from '../../models/review';
+import {REVIEWS} from '../../MockComments';
 
 @Component({
   selector: 'app-review-list',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewListComponent implements OnInit {
 
-  constructor() { }
+  Reviews: Review[];
+  constructor() {
+    this.getReviews();
+  }
 
   ngOnInit(): void {
+  }
+
+  getReviews(){
+    this.Reviews = REVIEWS;
   }
 
 }

@@ -1,58 +1,27 @@
 <div class="container mt-2 justify-content-center">
-  <div class="row justify-content-center">
-    <div class="prod-th col-3 m-5 border bg-secondary">
-      <img src="assets/img/th.jpg" width="200px" height="200px">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Post 1
+  <div class="row row-cols-3">
+    <div *ngFor="let product of this.products" class="col">
+      <img src="{{product.ProductImage}}" width="200px" height="200px">
+<!--      <ul class="list-group list-group-flush" width="200px">-->
+<!--        <li class="list-group-item d-flex justify-content-between">-->
+<!--          {{product.title | uppercase}}-->
+<!--          <img src="assets/img/heart.svg">-->
+<!--        </li>-->
+<!--        <li class="list-group-item d-flex justify-content-between">-->
+<!--          <img src="assets/img/chat.svg">-->
+<!--          {{product.comment | lowercase}}-->
+<!--        </li>-->
+<!--      </ul>-->
+      <div class="border-1 p-2" >
+        <div class="row border-2 d-flex justify-content-between" width="250px">
+          {{product.title | uppercase}}
           <img src="assets/img/heart.svg">
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        </div>
+        <div class="row border-2 d-flex justify-content-between" width="250px">
           <img src="assets/img/chat.svg">
-          comment
-        </li>
-      </ul>
-    </div>
-    <div class="prod-th col-3 m-5 border bg-secondary">
-      <img src="assets/img/th.jpg" width="200px" height="200px">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Post 1
-          <img src="assets/img/heart.svg">
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <img src="assets/img/chat.svg">
-          comment
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="prod-th col-3 m-5 border bg-secondary">
-      <img src="assets/img/th.jpg" width="200px" height="200px">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Post 1
-          <img src="assets/img/heart.svg">
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <img src="assets/img/chat.svg">
-          comment
-        </li>
-      </ul>
-    </div>
-    <div class="prod-th col-3 m-5 border bg-secondary">
-      <img src="assets/img/th.jpg" width="200px" height="200px">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Post 1
-          <img src="assets/img/heart.svg">
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <img src="assets/img/chat.svg">
-          comment
-        </li>
-      </ul>
+          {{product.comment | lowercase}}
+        </div>
+      </div>
     </div>
   </div>
 </div>

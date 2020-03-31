@@ -1,8 +1,14 @@
 <div class="container">
     <ul class="list-group list-group-flush">
       <li class="list-group-item"><span>Reviews:</span></li>
-      <li class="list-group-item"><app-review-item></app-review-item></li>
-      <li class="list-group-item"><app-review-item></app-review-item></li>
-      <li class="list-group-item"><app-review-item></app-review-item></li>
+      <li class="list-group-item">
+        <div *ngFor="let review of this.Reviews" class="d-flex justify-content-center">
+          <img src="assets/img/u238.png" width="35px" height="35px">
+          <div>
+            <p><span>{{review.Username}}&nbsp;&nbsp; Rating: </span><span style="color:#000000;">{{review.Rate}}</span></p>
+            <p><span>{{review.Comment}}</span></p>
+          </div>
+        </div>
+      </li>
     </ul>
 </div>
