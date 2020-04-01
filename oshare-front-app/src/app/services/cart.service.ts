@@ -11,7 +11,6 @@ export class CartService {
     count: 1,
     color: "001",
     price: 10,
-    totalPrice: 10
   }
 
   product2 = {
@@ -20,7 +19,6 @@ export class CartService {
     count: 2,
     color: "002",
     price: 10,
-    totalPrice: 20
   }
 
   products = [this.product1, this.product2];
@@ -30,6 +28,10 @@ export class CartService {
     subtotal: 30,
     shipping: "Free",
     tax: "TBD"
+  }
+
+  addToCart(product){
+    this.products.push(product);
   }
 
   getCart(){
