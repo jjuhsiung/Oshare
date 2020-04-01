@@ -9,7 +9,11 @@
         <div class="col-lg-3">
         </div>
         <div class="col-lg-8">
-            <app-product-count-list [products]="cart.products"></app-product-count-list>
+            <app-product-count-list 
+                (listProductDelete)="productListProductDelete($event)"
+                (listUpdate)="productListChange($event)"
+                [products]="cart.products">
+            </app-product-count-list>
         </div>
     </div>
 

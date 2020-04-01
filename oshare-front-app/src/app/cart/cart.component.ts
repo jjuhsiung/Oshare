@@ -1,5 +1,6 @@
 import { CartService } from './../services/cart.service';
 import { Component, OnInit } from '@angular/core';
+import { productListChangeArgs } from './product-count-list/product-count-list.component';
 
 @Component({
   selector: 'app-cart',
@@ -24,21 +25,33 @@ export class CartComponent implements OnInit {
     price: 30,
   }
 
-  constructor(private api: CartService) { 
+  constructor(private cartService: CartService) { 
     this.getCart();
   }
 
   getCart = () => {
-    this.cart = this.api.getCart();
+    this.cart = this.cartService.getCart();
     this.updateSubTotalPrice();
   }
 
   addOneElement(){
-    this.api.addToCart(this.product3);
+    this.cartService.addToCart(this.product3);
+    this.updateSubTotalPrice();
+  }
+
+  productListChange(args: productListChangeArgs){
+    //this.cart.products[args.index].count = args.count;
+    this.cartService.updateProductCount(args.index, args.count);
+    this.updateSubTotalPrice();
+  }
+
+  productListProductDelete(index){
+    this.cartService.deleteProductByIndex(index);
     this.updateSubTotalPrice();
   }
 
   updateSubTotalPrice(){
+    this.cart.subtotal = 0;
     for (let product of this.cart.products) {
       this.cart.subtotal += product.price * product.count;
     }    
