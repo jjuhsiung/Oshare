@@ -1,20 +1,35 @@
 #id_post_container {
-    border: 1px solid black;
+    border: 1px solid gray;
     margin-left: auto;
     margin-right: auto;
-    width: 50em;
-    height: 70em;
+    width: 80em;
+    height: 85em;
     position: center;
     box-sizing: border-box;
-    padding: 1em;
+    padding: 2em;
+}
+#id_post_header{
+    padding: 5px;
 }
 
-#id_post_btns {
-    position: relative;
-    right: 0px;
-    width: 200px;
-    border: 3px solid #73AD21;
+#id_profile_picture {
+    border-radius: 50%;
+    width: 100px;
+}
+
+#id_post_name{
+    font-size: 20px;
+}
+
+#id_post_img {
+    width: 300px;
     padding: 10px;
+}
+
+#id_post_text {
+    font-size: 15px;
+    padding: 2px;
+    margin-top: 5px;
 }
 
 #id_share_post_btn {
@@ -23,12 +38,13 @@
 }
 
 #id_like_btn {
+    border-radius: 50%;
     background: none;
     padding: 1em;
 }
 
 #id_like_btn:hover {
-    background-color: black;
+    background-color: pink;
     text-align: right;
 }
 
@@ -40,7 +56,14 @@
 #id_comment_input {
     margin-left: auto;
     margin-right: auto;
-    width: 50em;
+    width: 60em;
+    height: 10em;
+}
+
+#id_related_comments {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80em;
     height: 10em;
     border: 1px solid gray;
 }

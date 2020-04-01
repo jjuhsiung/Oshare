@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Postdetail } from 'src/app/_models/postdetail.model';
+import { Comment } from 'src/app/_models/comment.model';
+import { PostdetailService } from '../../_services/postdetail.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -8,21 +11,25 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class PostDetailComponent implements OnInit {
 
+  postDetail: Postdetail;
+  postComments: Comment[]
   commentForm: FormGroup;
   loading = false;
-  comments = [{ text: 'hahahah' }, { text: 'second comment' }]//service get
-  postText = [{ text: 'conetent1' }, { text: 'content2' }] //service get
-  fullName: string;
-  postDate: Date;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private postDetailService: PostdetailService) {
     this.commentForm = this.formBuilder.group({
-      comment: '',
-      commenyTime: ''
+      username: '',
+      firstName: '',
+      lastName: '',
+      commentText: ''
     });
   }
 
   ngOnInit(): void {
+    console.log("-----");
+    this.postComments = this.postDetailService.getComments();
+    this.postDetail = this.postDetailService.getPost();
+    console.log(this.postComments)
   }
 
   onSubmit() {
