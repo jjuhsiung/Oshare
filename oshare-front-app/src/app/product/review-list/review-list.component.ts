@@ -12,10 +12,11 @@ import {ProductService} from '../../service/product.service';
 })
 export class ReviewListComponent implements OnInit {
 
-  // Reviews: Review[];
-  Reviews = REVIEWS;
+  Reviews: Review[];
+  // Reviews = REVIEWS;
   constructor(private api: ProductService) {
-    this.getReviews();
+    // this.getReviews();
+    this.Reviews = REVIEWS;
   }
 
   ngOnInit(): void {

@@ -11,10 +11,11 @@ import {ProductService} from '../../service/product.service';
 })
 export class ProductDetailComponent implements OnInit {
 
-  // product: Product;
-  product = PRODUCTS[0];
+  product: Product;
+  // product = PRODUCTS[0];
   constructor(private api: ProductService ) {
-    this.getProductDetail();
+    // this.getProductDetail();
+    this.product = PRODUCTS[0];
   }
 
   ngOnInit(): void {
