@@ -32,7 +32,11 @@ export class CartService {
   }
 
   addToCart(product: Product){
-    this.products.push(product);
+    if(this.products.includes(product)){
+      product.count += 1;
+    }else{
+      this.products.push(product);
+    }
   }
 
   updateProductCount(index: number, count: number){
@@ -46,5 +50,6 @@ export class CartService {
   getCart(){
     return this.cart;
   }
+
   constructor() { }
 }
