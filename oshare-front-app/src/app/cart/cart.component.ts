@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
   }
 
   product3 = {
-    imgURL : "https://i.ibb.co/zXMt7Cg/zb-p.jpg",
+    imgURL : "https://www.sephora.com/productimages/sku/s2352342-main-zoom.jpg",
     productName: "Product Name 3",
     count: 3,
     color: "003",
