@@ -23,7 +23,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProductCountListComponent } from './cart/product-count-list/product-count-list.component';
 import { ProductCountItemComponent } from './cart/product-count-item/product-count-item.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { PostComponent } from './post/post.component';
+import { PostComponent } from './post/post-page.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { RegisterComponent } from './register/register.component';
