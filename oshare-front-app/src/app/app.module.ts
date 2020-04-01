@@ -11,7 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProductComponent } from './product/product.component';
 import { ProfileHeaderComponent } from './profile/profile-header/profile-header.component';
 // import { PostListComponent } from './post-list/post-list.component';
-import { ProductListComponent } from './product-list/product-list.component';
+import { ProductListComponent } from './shared/product-list/product-list.component';
 // import { ProductItemComponent } from './product/product-/product-item.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ReviewListComponent } from './product/review-list/review-list.component';
