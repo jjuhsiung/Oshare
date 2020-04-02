@@ -29,7 +29,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { RegisterComponent } from './register/register.component';
 import { CartService } from './services/cart.service';
 import { PostService } from './shared/post-list/post.service';
-
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes:Routes = [
   {path:'', component: LoginComponent},
@@ -45,7 +45,7 @@ const appRoutes:Routes = [
   {path:'cart', component:CartComponent},
   {path:'checkout', component:CheckoutComponent},
   {path:'register', component:RegisterComponent},
-]
+];
 
 @NgModule({
   declarations: [
@@ -78,7 +78,8 @@ const appRoutes:Routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     CartService,
