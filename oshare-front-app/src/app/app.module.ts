@@ -40,6 +40,7 @@ const appRoutes:Routes = [
   {path:'search-result', component: SearchResultComponent},
   {path:'post', component:PostComponent},
   {path:'product', component:ProductComponent},
+  {path:'product-list', component:ProductListComponent},
   {path:'profile', component:ProfileComponent},
   {path:'cart', component:CartComponent},
   {path:'checkout', component:CheckoutComponent},
