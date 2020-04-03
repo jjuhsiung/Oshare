@@ -11,11 +11,13 @@ import { PostdetailService } from '../../_services/postdetail.service';
 })
 export class PostDetailComponent implements OnInit {
 
+
   postDetail: Postdetail;
   postComments: Comment[]
   commentForm: FormGroup;
   loading = false;
   liked = false;
+  likesNum = 0;
 
   constructor(private formBuilder: FormBuilder, private postDetailService: PostdetailService) {
     this.commentForm = this.formBuilder.group({
@@ -30,6 +32,7 @@ export class PostDetailComponent implements OnInit {
     console.log("--oninit--");
     this.postComments = this.postDetailService.getComments();
     this.postDetail = this.postDetailService.getPost();
+    this.likesNum = this.likesNum;
     console.log(this.postComments)
   }
 
@@ -42,6 +45,8 @@ export class PostDetailComponent implements OnInit {
 
   onLike() {
     this.liked = !this.liked;
+    if (this.liked) this.likesNum += 1
+    else this.likesNum -= 1
     console.log("liked: " + this.liked);
   }
 
