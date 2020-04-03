@@ -1,4 +1,4 @@
-import { OComment } from './OComment.model';
+import { OComment } from '../shared/post-list/OComment.model';
 
 export class Post {
     public imagePath: string;

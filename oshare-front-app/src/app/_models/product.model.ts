@@ -6,3 +6,5 @@ export interface Product {
   ProductImage: string;
   comment: string;
 }
+
+

@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Post } from './post.model';
-import { OComment } from './OComment.model';
+import { Post } from '../_models/post.model';
+import { OComment } from '../shared/post-list/OComment.model';
 
 @Injectable()
 export class PostService {

@@ -5,4 +5,5 @@ export interface Product{
     color: string,
     price: number,
     imgURL : string,
-}
+  }
+  
