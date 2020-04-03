@@ -1,8 +1,16 @@
 <ul class="list-group list-group-flush">
-    <li *ngFor="let product of products" class="list-group-item">
+    <li *ngFor="let product of products; index as i" class="list-group-item">
 
-    <app-product-count-item [imgURL]="product.imgURL" [count]="product.count"
-    [productName]="product.productName" [price]="product.price"></app-product-count-item>
+        <app-product-count-item
+            *ngIf="product.count!=0" 
+            (productUpdate)="productCountChange(i, $event)" 
+            (productDelete)="productDelete(i)" 
+            [imgURL]="product.imgURL" 
+            [color]="product.color"
+            [count]="product.count"
+            [productName]="product.productName" 
+            [price]="product.price">
+        </app-product-count-item>
 
     </li>
 </ul>

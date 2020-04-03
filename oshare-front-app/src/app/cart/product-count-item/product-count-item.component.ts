@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { CartService } from './../../services/cart.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-product-count-item',
@@ -7,26 +8,40 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProductCountItemComponent implements OnInit {
 
-  @Input() imgURL: String;
-  @Input() productName: String;
+  @Input() index: number;
+  @Input() imgURL: string;
+  @Input() productName: string;
   @Input() count: number = 0;
-  @Input() color: String;
+  @Input() color: string;
   @Input() price: number = 0;
+  @Output() productUpdate = new EventEmitter();
+  @Output() productDelete = new EventEmitter();
   
   totalPrice: number;
 
-  countChange(count: number){
-    this.totalPrice = this.price * count;
-  }
-  
-  constructor() {
+  product = {
+    imgURL : this.imgURL,
+    productName : this.productName,
+    count : this.count,
+    color : this.color,
+    price : this.price
+  };
+
+  constructor(private CartService: CartService) {
   }
 
+  countChange = (count: number) => {
+    this.totalPrice = this.price * count;
+    this.count = count;
+    this.productUpdate.emit(count);
+  }
+  
   ngOnInit(): void {
     this.totalPrice = this.price * this.count;
   }
 
   removeButtonClicked(){
+    this.productDelete.emit();
   }
 
 }

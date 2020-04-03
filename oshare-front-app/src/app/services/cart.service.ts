@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Product } from '../_models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,6 @@ export class CartService {
     count: 1,
     color: "001",
     price: 10,
-    totalPrice: 10
   }
 
   product2 = {
@@ -20,7 +20,6 @@ export class CartService {
     count: 2,
     color: "002",
     price: 10,
-    totalPrice: 20
   }
 
   products = [this.product1, this.product2];
@@ -32,8 +31,25 @@ export class CartService {
     tax: "TBD"
   }
 
+  addToCart(product: Product){
+    if(this.products.includes(product)){
+      product.count += 1;
+    }else{
+      this.products.push(product);
+    }
+  }
+
+  updateProductCount(index: number, count: number){
+    this.cart.products[index].count = count;
+  }
+
+  deleteProductByIndex(index){
+    this.cart.products[index].count = 0;
+  }
+
   getCart(){
     return this.cart;
   }
+
   constructor() { }
 }
