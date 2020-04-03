@@ -25,7 +25,6 @@ export class PostdetailService {
   constructor() { }
 
   getPost() {
-    console.log(this.post)
     return this.post;
   }
   getComments() {

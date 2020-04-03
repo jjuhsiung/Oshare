@@ -21,7 +21,7 @@ export class PostDetailComponent implements OnInit {
       username: '',
       firstName: '',
       lastName: '',
-      commentText: ''
+      newComment: ''
     });
   }
 
@@ -35,7 +35,7 @@ export class PostDetailComponent implements OnInit {
   onSubmit() {
     //do sth
     this.loading = true;
-    console.log(this.commentForm.value['comment']);
+    //console.log(this.commentForm.value['comment']);
     this.commentForm.reset();
   }
 }
