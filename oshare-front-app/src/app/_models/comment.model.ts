@@ -1,15 +1,12 @@
-import { first } from 'rxjs/operators';
+import { User } from './user.model';
+
 
 export class Comment {
-    username: string;
-    firstName: string;
-    lastName: string;
+    user: User;
     commentText: string;
     commentTime: Date;
-    constructor(username: string, firstName: string, lastName: string, commentText: string) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    constructor(user: User, commentText: string) {
+        this.user = user;
         this.commentText = commentText;
         this.commentTime = new Date();
     }

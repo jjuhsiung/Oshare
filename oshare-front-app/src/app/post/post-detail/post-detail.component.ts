@@ -15,18 +15,19 @@ export class PostDetailComponent implements OnInit {
   postComments: Comment[]
   commentForm: FormGroup;
   loading = false;
+  liked = false;
 
   constructor(private formBuilder: FormBuilder, private postDetailService: PostdetailService) {
     this.commentForm = this.formBuilder.group({
       username: '',
       firstName: '',
       lastName: '',
-      commentText: ''
+      newComment: ''
     });
   }
 
   ngOnInit(): void {
-    console.log("-----");
+    console.log("--oninit--");
     this.postComments = this.postDetailService.getComments();
     this.postDetail = this.postDetailService.getPost();
     console.log(this.postComments)
@@ -35,7 +36,13 @@ export class PostDetailComponent implements OnInit {
   onSubmit() {
     //do sth
     this.loading = true;
-    console.log(this.commentForm.value['comment']);
+    console.log(this.commentForm.value['newComment']);
     this.commentForm.reset();
   }
+
+  onLike() {
+    this.liked = !this.liked;
+    console.log("liked: " + this.liked);
+  }
+
 }
