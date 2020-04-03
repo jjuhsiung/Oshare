@@ -1,5 +1,4 @@
 #id_post_container {
-    border: 1px solid gray;
     margin-left: auto;
     margin-right: auto;
     width: 80em;
@@ -7,8 +6,10 @@
     position: center;
     box-sizing: border-box;
     padding: 2em;
+    background-color: #FFFAFA;
 }
-#id_post_header{
+
+#id_post_header {
     padding: 5px;
 }
 
@@ -17,8 +18,9 @@
     width: 100px;
 }
 
-#id_post_name{
-    font-size: 20px;
+#id_post_name {
+    font-size: 25px;
+    color: gray;
 }
 
 #id_post_img {
@@ -27,9 +29,10 @@
 }
 
 #id_post_text {
-    font-size: 15px;
+    font-size: 20px;
     padding: 2px;
     margin-top: 5px;
+    color: gray;
 }
 
 #id_share_post_btn {
@@ -39,7 +42,7 @@
 
 #id_like_btn {
     border-radius: 50%;
-    background: none;
+    background: lightgrey;
     padding: 1em;
 }
 
@@ -56,14 +59,59 @@
 #id_comment_input {
     margin-left: auto;
     margin-right: auto;
-    width: 60em;
+    width: 80em;
     height: 10em;
+    font-size: 12px;
 }
 
 #id_related_comments {
+    background-color: #FFFAFA;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40em;
+    height: 10em;
+    border: none;
+    font-size: 20px;
+    color: black;
+    padding-left: 10px;
+}
+
+#id_input_textbox {
+    background-color: #FFFAFA;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 20px;
+    padding: 1.5rem 2rem;
+    border-radius: 0.2rem;
+    border: none;
+    display: block;
+    border-bottom: 0.3rem solid transparent;
+    transition: all 0.3s;
+}
+
+#id_submit_btn {
+    position: relative;
+    display: block;
+    width: 200px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: #949390;
+    border: solid 1px transparent;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+}
+
+#id_submit_btn:hover {
+    background-color: lightgray;
+    border-color: #fff;
+    transition: all .1s ease-in-out;
+}
+
+#id_comment_container {
     margin-left: auto;
     margin-right: auto;
     width: 80em;
-    height: 10em;
-    border: 1px solid gray;
 }

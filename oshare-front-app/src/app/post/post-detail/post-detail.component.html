@@ -6,31 +6,36 @@
                     <img id="id_profile_picture" src="{{postDetail.user.profileImg}}">
                 </a>
                 <span>{{postDetail.user.firstName}} </span>
-                <span>{{postDetail.user.lastName}} </span>
+                <span>{{postDetail.user.lastName}} |</span>
+                <span style="font-size: 12px;"> {{postDetail.postDate}} </span><br>
             </div><br>
-            <span id="id_post_time"> {{postDetail.postDate}} </span><br>
-            <h1 id="id_post_title">{{postDetail.postTitle}}</h1>
+            <div>
+                <span id="id_post_title"
+                    style="font-size: 40px; color: cadetblue; padding: 20px;">{{postDetail.postTitle}}</span>
+                <button id="id_like_btn">❤️</button>
+            </div>
         </div>
         <img id="id_post_img" src="{{postDetail.imagePath}}" />
         <div id="id_post_text">
             <p>{{postDetail.postText}}</p>
         </div>
-        <button id="id_like_btn">❤️</button>
     </div><br>
 
-    <ul id="id_related_comments">
-        <li *ngFor="let cmt of postComments">
+    <div id="id_related_comments">
+        <li *ngFor="let cmt of postComments" style="margin: 2px;">
             {{cmt.commentText}}
+            <br><span style="font-size: 15px;">by {{cmt.firstName}} {{cmt.lastName}}</span>
+            <br><span style="font-size: 12px;"> at {{cmt.commentTime}}</span>
         </li>
-    </ul>
+    </div>
 
-    <div id="id_comment_input">
+    <div id="id_comment_container">
         <form [formGroup]="commentForm" (submit)="onSubmit()">
-            <div>
-                <label for="comment">Comment: </label>
-                <input type="text" formControlName="newComment">
-                <button>Submit</button>
-            </div>
+            <div id="id_comment_input">
+                <label style="font-size: 20px;" for="newComment">Leave Comment: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input id="id_input_textbox" type="text" formControlName="newComment"><br>
+                <button id="id_submit_btn">Submit</button>
+            </div><br><br><br>
         </form>
     </div>
 </div>

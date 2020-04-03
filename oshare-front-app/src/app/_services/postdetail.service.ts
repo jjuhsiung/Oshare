@@ -19,8 +19,8 @@ export class PostdetailService {
       ' Instead of creating that service with the new keyword, youll rely on Angular dependency injection to inject it into the HeroesComponent constructor. Services are a great way' +
       'to share information among classes that dont know each other',
       'Know your brushes',
-      [new Comment('anns', 'Anna', 'Sui', 'Nice post'),
-      new Comment('anns', 'Anna', 'Han', 'Nice post'),
+      [new Comment('anns', 'Anna', 'Sui', 'Nice post, keep it up!'),
+      new Comment('anns', 'Bobby', 'Han', 'I really like your content!'),
       ]);
   constructor() { }
 
