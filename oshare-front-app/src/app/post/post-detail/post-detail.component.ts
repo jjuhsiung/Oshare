@@ -26,7 +26,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("-----");
+    console.log("--oninit--");
     this.postComments = this.postDetailService.getComments();
     this.postDetail = this.postDetailService.getPost();
     console.log(this.postComments)

@@ -22,11 +22,16 @@
     </div><br>
 
     <div id="id_related_comments">
-        <li *ngFor="let cmt of postComments" style="margin: 2px;">
-            {{cmt.commentText}}
-            <br><span style="font-size: 15px;">by {{cmt.firstName}} {{cmt.lastName}}</span>
-            <br><span style="font-size: 12px;"> at {{cmt.commentTime}}</span>
-        </li>
+        <ul *ngFor="let cmt of postComments" style="margin: 2px;">
+            <a href="/profile">
+                <img id="id_comment_img" src="{{cmt.user.profileImg}}">
+            </a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>
+                {{cmt.commentText}}
+            </span>
+            <br><span style="font-size: 15px;">{{cmt.user.firstName}} {{cmt.user.lastName}}</span>
+            <span style="font-size: 12px;"> at {{cmt.commentTime}}</span><br><br>
+        </ul>
     </div>
 
     <div id="id_comment_container">
@@ -35,7 +40,7 @@
                 <label style="font-size: 20px;" for="newComment">Leave Comment: &nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input id="id_input_textbox" type="text" formControlName="newComment"><br>
                 <button id="id_submit_btn">Submit</button>
-            </div><br><br><br>
+            </div><br><br><br><br><br>
         </form>
     </div>
 </div>
