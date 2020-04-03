@@ -12,7 +12,7 @@
             <div>
                 <span id="id_post_title"
                     style="font-size: 40px; color: cadetblue; padding: 20px;">{{postDetail.postTitle}}</span>
-                <button id="id_like_btn">❤️</button>
+                <input type="button" id="id_like_btn" (click)="onLike()" value="❤️">
             </div>
         </div>
         <img id="id_post_img" src="{{postDetail.imagePath}}" />

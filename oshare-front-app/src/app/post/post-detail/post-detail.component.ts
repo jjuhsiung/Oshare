@@ -15,6 +15,7 @@ export class PostDetailComponent implements OnInit {
   postComments: Comment[]
   commentForm: FormGroup;
   loading = false;
+  liked = false;
 
   constructor(private formBuilder: FormBuilder, private postDetailService: PostdetailService) {
     this.commentForm = this.formBuilder.group({
@@ -38,4 +39,10 @@ export class PostDetailComponent implements OnInit {
     console.log(this.commentForm.value['newComment']);
     this.commentForm.reset();
   }
+
+  onLike() {
+    this.liked = !this.liked;
+    console.log("liked: " + this.liked);
+  }
+
 }

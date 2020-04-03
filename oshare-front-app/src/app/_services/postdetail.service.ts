@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Postdetail } from '../_models/postdetail.model';
 import { Comment } from '../_models/comment.model';
 import { User } from '../_models/user.model';
-import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
