@@ -33,7 +33,7 @@ class Post(models.Model):
     products = models.ManyToManyField('Product')
 
 class PostImage(models.Model):
-    post = models.ForeignKey(Post, related_name='images')
+    post = models.ForeignKey(Post, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='oshare/post_img', null=True, blank=True)
 
 
