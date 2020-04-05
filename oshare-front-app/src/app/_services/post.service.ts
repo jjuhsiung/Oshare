@@ -3,7 +3,9 @@ import { Post } from '../_models/post.model';
 import { Comment } from '../_models/comment.model';
 import { User } from '../_models/user.model';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class PostService {
 
     imgTemp1 = 'https://upload.wikimedia.org/wikipedia/commons/5/59/That_Poppy_profile_picture.jpg'
@@ -33,10 +35,10 @@ export class PostService {
             [new Comment(new User('anns', 'Anna', 'Sui', this.imgTemp1), 'Nice post, keep it up!'),
             new Comment(new User('anns', 'Bobby', 'Han', this.imgTemp1), 'I really like your content!'),
             ], 100)
-        ];
+    ];
 
-    constructor(posts: Post[]) {
-        this.posts = posts.slice()
+    constructor() {
+        console.log("post-service")
     };
 
     getPosts() {

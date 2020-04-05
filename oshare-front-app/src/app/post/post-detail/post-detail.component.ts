@@ -33,7 +33,7 @@ export class PostDetailComponent implements OnInit {
     this.postComments = this.postDetailService.getComments();
     this.postDetail = this.postDetailService.getPost();
     this.likesNum = this.likesNum;
-    console.log(this.postComments)
+    console.log(this.postComments +" comments")
   }
 
   onSubmit() {
