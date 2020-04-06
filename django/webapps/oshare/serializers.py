@@ -29,7 +29,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     images = PostImageSerializer(many=True)
     class Meta:
         model = Post
-        fields = ['user', 'date', 'likes', 'text', 'images', 'comments']
+        fields = ['id', 'user', 'date', 'likes', 'text', 'images', 'comments']
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

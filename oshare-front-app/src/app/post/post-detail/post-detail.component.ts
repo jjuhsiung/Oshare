@@ -5,6 +5,8 @@ import { Postdetail } from 'src/app/_models/postdetail.model';
 import { Comment } from 'src/app/_models/comment.model';
 import { PostdetailService } from '../../_services/postdetail.service';
 import { Product } from 'src/app/_models/product.model';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-detail',
@@ -22,9 +24,9 @@ export class PostDetailComponent implements OnInit {
   loading = false;
   liked = false;
   likesNum = 0;
-
+  response_object = null;
   constructor(private formBuilder: FormBuilder,
-    private postDetailService: PostdetailService, private postService: PostService) {
+    private postDetailService: PostdetailService, private postService: PostService, private http: HttpClient) {
     this.commentForm = this.formBuilder.group({
       username: '',
       firstName: '',
@@ -33,13 +35,29 @@ export class PostDetailComponent implements OnInit {
     });
     this.getPosts(); //Add by Fiona
   }
+  httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
+  // Add by yinuod
+  getUserByURL(full_url): Observable<any> {
+      this.response_object = this.http.get(full_url, { headers: this.httpHeaders })
+      //console.log(this.response_object)
+      return this.response_object
+  }
 
   //Add by Fiona
   getPosts = () => {
     this.postService.getAllPosts().subscribe(
       data => {
         this.postDetail = data;
+        console.log("Fiona getAllPosts invoked");
         console.log(data);
+        // for (let entry of data) {
+        //   this.getUserByURL(entry['user']).subscribe(
+        //     user_data => {
+        //       console.log(user_data); 
+        //     }
+        //   );
+        // }
+      
       },
       error => {
         console.log(error);
