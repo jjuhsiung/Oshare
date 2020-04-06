@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:4200",
+]
+
 
 # Application definition
 
@@ -37,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oshare',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -46,7 +52,13 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+<<<<<<< HEAD
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
+=======
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+>>>>>>> 970ba2d3bf1ef051c4052e293afefbad872bb7d3
 ]
 
 ROOT_URLCONF = 'webapps.urls'
