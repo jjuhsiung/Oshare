@@ -8,7 +8,7 @@ from oshare.serializers import *
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = UserModel.objects.all()
-    serializer_class = UserModelSerializer
+    serializer_class = UserSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
