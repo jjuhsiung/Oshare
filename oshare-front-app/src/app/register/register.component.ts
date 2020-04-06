@@ -33,6 +33,13 @@ export class RegisterComponent implements OnInit {
   }
 
 
+  registration_form_value = {
+    username: '',
+    password: '',
+    first_name: '',
+    last_name: '',
+    email: ''
+  }
 
   constructor(fb: FormBuilder, private userService: UserService) { 
     this.form = fb.group({
@@ -49,16 +56,8 @@ export class RegisterComponent implements OnInit {
 
   registerUser(){
 
-    let formObj = this.form.getRawValue();
-
-    var formData: any = new FormData();
-    formData.append("username", this.form.get('username').value);
-    formData.append("password", this.form.get('password').value);
-    formData.append("first_name", this.form.get('first_name').value);
-    formData.append("last_name", this.form.get('last_name').value);
-    formData.append("email", this.form.get('email').value)
-
-    this.userService.registerUser(formData).subscribe(
+    this.mapFormToObject();
+    this.userService.registerUser(this.form.getRawValue()).subscribe(
       response => {
         alert('User has been created');
       },
@@ -66,5 +65,13 @@ export class RegisterComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  mapFormToObject(){
+    this.registration_form_value.username = this.form.value.username;
+    this.registration_form_value.password = this.form.value.password;
+    this.registration_form_value.first_name = this.form.value.first_name;
+    this.registration_form_value.last_name = this.form.value.last_name;
+    this.registration_form_value.email = this.form.value.email;
   }
 }
