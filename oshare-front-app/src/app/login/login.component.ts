@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     let formObj = this.loginForm.getRawValue();
-    let serializedForm = JSON.stringify(formObj);
     console.log(formObj);
     this.userService.loginUser(formObj).subscribe(
       response => {
