@@ -10,8 +10,6 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-
-
   form;
 
   get username(){

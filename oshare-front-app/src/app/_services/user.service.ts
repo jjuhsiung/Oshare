@@ -17,4 +17,8 @@ export class UserService {
   registerUser(userData): Observable<any>{
     return this.httpClient.post(this.baseurl + '/users/', userData);
   }
+
+  loginUser(userData): Observable<any>{
+    return this.httpClient.post(this.baseurl + '/auth/', userData);
+  }
 }
