@@ -1,13 +1,9 @@
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Post } from '../_models/post.model';
-import { Comment } from '../_models/comment.model';
-import { User } from '../_models/user.model';
+import { Post } from '../../_models/post.model';
+import { Comment } from '../../_models/comment.model';
+import { User } from '../../_models/user.model';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class PostService {
 
     imgTemp1 = 'https://upload.wikimedia.org/wikipedia/commons/5/59/That_Poppy_profile_picture.jpg'
@@ -36,20 +32,11 @@ export class PostService {
             'New makeups',
             [new Comment(new User('anns', 'Anna', 'Sui', this.imgTemp1), 'Nice post, keep it up!'),
             new Comment(new User('anns', 'Bobby', 'Han', this.imgTemp1), 'I really like your content!'),
-            ], 100)
-    ];
+            ], 100)];
 
-    baseurl = "http://127.0.0.1:8000";
-    httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
-
-    constructor(private http: HttpClient) {
-        console.log("post-service")
-
+    constructor(posts: Post[]) {
+        this.posts = posts.slice()
     };
-
-    getAllPosts(): Observable<any>{
-        return this.http.get(this.baseurl + '/posts/', {headers: this.httpHeaders})
-    }
 
     getPosts() {
         return this.posts.slice();// get a copy
