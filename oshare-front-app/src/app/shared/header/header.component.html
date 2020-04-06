@@ -17,8 +17,14 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/cart">My Cart</a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="checkLoginStatus()" class="nav-item">
                   <a class="nav-link " (click)="Logout()">Log Out</a>
+                </li>
+                <li *ngIf="!checkLoginStatus()" class="nav-item">
+                  <a class="nav-link " href="/login">Log In</a>
+                </li>
+                <li *ngIf="!checkLoginStatus()" class="nav-item">
+                  <a class="nav-link " href="/register">Register</a>
                 </li>
               </ul>
             </div>
