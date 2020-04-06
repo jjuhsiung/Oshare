@@ -25,6 +25,7 @@ from django.contrib.auth.models import User
 #     def __unicode__(self):
 #         return '{} follows {}'.format(self.follower, self.followed) + ' at ' + str(self.follow_time)
 
+
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField()
@@ -33,16 +34,17 @@ class Post(models.Model):
     #products = models.ManyToManyField('Product')
     
 
-# class PostImage(models.Model):
-#     post = models.ForeignKey(Post, related_name='images')
-#     image = models.ImageField(upload_to='oshare/post_img', null=True, blank=True)
+
+class PostImage(models.Model):
+    post = models.ForeignKey(Post, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='oshare/post_img', null=True, blank=True)
 
 
-# class Comment(models.Model):
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-#     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-#     date = models.DateTimeField()
-#     text = models.CharField(max_length=300)
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    text = models.CharField(max_length=300)
 
 # class Product(models.Model):
 #     name = models.CharField(max_length=300)
@@ -56,13 +58,13 @@ class Post(models.Model):
 #     product = models.OneToOneField(Product, on_delete=models.CASCADE)
 #     count = models.IntegerField(default=0)
 
-# class Order(models.Model):
-# 	user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-# 	total = models.IntegerField(default=0)
-# 	ship_addr = models.CharField(max_length=100)
-# 	order_time = models.DateTimeField()
 
-# class Cart(models.Model):
-# 	user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-# 	total = models.IntegerField(default=0)
+class Order(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	total = models.IntegerField(default=0)
+	ship_addr = models.CharField(max_length=100)
+	order_time = models.DateTimeField()
 
+class Cart(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	total = models.IntegerField(default=0)

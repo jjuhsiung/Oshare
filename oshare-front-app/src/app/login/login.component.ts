@@ -1,10 +1,12 @@
+import { UserService } from './../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [UserService]
 })
 
 
@@ -12,7 +14,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   loading = false;
-  constructor(private formBuilder: FormBuilder) {
+
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
 
   }
 
@@ -25,16 +28,30 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.loginForm.controls; }
 
-  onSubmit() {
-    this.submitted = true;
-    console.log("submited: " + this.submitted)
-    console.log(this.loginForm.value)
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-    this.loading = true;
-    this.loginForm.reset();
+  // onSubmit() {
+  //   this.submitted = true;
+  //   console.log("submited: " + this.submitted)
+  //   console.log(this.loginForm.value)
+  //   // stop here if form is invalid
+  //   if (this.loginForm.invalid) {
+  //     return;
+  //   }
+  //   this.loading = true;
+  //   this.loginForm.reset();
+  // }
+
+  onLogin(){
+    let formObj = this.loginForm.getRawValue();
+    console.log(formObj);
+    this.userService.loginUser(formObj).subscribe(
+      response => {
+        console.log(response);
+        alert('Logged in successfully!');
+      },
+      error =>{
+        console.log(error);
+      }
+    );
   }
 }
 

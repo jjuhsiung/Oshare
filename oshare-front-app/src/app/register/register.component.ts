@@ -10,8 +10,6 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-
-
   form;
 
   get username(){
@@ -35,6 +33,13 @@ export class RegisterComponent implements OnInit {
   }
 
 
+  registration_form_value = {
+    username: '',
+    password: '',
+    first_name: '',
+    last_name: '',
+    email: ''
+  }
 
   constructor(fb: FormBuilder, private userService: UserService) { 
     this.form = fb.group({
@@ -51,8 +56,6 @@ export class RegisterComponent implements OnInit {
 
   registerUser(){
 
-    let formObj = this.form.getRawValue();
-    let serializedForm = JSON.stringify(formObj);
     this.userService.registerUser(this.form.getRawValue()).subscribe(
       response => {
         alert('User has been created');
