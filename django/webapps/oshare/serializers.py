@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Post, Comment, PostImage, Order, Cart
+from .models import Post, Comment, PostImage, Order, Cart, UserProfile
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -12,11 +12,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
+class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['phone', 'address', 'profile_picture', 'following']
+
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
         fields = ['user', 'date', 'likes', 'text']
-
+    # def create(self, validated_data):
+    #     return 
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
