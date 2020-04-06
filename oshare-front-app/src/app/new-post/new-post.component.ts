@@ -28,7 +28,7 @@ export class NewPostComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('userToken') == null){
       alert('Required Login!');
-      this.router.navigate(['/login'])
+      this.router.navigate(['/search'])
     }
   }
 
