@@ -1,3 +1,4 @@
+import { PostService } from './../../_services/post.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Postdetail } from 'src/app/_models/postdetail.model';
@@ -7,7 +8,8 @@ import { PostdetailService } from '../../_services/postdetail.service';
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
-  styleUrls: ['./post-detail.component.css']
+  styleUrls: ['./post-detail.component.css'],
+  providers: [PostService]
 })
 export class PostDetailComponent implements OnInit {
 
@@ -19,13 +21,29 @@ export class PostDetailComponent implements OnInit {
   liked = false;
   likesNum = 0;
 
-  constructor(private formBuilder: FormBuilder, private postDetailService: PostdetailService) {
+  constructor(private formBuilder: FormBuilder, 
+    private postDetailService: PostdetailService, private postService: PostService) {
     this.commentForm = this.formBuilder.group({
       username: '',
       firstName: '',
       lastName: '',
       newComment: ''
     });
+    this.getPosts(); //Add by Fiona
+  }
+
+  //Add by Fiona
+  getPosts = () => {
+    this.postService.getAllPosts().subscribe(
+      data => {
+        this.postDetail = data;
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+
+    )
   }
 
   ngOnInit(): void {
