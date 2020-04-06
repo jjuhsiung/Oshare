@@ -44,6 +44,7 @@ export class PostService {
 
     constructor(private http: HttpClient) {
         console.log("post-service")
+
     };
 
     getAllPosts(): Observable<any>{
