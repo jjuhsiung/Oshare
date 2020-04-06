@@ -42,13 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-<<<<<<< HEAD
     #'rest_framework.authtoken',
     'oshare',
     'corsheaders',
-=======
-    'oshare'
->>>>>>> yinuod
 ]
 
 # REST_FRAMEWORK = {
