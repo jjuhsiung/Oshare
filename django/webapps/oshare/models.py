@@ -68,4 +68,3 @@ class Order(models.Model):
 class Cart(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	total = models.IntegerField(default=0)
-
