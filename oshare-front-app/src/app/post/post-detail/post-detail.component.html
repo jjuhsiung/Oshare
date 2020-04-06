@@ -6,7 +6,7 @@
                     <img id="id_profile_picture" src="{{postDetail.user.profileImg}}">
                 </a>
                 <span>{{postDetail.user.firstName}} </span>
-                <span>{{postDetail.user.lastName}} |</span>
+                <span>{{postDetail.user.lastName}} | {{likesNum}} likes</span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="font-size: 12px;"> {{postDetail.postDate}} </span><br>
             </div><br>
             <div>
@@ -18,6 +18,15 @@
         <img id="id_post_img" src="{{postDetail.imagePath}}" />
         <div id="id_post_text">
             <p>{{postDetail.postText}}</p>
+        </div>
+        <div id="id_related_product">
+            <h2>Related Products</h2>
+            <ul *ngFor="let p of relatedProducts" style="margin: 2px;">
+                <img src="{{p.ProductImg}}">
+                <span style="font-size: 18px">
+                    {{p.title}}
+                </span>
+            </ul>
         </div>
     </div><br>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Review} from '../../models/review';
+import {Review} from '../../_models/review.model';
 import {REVIEWS} from '../../MockComments';
-import {ProductService} from '../../service/product.service';
+import {ProductService} from '../../_services/product.service';
 
 
 @Component({

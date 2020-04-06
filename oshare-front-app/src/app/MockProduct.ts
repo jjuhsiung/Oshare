@@ -1,4 +1,4 @@
-import {Product} from './models/product';
+import {Product} from './_models/product.model';
 
 export const PRODUCTS: Product[] = [
   {

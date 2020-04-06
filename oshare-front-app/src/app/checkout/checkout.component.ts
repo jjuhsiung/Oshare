@@ -1,5 +1,5 @@
 import { firstNameValidators } from './validators/firstname.validator';
-import { CheckoutService } from './../services/checkout.service';
+import { CheckoutService } from '../_services/checkout.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 
@@ -56,8 +56,6 @@ export class CheckoutComponent implements OnInit {
   checkout(){
     console.log(this.form.value);
   }
-
-
 
   ngOnInit(): void {
   }

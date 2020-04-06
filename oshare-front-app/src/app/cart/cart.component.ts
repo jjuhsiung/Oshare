@@ -1,4 +1,4 @@
-import { CartService } from './../services/cart.service';
+import { CartService } from '../_services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { productListChangeArgs } from './product-count-list/product-count-list.component';
 

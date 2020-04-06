@@ -1,4 +1,4 @@
-import {Review} from './models/review';
+import {Review} from './_models/review.model';
 
 export const REVIEWS: Review[] = [
   {
