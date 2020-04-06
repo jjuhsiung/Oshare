@@ -1,10 +1,12 @@
+import { UserService } from './../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  providers: [UserService]
 })
 export class RegisterComponent implements OnInit {
 
@@ -28,35 +30,36 @@ export class RegisterComponent implements OnInit {
     return this.form.get('lastname');
   }
 
-  get phone(){
-    return this.form.get('phone');
-  }
-
   get email(){
     return this.form.get('email');
   }
 
 
 
-  constructor(fb: FormBuilder) { 
+  constructor(fb: FormBuilder, private userService: UserService) { 
     this.form = fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', Validators.required],
-      phone: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
   }
 
-  registerButtonClicked(){
+  registerUser(){
 
-  }
-
-  register(){
-
+    let formObj = this.form.getRawValue();
+    let serializedForm = JSON.stringify(formObj);
+    this.userService.registerUser(this.form.getRawValue()).subscribe(
+      response => {
+        alert('User has been created');
+      },
+      error =>{
+        console.log(error);
+      }
+    );
   }
 }
