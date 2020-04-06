@@ -4,12 +4,13 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Post } from '../_models/post.model';
 import { Comment } from '../_models/comment.model';
 import { User } from '../_models/user.model';
+import { Product } from '../_models/product.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PostService {
-
+    imgProd: "https://i.ibb.co/C23xGSj/u221.png";
     imgTemp1 = 'https://upload.wikimedia.org/wikipedia/commons/5/59/That_Poppy_profile_picture.jpg'
     imgTemp = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg'
 
@@ -26,7 +27,9 @@ export class PostService {
             'Know your brushes',
             [new Comment(new User('anns', 'Anna', 'Sui', this.imgTemp1), 'Nice post, keep it up!'),
             new Comment(new User('anns', 'Bobby', 'Han', this.imgTemp1), 'I really like your content!'),
-            ], 200),
+            ], 200,
+            [new Product('brush', '5', 30, 'desc', this.imgTemp, ''),
+            new Product('Lipstick', '5', 30, 'desc', this.imgTemp, '')]),
         new Post(2,
             new User('anns', 'Anna', 'Sue', this.imgTemp),
             'https://www.sephora.com/contentimages/homepage/032420/Homepage/DesktopMweb/2020-03-25-hp-slideshow-just-arrived-cyoa-us-m-slice.jpg',
@@ -36,19 +39,19 @@ export class PostService {
             'New makeups',
             [new Comment(new User('anns', 'Anna', 'Sui', this.imgTemp1), 'Nice post, keep it up!'),
             new Comment(new User('anns', 'Bobby', 'Han', this.imgTemp1), 'I really like your content!'),
-            ], 100)
+            ], 100, [new Product('lipbalm', '2', 120, 'desc', this.imgProd, '')])
     ];
 
     baseurl = "http://127.0.0.1:8000";
-    httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
+    httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
     constructor(private http: HttpClient) {
         console.log("post-service")
 
     };
 
-    getAllPosts(): Observable<any>{
-        return this.http.get(this.baseurl + '/posts/', {headers: this.httpHeaders})
+    getAllPosts(): Observable<any> {
+        return this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders })
     }
 
     getPosts() {

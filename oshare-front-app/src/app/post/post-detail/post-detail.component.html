@@ -19,6 +19,15 @@
         <div id="id_post_text">
             <p>{{postDetail.postText}}</p>
         </div>
+        <div id="id_related_product">
+            <h2>Related Products</h2>
+            <ul *ngFor="let p of relatedProducts" style="margin: 2px;">
+                <img src="{{p.ProductImg}}">
+                <span style="font-size: 18px">
+                    {{p.title}}
+                </span>
+            </ul>
+        </div>
     </div><br>
 
     <div id="id_related_comments">
