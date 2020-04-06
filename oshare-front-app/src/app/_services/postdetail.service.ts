@@ -15,12 +15,19 @@ export class PostdetailService {
     console.log("post-detail")
   }
 
+  /**
+   * get from pots service
+   */
   getPost() {
     console.log(this.allPosts.getPosts()[0])
     return this.allPosts.getPosts()[0];
   }
   getComments() {
     return this.allPosts.getPosts()[0].comments;
+  }
+  getProducts() {
+    console.log(this.allPosts.getPosts()[0].relatedProducts)
+    return this.allPosts.getPosts()[0].relatedProducts;
   }
 
 

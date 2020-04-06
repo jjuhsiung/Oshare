@@ -6,7 +6,7 @@
     </div>
 
     <h3>Shipping Info</h3>
-    <form [formGroup]="form" (ngSubmit)="register()" class="form-horizontal">
+    <form [formGroup]="form" (ngSubmit)="registerUser()" class="form-horizontal">
 
         <div class="row">
             <div class="col-lg-8">
@@ -33,31 +33,31 @@
                             type="password"
                             class="form-control"
                             id="password">
-                        <div *ngIf="password.touched && password.invalid" class="alert alert-danger">Last name is required.</div>
+                        <div *ngIf="password.touched && password.invalid" class="alert alert-danger">Password is required.</div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="firstname" class="col-form-label col-lg-2">Firstname:</label>
+                    <label for="first_name" class="col-form-label col-lg-2">Firstname:</label>
                     <div class="col-lg-6">    
                         <input
-                            formControlName="firstname"
+                            formControlName="first_name"
                             type="text"
                             class="form-control" 
-                            id="firstname">
-                        <div *ngIf="firstname.touched && firstname.invalid" class="alert alert-danger">Firstname is required.</div>
+                            id="first_name">
+                        <div *ngIf="first_name.touched && first_name.invalid" class="alert alert-danger">Firstname is required.</div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="lastname" class="col-form-label col-lg-2">Lastname:</label>
+                    <label for="last_name" class="col-form-label col-lg-2">Lastname:</label>
                     <div class="col-lg-6">
                         <input 
-                            formControlName="lastname"
+                            formControlName="last_name"
                             type="text" 
                             class="form-control" 
-                            id="lastname">
-                        <div *ngIf="lastname.touched && lastname.invalid" class="alert alert-danger">Lastname is required.</div>
+                            id="last_name">
+                        <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">Lastname is required.</div>
                     </div>
                 </div>
 
@@ -73,21 +73,10 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="phone" class="col-form-label col-lg-2">Phone:</label>
-                    <div class="col-lg-6">
-                        <input
-                            formControlName="phone"
-                            type="text" 
-                            class="form-control" 
-                            id="phone">
-                        <div *ngIf="phone.touched && phone.invalid" class="alert alert-danger">Phone is required.</div>
-                    </div>
-                </div>
             </div>
                 
             <div class="col-lg-4">
-                <button type="submit" class="btn btn-dark" (click)="registerButtonClicked()">Register</button>
+                <button type="submit" class="btn btn-dark">Register</button>
             </div>
         </div>
 

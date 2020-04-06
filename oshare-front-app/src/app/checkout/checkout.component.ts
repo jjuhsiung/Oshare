@@ -57,8 +57,6 @@ export class CheckoutComponent implements OnInit {
     console.log(this.form.value);
   }
 
-
-
   ngOnInit(): void {
   }
 

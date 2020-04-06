@@ -8,7 +8,7 @@ from .models import Post
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()

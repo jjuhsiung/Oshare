@@ -6,7 +6,7 @@ from .models import Post
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'phone', 'address', 'password', 'profile_picture']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password']
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
