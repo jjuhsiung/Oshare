@@ -1,46 +1,45 @@
-from django.conf.urls import url, include
-from oshare.models import *
-from rest_framework import routers, serializers, viewsets
+from django.contrib.auth.models import User
+from rest_framework import serializers
+from .models import Post, Comment, PostImage, Order, Cart
 
 
-# Serializers define the API representation.
-class UserModelSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = UserModel
-        fields = ['id', 'first_name', 'last_name', 'username']
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email', 'password']
 
-
-class PostSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Post
-        user = UserModelSerializer()
-        fields = ['id', 'user', 'date', 'likes', 'text']
-
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
-        user = UserModelSerializer()
-        post = PostSerializer()
         fields = ['id', 'user', 'post', 'date', 'text']
-
+        
 
 class PostImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PostImage
-        post = PostSerializer()
-        fields = ['id', 'user', 'date', 'likes', 'text']
-
+        fields = ['id', 'image']
+        
+        
+class PostSerializer(serializers.HyperlinkedModelSerializer):
+    comments = CommentSerializer(many=True)
+    images = PostImageSerializer(many=True)
+    class Meta:
+        model = Post
+        fields = ['user', 'date', 'likes', 'text', 'images', 'comments']
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Order
-        user = UserModelSerializer()
+        user = UserSerializer()
         fields = ['id', 'user', 'total', 'ship_addr', 'order_time']
 
 
 class CartSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Cart
-        user = UserModelSerializer()
+        user = UserSerializer()
         fields = ['id', 'user', 'total']
