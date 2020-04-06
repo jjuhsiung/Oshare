@@ -22,12 +22,12 @@ export class RegisterComponent implements OnInit {
     return this.form.get('password');
   }
 
-  get firstname(){
-    return this.form.get('firstname');
+  get first_name(){
+    return this.form.get('first_name');
   }
 
-  get lastname(){
-    return this.form.get('lastname');
+  get last_name(){
+    return this.form.get('last_name');
   }
 
   get email(){
@@ -40,8 +40,8 @@ export class RegisterComponent implements OnInit {
     this.form = fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       email: ['', Validators.required],
     });
   }
