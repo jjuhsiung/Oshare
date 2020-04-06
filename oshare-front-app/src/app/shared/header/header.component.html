@@ -20,6 +20,9 @@
                 <li *ngIf="checkLoginStatus()" class="nav-item">
                   <a class="nav-link " (click)="Logout()">Log Out</a>
                 </li>
+                <li *ngIf="checkLoginStatus()" class="nav-item">
+                  <a class="nav-link " href="new-post">New Post</a>
+                </li>
                 <li *ngIf="!checkLoginStatus()" class="nav-item">
                   <a class="nav-link " href="/login">Log In</a>
                 </li>

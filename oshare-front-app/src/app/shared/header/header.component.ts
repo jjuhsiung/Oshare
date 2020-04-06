@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit {
     //this.router.navigate(['/login']);
   }
 
-
   checkLoginStatus(){
     return localStorage.getItem('userToken') != null;
   }
