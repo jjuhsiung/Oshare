@@ -52,16 +52,9 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-<<<<<<< HEAD
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
-=======
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-<<<<<<< HEAD
->>>>>>> 970ba2d3bf1ef051c4052e293afefbad872bb7d3
-=======
->>>>>>> 970ba2d3bf1ef051c4052e293afefbad872bb7d3
 ]
 
 ROOT_URLCONF = 'webapps.urls'

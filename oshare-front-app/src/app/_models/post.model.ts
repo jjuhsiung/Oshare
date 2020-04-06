@@ -1,5 +1,6 @@
 import { Comment } from './comment.model';
 import { User } from './user.model';
+import { Product } from './product.model';
 
 export class Post {
     public postId: Number;
@@ -10,9 +11,10 @@ export class Post {
     public postTitle: string;
     public comments: Comment[];
     public likes: Number;
+    public relatedProducts: Product[]
 
     constructor(postId: Number, user: User, imagePath: string, postDate: Date,
-        postText: string, postTitle: string, comments: Comment[], likes: Number) {
+        postText: string, postTitle: string, comments: Comment[], likes: Number, relatedProducts: Product[]) {
         this.postId = postId;
         this.user = user;
         this.imagePath = imagePath;
@@ -21,5 +23,6 @@ export class Post {
         this.postTitle = postTitle;
         this.comments = comments;
         this.likes = likes;
+        this.relatedProducts = relatedProducts;
     }
 }
