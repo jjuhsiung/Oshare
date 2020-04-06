@@ -6,11 +6,12 @@ from oshare import views
 from rest_framework.authtoken.views import ObtainAuthToken
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+router.register(r'register', views.UserViewSet)
 router.register(r'posts', views.PostViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('auth/', ObtainAuthToken.as_view())
+    path(r'api-auth', include('rest_framework.urls', namespace='rest_framework'))
+    # path('auth/', ObtainAuthToken.as_view())
 ]
