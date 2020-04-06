@@ -1,12 +1,31 @@
-<div>
-    <app-navigation-bar></app-navigation-bar>
-    <div id="profile-head">
-        <img id="id_profile_picture" src="image/img_snow.jpg">
-        <div id="start-rating"></div>
-        <button id="send-message"></button>
-        <button id="follow"></button>
+<main role="main">
+    <div class="row">
+        <div class="col-md-12">
+            <app-header></app-header>
+        </div>
     </div>
-    <div>
-        <app-post-list></app-post-list>
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <app-profile-header></app-profile-header>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <app-post-list></app-post-list> 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</main>

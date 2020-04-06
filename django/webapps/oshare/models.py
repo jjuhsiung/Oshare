@@ -25,6 +25,7 @@ from django.contrib.auth.models import User
 #     def __unicode__(self):
 #         return '{} follows {}'.format(self.follower, self.followed) + ' at ' + str(self.follow_time)
 
+
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField()
@@ -32,6 +33,7 @@ class Post(models.Model):
     text = models.CharField(max_length=1500)
     #products = models.ManyToManyField('Product')
     
+
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post, related_name='images', on_delete=models.CASCADE)
@@ -56,6 +58,7 @@ class Comment(models.Model):
 #     product = models.OneToOneField(Product, on_delete=models.CASCADE)
 #     count = models.IntegerField(default=0)
 
+
 class Order(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	total = models.IntegerField(default=0)
@@ -65,4 +68,3 @@ class Order(models.Model):
 class Cart(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	total = models.IntegerField(default=0)
-
