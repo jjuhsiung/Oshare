@@ -33,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent },
   { path: 'post-list', component: PostListComponent },
   { path: 'post-item', component: PostItemComponent },
   { path: 'search', component: HomeSearchComponent },
@@ -44,7 +45,7 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'register', component: RegisterComponent },
+
 ];
 
 @NgModule({
