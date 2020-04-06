@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Postdetail } from 'src/app/_models/postdetail.model';
 import { Comment } from 'src/app/_models/comment.model';
 import { PostdetailService } from '../../_services/postdetail.service';
+import { Product } from 'src/app/_models/product.model';
 
 @Component({
   selector: 'app-post-detail',
@@ -16,12 +17,13 @@ export class PostDetailComponent implements OnInit {
 
   postDetail: Postdetail;
   postComments: Comment[]
+  relatedProducts: Product[]
   commentForm: FormGroup;
   loading = false;
   liked = false;
   likesNum = 0;
 
-  constructor(private formBuilder: FormBuilder, 
+  constructor(private formBuilder: FormBuilder,
     private postDetailService: PostdetailService, private postService: PostService) {
     this.commentForm = this.formBuilder.group({
       username: '',
@@ -46,12 +48,15 @@ export class PostDetailComponent implements OnInit {
     )
   }
 
+
   ngOnInit(): void {
     console.log("--oninit--");
     this.postComments = this.postDetailService.getComments();
     this.postDetail = this.postDetailService.getPost();
+    this.relatedProducts = this.postDetailService.getProducts();
     this.likesNum = this.likesNum;
-    console.log(this.postComments +" comments")
+    console.log(this.postComments + " comments")
+    console.log(this.relatedProducts)
   }
 
   onSubmit() {
