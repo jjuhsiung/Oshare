@@ -31,20 +31,20 @@ import { CartService } from './_services/cart.service';
 import { PostService } from './_services/post.service';
 import { HttpClientModule } from '@angular/common/http';
 
-const appRoutes:Routes = [
-  {path:'', component: LoginComponent},
-  {path:'login', component: LoginComponent},
-  {path:'post-list', component: PostListComponent},
-  {path:'post-item', component: PostItemComponent},
-  {path:'search', component: HomeSearchComponent},
-  {path:'search-result', component: SearchResultComponent},
-  {path:'post', component:PostComponent},
-  {path:'product', component:ProductComponent},
-  {path:'product-list', component:ProductListComponent},
-  {path:'profile', component:ProfileComponent},
-  {path:'cart', component:CartComponent},
-  {path:'checkout', component:CheckoutComponent},
-  {path:'register', component:RegisterComponent},
+const appRoutes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'post-list', component: PostListComponent },
+  { path: 'post-item', component: PostItemComponent },
+  { path: 'search', component: HomeSearchComponent },
+  { path: 'search-result', component: SearchResultComponent },
+  { path: 'post', component: PostComponent },
+  { path: 'product', component: ProductComponent },
+  { path: 'product-list', component: ProductListComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
@@ -83,8 +83,7 @@ const appRoutes:Routes = [
   ],
   providers: [
     CartService,
-    CheckoutService,
-    PostService],
+    CheckoutService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

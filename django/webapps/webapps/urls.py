@@ -7,6 +7,10 @@ from oshare import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'posts', views.PostViewSet)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 970ba2d3bf1ef051c4052e293afefbad872bb7d3
 
 urlpatterns = [
     path('admin/', admin.site.urls),
