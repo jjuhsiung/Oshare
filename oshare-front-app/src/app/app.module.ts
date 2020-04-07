@@ -15,7 +15,6 @@ import { ProductListComponent } from './shared/product-list/product-list.compone
 import { ProductItemComponent } from './shared/product-list/product-item/product-item.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ReviewListComponent } from './product/review-list/review-list.component';
-import { ReviewItemComponent } from './product/review-list/review-item/review-item.component';
 import { PostItemComponent } from './shared/post-list/post-item/post-item.component';
 import { HomeSearchComponent } from './home-search/home-search.component';
 import { SearchResultComponent } from './search-result/search-result.component';
@@ -30,12 +29,10 @@ import { RegisterComponent } from './register/register.component';
 import { CartService } from './_services/cart.service';
 import { PostService } from './_services/post.service';
 import { HttpClientModule } from '@angular/common/http';
-import { NewPostComponent } from './new-post/new-post.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'post-list', component: PostListComponent },
   { path: 'post-item', component: PostItemComponent },
   { path: 'search', component: HomeSearchComponent },
@@ -46,8 +43,7 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'new-post', component: NewPostComponent}
-
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
@@ -64,7 +60,6 @@ const appRoutes: Routes = [
     ProductItemComponent,
     ProductDetailComponent,
     ReviewListComponent,
-    ReviewItemComponent,
     PostItemComponent,
     HomeSearchComponent,
     SearchResultComponent,
@@ -75,8 +70,7 @@ const appRoutes: Routes = [
     PostComponent,
     PostDetailComponent,
     NavigationBarComponent,
-    RegisterComponent,
-    NewPostComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

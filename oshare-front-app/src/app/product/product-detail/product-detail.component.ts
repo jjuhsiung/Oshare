@@ -6,16 +6,17 @@ import {ProductService} from '../../_services/product.service';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css'],
-  providers: [ProductService]
+  styleUrls: ['./product-detail.component.css']
+  // providers: [ProductService]
 })
 export class ProductDetailComponent implements OnInit {
 
-  product: Product;
+  product: any;
   // product = PRODUCTS[0];
   constructor(private api: ProductService ) {
     // this.getProductDetail();
-    this.product = PRODUCTS[0];
+    this.product = this.api.currentproduct;
+    console.log(this.product);
   }
 
   ngOnInit(): void {
