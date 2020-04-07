@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class UserProfile(models.Model):
     phone = models.CharField(max_length=15)
@@ -11,7 +12,7 @@ class UserProfile(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default = timezone.now)
     likes = models.IntegerField(default=0)
     title = models.CharField(max_length=200, null=True, default='python')
     text = models.CharField(max_length=1500)
@@ -25,7 +26,7 @@ class PostImage(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default = timezone.now)
     text = models.CharField(max_length=300)
 
 # class Product(models.Model):

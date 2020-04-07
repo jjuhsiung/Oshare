@@ -16,11 +16,20 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
 
    }
+
   registerUser(userData): Observable<any>{
     return this.httpClient.post(this.baseurl + '/register/', userData, { headers: this.httpHeaders });
   }
 
   loginUser(userData): Observable<any>{
     return this.httpClient.post(this.baseurl + '/auth/', userData, { headers: this.httpHeaders });
+  }
+
+  getUserURLById(id){
+    return this.baseurl + '/register/' + id + '/';
+  }
+
+  getUserObjectById(id): Observable<any>{
+    return this.httpClient.get(this.getUserURLById(id));
   }
 }

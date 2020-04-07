@@ -55,7 +55,7 @@ export class PostService {
     }
 
     createPosts(postData): Observable<any> {
-        return this.http.post(this.baseurl + '/posts/', postData, { headers : this.httpHeaders })
+        return this.http.post(this.baseurl + '/posts/', postData, { headers: this.httpHeaders })
     }
 
     getPosts() {
