@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from './../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
@@ -41,7 +42,7 @@ export class RegisterComponent implements OnInit {
     email: ''
   }
 
-  constructor(fb: FormBuilder, private userService: UserService) { 
+  constructor(fb: FormBuilder, private userService: UserService, private router: Router) { 
     this.form = fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -59,6 +60,7 @@ export class RegisterComponent implements OnInit {
     this.userService.registerUser(this.form.getRawValue()).subscribe(
       response => {
         alert('User has been created');
+        this.router.navigate(['/login']);
       },
       error =>{
         console.log(error);

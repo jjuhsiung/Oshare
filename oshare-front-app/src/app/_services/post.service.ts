@@ -29,8 +29,7 @@ export class PostService {
             [new Comment(new User('anns', 'Anna', 'Sui', this.imgTemp1), 'Nice post, keep it up!'),
             new Comment(new User('anns', 'Bobby', 'Han', this.imgTemp1), 'I really like your content!'),
             ], 200,
-            [new Product('brush', '5', 30, 'desc', this.imgProd, ''),
-            new Product('Lipstick', '5', 30, 'desc', this.imgProd, '')]),
+            [new Product('brush', '5', 30, 'desc', this.imgProd, ''),new Product('Lipstick', '5', 30, 'desc', this.imgProd, '')]),
         new Post(2,
             new User('anns', 'Anna', 'Sue', this.imgTemp),
             'https://www.sephora.com/contentimages/homepage/032420/Homepage/DesktopMweb/2020-03-25-hp-slideshow-just-arrived-cyoa-us-m-slice.jpg',
@@ -53,6 +52,10 @@ export class PostService {
     getAllPosts(): Observable<any> {
         this.response_object = this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders })
         return this.response_object
+    }
+
+    createPosts(postData): Observable<any> {
+        return this.http.post(this.baseurl + '/posts/', postData, { headers : this.httpHeaders })
     }
 
     getPosts() {

@@ -30,10 +30,12 @@ import { RegisterComponent } from './register/register.component';
 import { CartService } from './_services/cart.service';
 import { PostService } from './_services/post.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NewPostComponent } from './new-post/new-post.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent },
   { path: 'post-list', component: PostListComponent },
   { path: 'post-item', component: PostItemComponent },
   { path: 'search', component: HomeSearchComponent },
@@ -44,7 +46,8 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'new-post', component: NewPostComponent}
+
 ];
 
 @NgModule({
@@ -72,7 +75,8 @@ const appRoutes: Routes = [
     PostComponent,
     PostDetailComponent,
     NavigationBarComponent,
-    RegisterComponent
+    RegisterComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,
