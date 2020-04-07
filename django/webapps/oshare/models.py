@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    phone = models.IntegerField(max_length=15)
+    phone = models.CharField(max_length=15)
     address = models.CharField(max_length=60)
     profile_picture = models.ImageField(
         upload_to="images/", default="images/profile.png")

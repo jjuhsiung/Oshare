@@ -53,6 +53,10 @@ export class PostService {
         return this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders })
     }
 
+    createPosts(postData): Observable<any> {
+        return this.http.post(this.baseurl + '/posts/', postData, { headers : this.httpHeaders })
+    }
+
     getPosts() {
         return this.posts.slice();// get a copy
     }
