@@ -1,3 +1,4 @@
+import { NewPostComponent } from './new-post/new-post.component';
 import { CheckoutService } from './_services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'new-post', component: NewPostComponent }
 ];
 
 @NgModule({
@@ -70,7 +72,8 @@ const appRoutes: Routes = [
     PostComponent,
     PostDetailComponent,
     NavigationBarComponent,
-    RegisterComponent
+    RegisterComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,

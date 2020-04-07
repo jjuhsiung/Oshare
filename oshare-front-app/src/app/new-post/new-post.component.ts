@@ -8,7 +8,8 @@ import { PostService } from '../_services/post.service';
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
-  styleUrls: ['./new-post.component.css']
+  styleUrls: ['./new-post.component.css'],
+  providers: [PostService, UserService, PostImageService]
 })
 export class NewPostComponent implements OnInit {
 
