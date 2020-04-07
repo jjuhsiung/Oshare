@@ -22,7 +22,9 @@
         <div id="id_related_product">
             <h2>Related Products</h2>
             <ul *ngFor="let p of relatedProducts" style="margin: 2px;">
-                <img id="id_product_img" src="{{p.ProductImage}}">
+                <a href="/product">
+                    <img id="id_product_img" src="{{p.ProductImage}}">
+                </a>
                 <span style="font-size: 18px">
                     {{p.title}}
                 </span>
@@ -44,7 +46,7 @@
     </div>
 
     <div id="id_comment_container">
-        <form [formGroup]="commentForm" (submit)="onSubmit()">
+        <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
             <div id="id_comment_input">
                 <label style="font-size: 20px;" for="newComment">Leave Comment: &nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input id="id_input_textbox" type="text" formControlName="newComment"><br>
