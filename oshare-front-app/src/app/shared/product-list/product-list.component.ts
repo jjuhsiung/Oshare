@@ -1,37 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from '../../_models/product.model';
-import {PRODUCTS} from '../../MockProduct';
-import {ProductListService} from '../../_services/product-list.service';
+import {ProductService} from '../../_services/product.service';
+import {ProductQuery} from '../../_models/ProductQuery';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  providers: [ProductListService]
+  providers: [ProductService]
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[];
+  Products: Array<object> = [];
 
-  constructor(private api: ProductListService) {
-    this.getProducts();
+
+
+  constructor(private api: ProductService) {
+    api.productsupdate.subscribe(data => {
+      this.updateData(data);
+    });
+
+    let mockdata: ProductQuery = new ProductQuery();
+    mockdata.ProductType = '';
+    mockdata.ProductCategory = '';
+    mockdata.ProductTags = '';
+    mockdata.brand = '';
+    mockdata.PriceLessThan = 0;
+    mockdata.PriceGreaterThan = 0;
+    mockdata.RatingLessThan = 0;
+    mockdata.RatingGreaterThan = 0;
+
+    api.getProductsInfo(mockdata);
   }
+
 
   ngOnInit(): void {
   }
 
-  getProducts() {
-    this.products = PRODUCTS;
+  updateData(data: Array<object>): void {
+    this.Products = data;
   }
-  getProductList = () => {
-    this.api.getProductList().subscribe(
-      data => {
-        // TODO: split the data into two parts
-        this.products = data;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
+
 }
