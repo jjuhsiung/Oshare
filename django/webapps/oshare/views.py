@@ -4,7 +4,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from oshare.serializers import UserSerializer, PostSerializer
 from .models import Post
-
+from rest_framework.response import Response
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from './../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,11 +16,15 @@ export class LoginComponent implements OnInit {
   submitted = false;
   loading = false;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router : Router) {
 
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('userToken') != null){
+      this.router.navigate(['/search'])
+    }
+
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -42,11 +47,11 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     let formObj = this.loginForm.getRawValue();
-    console.log(formObj);
     this.userService.loginUser(formObj).subscribe(
       response => {
-        console.log(response);
+        localStorage.setItem('userToken', response.token);
         alert('Logged in successfully!');
+        this.router.navigate(['/search']);
       },
       error =>{
         console.log(error);
