@@ -116,7 +116,7 @@ export class PostService {
         )
     }
 
-    createComment(comment): Observable<any> {
+    createComment(comment: any): Observable<any> {
         console.log(comment)
         return this.http.post(this.baseurl + '/posts/', comment, { headers: this.httpHeaders });
     }
