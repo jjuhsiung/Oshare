@@ -37,7 +37,13 @@
         <div class="form-group">
             <label id="upload-label" for="upload" class="col-form-label col-lg-2">Upload Image: </label>
             <div class="col-lg-3">  
-                <input id="upload" type="file" class="form-control" (change)="fileChanged($event)">
+                <input 
+                    id="upload"
+                    type="file" 
+                    class="form-control" 
+                    accept="image/*"
+                    multiple=""
+                    (change)="fileChanged($event)">
             </div>
         </div>
             
@@ -48,6 +54,6 @@
 
     </form>
         
-
+    <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
 
 </div>

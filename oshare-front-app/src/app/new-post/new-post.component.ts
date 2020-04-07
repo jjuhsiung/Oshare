@@ -14,9 +14,11 @@ import { PostService } from '../_services/post.service';
 export class NewPostComponent implements OnInit {
 
   form;
-  file: File = null;
+  file: File[] = null;
   userURL: string;
-
+  postURL: string;
+  images = [];
+  
   constructor(
     fb: FormBuilder,
     private router: Router, 
@@ -46,47 +48,49 @@ export class NewPostComponent implements OnInit {
   }
 
   fileChanged(event){
-    this.file = <File>event.target.files[0];
+    this.file = <File[]>event.target.files;
   }
 
   createPost(){
-    this.form.getRawValue();
     this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
 
-    var postData = {
-      'user': this.userURL,
-      'title': this.form.get('title').value,
-      'text': this.form.get('text').value,
-      'images': [],
-      'comments': []
-    }
-    var postURL;
+    const formData = new FormData();
+    formData.append('user', this.userURL);
+    formData.append('title', this.form.get('title').value);
+    formData.append('text', this.form.get('text').value);
 
-    this.postService.createPosts(postData).subscribe(
+    this.postService.createPosts(formData).subscribe(
       response => {
-        postURL = response.url;
-        alert('create post!');
+        this.postURL = response.url;
+        //console.log(this.postURL);
+
+        if(this.file!=null){
+
+          for(var i=0; i<this.file.length; i++){
+            const formData = new FormData();
+            formData.append('image', this.file[i], this.file[i].name);
+            formData.append('post', this.postURL);
+            this.postImageService.uploadImage(formData).subscribe(
+              response => {
+                //console.log(response);
+              },
+              error =>{
+                console.log(error);
+              }
+            );
+          }
+
+        }
+        alert('Post successfully create!');
+        this.router.navigate(['/search'])
       },
+      
       error =>{
         console.log(error);
       }
     );
 
-    // if(this.file!=null){
-    //   // console.log(this.file);
-    //   const formData = new FormData();
-    //   formData.append('image', this.file, this.file.name);
-    //   formData.append('post', postURL);
-    //   this.postImageService.uploadImage(formData).subscribe(
-    //     response => {
-    //       console.log(response);
-    //       alert('File successfully upload!');
-    //     },
-    //     error =>{
-    //       console.log(error);
-    //     }
-    //   );
-    // }
+
 
   }
 }
