@@ -37,10 +37,6 @@ class Comment(models.Model):
 #     image = models.ImageField(upload_to='oshare/product_img', null=True, blank=True)
 #     rating = models.FloatField(default=0)
 
-# class ProductCount(models.Model):
-#     product = models.OneToOneField(Product, on_delete=models.CASCADE)
-#     count = models.IntegerField(default=0)
-
 
 class Order(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -51,3 +47,8 @@ class Order(models.Model):
 class Cart(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	total = models.IntegerField(default=0)
+
+class ProductCount(models.Model):
+    product_id = models.IntegerField()
+    count = models.IntegerField(default=0)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
