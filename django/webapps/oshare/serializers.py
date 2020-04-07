@@ -12,26 +12,24 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
-class PostSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Post
-        fields = ['user', 'date', 'likes', 'text']
-
-
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
-        user = UserSerializer()
-        post = PostSerializer()
         fields = ['id', 'user', 'post', 'date', 'text']
-
+        
 
 class PostImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PostImage
-        post = PostSerializer()
-        fields = ['id', 'user', 'date', 'likes', 'text']
-
+        fields = ['id', 'image']
+        
+        
+class PostSerializer(serializers.HyperlinkedModelSerializer):
+    comments = CommentSerializer(many=True)
+    images = PostImageSerializer(many=True)
+    class Meta:
+        model = Post
+        fields = ['id', 'user', 'date', 'likes', 'text', 'images', 'comments']
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

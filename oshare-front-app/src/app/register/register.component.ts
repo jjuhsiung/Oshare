@@ -56,7 +56,6 @@ export class RegisterComponent implements OnInit {
 
   registerUser(){
 
-    this.mapFormToObject();
     this.userService.registerUser(this.form.getRawValue()).subscribe(
       response => {
         alert('User has been created');
@@ -65,13 +64,5 @@ export class RegisterComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  mapFormToObject(){
-    this.registration_form_value.username = this.form.value.username;
-    this.registration_form_value.password = this.form.value.password;
-    this.registration_form_value.first_name = this.form.value.first_name;
-    this.registration_form_value.last_name = this.form.value.last_name;
-    this.registration_form_value.email = this.form.value.email;
   }
 }

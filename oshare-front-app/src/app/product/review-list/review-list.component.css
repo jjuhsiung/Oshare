@@ -1,0 +1,4 @@
+.container.custom-container-width {
+    max-width: 1010px;
+    min-width: 800px;
+}

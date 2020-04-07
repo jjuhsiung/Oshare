@@ -13,8 +13,8 @@ export class PostService {
     imgProd = "https://i.ibb.co/C23xGSj/u221.png";
     imgTemp1 = 'https://upload.wikimedia.org/wikipedia/commons/5/59/That_Poppy_profile_picture.jpg'
     imgTemp = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg'
-
     postSelected = new EventEmitter<Post>();
+    response_object = null;
     private posts: Post[] = [
         new Post(1,
             new User('anns', 'Anna', 'Sue', this.imgTemp),
@@ -51,10 +51,83 @@ export class PostService {
     };
 
     getAllPosts(): Observable<any> {
-        return this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders })
+        this.response_object = this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders })
+        return this.response_object
     }
 
     getPosts() {
+        this.getAllPosts();
+        //console.log(this.posts.slice());
         return this.posts.slice();// get a copy
     }
+
+    getUserByURL(full_url): Observable<any> {
+        this.response_object = this.http.get(full_url, { headers: this.httpHeaders })
+        //console.log(this.response_object)
+        return this.response_object
+    }
+
+    constructPostList() {
+        let post_list: Post[] = [];
+        this.getAllPosts().subscribe(
+            data => {
+                console.log("Yinuod constructPostList invoked");
+                for (let entry of data) {
+                    let post = null;
+                    let id = entry['id'];
+                    let puser: User = null;
+                    this.getUserByURL(entry['user']).subscribe(
+                      user_data => {
+                        // console.log(user_data); 
+                        puser = new User(user_data['username'], user_data['first_name'], user_data['last_name'], "");
+                        console.log(puser);
+                      }
+                    );
+                    //console.log(puser);
+                    let postDate = new Date(entry['date']);
+                    let postText = entry['text'];
+                    let postTitle = "Dummy title";
+                    let likes = entry['likes'];
+                    let comments: Comment[] = [];
+                    for (let comment_data in entry['comments']) {
+                        let comment_obj: Comment;
+                        let c_user: User;
+                        this.getUserByURL(comment_data['user']).subscribe(
+                            c_data => {
+                                // console.log(c_data); 
+                                c_user = new User(c_data['username'], c_data['first_name'], c_data['last_name'], "");
+                                
+                            }
+                        );
+                        let c_text = comment_data['text'];
+                        comment_obj = new Comment(c_user, c_text);
+                        
+                        comments.push(comment_obj);
+                    }
+                    post = new Post(id, puser, "", postDate, postText, postTitle, comments, likes, null);
+                    // console.log(post);
+                    post_list.push(post);
+                  }
+            },
+            error => {
+              console.log(error);
+            }
+        )
+        console.log(post_list);
+        // this.posts = post_list;
+    }
+
+    // add post(logged_in_user_id, post_content)
+
+    // add comment to post(logged_in_user_id, target_post_id, comment_content)
+
+    // update post_like(post_id, like_num)
+
+    // load posts according to product(post的product list包含该product_id )
+
+    // load posts according for search home page
+    // What rules are we going to use?
+
+    // load posts for logged in user(logged_in_user_id)
+    
 }

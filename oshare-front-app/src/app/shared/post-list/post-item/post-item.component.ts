@@ -16,6 +16,7 @@ export class PostItemComponent implements OnInit {
 
   // Post detail page could subscribe to this event and use information in this.post
   onSelected() {
+    //console.log("On Selected");
     this.postService.postSelected.emit(this.post);
   }
 }
