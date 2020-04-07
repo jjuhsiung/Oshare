@@ -6,11 +6,14 @@ import {ProductQuery} from '../_models/ProductQuery';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService {
   baseurl = 'http;//127.0.0.1:8000';
   remoteurl = '/api';
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   productsupdate = new Subject<Array<object>>();
+
+  currentproduct: any;
 
   constructor(private http: HttpClient) {
   }
@@ -49,6 +52,7 @@ export class ProductService {
     console.log(para);
 
     this.http.get<Array<object>>(this.remoteurl, {headers: this.httpHeaders, params: para}).subscribe(data => {
+      this.currentproduct = data;
       this.productsupdate.next(data);
     });
   }

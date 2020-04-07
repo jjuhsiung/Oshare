@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductService} from '../../_services/product.service';
+import {ProductQuery} from '../../_models/ProductQuery';
 
 @Component({
   selector: 'app-search-bar',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchBarComponent implements OnInit {
 
-  constructor() { }
+  categry = '';
+  brand = '';
+  query = new ProductQuery();
+  constructor(private api: ProductService) { }
 
   ngOnInit(): void {
+  }
+
+  DoSearch(): void {
+    console.log(this.brand);
+    console.log(this.categry);
+    this.query.ProductTags = '';
+    this.query.ProductType = '';
+    this.query.brand = this.brand;
+    this.query.ProductCategory = this.categry;
+    this.api.getProductsInfo(this.query);
   }
 
 }
