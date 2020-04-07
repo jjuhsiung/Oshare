@@ -13,7 +13,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField()
     likes = models.IntegerField(default=0)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, null=True, default='python')
     text = models.CharField(max_length=1500)
     #products = models.ManyToManyField('Product')
     
