@@ -1,12 +1,12 @@
 import { PostService } from './../../_services/post.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Postdetail } from 'src/app/_models/postdetail.model';
 import { Comment } from 'src/app/_models/comment.model';
 import { PostdetailService } from '../../_services/postdetail.service';
 import { Product } from 'src/app/_models/product.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Post } from 'src/app/_models/post.model';
 
 @Component({
   selector: 'app-post-detail',
@@ -17,7 +17,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class PostDetailComponent implements OnInit {
 
 
-  postDetail: Postdetail;
+  postDetail: Post;
   postComments: Comment[]
   relatedProducts: Product[]
   commentForm: FormGroup;
