@@ -20,31 +20,33 @@ export class ProductService {
   }
 
   getProductsInfo(query: ProductQuery) {
-    const para = new HttpParams();
-    if (query.ProductType !== ''){
-      para.set('product_type', query.ProductType);
+    console.log(query);
+    let para = new HttpParams();
+    if (query.ProductType != ''){
+      para = para.set('product_type', query.ProductType);
     }
-    if (query.ProductCategory !== ''){
-      para.set('product_category', query.ProductCategory);
+    if (query.ProductCategory != ''){
+      para = para.set('product_category', query.ProductCategory);
     }
-    if (query.ProductTags !== ''){
-      para.set('product_tags', query.ProductTags);
+    if (query.ProductTags != ''){
+      para = para.set('product_tags', query.ProductTags);
     }
-    if (query.brand !== ''){
-      para.set('brand', query.brand);
+    if (query.brand != ''){
+      para = para.set('brand', query.brand);
     }
     if (query.PriceGreaterThan > 0){
-      para.set('price_greater_than', query.PriceGreaterThan.toString());
+       para = para.set('price_greater_than', query.PriceGreaterThan.toString());
     }
     if (query.PriceLessThan > 0){
-      para.set('price_less_than', query.PriceLessThan.toString());
+      para = para.set('price_less_than', query.PriceLessThan.toString());
     }
     if (query.RatingGreaterThan > 0){
-      para.set('rating_greater_than', query.RatingGreaterThan.toString());
+      para = para.set('rating_greater_than', query.RatingGreaterThan.toString());
     }
     if (query.RatingLessThan > 0){
-      para.set('rating_less_than', query.RatingLessThan.toString());
+      para = para.set('rating_less_than', query.RatingLessThan.toString());
     }
+    console.log(para);
 
     this.http.get<Array<object>>(this.remoteurl, {headers: this.httpHeaders, params: para}).subscribe(data => {
       this.productsupdate.next(data);
