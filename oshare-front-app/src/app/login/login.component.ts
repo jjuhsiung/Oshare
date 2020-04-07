@@ -49,7 +49,9 @@ export class LoginComponent implements OnInit {
     let formObj = this.loginForm.getRawValue();
     this.userService.loginUser(formObj).subscribe(
       response => {
+        //console.log(response);
         localStorage.setItem('userToken', response.token);
+        localStorage.setItem('userId', response.id);
         alert('Logged in successfully!');
         this.router.navigate(['/search']);
       },
