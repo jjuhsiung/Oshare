@@ -1,3 +1,5 @@
+import { PostImageService } from './_services/post-image.service';
+import { UserService } from './_services/user.service';
 import { NewPostComponent } from './new-post/new-post.component';
 import { CheckoutService } from './_services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -84,7 +86,10 @@ const appRoutes: Routes = [
   ],
   providers: [
     CartService,
-    CheckoutService],
+    CheckoutService,
+    UserService,
+    PostImageService,
+    PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
