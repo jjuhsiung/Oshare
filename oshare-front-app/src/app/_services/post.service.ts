@@ -76,10 +76,14 @@ export class PostService {
                     let post = null;
                     let id = entry['id'];
                     let puser: User = null;
+                    puser = new User("","","","");
                     this.getUserByURL(entry['user']).subscribe(
                       user_data => {
                         // console.log(user_data); 
-                        puser = new User(user_data['username'], user_data['first_name'], user_data['last_name'], "");
+                        puser.username = user_data['username']
+                        puser.firstName = user_data['first_name'];
+                        puser.lastName = user_data['last_name'];
+                        //puser = new User(user_data['username'], user_data['first_name'], user_data['last_name'], "");
                         console.log(puser);
                       }
                     );
