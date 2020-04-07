@@ -21,25 +21,25 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
 class PostImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PostImage
-        fields = ['id', 'image']
+        fields = ['id', 'post', 'image']
         
         
 class PostSerializer(serializers.HyperlinkedModelSerializer):
-    comments = CommentSerializer(many=True)
-    images = PostImageSerializer(many=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    images = PostImageSerializer(many=True, read_only=True)
     class Meta:
         model = Post
-        fields = ['user', 'date', 'likes', 'text', 'images', 'comments']
+        fields = ['id', 'url', 'user', 'date', 'likes', 'title', 'text', 'images', 'comments']
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Order
-        user = UserSerializer()
+        user = UserSerializer(read_only=True)
         fields = ['id', 'user', 'total', 'ship_addr', 'order_time']
 
 
 class CartSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Cart
-        user = UserSerializer()
+        user = UserSerializer(read_only=True)
         fields = ['id', 'user', 'total']
