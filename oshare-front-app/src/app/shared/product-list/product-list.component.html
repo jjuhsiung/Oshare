@@ -1,25 +1,16 @@
 <div class="container mt-2 justify-content-center">
-  <div class="row row-cols-3">
-    <div *ngFor="let product of this.products" class="col">
-      <img src="{{product.ProductImage}}" width="200px" height="200px">
-<!--      <ul class="list-group list-group-flush" width="200px">-->
-<!--        <li class="list-group-item d-flex justify-content-between">-->
-<!--          {{product.title | uppercase}}-->
-<!--          <img src="assets/img/heart.svg">-->
-<!--        </li>-->
-<!--        <li class="list-group-item d-flex justify-content-between">-->
-<!--          <img src="assets/img/chat.svg">-->
-<!--          {{product.comment | lowercase}}-->
-<!--        </li>-->
-<!--      </ul>-->
+  <div class="row row-cols-3 justify-content-center">
+    <div *ngFor="let product of this.Products" class="col">
+      <img src="{{product.image_link}}" width="200px" height="200px" alt="">
+
       <div class="border-1 p-2" >
         <div class="row border-2 d-flex justify-content-between" width="250px">
-          {{product.title | uppercase}}
+          {{product.name}}
           <img src="assets/img/heart.svg">
         </div>
         <div class="row border-2 d-flex justify-content-between" width="250px">
           <img src="assets/img/chat.svg">
-          {{product.comment | lowercase}}
+          {{product.brand}}
         </div>
       </div>
     </div>
