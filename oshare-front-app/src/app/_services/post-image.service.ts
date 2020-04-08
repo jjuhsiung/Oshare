@@ -17,6 +17,7 @@ export class PostImageService {
   }
 
   getImageByUrl(image_url): Observable<any>{
+    console.log(image_url);
     return this.httpClient.get(image_url, { headers: this.httpHeaders })
   }
 
