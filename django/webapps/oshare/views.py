@@ -38,9 +38,10 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def post_of_selected_user(self, request, *args, **kwargs):
-        selcted_user = int(kwargs['selected_id'])
+        print(request.GET['selected_id'])
+        selected_user = int(request.GET['selected_id'])
         queryset = Post.objects.filter(user=selected_user)
-        serializer = PostSerializer(queryset, many=True)
+        serializer = PostSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
     @action(detail=True, methods=['post'])
