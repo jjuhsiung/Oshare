@@ -47,12 +47,13 @@ class PostViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def update_post_likes(self, request, *args, **kwargs):
         print("invoked")
-        latest_like = int(kwargs['latest_like'])
+        latest_like = int(request.GET['latest_like'])
         print(latest_like)
         post = self.get_object()
         print(post)
-        post.update(likes=latest_like)
-        serializer = PostSerializer(post, many=True)
+        queryset = Post.objects.filter(id=post.id)
+        queryset.update(likes=latest_like)
+        serializer = PostSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
 class CommentViewSet(viewsets.ModelViewSet):
