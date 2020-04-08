@@ -52,6 +52,7 @@ export class PostService {
     }
 
     constructPostList() {
+        this.post_list.length = 0;
         this.getAllPosts().subscribe(
             data => {
               console.log(data);
