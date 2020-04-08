@@ -1,4 +1,5 @@
 export class ProductQuery {
+  id = 0;
   ProductType: string;
   ProductCategory: string;
   ProductTags: string;
