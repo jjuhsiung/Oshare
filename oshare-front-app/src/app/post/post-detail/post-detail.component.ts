@@ -1,87 +1,109 @@
+import { CommentService } from './../../_services/comment.service';
+import { UserService } from './../../_services/user.service';
 import { PostService } from './../../_services/post.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SystemJsNgModuleLoader } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Comment } from 'src/app/_models/comment.model';
-import { PostdetailService } from '../../_services/postdetail.service';
 import { Product } from 'src/app/_models/product.model';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from 'src/app/_models/post.model';
+import { User } from 'src/app/_models/user.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.css'],
-  providers: [PostService]
+  providers: [PostService, UserService, CommentService]
 })
 export class PostDetailComponent implements OnInit {
+  comments = [{ newComment: 'test' }]
 
-
-  postDetail: Post;
-  postComments: Comment[]
+  postId: number;
+  post: Post;
+  user: User;
+  postComments: Comment[] = [];
   relatedProducts: Product[]
   commentForm: FormGroup;
   loading = false;
   liked = false;
   likesNum = 0;
   response_object = null;
-  constructor(private formBuilder: FormBuilder,
-    private postDetailService: PostdetailService, private postService: PostService, private http: HttpClient) {
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private postService: PostService,
+    private userService: UserService,
+    private commentService: CommentService,
+    private route: ActivatedRoute) {
+
+    this.user = new User();
+    this.post = new Post(this.postId, this.user)
+
     this.commentForm = this.formBuilder.group({
-      username: '',
-      firstName: '',
-      lastName: '',
       newComment: ''
     });
-    this.getPosts(); //Add by Fiona
-  }
-  httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
-  // Add by yinuod
-  getUserByURL(full_url): Observable<any> {
-      this.response_object = this.http.get(full_url, { headers: this.httpHeaders })
-      //console.log(this.response_object)
-      return this.response_object
-  }
 
-  //Add by Fiona
-  getPosts = () => {
-    this.postService.getAllPosts().subscribe(
-      data => {
-        this.postDetail = data;
-        console.log("Fiona getAllPosts invoked");
-        console.log(data);
-        // for (let entry of data) {
-        //   this.getUserByURL(entry['user']).subscribe(
-        //     user_data => {
-        //       console.log(user_data); 
-        //     }
-        //   );
-        // }
-      
-      },
-      error => {
-        console.log(error);
-      }
+    this.likesNum = this.likesNum;
 
-    )
   }
-
 
   ngOnInit(): void {
-    console.log("--oninit--");
-    this.postComments = this.postDetailService.getComments();
-    this.postDetail = this.postDetailService.getPost();
-    this.relatedProducts = this.postDetailService.getProducts();
-    this.likesNum = this.likesNum;
-    console.log(this.postComments + " comments")
-    console.log(this.relatedProducts)
+
+    this.route.paramMap.subscribe(
+      params => {
+        this.postId = Number(params.get('id'));
+      });
+    this.postService.getPostById(this.postId).subscribe(
+      response => {
+        this.userService.getUserObjectByURL(response.user).subscribe(
+          userdata => {
+            this.post.user.firstName = userdata.first_name;
+            this.post.user.lastName = userdata.last_name;
+            this.post.user.username = userdata.username;
+          }, error => {
+            console.log(error);
+          }
+        );
+        this.post.postDate = response.date;
+        this.post.postTitle = response.title;
+        this.post.postText = response.text;
+        this.post.likes = response.likes;
+        this.post.imagePath = response.images[0].image;
+        this.post.comments = [];
+        var commentArr = response.comments;;
+        for (var i = 0; i < commentArr.length; i++) {
+          console.log(commentArr[i].text);
+          let comment = new Comment(new User(), commentArr[i].text);
+          this.userService.getUserObjectByURL(commentArr[i].user).subscribe(
+            userdata => {
+              comment.user.firstName = userdata.first_name;
+              comment.user.lastName = userdata.last_name;
+              comment.user.username = userdata.username;
+              this.post.comments.push(comment);
+            }, error => {
+              console.log(error);
+            }
+          );
+        }
+        console.log(this.post.comments);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 
-  onSubmit() {
-    //do sth
-    this.loading = true;
-    console.log(this.commentForm.value['newComment']);
-    this.commentForm.reset();
+  onCommentSubmit() {
+    const formdata = new FormData();
+    formdata.append('user', this.userService.getUserURLById(localStorage.getItem('userId')));
+    formdata.append('post', this.postService.getPostUrlById(this.postId));
+    formdata.append('text', this.commentForm.get('newComment').value);
+    this.commentService.writeComment(formdata).subscribe(
+      response => {
+      }, error => {
+        console.log(error);
+      }
+    );
+    window.location.reload();
   }
 
   onLike() {

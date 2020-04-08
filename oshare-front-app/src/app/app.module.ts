@@ -1,3 +1,6 @@
+import { PostImageService } from './_services/post-image.service';
+import { UserService } from './_services/user.service';
+import { NewPostComponent } from './new-post/new-post.component';
 import { CheckoutService } from './_services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,7 +18,6 @@ import { ProductListComponent } from './shared/product-list/product-list.compone
 import { ProductItemComponent } from './shared/product-list/product-item/product-item.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ReviewListComponent } from './product/review-list/review-list.component';
-import { ReviewItemComponent } from './product/review-list/review-item/review-item.component';
 import { PostItemComponent } from './shared/post-list/post-item/post-item.component';
 import { HomeSearchComponent } from './home-search/home-search.component';
 import { SearchResultComponent } from './search-result/search-result.component';
@@ -38,13 +40,14 @@ const appRoutes: Routes = [
   { path: 'post-item', component: PostItemComponent },
   { path: 'search', component: HomeSearchComponent },
   { path: 'search-result', component: SearchResultComponent },
-  { path: 'post', component: PostComponent },
+  { path: 'post/:id', component: PostComponent },
   { path: 'product', component: ProductComponent },
   { path: 'product-list', component: ProductListComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'new-post', component: NewPostComponent }
 ];
 
 @NgModule({
@@ -61,7 +64,6 @@ const appRoutes: Routes = [
     ProductItemComponent,
     ProductDetailComponent,
     ReviewListComponent,
-    ReviewItemComponent,
     PostItemComponent,
     HomeSearchComponent,
     SearchResultComponent,
@@ -72,7 +74,8 @@ const appRoutes: Routes = [
     PostComponent,
     PostDetailComponent,
     NavigationBarComponent,
-    RegisterComponent
+    RegisterComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +86,10 @@ const appRoutes: Routes = [
   ],
   providers: [
     CartService,
-    CheckoutService],
+    CheckoutService,
+    UserService,
+    PostImageService,
+    PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

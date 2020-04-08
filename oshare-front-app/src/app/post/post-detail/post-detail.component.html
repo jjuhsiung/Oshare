@@ -1,55 +1,59 @@
-<div>
+<div class="mb-lg-5 mx-lg-5">
+
     <div id="id_post_container">
-        <div id="id_post_header">
-            <div id="id_post_name">
-                <a href="/profile">
-                    <img id="id_profile_picture" src="{{postDetail.user.profileImg}}">
-                </a>
-                <span>{{postDetail.user.firstName}} </span>
-                <span>{{postDetail.user.lastName}} | {{likesNum}} likes</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="font-size: 12px;"> {{postDetail.postDate}} </span><br>
-            </div><br>
-            <div>
-                <span id="id_post_title"
-                    style="font-size: 40px; color: cadetblue; padding: 20px;">{{postDetail.postTitle}}</span>
-                <input type="button" id="id_like_btn" (click)="onLike()" value="❤️">
+        <div class="row">
+            <div id="id_post_header">
+                <div id="id_post_name">
+                    <a href="/profile">
+                        <img id="id_profile_picture" src="{{post.user.profileImg}}" class="img-thumbnail">
+                    </a>
+                    <span>{{post.user.firstName}} </span>
+                    <span>{{post.user.lastName}} | {{likesNum}} likes</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span style="font-size: 12px;"> {{post.postDate}} </span><br>
+                </div><br>
+                <div>
+                    <span id="id_post_title">{{post.postTitle}}</span>
+                    <input type="button" id="id_like_btn" (click)="onLike()" value="❤️">
+                </div>
             </div>
         </div>
-        <img id="id_post_img" src="{{postDetail.imagePath}}" />
-        <div id="id_post_text">
-            <p>{{postDetail.postText}}</p>
-        </div><br>
-        <div id="id_related_product">
-            <h2>Related Products</h2>
-            <ul *ngFor="let p of relatedProducts" style="margin: 2px;">
-                <img id="id_product_img" src="{{p.ProductImage}}">
-                <span style="font-size: 18px">
-                    {{p.title}}
-                </span>
-            </ul>
+        <div class="column">
+            <img id="id_post_img" src="{{post.imagePath}}">
+            <div id="id_post_text">
+                <p>{{post.postText}}</p><br>
+            </div><br>
+            <div id="id_related_product">
+                <h2>Related Products</h2>
+                <ul *ngFor="let p of relatedProducts" style="margin: 2px;">
+                    <a href="/product">
+                        <img id="id_product_img" src="{{p.ProductImage}}">
+                    </a>
+                    <span style="font-size: 18px">
+                        {{p.title}}
+                    </span>
+                </ul>
+            </div>
         </div>
-    </div><br>
+    </div>
 
     <div id="id_related_comments">
-        <ul *ngFor="let cmt of postComments" style="margin: 2px;">
+        <h2>Comment</h2>
+        <ul *ngFor="let cmt of post.comments" style="margin: 2px;">
             <a href="/profile">
                 <img id="id_comment_img" src="{{cmt.user.profileImg}}">
-            </a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span>
-                {{cmt.commentText}}
-            </span>
-            <br><span style="font-size: 15px;">{{cmt.user.firstName}} {{cmt.user.lastName}}</span>
-            <span style="font-size: 12px;"> at {{cmt.commentTime}}</span><br><br>
-        </ul>
+            </a>
+            <h3>{{cmt.commentText}}</h3>
+            <h3>{{cmt.user.firstName}} {{cmt.user.lastName}} {{cmt.commentTime}}</h3>
+        </ul><br>
+        <div>
+            <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
+                <div id="id_comment_input">
+                    <label for="newComment">Leave Comment:</label>
+                    <input id="id_input_textbox" type="text" formControlName="newComment"><br>
+                    <button class="btn btn-light" type="submit" id="id_submit_btn">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div id="id_comment_container">
-        <form [formGroup]="commentForm" (submit)="onSubmit()">
-            <div id="id_comment_input">
-                <label style="font-size: 20px;" for="newComment">Leave Comment: &nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input id="id_input_textbox" type="text" formControlName="newComment"><br>
-                <button id="id_submit_btn">Submit</button>
-            </div><br><br><br><br><br>
-        </form>
-    </div>
 </div>
