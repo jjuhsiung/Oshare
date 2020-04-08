@@ -64,6 +64,10 @@ export class PostService {
         return this.posts.slice();// get a copy
     }
 
+    updatePostLikes(selected_post: Post, latest_like: Number) {
+      return this.http.post<any>(this.baseurl + '/posts/' + selected_post.postId + '/update_post_likes/?latest_like=' + latest_like, "")
+    }
+
     getUserObservableByURL(full_url): Observable<any> {
         this.response_object = this.http.get(full_url, { headers: this.httpHeaders })
         //console.log(this.response_object)

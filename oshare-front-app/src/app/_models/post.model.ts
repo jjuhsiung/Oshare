@@ -10,11 +10,11 @@ export class Post {
     public postText: string;
     public postTitle: string;
     public comments: Comment[];
-    public likes: Number;
+    public likes: number;
     public relatedProducts: Product[]
 
     constructor(postId: Number, user: User, imagePath: string, postDate: Date,
-        postText: string, postTitle: string, comments: Comment[], likes: Number, relatedProducts: Product[]) {
+        postText: string, postTitle: string, comments: Comment[], likes: number, relatedProducts: Product[]) {
         this.postId = postId;
         this.user = user;
         this.imagePath = imagePath;

@@ -14,6 +14,18 @@ export class PostItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  likeBtnClicked() {
+    let adder = 0;
+    this.postService.updatePostLikes(this.post, this.post.likes + adder ).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  }
+
   // Post detail page could subscribe to this event and use information in this.post
   onSelected() {
     //console.log("On Selected");
