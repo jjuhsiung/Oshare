@@ -111,19 +111,4 @@ export class PostService {
         return this.baseurl + '/posts/' + post_id + '/';
     }
 
-
-
-    // add post(logged_in_user_id, post_content)
-
-    // add comment to post(logged_in_user_id, target_post_id, comment_content)
-
-    // update post_like(post_id, like_num)
-
-    // load posts according to product(post的product list包含该product_id )
-
-    // load posts according for search home page
-    // What rules are we going to use?
-
-    // load posts for logged in user(logged_in_user_id)
-
 }
