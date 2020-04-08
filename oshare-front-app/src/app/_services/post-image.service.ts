@@ -13,7 +13,7 @@ export class PostImageService {
   httpHeaders = new HttpHeaders({ 'Content-Type': 'multipart/form-data'});
 
   uploadImage(imageData): Observable<any>{
-    return this.httpClient.post(this.baseurl + '/postImages/', imageData);
+    return this.httpClient.post<any>(this.baseurl + '/postImages/', imageData);
   }
 
 }
