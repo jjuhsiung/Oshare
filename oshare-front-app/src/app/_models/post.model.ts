@@ -13,8 +13,8 @@ export class Post {
     public likes: Number;
     public relatedProducts: Product[]
 
-    constructor(postId: Number, user: User, imagePath: string, postDate: Date,
-        postText: string, postTitle: string, comments: Comment[], likes: Number, relatedProducts: Product[]) {
+    constructor(postId?: Number, user?: User, imagePath?: string, postDate?: Date,
+        postText?: string, postTitle?: string, comments?: Comment[], likes?: Number, relatedProducts?: Product[]) {
         this.postId = postId;
         this.user = user;
         this.imagePath = imagePath;

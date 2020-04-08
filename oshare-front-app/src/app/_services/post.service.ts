@@ -16,31 +16,6 @@ export class PostService {
     postSelected = new EventEmitter<Post>();
     response_object = null;
     public post_list: Post[] = [];
-    private posts: Post[] = [
-        new Post(1,
-            new User('anns', 'Anna', 'Sue', this.imgTemp),
-            'https://www.sephora.com/contentimages/homepage/032420/Homepage/DesktopMweb/2020-03-25-hp-slideshow-just-arrived-cyoa-us-m-slice.jpg',
-            new Date(),
-            'Components shouldnt fetch or save data directly and they certainly shouldnt knowingly present fake data. ' +
-            'They should focus on presenting data and delegate data access to a service. In this tutorial, youll create a HeroService that all application classes can use to get heroes.' +
-            ' Instead of creating that service with the new keyword, youll rely on Angular dependency injection to inject it into the HeroesComponent constructor. Services are a great way' +
-            'to share information among classes that dont know each other',
-            'Know your brushes',
-            [new Comment(new User('anns', 'Anna', 'Sui', this.imgTemp1), 'Nice post, keep it up!'),
-            new Comment(new User('anns', 'Bobby', 'Han', this.imgTemp1), 'I really like your content!'),
-            ], 200,
-            [new Product('brush', '5', 30, 'desc', this.imgProd, ''), new Product('Lipstick', '5', 30, 'desc', this.imgProd, '')]),
-        new Post(2,
-            new User('anns', 'Anna', 'Sue', this.imgTemp),
-            'https://www.sephora.com/contentimages/homepage/032420/Homepage/DesktopMweb/2020-03-25-hp-slideshow-just-arrived-cyoa-us-m-slice.jpg',
-            new Date(),
-            'Components shouldnt fetch or save data directly and they certainly shouldnt knowingly present fake data. ' +
-            'They should focus on presenting data and delegate data access to a service. In this tutorial, youll create a HeroService that all application classes can use to get heroes.',
-            'New makeups',
-            [new Comment(new User('anns', 'Anna', 'Sui', this.imgTemp1), 'Nice post, keep it up!'),
-            new Comment(new User('anns', 'Bobby', 'Han', this.imgTemp1), 'I really like your content!'),
-            ], 100, [new Product('lipbalm', '2', 120, 'desc', this.imgProd, '')])
-    ];
 
     baseurl = "http://127.0.0.1:8000";
     httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -56,12 +31,6 @@ export class PostService {
 
     createPosts(postData): Observable<any> {
         return this.http.post<any>(this.baseurl + '/posts/', postData)
-    }
-
-    getPosts() {
-        this.getAllPosts();
-        //console.log(this.posts.slice());
-        return this.posts.slice();// get a copy
     }
 
     getUserObservableByURL(full_url): Observable<any> {
@@ -116,9 +85,13 @@ export class PostService {
         )
     }
 
-    createComment(comment: any): Observable<any> {
-        console.log(comment)
-        return this.http.post(this.baseurl + '/posts/', comment, { headers: this.httpHeaders });
+    getPostById(post_id: number): Observable<any> {
+        this.response_object = this.http.get(this.baseurl + '/posts/' + post_id + '/', { headers: this.httpHeaders })
+        return this.response_object;
+    }
+
+    getPostUrlById(post_id: number){
+        return this.baseurl + '/posts/' + post_id + '/';
     }
 
     // add post(logged_in_user_id, post_content)
