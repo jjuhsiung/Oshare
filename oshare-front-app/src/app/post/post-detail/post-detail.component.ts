@@ -32,35 +32,35 @@ export class PostDetailComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private postService: PostService,
-    private userService: UserService, 
+    private userService: UserService,
     private commentService: CommentService,
     private route: ActivatedRoute) {
-  
+
     this.user = new User();
     this.post = new Post(this.postId, this.user)
 
     this.commentForm = this.formBuilder.group({
       newComment: ''
     });
-    
+
     this.likesNum = this.likesNum;
 
   }
 
   ngOnInit(): void {
-    
+
     this.route.paramMap.subscribe(
       params => {
         this.postId = Number(params.get('id'));
-    });
+      });
     this.postService.getPostById(this.postId).subscribe(
       response => {
         this.userService.getUserObjectByURL(response.user).subscribe(
-          userdata =>{
+          userdata => {
             this.post.user.firstName = userdata.first_name;
             this.post.user.lastName = userdata.last_name;
             this.post.user.username = userdata.username;
-          }, error =>{
+          }, error => {
             console.log(error);
           }
         );
@@ -71,34 +71,34 @@ export class PostDetailComponent implements OnInit {
         this.post.imagePath = response.images[0].image;
         this.post.comments = [];
         var commentArr = response.comments;;
-        for(var i=0; i<commentArr.length; i++){
+        for (var i = 0; i < commentArr.length; i++) {
           console.log(commentArr[i].text);
           let comment = new Comment(new User(), commentArr[i].text);
           this.userService.getUserObjectByURL(commentArr[i].user).subscribe(
-            userdata =>{
+            userdata => {
               comment.user.firstName = userdata.first_name;
               comment.user.lastName = userdata.last_name;
               comment.user.username = userdata.username;
               this.post.comments.push(comment);
-            }, error =>{
+            }, error => {
               console.log(error);
             }
           );
         }
         console.log(this.post.comments);
-      }, error =>{
+      }, error => {
         console.log(error);
       }
     );
   }
 
-  onCommentSubmit(){
+  onCommentSubmit() {
     const formdata = new FormData();
     formdata.append('user', this.userService.getUserURLById(localStorage.getItem('userId')));
     formdata.append('post', this.postService.getPostUrlById(this.postId));
     formdata.append('text', this.commentForm.get('newComment').value);
     this.commentService.writeComment(formdata).subscribe(
-      response =>{
+      response => {
       }, error => {
         console.log(error);
       }
