@@ -29,14 +29,6 @@ class Comment(models.Model):
     date = models.DateTimeField(default = timezone.now)
     text = models.CharField(max_length=300)
 
-# class Product(models.Model):
-#     name = models.CharField(max_length=300)
-#     brand = models.CharField(max_length=300)
-#     price = models.FloatField(default=0)
-#     description = models.CharField(max_length=400)
-#     image = models.ImageField(upload_to='oshare/product_img', null=True, blank=True)
-#     rating = models.FloatField(default=0)
-
 
 class Order(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -44,11 +36,25 @@ class Order(models.Model):
 	ship_addr = models.CharField(max_length=100)
 	order_time = models.DateTimeField()
 
+
 class Cart(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	total = models.IntegerField(default=0)
+
 
 class ProductCount(models.Model):
     product_id = models.IntegerField()
     count = models.IntegerField(default=0)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+
+class Product(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=300)
+    brand = models.CharField(max_length=300, null=True)
+    category = models.CharField(max_length=300, null=True)
+    product_type = models.CharField(max_length=300, null=True)
+    price = models.FloatField(default=0.0)
+    price_sign = models.CharField(default="$", max_length=8, null=True)
+    currency = models.CharField(default="USD", max_length=10, null=True)
+    img_link = models.URLField(max_length=300, null=True)
+    description = models.CharField(default='', max_length=500, null=True)

@@ -8,11 +8,10 @@ import {ProductQuery} from '../_models/ProductQuery';
 })
 
 export class ProductService {
-  baseurl = 'http;//127.0.0.1:8000';
-  remoteurl = '/api';
+  baseurl = 'http://127.0.0.1:8000';
+  remoteurl = 'http://127.0.0.1:8000';
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-  productsupdate = new Subject<Array<object>>();
-
+  productsupdate = new Subject<any>();
   currentproduct: any;
 
   constructor(private http: HttpClient) {
@@ -25,11 +24,14 @@ export class ProductService {
   getProductsInfo(query: ProductQuery) {
     console.log(query);
     let para = new HttpParams();
+    if (query.id != 0) {
+      para = para.set('id', query.id.toString());
+    }
     if (query.ProductType != ''){
-      para = para.set('product_type', query.ProductType);
+      para = para.set('type', query.ProductType);
     }
     if (query.ProductCategory != ''){
-      para = para.set('product_category', query.ProductCategory);
+      para = para.set('category', query.ProductCategory);
     }
     if (query.ProductTags != ''){
       para = para.set('product_tags', query.ProductTags);
@@ -51,9 +53,17 @@ export class ProductService {
     }
     console.log(para);
 
-    this.http.get<Array<object>>(this.remoteurl, {headers: this.httpHeaders, params: para}).subscribe(data => {
-      this.currentproduct = data;
+    this.http.get<any>(this.baseurl + '/get_product', {headers: this.httpHeaders, params: para}).subscribe(data => {
       this.productsupdate.next(data);
     });
   }
+
+  addToCart(id){
+    let para = new HttpParams();
+    para = para.set('id', id.toString());
+    this.http.get<any>(this.baseurl + '/add_to_cart', {headers: this.httpHeaders, params: para}).subscribe(data => {
+      this.productsupdate.next(data);
+    });
+  }
+
 }

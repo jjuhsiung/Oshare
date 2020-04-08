@@ -33,22 +33,22 @@ export class PostService {
 
     updatePostLikes(post: Post, latest_like: number): Observable<any> {
       // /update_post_likes/?latest_like=10
-      return this.http.post<any>(this.baseurl + '/posts/' + post.postId + '/update_post_likes/' + '?latest_like=' + latest_like, "")
+      return this.http.post<any>(this.baseurl + '/posts/' + post.postId + '/update_post_likes/' + '?latest_like=' + latest_like, "");
     }
 
     getAllPosts(): Observable<any> {
-        this.response_object = this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders })
-        return this.response_object
+        this.response_object = this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders });
+        return this.response_object;
     }
 
     createPosts(postData): Observable<any> {
-        return this.http.post<any>(this.baseurl + '/posts/', postData)
+        return this.http.post<any>(this.baseurl + '/posts/', postData);
     }
 
     getUserObservableByURL(full_url): Observable<any> {
-        this.response_object = this.http.get(full_url, { headers: this.httpHeaders })
+        this.response_object = this.http.get(full_url, { headers: this.httpHeaders });
         //console.log(this.response_object)
-        return this.response_object
+        return this.response_object;
     }
 
     constructPostList() {
@@ -71,11 +71,11 @@ export class PostService {
                     let image_path = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg';
                     if (entry['images'].length !== 0) {
                       console.log(entry['images'][0]['image']);
-                      image_path = this.postImageService.getImagePath(entry['images'][0]['image']);
+                      image_path = entry['images'][0]['image'];
                     }
                     let postDate = new Date(entry['date']);
                     let postText = entry['text'];
-                    let postTitle = "Dummy title";
+                    let postTitle = entry['title'];
                     let likes = entry['likes'];
                     let postComments: Comment[] = [];
                     for (let comment_data of entry['comments']) {
