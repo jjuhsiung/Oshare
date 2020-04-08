@@ -5,23 +5,22 @@
             <div id="id_post_header">
                 <div id="id_post_name">
                     <a href="/profile">
-                        <img id="id_profile_picture" src="{{post.user.profileImg}}">
+                        <img id="id_profile_picture" src="{{post.user.profileImg}}" class="img-thumbnail">
                     </a>
                     <span>{{post.user.firstName}} </span>
                     <span>{{post.user.lastName}} | {{likesNum}} likes</span>&nbsp;&nbsp;&nbsp;&nbsp;
                     <span style="font-size: 12px;"> {{post.postDate}} </span><br>
                 </div><br>
                 <div>
-                    <span id="id_post_title"
-                        style="font-size: 40px; color: cadetblue; padding: 20px;">{{post.postTitle}}</span>
+                    <span id="id_post_title">{{post.postTitle}}</span>
                     <input type="button" id="id_like_btn" (click)="onLike()" value="❤️">
                 </div>
             </div>
         </div>
-        <div class="row">
-            <img id="id_post_img" src="{{post.imagePath}}" />
+        <div class="column">
+            <img id="id_post_img" src="{{post.imagePath}}">
             <div id="id_post_text">
-                <p>{{post.postText}}</p>
+                <p>{{post.postText}}</p><br>
             </div><br>
             <div id="id_related_product">
                 <h2>Related Products</h2>
@@ -38,24 +37,23 @@
     </div>
 
     <div id="id_related_comments">
-            <h2>Comment</h2>
-            <ul *ngFor="let cmt of post.comments" style="margin: 2px;">
-                <a href="/profile">
-                    <img id="id_comment_img" src="{{cmt.user.profileImg}}">
-                </a>
-                <h3>{{cmt.commentText}}</h3>
-                <h3>{{cmt.user.firstName}} {{cmt.user.lastName}} {{cmt.commentTime}}</h3>
-            </ul>
-    <div>
-
-    <div id="id_comment_container">
-        <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
-            <div id="id_comment_input">
-                <label for="newComment">Leave Comment:</label>
-                <input id="id_input_textbox" type="text" formControlName="newComment">
-                <button class="btn btn-light" type="submit" id="id_submit_btn">Submit</button>
-            </div>
-        </form>
+        <h2>Comment</h2>
+        <ul *ngFor="let cmt of post.comments" style="margin: 2px;">
+            <a href="/profile">
+                <img id="id_comment_img" src="{{cmt.user.profileImg}}">
+            </a>
+            <h3>{{cmt.commentText}}</h3>
+            <h3>{{cmt.user.firstName}} {{cmt.user.lastName}} {{cmt.commentTime}}</h3>
+        </ul><br>
+        <div>
+            <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
+                <div id="id_comment_input">
+                    <label for="newComment">Leave Comment:</label>
+                    <input id="id_input_textbox" type="text" formControlName="newComment"><br>
+                    <button class="btn btn-light" type="submit" id="id_submit_btn">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 
 </div>
