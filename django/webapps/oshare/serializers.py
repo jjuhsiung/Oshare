@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Post, Comment, PostImage, Order, Cart
+from .models import Post, Comment, PostImage, Order, Cart, Product
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -43,3 +43,9 @@ class CartSerializer(serializers.HyperlinkedModelSerializer):
         model = Cart
         user = UserSerializer(read_only=True)
         fields = ['id', 'user', 'total']
+
+class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'brand', 'category', 'product_type',
+                  'price', 'price_sign', 'currency', 'img_link', 'description']

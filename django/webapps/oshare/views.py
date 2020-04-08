@@ -5,10 +5,18 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
-from oshare.serializers import UserSerializer, PostSerializer, CommentSerializer, PostImageSerializer
+from oshare.serializers import UserSerializer, PostSerializer, CommentSerializer, PostImageSerializer, ProductSerializer
 from .models import Post, Comment, PostImage
 from rest_framework.response import Response
 from rest_framework.decorators import action
+
+from django.http import HttpResponse, HttpRequest, JsonResponse
+from .models import Product, ProductCount, Cart
+import json
+
+import urllib
+import json
+from requests.utils import requote_uri
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
@@ -68,3 +76,79 @@ class CommentViewSet(viewsets.ModelViewSet):
 class PostImageViewSet(viewsets.ModelViewSet):
     queryset = PostImage.objects.all()
     serializer_class = PostImageSerializer
+
+
+def update_products_view(request: HttpRequest) -> JsonResponse:
+    # url = "http://makeup-api.herokuapp.com/api/v1/products.json"
+    # url = requote_uri(url)
+    # connection = urllib.request.urlopen(url)
+    with open('./oshare/makeup.json', encoding="utf8") as f:
+        response = json.load(f)
+    # response = json.load(connection)
+    # print(response)
+    for x in response:
+        try:
+            Product.objects.get(id=x['id'])
+        except Product.DoesNotExist:
+            price = 0.0
+            if x['price'] !=None:
+                price = float(x['price'])
+            new_product = Product(
+                id=int(x['id']),
+                name=x['name'],
+                brand=x['brand'],
+                category=x['category'],
+                product_type=x['product_type'],
+                price=price,
+                price_sign=x['price_sign'],
+                currency=x['currency'],
+                img_link=x['image_link'],
+                description=x['description'],
+            )
+            new_product.save()
+    return JsonResponse({})
+
+
+def get_product_view(request: HttpRequest) -> JsonResponse:
+    queryset = Product.objects.filter()
+    keys = request.GET.keys()
+    if 'id' in keys:
+        serializer = ProductSerializer(Product.objects.get(id=request.GET['id']), many=False, context={'request': request})
+        return JsonResponse({'response': serializer.data})
+    if 'name' in keys:
+        queryset.update(name=request.GET['name'])
+    if 'brand' in keys:
+        queryset.update(brand=request.GET['brand'])
+    if 'category' in keys:
+        queryset.update(category=request.GET['category'])
+    if 'type' in keys:
+        queryset.update(product_type=request.GET['id'])
+    serializer = ProductSerializer(queryset, many=True, context={'request': request})
+    return JsonResponse({'response': serializer.data})
+
+
+def add_to_cart_view(request: HttpRequest) -> JsonResponse:
+    data = {}
+    try:
+        product_id = request.GET['id']
+        product = Product.objects.get(id=product_id)
+        cart = Cart.objects.get(user=request.user)
+    except Exception:
+        data["error"] = 'Fail to add to cart'
+        return JsonResponse(data)
+
+    try:
+        cart_product = ProductCount.objects.get(product=product, cart=cart)
+        cart_product.count += 1
+        cart_product.save()
+    except ProductCount.DoesNotExist:
+        cart_product = ProductCount(product=product, count=1, cart=cart)
+        cart_product.save()
+        cart.products.add(cart_product)
+
+    cart.total += 1
+    cart.save()
+    data["cart_count"] = cart.total
+    data["status"] = 'add to cart succeeded!'
+
+    return JsonResponse(data)
