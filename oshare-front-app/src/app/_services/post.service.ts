@@ -5,6 +5,7 @@ import { Post } from '../_models/post.model';
 import { Comment } from '../_models/comment.model';
 import { User } from '../_models/user.model';
 import { Product } from '../_models/product.model';
+import { PostImageService } from './post-image.service'
 
 @Injectable({
     providedIn: 'root'
@@ -20,9 +21,20 @@ export class PostService {
     baseurl = "http://127.0.0.1:8000";
     httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private postImageService: PostImageService) {
         console.log("post-service")
     };
+
+    getPosts() {
+        this.getAllPosts();
+        //console.log(this.posts.slice());
+        return this.post_list.slice();// get a copy
+    }
+
+    updatePostLikes(post: Post, latest_like: number): Observable<any> {
+      // /update_post_likes/?latest_like=10
+      return this.http.post<any>(this.baseurl + '/posts/' + post.postId + '/update_post_likes/' + '?latest_like=' + latest_like, "")
+    }
 
     getAllPosts(): Observable<any> {
         this.response_object = this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders })
@@ -42,6 +54,7 @@ export class PostService {
     constructPostList() {
         this.getAllPosts().subscribe(
             data => {
+              console.log(data);
                 console.log("Yinuod constructPostList invoked");
                 for (let entry of data) {
                     let post = null;
@@ -55,7 +68,11 @@ export class PostService {
                             puser.lastName = user_data['last_name'];
                         }
                     );
-
+                    let image_path = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg';
+                    if (entry['images'].length !== 0) {
+                      console.log(entry['images'][0]['image']);
+                      image_path = this.postImageService.getImagePath(entry['images'][0]['image']);
+                    }
                     let postDate = new Date(entry['date']);
                     let postText = entry['text'];
                     let postTitle = "Dummy title";
@@ -75,7 +92,7 @@ export class PostService {
                         comment_obj = new Comment(c_user, c_text);
                         postComments.push(comment_obj);
                     }
-                    post = new Post(id, puser, 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg', postDate, postText, postTitle, postComments, likes, null);
+                    post = new Post(id, puser, image_path, postDate, postText, postTitle, postComments, likes, null);
                     this.post_list.push(post);
                 }
             },
@@ -93,6 +110,8 @@ export class PostService {
     getPostUrlById(post_id: number){
         return this.baseurl + '/posts/' + post_id + '/';
     }
+
+
 
     // add post(logged_in_user_id, post_content)
 
