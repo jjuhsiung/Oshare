@@ -19,4 +19,16 @@ export class PostItemComponent implements OnInit {
     //console.log("On Selected");
     this.postService.postSelected.emit(this.post);
   }
+
+  likeBtnClicked() {
+    let adder = 0;
+    this.postService.updatePostLikes(this.post, this.post.likes + adder).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }
