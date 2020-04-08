@@ -29,7 +29,7 @@ export class PostService {
             [new Comment(new User('anns', 'Anna', 'Sui', this.imgTemp1), 'Nice post, keep it up!'),
             new Comment(new User('anns', 'Bobby', 'Han', this.imgTemp1), 'I really like your content!'),
             ], 200,
-            [new Product('brush', '5', 30, 'desc', this.imgProd, ''),new Product('Lipstick', '5', 30, 'desc', this.imgProd, '')]),
+            [new Product('brush', '5', 30, 'desc', this.imgProd, ''), new Product('Lipstick', '5', 30, 'desc', this.imgProd, '')]),
         new Post(2,
             new User('anns', 'Anna', 'Sue', this.imgTemp),
             'https://www.sephora.com/contentimages/homepage/032420/Homepage/DesktopMweb/2020-03-25-hp-slideshow-just-arrived-cyoa-us-m-slice.jpg',
@@ -69,7 +69,7 @@ export class PostService {
         //console.log(this.response_object)
         return this.response_object
     }
-    
+
     constructPostList() {
         this.getAllPosts().subscribe(
             data => {
@@ -78,15 +78,15 @@ export class PostService {
                     let post = null;
                     let id = entry['id'];
                     let puser: User = null;
-                    puser = new User("","","",this.imgTemp1);
+                    puser = new User("", "", "", this.imgTemp1);
                     this.getUserObservableByURL(entry['user']).subscribe(
-                      user_data => {
-                        puser.username = user_data['username']
-                        puser.firstName = user_data['first_name'];
-                        puser.lastName = user_data['last_name'];
-                      }
+                        user_data => {
+                            puser.username = user_data['username']
+                            puser.firstName = user_data['first_name'];
+                            puser.lastName = user_data['last_name'];
+                        }
                     );
-                    
+
                     let postDate = new Date(entry['date']);
                     let postText = entry['text'];
                     let postTitle = "Dummy title";
@@ -94,7 +94,7 @@ export class PostService {
                     let postComments: Comment[] = [];
                     for (let comment_data of entry['comments']) {
                         let comment_obj: Comment;
-                        let c_user = new User("","","","");
+                        let c_user = new User("", "", "", "");
                         this.getUserObservableByURL(comment_data['user']).subscribe(
                             c_data => {
                                 c_user.username = c_data['username']
@@ -108,12 +108,17 @@ export class PostService {
                     }
                     post = new Post(id, puser, 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg', postDate, postText, postTitle, postComments, likes, null);
                     this.post_list.push(post);
-                  }
+                }
             },
             error => {
-              console.log(error);
+                console.log(error);
             }
         )
+    }
+
+    createComment(comment: any): Observable<any> {
+        console.log(comment)
+        return this.http.post(this.baseurl + '/posts/', comment, { headers: this.httpHeaders });
     }
 
     // add post(logged_in_user_id, post_content)
@@ -128,5 +133,5 @@ export class PostService {
     // What rules are we going to use?
 
     // load posts for logged in user(logged_in_user_id)
-    
+
 }
