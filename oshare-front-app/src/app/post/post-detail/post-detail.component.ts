@@ -5,10 +5,9 @@ import { Component, OnInit, Input, SystemJsNgModuleLoader } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Comment } from 'src/app/_models/comment.model';
 import { Product } from 'src/app/_models/product.model';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from 'src/app/_models/post.model';
 import { User } from 'src/app/_models/user.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-detail',
@@ -17,10 +16,9 @@ import { User } from 'src/app/_models/user.model';
   providers: [PostService, UserService, CommentService]
 })
 export class PostDetailComponent implements OnInit {
-
-  @Input() postId: number;
   comments = [{ newComment: 'test' }]
 
+  postId: number;
   post: Post;
   user: User;
   postComments: Comment[] = [];
@@ -36,7 +34,7 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private userService: UserService, 
     private commentService: CommentService,
-    private http: HttpClient) {
+    private route: ActivatedRoute) {
   
     this.user = new User();
     this.post = new Post(this.postId, this.user)
@@ -50,6 +48,11 @@ export class PostDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    this.route.paramMap.subscribe(
+      params => {
+        this.postId = Number(params.get('id'));
+    });
     this.postService.getPostById(this.postId).subscribe(
       response => {
         this.userService.getUserObjectByURL(response.user).subscribe(
