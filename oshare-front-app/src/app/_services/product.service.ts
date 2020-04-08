@@ -53,7 +53,7 @@ export class ProductService {
     }
     console.log(para);
 
-    this.http.get<any>(this.baseurl + '/get_product', {headers: this.httpHeaders, params: para}).subscribe(data => {
+    this.http.get<any>(this.baseurl + '/products/search_product', {headers: this.httpHeaders, params: para}).subscribe(data => {
       this.productsupdate.next(data);
     });
   }
