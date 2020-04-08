@@ -32,8 +32,8 @@ class PostViewSet(viewsets.ModelViewSet):
     def post_of_logged_in_user(self, request):
         print(request.data)
         user = request.user
-        queryset = Post.objects.filter(user=user)
-        serializer = PostSerializer(queryset, many=True)
+        queryset = Post.objects.filter(user=user.id)
+        serializer = PostSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
     @action(detail=False, methods=['get'])
@@ -46,8 +46,11 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def update_post_likes(self, request, *args, **kwargs):
+        print("invoked")
         latest_like = int(kwargs['latest_like'])
+        print(latest_like)
         post = self.get_object()
+        print(post)
         post.update(likes=latest_like)
         serializer = PostSerializer(post, many=True)
         return Response(serializer.data)
