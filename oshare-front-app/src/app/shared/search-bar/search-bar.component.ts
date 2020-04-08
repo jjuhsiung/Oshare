@@ -9,7 +9,7 @@ import {ProductQuery} from '../../_models/ProductQuery';
 })
 export class SearchBarComponent implements OnInit {
 
-  categry = '';
+  input = '';
   brand = '';
   query = new ProductQuery();
   constructor(private api: ProductService) { }
@@ -19,11 +19,12 @@ export class SearchBarComponent implements OnInit {
 
   DoSearch(): void {
     console.log(this.brand);
-    console.log(this.categry);
+    console.log(this.input);
     this.query.ProductTags = '';
     this.query.ProductType = '';
     this.query.brand = this.brand;
-    this.query.ProductCategory = this.categry;
+    this.query.ProductCategory = '';
+    this.query.input = this.input;
     this.api.getProductsInfo(this.query);
   }
 

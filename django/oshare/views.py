@@ -135,6 +135,15 @@ class ProductViewSet(viewsets.ModelViewSet):
         if 'type' in keys:
             queryset = queryset.filter(product_type=request.GET['type'])
             print("queryset after type", len(queryset))
+        if 'input' in keys:
+            print("input",request.GET['input'])
+            str=request.GET['input'].split(" ")
+            tempset = Product.objects.none()
+            for word in str:
+                print("word in input", word)
+                result = queryset.filter(name__contains=word)
+                tempset = result.union(tempset)
+            queryset = tempset
         print("queryset in the search product",len(queryset))
         serializer = ProductSerializer(queryset, many=True, context={'request': request})
         #return Response(serializer.data)

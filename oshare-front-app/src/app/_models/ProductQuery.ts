@@ -8,4 +8,5 @@ export class ProductQuery {
   PriceLessThan: number;
   RatingGreaterThan: number;
   RatingLessThan: number;
+  input: string;
 }
