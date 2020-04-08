@@ -28,6 +28,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+    # url: http://127.0.0.1:8000/posts/post_of_logged_in_user/
     @action(detail=False, methods=['get'])
     def post_of_logged_in_user(self, request):
         print(request.data)
@@ -36,6 +37,7 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer = PostSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
+    # url: http://127.0.0.1:8000/posts/post_of_selected_user/?selected_id=1
     @action(detail=False, methods=['get'])
     def post_of_selected_user(self, request, *args, **kwargs):
         print(request.GET['selected_id'])
@@ -44,6 +46,7 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer = PostSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
+    # url: http://127.0.0.1:8000/posts/1/update_post_likes/?latest_like=10
     @action(detail=True, methods=['post'])
     def update_post_likes(self, request, *args, **kwargs):
         print("invoked")
