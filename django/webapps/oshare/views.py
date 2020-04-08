@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from oshare.serializers import UserSerializer, PostSerializer, CommentSerializer, PostImageSerializer
 from .models import Post, Comment, PostImage
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
@@ -26,6 +27,29 @@ class UserViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+    @action(detail=False, methods=['get'])
+    def post_of_logged_in_user(self, request):
+        print(request.data)
+        user = request.user
+        queryset = Post.objects.filter(user=user)
+        serializer = PostSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def post_of_selected_user(self, request, *args, **kwargs):
+        selcted_user = int(kwargs['selected_id'])
+        queryset = Post.objects.filter(user=selected_user)
+        serializer = PostSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['post'])
+    def update_post_likes(self, request, *args, **kwargs):
+        latest_like = int(kwargs['latest_like'])
+        post = self.get_object()
+        post.update(likes=latest_like)
+        serializer = PostSerializer(post, many=True)
+        return Response(serializer.data)
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
