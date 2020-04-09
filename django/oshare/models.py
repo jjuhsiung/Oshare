@@ -45,14 +45,7 @@ class Order(models.Model):
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    total = models.IntegerField(default=0)
-
-
-class ProductCount(models.Model):
-    product_id = models.IntegerField()
-    count = models.IntegerField(default=0)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
 
 
 class Product(models.Model):
@@ -66,3 +59,8 @@ class Product(models.Model):
     currency = models.CharField(default="USD", max_length=10, null=True)
     img_link = models.URLField(max_length=300, null=True)
     description = models.CharField(default='', max_length=500, null=True)
+
+class ProductCount(models.Model):
+    count = models.IntegerField(default=0)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='productCounts')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)

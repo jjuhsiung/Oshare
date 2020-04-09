@@ -1,15 +1,29 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Post, Comment, PostImage, Order, Cart, Product, UserProfile
+from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount
 
+
+class ProductCountSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ProductCount
+        fields = ['id', 'cart', 'product', 'count']
+
+class CartSerializer(serializers.HyperlinkedModelSerializer):
+    productCounts = ProductCountSerializer(many=True, read_only=True)
+    class Meta:
+        model = Cart
+        fields = ['id', 'url', 'productCounts']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    cart = CartSerializer(read_only=True)
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password', 'cart']
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
+        cart = Cart(user=user)
+        cart.save()
         return user
 
 
@@ -44,15 +58,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Order
-        user = UserSerializer(read_only=True)
         fields = ['id', 'user', 'total', 'ship_addr', 'order_time']
-
-
-class CartSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Cart
-        user = UserSerializer(read_only=True)
-        fields = ['id', 'user', 'total']
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -60,3 +66,5 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         model = Product
         fields = ['id', 'name', 'brand', 'category', 'product_type',
                   'price', 'price_sign', 'currency', 'img_link', 'description']
+
+

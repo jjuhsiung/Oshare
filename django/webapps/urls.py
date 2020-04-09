@@ -14,7 +14,10 @@ router.register(r'posts', views.PostViewSet)
 router.register(r'comments', views.CommentViewSet)
 router.register(r'postImages', views.PostImageViewSet)
 router.register(r'profile', views.ProfileViewSet)
+router.register(r'cart', views.CartViewSet)
 router.register(r'products', views.ProductViewSet)
+router.register(r'productCounts', views.ProductCountViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +26,5 @@ urlpatterns = [
     path('auth/', views.CustomObtainAuthToken.as_view()),
     path('update_product', views.update_products_view),
     # path('get_product', views.get_product_view),
-    path('add_to_cart', views.add_to_cart_view),
+    #path('add_to_cart', views.add_to_cart_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
