@@ -1,6 +1,6 @@
 <div class="container mt-2 justify-content-center">
   <div class="row row-cols-3 justify-content-center">
-    <div *ngFor="let product of this.Products" class="gutters card col" style="max-width: 30rem;">
+    <div *ngFor="let product of this.Products" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
         <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
         <div style="font-size:12px" class="card-body border-1 p-2" >
         <div class="row border-2 d-flex justify-content-between" width="250px">

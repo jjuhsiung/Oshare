@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../_services/product.service';
 import {ProductQuery} from '../../_models/ProductQuery';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -13,6 +14,7 @@ export class SearchBarComponent implements OnInit {
   brand = '';
   price = '';
   ProductType = '';
+  query = new ProductQuery();
   brandlist: string[] = ['almay', 'alva', 'anna sui', 'annabelle', 'benefit', 'boosh',
 'burt\'s bees', 'butter london', 'c\'est moi', 'cargo cosmetics', 'china glaze', 'clinique',
 'coastal classic creation', 'colourpop', 'covergirl', 'dalish', 'deciem', 'dior', 'dr. hauschka',
@@ -22,8 +24,7 @@ export class SearchBarComponent implements OnInit {
 'pure anada', 'rejuva minerals', 'revlon', 'sally b\'s skin yummies', 'salon perfect', 'sante',
 'sinful colours', 'smashbox', 'stila', 'suncoat', 'w3llpeople', 'wet n wild', 'zorah',
 'zorah biocosmetiques'];
-  query = new ProductQuery();
-  constructor(private api: ProductService) {
+  constructor(private api: ProductService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -51,6 +52,7 @@ export class SearchBarComponent implements OnInit {
       }
     }
     this.api.getProductsInfo(this.query);
+    this.router.navigate(['/search-result'], {queryParams: this.query});
   }
 
 }
