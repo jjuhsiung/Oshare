@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
-from oshare.serializers import UserSerializer, PostSerializer, CommentSerializer, PostImageSerializer, ProductSerializer
-from .models import Post, Comment, PostImage
+from oshare.serializers import UserSerializer, PostSerializer, CommentSerializer, PostImageSerializer, ProductSerializer, ProfileSerializer
+from .models import Post, Comment, PostImage, UserProfile
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
@@ -22,15 +22,18 @@ from requests.utils import requote_uri
 class CustomObtainAuthToken(ObtainAuthToken):
     @csrf_exempt
     def post(self, request, *args, **kwargs):
-        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+        response = super(CustomObtainAuthToken, self).post(
+            request, *args, **kwargs)
         token = Token.objects.get(key=response.data['token'])
         return Response({'token': token.key, 'id': token.user_id})
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     # authentication_classes = (TokenAuthentication,)
     # permission_classes = (IsAuthenticated,)
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -42,7 +45,8 @@ class PostViewSet(viewsets.ModelViewSet):
         print(request.data)
         user = request.user
         queryset = Post.objects.filter(user=user.id)
-        serializer = PostSerializer(queryset, many=True, context={'request': request})
+        serializer = PostSerializer(
+            queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
     # url: http://127.0.0.1:8000/posts/post_of_selected_user/?selected_id=1
@@ -51,7 +55,8 @@ class PostViewSet(viewsets.ModelViewSet):
         print(request.GET['selected_id'])
         selected_user = int(request.GET['selected_id'])
         queryset = Post.objects.filter(user=selected_user)
-        serializer = PostSerializer(queryset, many=True, context={'request': request})
+        serializer = PostSerializer(
+            queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
     # url: http://127.0.0.1:8000/posts/1/update_post_likes/?latest_like=10
@@ -64,18 +69,38 @@ class PostViewSet(viewsets.ModelViewSet):
         print(post)
         queryset = Post.objects.filter(id=post.id)
         queryset.update(likes=latest_like)
-        serializer = PostSerializer(queryset, many=True, context={'request': request})
+        serializer = PostSerializer(
+            queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
     # TODO: query with different rules
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
+
 class PostImageViewSet(viewsets.ModelViewSet):
     queryset = PostImage.objects.all()
     serializer_class = PostImageSerializer
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = ProfileSerializer
+    print("----profile view set----")
+    
+    @action(detail=True, methods=['get'])
+    def profile_of_logged_in_user(self, request):
+        print(request.data)
+        print("---profile_of_logged_in_user---")
+        queryset = UserProfile.objects.get(user=request.user.id)
+        serializer = ProfileSerializer(queryset, context={'request': request})
+        return Response(serializer.data)
+
+
+
 
 
 def update_products_view(request: HttpRequest) -> JsonResponse:
@@ -91,7 +116,7 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
             Product.objects.get(id=x['id'])
         except Product.DoesNotExist:
             price = 0.0
-            if x['price'] !=None:
+            if x['price'] != None:
                 price = float(x['price'])
             new_product = Product(
                 id=int(x['id']),
@@ -113,7 +138,8 @@ def get_product_view(request: HttpRequest) -> JsonResponse:
     queryset = Product.objects.filter()
     keys = request.GET.keys()
     if 'id' in keys:
-        serializer = ProductSerializer(Product.objects.get(id=request.GET['id']), many=False, context={'request': request})
+        serializer = ProductSerializer(Product.objects.get(
+            id=request.GET['id']), many=False, context={'request': request})
         return JsonResponse({'response': serializer.data})
     if 'name' in keys:
         queryset.update(name=request.GET['name'])
@@ -123,7 +149,8 @@ def get_product_view(request: HttpRequest) -> JsonResponse:
         queryset.update(category=request.GET['category'])
     if 'type' in keys:
         queryset.update(product_type=request.GET['id'])
-    serializer = ProductSerializer(queryset, many=True, context={'request': request})
+    serializer = ProductSerializer(
+        queryset, many=True, context={'request': request})
     return JsonResponse({'response': serializer.data})
 
 
