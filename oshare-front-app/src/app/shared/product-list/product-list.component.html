@@ -1,15 +1,21 @@
 <div class="container mt-2 justify-content-center">
   <div class="row row-cols-3 justify-content-center">
-    <div *ngFor="let product of this.Products" class="card col">
-      <img src="{{product.img_link}}" class="center-block" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
-      <div class="border-1 p-2" >
+    <div *ngFor="let product of this.Products" class="gutters card col" style="max-width: 30rem;">
+      <img src="{{product.img_link}}" class="center-block mt-5" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
+      <div style="font-size:12px" class="card-body border-1 p-2" >
         <div class="row border-2 d-flex justify-content-between" width="250px">
+          <div class="pull-left card-title" style="max-width: 20rem;">
           {{product.name}}
-          <img src="assets/img/heart.svg">
+          </div>
+          <div class="pull-right">
+            <img src="assets/img/heart.svg">
+          </div>
         </div>
-        <div class="row border-2 d-flex justify-content-between" width="250px">
+        <div class="row d-flex" width="250px">
+          <div class="pull-left" style="margin-left: 20px;margin-right:20px;">
           <img src="assets/img/chat.svg">
-          {{product.brand}}
+          </div>
+          <div class="card-text">This is a template comment.</div>
         </div>
       </div>
     </div>

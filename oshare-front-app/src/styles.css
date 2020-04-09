@@ -113,3 +113,20 @@
   text-align:left;
 }
 textarea, select, input, button { outline: none; }
+
+.pink{
+  background-color:#ffe5e5;
+}
+
+.no-border{
+  border-width: 0;
+  border-style: none;
+  outline: none;
+}
+
+.gutters {
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}

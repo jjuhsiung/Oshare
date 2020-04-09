@@ -1,8 +1,8 @@
 <div class="row">
 <div class="col-md-6">
-    <div class="form-inline mr-auto" style="width: 100%;">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="input">
-        <button class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()" routerLink="/search-result">Search</button>
+    <div class="h5 form-inline mr-auto" style="width: 100%;">
+        <input style="font-size:12px" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="input">
+        <button style="font-size:12px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()" routerLink="/search-result">Search</button>
     </div>
 </div>
 
@@ -18,10 +18,10 @@
 <!--</div>-->
 
 <div class="col-md-6">
-    <ul class="list-group list-group-horizontal float-right">
-        <li class="list-group-item">
-            <div class="dropdown">
-                <select id="dropdownMenuButtonA" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="brand">
+    <ul class="list-group list-group-horizontal float-right pink">
+        <li class="list-group-item no-border">
+            <div class="dropdown h5">
+                <select class="no-border pink" id="dropdownMenuButtonA" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="brand">
                   <option value="">Brand</option>
                   <option value="maybelline">maybelline</option>
                   <option value="colourpop">colourpop</option>
@@ -34,9 +34,9 @@
 <!--                </div>-->
             </div>
         </li>
-             <li class="list-group-item">
-            <div class="dropdown">
-                <select id="dropdownMenuButtonB" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="price">
+         <li class="list-group-item no-border">
+            <div class="dropdown h5">
+                <select class="no-border pink" id="dropdownMenuButtonB" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="price">
                   <option value="">Price</option>
                   <option value="high">high</option>
                   <option value="medium">medium</option>
@@ -49,9 +49,9 @@
 <!--                </div>-->
             </div>
         </li>
-             <li class="list-group-item">
-            <div class="dropdown">
-                <select id="dropdownMenuButtonC" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="ProductType">
+         <li class="list-group-item no-border">
+            <div class="dropdown h5">
+                <select class="no-border pink" id="dropdownMenuButtonC" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="ProductType">
                   <option value="">Type</option>
                   <option value="blush">Blush</option>
                   <option value="eyeliner">Eyeliner</option>
