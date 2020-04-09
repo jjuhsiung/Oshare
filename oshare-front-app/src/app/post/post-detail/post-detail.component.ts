@@ -70,7 +70,7 @@ export class PostDetailComponent implements OnInit {
         this.post.likes = response.likes;
         this.post.imagePath = response.images[0].image;
         this.post.comments = [];
-        var commentArr = response.comments;;
+        var commentArr = response.comments;
         for (var i = 0; i < commentArr.length; i++) {
           console.log(commentArr[i].text);
           let comment = new Comment(new User(), commentArr[i].text);
