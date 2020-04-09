@@ -9,21 +9,38 @@ import {ProductQuery} from '../../_models/ProductQuery';
 })
 export class SearchBarComponent implements OnInit {
 
-  categry = '';
+  input = '';
   brand = '';
+  price = '';
+  ProductType = '';
   query = new ProductQuery();
-  constructor(private api: ProductService) { }
+  constructor(private api: ProductService) {
+  }
 
   ngOnInit(): void {
   }
 
   DoSearch(): void {
+    // this.query = new ProductQuery();
     console.log(this.brand);
-    console.log(this.categry);
+    console.log(this.input);
     this.query.ProductTags = '';
-    this.query.ProductType = '';
+    this.query.ProductType = this.ProductType;
     this.query.brand = this.brand;
-    this.query.ProductCategory = this.categry;
+    this.query.ProductCategory = '';
+    this.query.input = this.input;
+    if (this.price !== '') {
+      if (this.price === 'high') {
+        this.query.PriceGreaterThan = 30;
+        this.query.PriceLessThan = 0;
+      } else if (this.price === 'medium') {
+        this.query.PriceGreaterThan = 10;
+        this.query.PriceLessThan = 30;
+      } else if (this.price === 'low') {
+        this.query.PriceLessThan = 10;
+        this.query.PriceGreaterThan = 0;
+      }
+    }
     this.api.getProductsInfo(this.query);
   }
 

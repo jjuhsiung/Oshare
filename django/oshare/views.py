@@ -134,25 +134,69 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
     return JsonResponse({})
 
 
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    @action(detail=False, methods=['get'])
+    def search_product(self, request):
+        print("request",request.data)
+        queryset = Product.objects.all()
+        print("entered the search product function, queryset",len(queryset))
+        keys = request.GET.keys()
+        if 'id' in keys:
+            serializer = ProductSerializer(Product.objects.get(id=request.GET['id']), many=False,
+                                           context={'request': request})
+            return JsonResponse({'response': serializer.data})
+        if 'name' in keys:
+            queryset = queryset.filter(name=request.GET['name'])
+            print("queryset after name", len(queryset))
+        if 'brand' in keys:
+            queryset = queryset.filter(brand=request.GET['brand'])
+            print("queryset after brand", len(queryset), request.GET['brand'])
+        if 'category' in keys:
+            queryset = queryset.filter(category=request.GET['category'])
+            print("queryset after category", len(queryset))
+        if 'type' in keys:
+            queryset = queryset.filter(product_type=request.GET['type'])
+            print("queryset after type", len(queryset))
+        if 'price_greater_than'in keys:
+            queryset = queryset.filter(price__gte=request.GET['price_greater_than'])
+        if 'price_less_than'in keys:
+            queryset = queryset.filter(price__lte=request.GET['price_less_than'])
+        if 'input' in keys:
+            print("input",request.GET['input'])
+            str=request.GET['input'].split(" ")
+            tempset = Product.objects.none()
+            for word in str:
+                print("word in input", word)
+                result = queryset.filter(name__contains=word)
+                tempset = result.union(tempset)
+            queryset = tempset
+        print("queryset in the search product",len(queryset))
+        serializer = ProductSerializer(queryset, many=True, context={'request': request})
+        #return Response(serializer.data)
+        return JsonResponse({'response': serializer.data})
+
+'''
 def get_product_view(request: HttpRequest) -> JsonResponse:
     queryset = Product.objects.filter()
     keys = request.GET.keys()
     if 'id' in keys:
-        serializer = ProductSerializer(Product.objects.get(
-            id=request.GET['id']), many=False, context={'request': request})
+        serializer = ProductSerializer(Product.objects.get(id=request.GET['id']), many=False,
+                                       context={'request': request})
         return JsonResponse({'response': serializer.data})
     if 'name' in keys:
-        queryset.update(name=request.GET['name'])
+        queryset = queryset.filter(name=request.GET['name'])
     if 'brand' in keys:
-        queryset.update(brand=request.GET['brand'])
+        queryset = queryset.filter(brand=request.GET['brand'])
     if 'category' in keys:
-        queryset.update(category=request.GET['category'])
+        queryset = queryset.filter(category=request.GET['category'])
     if 'type' in keys:
-        queryset.update(product_type=request.GET['id'])
-    serializer = ProductSerializer(
-        queryset, many=True, context={'request': request})
+        queryset = queryset.filter(product_type=request.GET['type'])
+    serializer = ProductSerializer(queryset, many=True, context={'request': request})
     return JsonResponse({'response': serializer.data})
-
+'''
 
 def add_to_cart_view(request: HttpRequest) -> JsonResponse:
     data = {}
