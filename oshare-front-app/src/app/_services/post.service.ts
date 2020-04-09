@@ -32,8 +32,8 @@ export class PostService {
     }
 
     updatePostLikes(post: Post, latest_like: number): Observable<any> {
-      // /update_post_likes/?latest_like=10
-      return this.http.post<any>(this.baseurl + '/posts/' + post.postId + '/update_post_likes/' + '?latest_like=' + latest_like, "");
+        // /update_post_likes/?latest_like=10
+        return this.http.post<any>(this.baseurl + '/posts/' + post.postId + '/update_post_likes/' + '?latest_like=' + latest_like, "");
     }
 
     getAllPosts(): Observable<any> {
@@ -51,10 +51,16 @@ export class PostService {
         return this.response_object;
     }
 
+    //for profile page
+    getPostByUser(id: any): Observable<any> {
+        return this.http.get(this.baseurl + '/posts' + '/post_of_selected_user/' + '?selected_id=' + id, { headers: this.httpHeaders });
+    }
+
     constructPostList() {
+        this.post_list.length = 0;
         this.getAllPosts().subscribe(
             data => {
-              console.log(data);
+                console.log(data);
                 console.log("Yinuod constructPostList invoked");
                 for (let entry of data) {
                     let post = null;
@@ -70,8 +76,8 @@ export class PostService {
                     );
                     let image_path = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg';
                     if (entry['images'].length !== 0) {
-                      console.log(entry['images'][0]['image']);
-                      image_path = entry['images'][0]['image'];
+                        console.log(entry['images'][0]['image']);
+                        image_path = entry['images'][0]['image'];
                     }
                     let postDate = new Date(entry['date']);
                     let postText = entry['text'];
@@ -107,7 +113,7 @@ export class PostService {
         return this.response_object;
     }
 
-    getPostUrlById(post_id: number){
+    getPostUrlById(post_id: number) {
         return this.baseurl + '/posts/' + post_id + '/';
     }
 

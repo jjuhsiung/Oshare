@@ -36,4 +36,5 @@ export class UserService {
   getUserObjectByURL(url: string): Observable<any>{
     return this.httpClient.get(url);
   }
+
 } 

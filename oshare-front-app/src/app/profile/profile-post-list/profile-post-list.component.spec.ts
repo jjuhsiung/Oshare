@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavigationBarComponent } from './navigation-bar.component';
+import { ProfilePostListComponent } from './profile-post-list.component';
 
-describe('NavigationBarComponent', () => {
-  let component: NavigationBarComponent;
-  let fixture: ComponentFixture<NavigationBarComponent>;
+describe('ProfilePostListComponent', () => {
+  let component: ProfilePostListComponent;
+  let fixture: ComponentFixture<ProfilePostListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigationBarComponent ]
+      declarations: [ ProfilePostListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavigationBarComponent);
+    fixture = TestBed.createComponent(ProfilePostListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

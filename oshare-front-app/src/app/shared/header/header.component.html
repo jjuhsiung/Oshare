@@ -14,7 +14,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/profile">My Profile</a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="checkLoginStatus()" class="nav-item">
                   <a class="nav-link" href="/cart">My Cart</a>
                 </li>
                 <li *ngIf="checkLoginStatus()" class="nav-item">

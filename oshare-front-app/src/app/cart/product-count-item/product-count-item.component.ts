@@ -12,18 +12,18 @@ export class ProductCountItemComponent implements OnInit {
   @Input() imgURL: string;
   @Input() productName: string;
   @Input() count: number = 0;
-  @Input() color: string;
   @Input() price: number = 0;
+  @Input() productCountId: number;
   @Output() productUpdate = new EventEmitter();
   @Output() productDelete = new EventEmitter();
   
   totalPrice: number;
 
   product = {
+    productCountId : this.productCountId,
     imgURL : this.imgURL,
     productName : this.productName,
     count : this.count,
-    color : this.color,
     price : this.price
   };
 
@@ -33,7 +33,7 @@ export class ProductCountItemComponent implements OnInit {
   countChange = (count: number) => {
     this.totalPrice = this.price * count;
     this.count = count;
-    this.productUpdate.emit(count);
+    this.productUpdate.emit({'id': this.productCountId, 'count':count});
   }
   
   ngOnInit(): void {

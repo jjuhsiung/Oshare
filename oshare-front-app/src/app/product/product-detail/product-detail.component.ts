@@ -1,3 +1,4 @@
+import { ProductCountService } from './../../_services/product-count.service';
 import { Component, OnInit } from '@angular/core';
 import {Product} from '../../_models/product.model';
 import {PRODUCTS} from '../../MockProduct';
@@ -14,7 +15,7 @@ export class ProductDetailComponent implements OnInit {
 
   product: any;
   // product = PRODUCTS[0];
-  constructor(private api: ProductService ) {
+  constructor(private api: ProductService, private productCountService: ProductCountService ) {
     let query = new ProductQuery();
     query.id = this.api.currentproduct;
     api.getProductsInfo(query);
@@ -28,6 +29,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   add_to_cart() {
-    this.api.addToCart(this.product.id);
+    this.productCountService.addToCart(this.product.id);
   }
 }
