@@ -17,4 +17,9 @@ export class ProfileService {
     this.response_object = this.http.get(this.baseurl + '/profile/', { headers: this.httpHeaders });
     return this.response_object;
   }
+
+  editProfile(formdata: any): Observable<any> {
+    console.log("--edit profile--")
+    return this.http.post<any>(this.baseurl + '/profile/', formdata);
+  }
 }
