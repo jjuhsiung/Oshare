@@ -15,8 +15,13 @@ export class HeaderComponent implements OnInit {
   Logout(){
     localStorage.removeItem('userToken');
     localStorage.removeItem('userId');
-    location.reload();
-    //this.router.navigate(['/login']);
+    
+    if(this.router.url === '/cart' || this.router.url === '/new-post'){
+      this.router.navigate(['/search']);
+      alert('Required login!');
+    }else{
+      location.reload();
+    }
   }
 
   checkLoginStatus(){
