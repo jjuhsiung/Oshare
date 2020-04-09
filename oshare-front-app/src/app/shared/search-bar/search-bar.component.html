@@ -23,9 +23,7 @@
             <div class="dropdown h5">
                 <select class="no-border pink" id="dropdownMenuButtonA" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="brand">
                   <option value="">Brand</option>
-                  <option value="maybelline">maybelline</option>
-                  <option value="colourpop">colourpop</option>
-                  <option value="clinique">clinique</option>
+                  <option *ngFor="let brand of this.brandlist" value={{brand}}>{{brand}}</option>
                 </select>
 <!--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonA">-->
 <!--                <a class="dropdown-item" href="#">Lancome</a>-->
