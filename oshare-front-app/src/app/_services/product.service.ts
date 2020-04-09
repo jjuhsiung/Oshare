@@ -61,12 +61,16 @@ export class ProductService {
     });
   }
 
-  addToCart(id){
-    let para = new HttpParams();
-    para = para.set('id', id.toString());
-    this.http.get<any>(this.baseurl + '/add_to_cart', {headers: this.httpHeaders, params: para}).subscribe(data => {
-      this.productsupdate.next(data);
-    });
+  // addToCart(id){
+  //   let para = new HttpParams();
+  //   para = para.set('id', id.toString());
+  //   this.http.get<any>(this.baseurl + '/add_to_cart', {headers: this.httpHeaders, params: para}).subscribe(data => {
+  //     this.productsupdate.next(data);
+  //   });
+  // }
+
+  getProductByURL(product_url): Observable<any>{
+    return this.http.get<any>(product_url);
   }
 
 }

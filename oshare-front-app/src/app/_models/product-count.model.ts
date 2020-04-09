@@ -1,9 +1,16 @@
+import { Product } from './product.model';
 
-export interface Product{
-    productName: string,
-    count: number,
-    color: string,
-    price: number,
-    imgURL : string,
+export class ProductCount {
+  public product: Product;
+  public count: number;
+  public id: number;
+
+  constructor(product?: Product, count?: number, id?:number) {
+      this.product = product;
+      this.count = count;
+      this.id = id;
+
   }
-  
+
+}
+
