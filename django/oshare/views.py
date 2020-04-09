@@ -171,6 +171,10 @@ class ProductViewSet(viewsets.ModelViewSet):
         if 'type' in keys:
             queryset = queryset.filter(product_type=request.GET['type'])
             print("queryset after type", len(queryset))
+        if 'price_greater_than'in keys:
+            queryset = queryset.filter(price__gte=request.GET['price_greater_than'])
+        if 'price_less_than'in keys:
+            queryset = queryset.filter(price__lte=request.GET['price_less_than'])
         if 'input' in keys:
             print("input",request.GET['input'])
             str=request.GET['input'].split(" ")
