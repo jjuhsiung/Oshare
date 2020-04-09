@@ -18,10 +18,10 @@ export class ProductCountListComponent implements OnInit {
 
   constructor() {}
 
-  productCountChange(index, count){
+  productCountChange(data){
     this.listUpdate.emit(
-      {index: index, 
-        count: count});
+      {id: data.id, 
+        count: data.count});
   }
 
   productDelete(index){

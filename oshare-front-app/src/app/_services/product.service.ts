@@ -45,25 +45,32 @@ export class ProductService {
     if (query.PriceLessThan > 0){
       para = para.set('price_less_than', query.PriceLessThan.toString());
     }
-    if (query.RatingGreaterThan > 0){
+    if (query.RatingGreaterThan > 0) {
       para = para.set('rating_greater_than', query.RatingGreaterThan.toString());
     }
-    if (query.RatingLessThan > 0){
+    if (query.RatingLessThan > 0) {
       para = para.set('rating_less_than', query.RatingLessThan.toString());
+    }
+    if (query.input != '') {
+      para = para.set('input', query.input);
     }
     console.log(para);
 
-    this.http.get<any>(this.baseurl + '/get_product', {headers: this.httpHeaders, params: para}).subscribe(data => {
+    this.http.get<any>(this.baseurl + '/products/search_product', {headers: this.httpHeaders, params: para}).subscribe(data => {
       this.productsupdate.next(data);
     });
   }
 
-  addToCart(id){
-    let para = new HttpParams();
-    para = para.set('id', id.toString());
-    this.http.get<any>(this.baseurl + '/add_to_cart', {headers: this.httpHeaders, params: para}).subscribe(data => {
-      this.productsupdate.next(data);
-    });
+  // addToCart(id){
+  //   let para = new HttpParams();
+  //   para = para.set('id', id.toString());
+  //   this.http.get<any>(this.baseurl + '/add_to_cart', {headers: this.httpHeaders, params: para}).subscribe(data => {
+  //     this.productsupdate.next(data);
+  //   });
+  // }
+
+  getProductByURL(product_url): Observable<any>{
+    return this.http.get<any>(product_url);
   }
 
 }

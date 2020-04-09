@@ -5,32 +5,35 @@
         <h1>Cart</h1>
     </div>
 
-    <div class="row">
-
-        <div class="col-lg-3">
-        </div>
-        <div class="col-lg-8">
-            <app-product-count-list 
-                (listProductDelete)="productListProductDelete($event)"
-                (listUpdate)="productListChange($event)"
-                [products]="cart.products">
-            </app-product-count-list>
-        </div>
+    <div *ngIf="cart.products.length==0">
+        <h3>Your cart is empty!</h3>
     </div>
+    
+    <div *ngIf="cart.products.length!=0">
+        <div class="row">
 
-    <div class="space"></div>
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-8">
+                <app-product-count-list 
+                    (listProductDelete)="productListProductDelete($event)"
+                    (listUpdate)="productListChange($event)"
+                    [products]="cart.products">
+                </app-product-count-list>
+            </div>
+        </div>
 
-    <div class="row">
-        <div class="col-lg-8">
-            <h5 class="text-lg-right">Merchandise Subtotal: {{cart.subtotal  | currency: 'USD': true }}</h5>
-            <h5 class="text-lg-right">Shipping: {{cart.shipping}}</h5>
-            <h5 class="text-lg-right">Tax: {{cart.tax}}</h5>
-            <h5 class="text-lg-right"><a href="http://localhost:4200/checkout" class="btn btn-outline-secondary">Checkout</a></h5>
-        </div>       
-    </div>
+        <div class="space"></div>
 
-    <div>
-        <button class="btn btn-outline-secondary" (click)="addOneElement()">Add</button>
+        <div class="row">
+            <div class="col-lg-8">
+                <h5 class="text-lg-right">Merchandise Subtotal: {{cart.subtotal  | currency: 'USD': true }}</h5>
+                <h5 class="text-lg-right">Shipping: {{cart.shipping}}</h5>
+                <h5 class="text-lg-right">Tax: {{cart.tax}}</h5>
+                <h5 class="text-lg-right"><a href="http://localhost:4200/checkout" class="btn btn-outline-secondary">Checkout</a></h5>
+            </div>       
+        </div>
+
     </div>
 
 </div>
