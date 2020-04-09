@@ -31,6 +31,7 @@ import { RegisterComponent } from './register/register.component';
 import { CartService } from './_services/cart.service';
 import { PostService } from './_services/post.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfilePostListComponent } from './profile/profile-post-list/profile-post-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -73,7 +74,8 @@ const appRoutes: Routes = [
     PostComponent,
     PostDetailComponent,
     RegisterComponent,
-    NewPostComponent
+    NewPostComponent,
+    ProfilePostListComponent
   ],
   imports: [
     BrowserModule,

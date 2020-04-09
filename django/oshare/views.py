@@ -91,7 +91,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     print("----profile view set----")
     
-    @action(detail=True, methods=['get'])
+    @action(detail=False, methods=['get'])
     def profile_of_logged_in_user(self, request):
         print(request.data)
         print("---profile_of_logged_in_user---")
