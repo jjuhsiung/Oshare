@@ -24,7 +24,7 @@ export class ProfileHeaderComponent implements OnInit {
     console.log(localStorage.getItem('userId'))
     this.userservice.getUserObjectById(localStorage.getItem('userId')).subscribe(
       data => {
-        this.userprofile.firstName = data.firstName;
+        this.userprofile.firstName = data.first_name;
         this.userprofile.lastName = data.last_name;
         this.userprofile.username = data.username;
         this.userprofile.profileImg = data.profile_picture; //TODO profile image
