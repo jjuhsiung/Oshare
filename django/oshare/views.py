@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
-from oshare.serializers import UserSerializer, PostSerializer, CommentSerializer, PostImageSerializer, ProductSerializer
+from oshare.serializers import *
 from .models import Post, Comment, PostImage
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -77,6 +77,10 @@ class PostImageViewSet(viewsets.ModelViewSet):
     queryset = PostImage.objects.all()
     serializer_class = PostImageSerializer
 
+class CartViewSet(viewsets.ModelViewSet):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+
 
 def update_products_view(request: HttpRequest) -> JsonResponse:
     # url = "http://makeup-api.herokuapp.com/api/v1/products.json"
@@ -108,6 +112,38 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
             new_product.save()
     return JsonResponse({})
 
+class ProductCountViewSet(viewsets.ModelViewSet):
+    queryset = ProductCount.objects.all()
+    serializer_class = ProductCountSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.count = request.data.get("count")
+        instance.save()
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=['post'])
+    def addToCart(self, request, *args, **kwargs):
+        cartId = int(request.data.get("cartId"))
+        productId = int(request.data.get("productId"))
+        product = Product.objects.get(id=productId)
+        cart = Cart.objects.get(id=cartId)
+        
+        try:
+            cart_product = ProductCount.objects.get(product=product, cart=cart)
+            cart_product.count += 1
+            cart_product.save()
+        except ProductCount.DoesNotExist:
+            cart_product = ProductCount(product=product, count=1, cart=cart)
+            cart_product.save()
+
+        queryset = ProductCount.objects.none()
+        queryset |= ProductCount.objects.filter(pk=cart_product.pk)
+        serializer = ProductCountSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+        
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -168,7 +204,7 @@ def get_product_view(request: HttpRequest) -> JsonResponse:
     serializer = ProductSerializer(queryset, many=True, context={'request': request})
     return JsonResponse({'response': serializer.data})
 '''
-
+'''
 def add_to_cart_view(request: HttpRequest) -> JsonResponse:
     data = {}
     try:
@@ -194,3 +230,6 @@ def add_to_cart_view(request: HttpRequest) -> JsonResponse:
     data["status"] = 'add to cart succeeded!'
 
     return JsonResponse(data)
+
+
+'''
