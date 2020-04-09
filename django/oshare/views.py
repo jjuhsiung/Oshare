@@ -17,6 +17,7 @@ import json
 import urllib
 import json
 from requests.utils import requote_uri
+from django.oshare.models import UserProfile
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
