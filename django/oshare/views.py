@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
-from oshare.serializers import *
-from .models import Post, Comment, PostImage
+from .serializers import *
+from .models import Post, Comment, PostImage, UserProfile
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
@@ -17,7 +17,6 @@ import json
 import urllib
 import json
 from requests.utils import requote_uri
-from django.oshare.models import UserProfile
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
@@ -86,6 +85,7 @@ class PostImageViewSet(viewsets.ModelViewSet):
     queryset = PostImage.objects.all()
     serializer_class = PostImageSerializer
 
+
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
@@ -95,7 +95,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
     print("----profile view set----")
-    
+
     @action(detail=False, methods=['get'])
     def profile_of_logged_in_user(self, request):
         print(request.data)
@@ -103,8 +103,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
         queryset = UserProfile.objects.get(user=request.user.id)
         serializer = ProfileSerializer(queryset, context={'request': request})
         return Response(serializer.data)
-
-
 
 
 
@@ -138,6 +136,7 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
             new_product.save()
     return JsonResponse({})
 
+
 class ProductCountViewSet(viewsets.ModelViewSet):
     queryset = ProductCount.objects.all()
     serializer_class = ProductCountSerializer
@@ -149,14 +148,14 @@ class ProductCountViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
-    
+
     @action(detail=False, methods=['post'])
     def addToCart(self, request, *args, **kwargs):
         cartId = int(request.data.get("cartId"))
         productId = int(request.data.get("productId"))
         product = Product.objects.get(id=productId)
         cart = Cart.objects.get(id=cartId)
-        
+
         try:
             cart_product = ProductCount.objects.get(product=product, cart=cart)
             cart_product.count += 1
@@ -167,9 +166,10 @@ class ProductCountViewSet(viewsets.ModelViewSet):
 
         queryset = ProductCount.objects.none()
         queryset |= ProductCount.objects.filter(pk=cart_product.pk)
-        serializer = ProductCountSerializer(queryset, many=True, context={'request': request})
+        serializer = ProductCountSerializer(
+            queryset, many=True, context={'request': request})
         return Response(serializer.data)
-        
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -177,9 +177,9 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def search_product(self, request):
-        print("request",request.data)
+        print("request", request.data)
         queryset = Product.objects.all()
-        print("entered the search product function, queryset",len(queryset))
+        print("entered the search product function, queryset", len(queryset))
         keys = request.GET.keys()
         if 'id' in keys:
             serializer = ProductSerializer(Product.objects.get(id=request.GET['id']), many=False,
@@ -198,22 +198,26 @@ class ProductViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(product_type=request.GET['type'])
             print("queryset after type", len(queryset))
         if 'price_greater_than'in keys:
-            queryset = queryset.filter(price__gte=request.GET['price_greater_than'])
+            queryset = queryset.filter(
+                price__gte=request.GET['price_greater_than'])
         if 'price_less_than'in keys:
-            queryset = queryset.filter(price__lte=request.GET['price_less_than'])
+            queryset = queryset.filter(
+                price__lte=request.GET['price_less_than'])
         if 'input' in keys:
-            print("input",request.GET['input'])
-            str=request.GET['input'].split(" ")
+            print("input", request.GET['input'])
+            str = request.GET['input'].split(" ")
             tempset = Product.objects.none()
             for word in str:
                 print("word in input", word)
                 result = queryset.filter(name__contains=word)
                 tempset = result.union(tempset)
             queryset = tempset
-        print("queryset in the search product",len(queryset))
-        serializer = ProductSerializer(queryset, many=True, context={'request': request})
-        #return Response(serializer.data)
+        print("queryset in the search product", len(queryset))
+        serializer = ProductSerializer(
+            queryset, many=True, context={'request': request})
+        # return Response(serializer.data)
         return JsonResponse({'response': serializer.data})
+
 
 '''
 def get_product_view(request: HttpRequest) -> JsonResponse:

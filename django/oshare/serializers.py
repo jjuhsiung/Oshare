@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount
+from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount, UserProfile
 
 
 class ProductCountSerializer(serializers.HyperlinkedModelSerializer):
