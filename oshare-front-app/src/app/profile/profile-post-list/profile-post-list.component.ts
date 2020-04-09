@@ -15,13 +15,17 @@ export class ProfilePostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.posts = [];
+    let image_path = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg';
     this.postService.getPostByUser(localStorage.getItem('userId')).subscribe(
       p_post => {
         console.log(p_post)
-        for (var i = 0; i < p_post.length; i++) {
-          // console.log(p_post[i].images[0].image)
-          let post = new Post(p_post[i].id, new User(), p_post[i].images[0]
-            , p_post[i].date, p_post[i].text, p_post[i].title, p_post[i].comments, p_post[i].likes, p_post[i].relatedProducts);
+        for (let entry of p_post) {
+          // if (entry['images'].length != 0) {
+          // console.log(entry['images'][0]['image']);
+          //   image_path = entry['images'][0]['image'];
+          // }
+          let post = new Post(entry.id, new User(), image_path
+            , entry.date, entry.text, entry.title, entry.comments, entry.likes, entry.relatedProducts);
           this.posts.push(post)
         }
         console.log(this.posts);
