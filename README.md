@@ -3,9 +3,9 @@ Repository for team35
 - Specification link
   - https://docs.google.com/document/d/1nrS2MAZWPSWsENRKsygZpMTz4WkYDp_SRM7FM7FKiQk/edit?usp=sharing
 - WireFrame: 
-  https://54nhg7.axshare.com/#id=c8nuyp&p=login_page&g=1
+  - https://54nhg7.axshare.com/#id=c8nuyp&p=login_page&g=1
 - Meeting log:
-  https://docs.google.com/document/d/1rXEYatGH-qekAAofE_U0akmZnvn5oy6sDmLnlZdxxpE/edit?usp=sharing
+  - https://docs.google.com/document/d/1rXEYatGH-qekAAofE_U0akmZnvn5oy6sDmLnlZdxxpE/edit?usp=sharing
   
 - Sprint 1 Presentation Slide
   - https://docs.google.com/presentation/d/1pMTsr7owUPhe4C1moHDZ-PTj73gXZyf3ekcFrhR8_K4/edit#slide=id.g71f02abd69_2_15
