@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -31,8 +31,18 @@ class CustomObtainAuthToken(ObtainAuthToken):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    # authentication_classes = (TokenAuthentication,)
-    # permission_classes = (IsAuthenticated,)
+
+    def put(self, request):
+        print("invoked puttttt")
+        if request.user.is_authenticated:
+            s = UserSerializer(instance=request.user, data=request.POST)
+        if s.is_valid():
+            s.save()
+            return Response(
+                {'message': 'profile edited!'}, status=201)
+        else:
+            return Response(
+                {'message': 'you are not login!'}, status=401)
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -96,14 +106,13 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     print("----profile view set----")
 
-    @action(detail=False, methods=['get'])
-    def profile_of_logged_in_user(self, request):
-        print(request.data)
-        print("---profile_of_logged_in_user---")
-        queryset = UserProfile.objects.get(user=request.user.id)
-        serializer = ProfileSerializer(queryset, context={'request': request})
-        return Response(serializer.data)
-
+    # @action(detail=False, methods=['get'])
+    # def profile_of_logged_in_user(self, request):
+    #     print(request.data)
+    #     print("---profile_of_logged_in_user---")
+    #     queryset = UserProfile.objects.get(user=request.user.id)
+    #     serializer = ProfileSerializer(queryset, context={'request': request})
+    #     return Response(serializer.data)
 
 
 def update_products_view(request: HttpRequest) -> JsonResponse:

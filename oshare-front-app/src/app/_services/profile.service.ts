@@ -20,6 +20,7 @@ export class ProfileService {
 
   editProfile(formdata: any): Observable<any> {
     console.log("--edit profile--")
-    return this.http.post<any>(this.baseurl + '/profile/', formdata);
+    var id = localStorage.getItem("userId");
+    return this.http.put<any>(this.baseurl + '/register/' + id + '/', formdata);
   }
 }
