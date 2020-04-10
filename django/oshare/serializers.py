@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount, UserProfile
+from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount, UserProfile, OrderProductCount
 
 
 class ProductCountSerializer(serializers.HyperlinkedModelSerializer):
@@ -61,10 +61,17 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
                   'title', 'text', 'images', 'comments']
 
 
+class OrderProductCountSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OrderProductCount
+        fields = ['id', 'order', 'product', 'count']
+
+
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
+    productCounts = OrderProductCountSerializer(many=True, read_only=True)
     class Meta:
         model = Order
-        fields = ['id', 'user', 'total', 'ship_addr', 'order_time']
+        fields = ['id', 'user', 'first_name', 'last_name', 'phone', 'address', 'order_time', 'productCounts']
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):

@@ -101,6 +101,38 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartSerializer
 
 
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    @action(detail=False, methods=['post'])
+    def checkout(self, request):
+        userId = int(request.data.get("userId"))
+        cartId = int(request.data.get("cartId"))
+
+        cart = Cart.objects.filter(id=cartId)[0]
+        user = User.objects.filter(id=userId)[0]
+
+        order = Order(user=user,
+            first_name=request.data.get("first_name"),
+            last_name=request.data.get("last_name"),
+            phone=request.data.get("phone"),
+            address=request.data.get("address"))
+        order.save()
+
+        productCountsSet = cart.productCounts.all()
+        for i in range(len(productCountsSet)):
+            productCount = productCountsSet[i]
+            orderProductCount = OrderProductCount(order=order, 
+                                                product=productCount.product, 
+                                                count=productCount.count)
+            productCount.delete()
+            orderProductCount.save()
+
+        queryset = Order.objects.filter(pk=order.pk)
+        serializer = OrderSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer

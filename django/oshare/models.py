@@ -39,14 +39,15 @@ class Comment(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    address = models.CharField(max_length=100)
+    order_time = models.DateTimeField(default=timezone.now)
     total = models.IntegerField(default=0)
-    ship_addr = models.CharField(max_length=100)
-    order_time = models.DateTimeField()
-
 
 class Cart(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
-
 
 class Product(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -60,7 +61,14 @@ class Product(models.Model):
     img_link = models.URLField(max_length=300, null=True)
     description = models.CharField(default='', max_length=500, null=True)
 
+# Product Count for cart
 class ProductCount(models.Model):
     count = models.IntegerField(default=0)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='productCounts')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+# Product Count for order
+class OrderProductCount(models.Model):
+    count = models.IntegerField(default=0)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='productCounts')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)    
