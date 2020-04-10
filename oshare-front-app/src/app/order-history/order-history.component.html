@@ -1,7 +1,9 @@
 <div class="container">
 
     <li *ngFor="let order of orders;  index as i" class="list-group-item">
-        <h2> Order {{i+1}}</h2>
+        <h2> Order {{i+1}} on {{order.date | date}}</h2>
+        <h3> Ship To {{order.firstname}} {{order.lastname}}</h3>
+        <h3> {{order.address}} </h3> 
         <app-order-product-list [order]=order></app-order-product-list>
     </li>
 

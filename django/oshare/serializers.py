@@ -3,12 +3,18 @@ from rest_framework import serializers
 from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount, UserProfile, OrderProductCount
 
 
+class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'brand', 'category', 'product_type',
+                  'price', 'price_sign', 'currency', 'img_link', 'description']
+
 
 class OrderProductCountSerializer(serializers.HyperlinkedModelSerializer):
+    product = ProductSerializer()
     class Meta:
         model = OrderProductCount
         fields = ['id', 'order', 'product', 'count']
-
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     productCounts = OrderProductCountSerializer(many=True, read_only=True)
@@ -74,11 +80,5 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         model = Post
         fields = ['id', 'url', 'user', 'date', 'likes',
                   'title', 'text', 'images', 'comments']
-
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'brand', 'category', 'product_type',
-                  'price', 'price_sign', 'currency', 'img_link', 'description']
 
 

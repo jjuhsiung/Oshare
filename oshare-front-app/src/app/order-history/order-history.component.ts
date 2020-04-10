@@ -13,7 +13,6 @@ import { Product } from '../_models/product.model';
 export class OrderHistoryComponent implements OnInit {
 
   orders = []
-  data;
 
   constructor(private userService: UserService, private productService: ProductService) { 
     this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
@@ -26,29 +25,14 @@ export class OrderHistoryComponent implements OnInit {
             order_json.address, 
             order_json.order_time, [] as ProductCount[]);
             this.orders.push(order);
-            console.log(order);
-
-          for(var j=0; j<order_json.productCounts.length; j++){
-            var product_json = order_json.productCounts[j];
-            var product = new Product();
-            var productCount = new ProductCount(product, product_json.count, product_json.id);
+            var productCounts = order_json.productCounts;
+          for(var j=0; j<productCounts.length; j++){
+            var product = new Product(productCounts[j].product.name, 
+              "", productCounts[j].product.price, "", productCounts[j].product.img_link);
+            var productCount = new ProductCount(product, productCounts[j].count, productCounts[j].id);
             order.productCounts.push(productCount);
-
-            this.productService.getProductByURL(product_json.product).subscribe(
-              product_data=>{
-                //console.log(product_data);
-                product.title = product_data.name;
-                product.Price = product_data.price;
-                product.ProductImage = product_data.img_link;
-                console.log(product);
-            }, error =>{
-                console.log(error);
-            });
-            console.log(product);
-
           }
         }
-        //console.log(this.orders);
       }, error => {
         console.log(error);
       }
@@ -58,5 +42,6 @@ export class OrderHistoryComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }
