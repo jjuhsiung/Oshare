@@ -11,7 +11,8 @@ export class CheckoutService {
 
   constructor(private http: HttpClient) { }
 
-  checkOut(checkOutData): Observable<any> {
-    return this.http.post<any>(this.baseurl + '/orders/checkout/', checkOutData);
+  checkout(checkoutData): Observable<any> {
+    return this.http.post<any>(this.baseurl + '/orders/checkout/', checkoutData);
   }
+
 }

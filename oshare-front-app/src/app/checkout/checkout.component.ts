@@ -82,7 +82,7 @@ export class CheckoutComponent implements OnInit {
           'address' : this.address.value
         }
 
-        this.checkOutService.checkOut(checkoutData).subscribe(
+        this.checkOutService.checkout(checkoutData).subscribe(
           checkoutResponse=>{
             //console.log(checkoutResponse);
             alert('Order successfully created!');
