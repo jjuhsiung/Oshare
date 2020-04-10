@@ -70,11 +70,11 @@ export class ProfileComponent implements OnInit {
         this.profileURL = response.url;
         alert('Profile successfully edit!');
       },
-
       error => {
         console.log(error);
       }
     );
+    alert('profile edited!')
     window.location.reload();
   }
 }

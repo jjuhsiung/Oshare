@@ -103,6 +103,7 @@ export class PostDetailComponent implements OnInit {
         console.log(error);
       }
     );
+    alert("comment submit!")
     window.location.reload();
   }
 

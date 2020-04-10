@@ -104,15 +104,6 @@ class CartViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
-    print("----profile view set----")
-
-    # @action(detail=False, methods=['get'])
-    # def profile_of_logged_in_user(self, request):
-    #     print(request.data)
-    #     print("---profile_of_logged_in_user---")
-    #     queryset = UserProfile.objects.get(user=request.user.id)
-    #     serializer = ProfileSerializer(queryset, context={'request': request})
-    #     return Response(serializer.data)
 
 
 def update_products_view(request: HttpRequest) -> JsonResponse:
