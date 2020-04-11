@@ -12,19 +12,19 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  Logout(){
+  Logout() {
     localStorage.removeItem('userToken');
     localStorage.removeItem('userId');
-    
-    if(this.router.url === '/cart' || this.router.url === '/new-post'){
+
+    if (this.router.url === '/cart' || this.router.url === '/new-post') {
       this.router.navigate(['/search']);
       alert('Required login!');
-    }else{
+    } else {
       location.reload();
     }
   }
 
-  checkLoginStatus(){
+  checkLoginStatus() {
     return localStorage.getItem('userToken') != null;
   }
 }
