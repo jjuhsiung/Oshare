@@ -14,21 +14,21 @@ export class OrderHistoryComponent implements OnInit {
 
   orders = []
 
-  constructor(private userService: UserService, private productService: ProductService) { 
+  constructor(private userService: UserService, private productService: ProductService) {
     this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
       response => {
-        for(var i=0; i<response.order.length; i++){
+        for (var i = 0; i < response.order.length; i++) {
           var order_json = response.order[i];
-          var order = new Order(order_json.first_name, 
-            order_json.last_name, 
-            order_json.phone, 
-            order_json.address, 
+          var order = new Order(order_json.first_name,
+            order_json.last_name,
+            order_json.phone,
+            order_json.address,
             order_json.order_time, [] as ProductCount[]);
-            this.orders.push(order);
-            var productCounts = order_json.productCounts;
-          for(var j=0; j<productCounts.length; j++){
-            var product = new Product(productCounts[j].product.name, 
-              "", productCounts[j].product.price, "", productCounts[j].product.img_link);
+          this.orders.push(order);
+          var productCounts = order_json.productCounts;
+          for (var j = 0; j < productCounts.length; j++) {
+            var product = new Product(productCounts[j].product.name,
+              "", productCounts[j].product.price, "", productCounts[j].product.img_link, "");
             var productCount = new ProductCount(product, productCounts[j].count, productCounts[j].id);
             order.productCounts.push(productCount);
           }
@@ -37,7 +37,7 @@ export class OrderHistoryComponent implements OnInit {
         console.log(error);
       }
     );
-    
+
   }
 
   ngOnInit(): void {
