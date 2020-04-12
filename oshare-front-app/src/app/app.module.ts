@@ -27,11 +27,13 @@ import { ProductCountItemComponent } from './cart/product-count-item/product-cou
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PostComponent } from './post/post-page.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
-import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { RegisterComponent } from './register/register.component';
 import { CartService } from './_services/cart.service';
 import { PostService } from './_services/post.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfilePostListComponent } from './profile/profile-post-list/profile-post-list.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { OrderProductListComponent } from './order-history/order-product-list/order-product-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -47,7 +49,8 @@ const appRoutes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'new-post', component: NewPostComponent }
+  { path: 'new-post', component: NewPostComponent },
+  { path: 'order-history', component: OrderHistoryComponent},
 ];
 
 @NgModule({
@@ -73,9 +76,11 @@ const appRoutes: Routes = [
     CheckoutComponent,
     PostComponent,
     PostDetailComponent,
-    NavigationBarComponent,
     RegisterComponent,
-    NewPostComponent
+    NewPostComponent,
+    ProfilePostListComponent,
+    OrderHistoryComponent,
+    OrderProductListComponent
   ],
   imports: [
     BrowserModule,
