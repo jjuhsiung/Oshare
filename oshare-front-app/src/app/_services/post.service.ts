@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
+import { Observable, timer, interval, Subscription} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, OnInit } from '@angular/core';
 import { Post } from '../_models/post.model';
 import { Comment } from '../_models/comment.model';
 import { User } from '../_models/user.model';
@@ -18,13 +18,17 @@ export class PostService {
     response_object = null;
     public post_list: Post[] = [];
 
+    mySubscription: Subscription;
+
     baseurl = "http://127.0.0.1:8000";
     httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
     constructor(private http: HttpClient, private postImageService: PostImageService) {
-        console.log("post-service")
+        console.log("post-service");
+        this.mySubscription = interval(5000).subscribe((x => {
+          this.constructPostList();
+        }))
     };
-
     getPosts() {
         this.getAllPosts();
         //console.log(this.posts.slice());
@@ -52,6 +56,7 @@ export class PostService {
     }
 
     constructPostList() {
+        console.log("Refreshing Post List");
         this.post_list.length = 0;
         this.getAllPosts().subscribe(
             data => {
