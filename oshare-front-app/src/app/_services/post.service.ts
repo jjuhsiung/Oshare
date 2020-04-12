@@ -25,7 +25,7 @@ export class PostService {
 
     constructor(private http: HttpClient, private postImageService: PostImageService) {
         console.log("post-service");
-        this.mySubscription = interval(5000).subscribe((x => {
+        this.mySubscription = interval(10000).subscribe((x => {
           this.constructPostList();
         }))
     };
@@ -62,7 +62,7 @@ export class PostService {
 
     constructPostList() {
         console.log("Refreshing Post List");
-        this.post_list.length = 0;
+        //this.post_list.length = 0;
         this.getAllPosts().subscribe(
             data => {
                 console.log(data);
@@ -104,7 +104,16 @@ export class PostService {
                         postComments.push(comment_obj);
                     }
                     post = new Post(id, puser, image_path, postDate, postText, postTitle, postComments, likes, null);
-                    this.post_list.push(post);
+
+                    var exist=this.post_list.some(function(item){
+                      return item.postId === post.postId;
+                    });
+                    console.log(exist);
+
+                    if (!exist){
+                      this.post_list.push(post);
+                    }
+
                 }
             },
             error => {
