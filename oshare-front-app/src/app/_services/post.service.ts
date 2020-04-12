@@ -103,18 +103,27 @@ export class PostService {
                         comment_obj = new Comment(c_user, c_text);
                         postComments.push(comment_obj);
                     }
-                    post = new Post(id, puser, image_path, postDate, postText, postTitle, postComments, likes, null);
+                    let postProducts: Product[] = [];
+                    for (let product_data of entry['products']) {
+                      let pd = new Product();
+                      pd.title = product_data['name'];
+                      pd.Price = product_data['price'];
+                      pd.Description = product_data['description'];
+                      postProducts.push(pd);
+                    }
+
+                    post = new Post(id, puser, image_path, postDate, postText, postTitle, postComments, likes, postProducts);
 
                     var exist=this.post_list.some(function(item){
                       return item.postId === post.postId;
                     });
-                    console.log(exist);
+                    //console.log(exist);
 
                     if (!exist){
                       this.post_list.push(post);
                     }
-
                 }
+                console.log(this.post_list);
             },
             error => {
                 console.log(error);
