@@ -70,6 +70,18 @@ export class PostService {
                 for (let entry of data) {
                     let post = null;
                     let id = entry['id'];
+                    var exist=this.post_list.some(function(item){
+                      return item.postId === id
+                    });
+                    //console.log(exist);
+                    let post_idx = -1;
+                    if (exist) {
+                      post_idx = this.post_list.map(function(e) {
+                        return e.postId;
+                      }).indexOf(id);
+                      console.log("already exist, index is" + post_idx);
+                    }
+
                     let puser: User = null;
                     puser = new User("", "", "", this.imgTemp1);
                     this.getUserObservableByURL(entry['user']).subscribe(
@@ -101,23 +113,31 @@ export class PostService {
                         );
                         let c_text = comment_data['text'];
                         comment_obj = new Comment(c_user, c_text);
-                        postComments.push(comment_obj);
+                        if (post_idx === -1) {
+                          postComments.push(comment_obj);
+                        } else {
+                          this.post_list[post_idx].comments.push(comment_obj);
+                        }
+
                     }
+                    
                     let postProducts: Product[] = [];
                     for (let product_data of entry['products']) {
                       let pd = new Product();
                       pd.title = product_data['name'];
                       pd.Price = product_data['price'];
                       pd.Description = product_data['description'];
+                      if (post_idx === -1) {
+                        postProducts.push(pd);
+                      } else {
+                        this.post_list[post_idx].relatedProducts.push(pd);
+                      }
                       postProducts.push(pd);
                     }
 
                     post = new Post(id, puser, image_path, postDate, postText, postTitle, postComments, likes, postProducts);
 
-                    var exist=this.post_list.some(function(item){
-                      return item.postId === post.postId;
-                    });
-                    //console.log(exist);
+
 
                     if (!exist){
                       this.post_list.push(post);
