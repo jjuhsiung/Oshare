@@ -45,12 +45,11 @@ export class CheckoutComponent implements OnInit {
           this.productService.getProductByURL(Response.cart.productCounts[i].product).subscribe(
             product_data=>{
               this.totalPrice += product_data.price * Response.cart.productCounts[i].count;
-              this.productSummary+= product_data.name + " x" + Response.cart.productCounts[i].count;
+              this.productSummary+= product_data.name + " x" + Response.cart.productCounts[i].count+", ";
             }, error=>{
               console.log(error);
             }
           )
-          if(i!=Response.cart.productCounts.length-1) this.productSummary += ", ";
         }
         console.log(this.productSummary);
         console.log(this.totalPrice);
