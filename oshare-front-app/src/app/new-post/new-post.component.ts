@@ -22,6 +22,7 @@ export class NewPostComponent implements OnInit {
   postURL: string;
   images = [];
   Products: Array<object> = [];
+  Products_selected: Array<object> = [];
 
   constructor(
     fb: FormBuilder,
