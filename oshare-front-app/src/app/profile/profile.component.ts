@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { ProfileService } from '../_services/profile.service';
+import { Profile } from '../_models/profile.model';
 
 @Component({
   selector: 'app-profile',
@@ -14,9 +15,10 @@ import { ProfileService } from '../_services/profile.service';
 export class ProfileComponent implements OnInit {
   form: FormGroup;
   profileForm: FormGroup;
-  file: File[] = null;
+  file: File;
   userURL: string;
   profileURL: string;
+  userprofile: Profile;
 
   constructor(formbuilder: FormBuilder, private router: Router,
     private userService: UserService, private profileService: ProfileService) {
@@ -64,10 +66,22 @@ export class ProfileComponent implements OnInit {
       alert('Required Login!');
       this.router.navigate(['/search'])
     }
+
+    this.profileService.getProfileById(localStorage.getItem('userId')).subscribe(
+      data => {
+        this.userprofile.phone = data.phone;
+        this.userprofile.address = data.address;
+        this.userprofile.profile_picture = data.profile_picture;
+        console.log(data);
+      }, error => {
+        console.log(error);
+      }
+    );
+
   }
 
   fileChanged(event) {
-    this.file = <File[]>event.target.files;
+    this.file = <File>event.target.files;
   }
 
   OnEditUser() {
@@ -97,17 +111,19 @@ export class ProfileComponent implements OnInit {
     formData.append('user', this.userURL);
     formData.append('phone', this.profileForm.get('phone').value);
     formData.append('address', this.profileForm.get('address').value);
-    //formData.append('profile_picture', this.form.get('profile_picture').value);
+    // if (this.file != null) {
+    //   formData.append('profile_picture', this.file, this.file.name);
+    // }
 
     this.profileService.editProfile(this.profileForm.getRawValue()).subscribe(
       response => {
         this.profileURL = response.url;
-        alert('User profile successfully edit!');
       },
       error => {
         console.log(error);
       }
     );
+    alert('User profile successfully edit!');
     window.location.reload();
   }
 }
