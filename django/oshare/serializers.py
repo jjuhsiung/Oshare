@@ -43,18 +43,6 @@ class CartSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'url', 'productCounts']
 
 
-class ChangePasswordSerializer(serializers.Serializer):
-    """
-    Serializer for password change endpoint.
-    """
-    old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
-
-    def validate_new_password(self, value):
-        validate_password(value)
-        return value
-
-
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     cart = CartSerializer(read_only=True)
     order = OrderSerializer(many=True, read_only=True)
