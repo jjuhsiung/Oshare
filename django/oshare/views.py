@@ -83,7 +83,28 @@ class PostViewSet(viewsets.ModelViewSet):
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
-    # TODO: query with different rules
+    # TODO: add related product to post
+    @action(detail=True, methods=['post'])
+    def add_post_products(self, request, *args, **kwargs):
+        print("add related product invoked")
+        #print(request.body)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(request.body)
+
+        post = self.get_object()
+        queryset = Post.objects.filter(id=post.id)
+        print(body)
+        # update product
+        print(type(body['products']))
+        for item in body['products']:
+            product = Product.objects.get(id=item['id'])
+            print(product)
+            post.products.add(product)
+            post.save()
+
+        serializer = PostSerializer(
+            queryset, many=True, context={'request': request})
+        return Response(serializer.data)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -123,8 +144,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         productCountsSet = cart.productCounts.all()
         for i in range(len(productCountsSet)):
             productCount = productCountsSet[i]
-            orderProductCount = OrderProductCount(order=order, 
-                                                product=productCount.product, 
+            orderProductCount = OrderProductCount(order=order,
+                                                product=productCount.product,
                                                 count=productCount.count)
             productCount.delete()
             orderProductCount.save()

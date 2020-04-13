@@ -4,12 +4,15 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PostService } from '../_services/post.service';
+import { ProductService } from '../_services/product.service';
+import { ProductListService } from '../_services/product-list.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
   styleUrls: ['./new-post.component.css'],
-  providers: [PostService, UserService, PostImageService]
+  providers: [PostService, UserService, PostImageService, ProductService]
 })
 export class NewPostComponent implements OnInit {
 
@@ -18,17 +21,27 @@ export class NewPostComponent implements OnInit {
   userURL: string;
   postURL: string;
   images = [];
-  
+  Products: Array<object> = [];
+
   constructor(
     fb: FormBuilder,
-    private router: Router, 
-    private postService: PostService, 
+    private router: Router,
+    private postService: PostService,
     private userService: UserService,
-    private postImageService: PostImageService) { 
+    private productService: ProductService,
+    private productListService: ProductListService,
+    private postImageService: PostImageService) {
 
     this.form = fb.group({
       title: ['', Validators.required],
       text: ['', Validators.required],
+    });
+
+    console.log("init new post page");
+    this.productService.productsupdate.subscribe(data => {
+
+      this.Products = data['response'];
+      console.log(this.Products);
     });
   }
 
@@ -41,10 +54,12 @@ export class NewPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if(localStorage.getItem('userToken') == null){
       alert('Required Login!');
       this.router.navigate(['/search'])
     }
+
   }
 
   fileChanged(event){
@@ -61,11 +76,16 @@ export class NewPostComponent implements OnInit {
 
     this.postService.createPosts(formData).subscribe(
       response => {
+        console.log("create post invoked");
+        console.log(this.Products);
         this.postURL = response.url;
-        //console.log(this.postURL);
+        console.log(this.postURL);
 
+        // add product to post
+        this.postService.updatePostProduct(this.postURL, this.Products).subscribe(data => {
+          console.log("Adding related product to post");
+        })
         if(this.file!=null){
-
           for(var i=0; i<this.file.length; i++){
             const formData = new FormData();
             formData.append('image', this.file[i], this.file[i].name);
@@ -79,18 +99,14 @@ export class NewPostComponent implements OnInit {
               }
             );
           }
-
         }
         alert('Post successfully create!');
         this.router.navigate(['/search'])
       },
-      
+
       error =>{
         console.log(error);
       }
     );
-
-
-
   }
 }

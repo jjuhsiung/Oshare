@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../_services/product.service';
 import {ProductQuery} from '../../_models/ProductQuery';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-search-bar',
@@ -28,6 +29,8 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("current url");
+    console.log(location.pathname);
   }
 
   DoSearch(): void {
@@ -52,7 +55,17 @@ export class SearchBarComponent implements OnInit {
       }
     }
     this.api.getProductsInfo(this.query);
-    this.router.navigate(['/search-result'], {queryParams: this.query});
+    let to_result = false;
+    if (location.pathname == "/search") {
+      to_result = true;
+    }
+    console.log("compare path name");
+    console.log(to_result);
+    if (to_result) {
+      console.log("current url is /search");
+      this.router.navigate(['/search-result'], {queryParams: this.query});
+    } else if (location.pathname == "/new-post") {
+      console.log("current url is /new-post");
+    }
   }
-
 }
