@@ -4,6 +4,7 @@ import { NewPostComponent } from './new-post/new-post.component';
 import { CheckoutService } from './_services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FacebookModule } from 'ngx-facebook';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfilePostListComponent } from './profile/profile-post-list/profile-post-list.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { OrderProductListComponent } from './order-history/order-product-list/order-product-list.component';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -45,6 +47,7 @@ const appRoutes: Routes = [
   { path: 'post/:id', component: PostComponent },
   { path: 'product', component: ProductComponent },
   { path: 'product-list', component: ProductListComponent },
+  { path: 'add-review', component:AddReviewComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
@@ -80,14 +83,16 @@ const appRoutes: Routes = [
     NewPostComponent,
     ProfilePostListComponent,
     OrderHistoryComponent,
-    OrderProductListComponent
+    OrderProductListComponent,
+    AddReviewComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FacebookModule.forRoot(),
   ],
   providers: [
     CartService,

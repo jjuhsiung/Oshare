@@ -5,8 +5,8 @@
         <div  *ngFor="let review of this.Reviews" class="d-flex">
           <img src="assets/img/u238.png" width="35px" height="35px" style="margin-right: 5px">
           <div>
-            <p><span style="font-size:17px;">{{review.Username}}</span></p>
-            <p><span style="font-size:15px;">{{review.Comment}}</span></p>
+            <p><span style="font-size:17px;">{{review.user.firstName}} {{review.user.lastName}}</span></p>
+            <p><span style="font-size:15px;">{{review.review.review}}</span></p>
           </div>
 <!--          <div class="w-500"></div>-->
         </div>

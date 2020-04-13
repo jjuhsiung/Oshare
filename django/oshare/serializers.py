@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount, UserProfile, OrderProductCount
+from .models import Post, Comment, PostImage, Order, Cart, Product, Review, \
+    ProductCount, UserProfile, OrderProductCount
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -8,6 +9,12 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         model = Product
         fields = ['id', 'name', 'brand', 'category', 'product_type',
                   'price', 'price_sign', 'currency', 'img_link', 'description']
+
+class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+    product = ProductSerializer
+    class Meta:
+        model = Review
+        fields = ['headline', 'review', 'rating', 'user', 'product']
 
 
 class OrderProductCountSerializer(serializers.HyperlinkedModelSerializer):
@@ -46,12 +53,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         cart = Cart(user=user)
         cart.save()
         return user
-
+    
     def put(self, instance, validated_data):
         print("invoked put")
         instance.first_name = validated_data.get('first_name', instance.first_name)
         print('instance of username',instance.first_name)
-        return instance
+        return instance 
 
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
@@ -75,9 +82,10 @@ class PostImageSerializer(serializers.HyperlinkedModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     images = PostImageSerializer(many=True, read_only=True)
-    products = ProductSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
         fields = ['id', 'url', 'user', 'date', 'likes',
-                  'title', 'text', 'images', 'comments', 'products']
+                  'title', 'text', 'images', 'comments']
+
+
