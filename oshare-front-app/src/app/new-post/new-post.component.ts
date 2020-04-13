@@ -110,4 +110,7 @@ export class NewPostComponent implements OnInit {
       }
     );
   }
+
+  // TODO: add a dropdown to add related product selectively
+  //       should be able to add several product at the same time
 }
