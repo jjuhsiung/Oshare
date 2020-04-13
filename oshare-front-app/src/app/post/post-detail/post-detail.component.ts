@@ -22,12 +22,13 @@ export class PostDetailComponent implements OnInit {
   post: Post;
   user: User;
   postComments: Comment[] = [];
-  relatedProducts: Product[]
+  //relatedProducts: Product[];
   commentForm: FormGroup;
   loading = false;
   liked = false;
   likesNum = 0;
   response_object = null;
+  post_products: Array<object> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,6 +56,7 @@ export class PostDetailComponent implements OnInit {
       });
     this.postService.getPostById(this.postId).subscribe(
       response => {
+        console.log(response);
         this.userService.getUserObjectByURL(response.user).subscribe(
           userdata => {
             this.post.user.firstName = userdata.first_name;
@@ -69,6 +71,11 @@ export class PostDetailComponent implements OnInit {
         this.post.postText = response.text;
         this.post.likes = response.likes;
         this.post.imagePath = response.images[0].image;
+        this.post_products = response.products;
+        console.log("this-post-products");
+        console.log(this.post_products);
+
+        //this.post.relatedProducts = response.products;
         this.post.comments = [];
         var commentArr = response.comments;
         for (var i = 0; i < commentArr.length; i++) {
