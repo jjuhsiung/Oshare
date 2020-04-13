@@ -5,6 +5,11 @@
         <h1>Checkout</h1>
     </div>
 
+    <div>
+        <h3>Total Price: {{totalPrice}}</h3>
+        <p>Order Summary: {{productSummary}}</p>
+    </div>
+
     <h3>Shipping Info</h3>
     <form [formGroup]="form" (ngSubmit)="checkout()" class="form-horizontal">
 
@@ -96,15 +101,24 @@
                         <div *ngIf="zipcode.touched && zipcode.invalid" class="alert alert-danger">Zip code is required.</div>
                     </div>
                 </div>
-            </div>
+
                 
-            <div class="col-lg-4">
-                <p>
-                <p>Merchandise subtotal:</p>
-                <p>Tax:</p>
-                <p>Shipping:</p>
-                <p>Total:</p>
                 <button type="submit" class="btn btn-dark" (click)="placeOrderButtonClicked()">Place Order</button>
+
+            </div>
+
+            <div class="col-lg-4">
+                
+                <div *ngIf="!paidFor">
+                    <h1>Pay by Paypal</h1>
+                </div>
+
+                <div *ngIf=paidFor>
+                    <h1>Paid Succesfully!</h1>
+                </div>
+
+                <div [hidden]="paidFor" #paypal></div>
+
             </div>
         </div>
 

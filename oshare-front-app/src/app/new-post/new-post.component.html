@@ -4,7 +4,7 @@
     <div class="page-header">
         <h1>Create New Post</h1>
     </div>
-
+    <app-search-bar></app-search-bar>
     <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
 
         <div class="form-group">
@@ -23,9 +23,9 @@
 
         <div class="form-group">
             <label for="text" class="col-form-label col-lg-2">Content:</label>
-            <div class="col-lg-6">     
+            <div class="col-lg-6">
                 <textarea
-                    formControlName="text" 
+                    formControlName="text"
                     type="text"
                     class="form-control"
                     id="text"
@@ -36,24 +36,24 @@
 
         <div class="form-group">
             <label id="upload-label" for="upload" class="col-form-label col-lg-2">Upload Image: </label>
-            <div class="col-lg-3">  
-                <input 
+            <div class="col-lg-3">
+                <input
                     id="upload"
-                    type="file" 
-                    class="form-control" 
+                    type="file"
+                    class="form-control"
                     accept="image/*"
                     multiple=""
                     (change)="fileChanged($event)">
             </div>
         </div>
-            
+
         <div>
             <button type="submit" class="btn btn-dark">Create Post</button>
         </div>
-        
+
 
     </form>
-        
+
     <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
 
 </div>

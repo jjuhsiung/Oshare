@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
+import { Observable, timer, interval, Subscription} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, OnInit } from '@angular/core';
 import { Post } from '../_models/post.model';
 import { Comment } from '../_models/comment.model';
 import { User } from '../_models/user.model';
@@ -18,13 +18,17 @@ export class PostService {
     response_object = null;
     public post_list: Post[] = [];
 
+    mySubscription: Subscription;
+
     baseurl = "http://127.0.0.1:8000";
     httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
     constructor(private http: HttpClient, private postImageService: PostImageService) {
-        console.log("post-service")
+        console.log("post-service");
+        this.mySubscription = interval(10000).subscribe((x => {
+          this.constructPostList();
+        }))
     };
-
     getPosts() {
         this.getAllPosts();
         //console.log(this.posts.slice());
@@ -34,6 +38,12 @@ export class PostService {
     updatePostLikes(post: Post, latest_like: number): Observable<any> {
         // /update_post_likes/?latest_like=10
         return this.http.post<any>(this.baseurl + '/posts/' + post.postId + '/update_post_likes/' + '?latest_like=' + latest_like, "");
+    }
+
+    updatePostProduct(base:string, productData): Observable<any> {
+      console.log("Adding related product to post");
+      console.log(base + 'add_post_products/');
+      return this.http.post<any>(base + 'add_post_products/', {'products':productData});
     }
 
     getAllPosts(): Observable<any> {
@@ -57,7 +67,8 @@ export class PostService {
     }
 
     constructPostList() {
-        this.post_list.length = 0;
+        console.log("Refreshing Post List");
+        //this.post_list.length = 0;
         this.getAllPosts().subscribe(
             data => {
                 console.log(data);
@@ -65,6 +76,18 @@ export class PostService {
                 for (let entry of data) {
                     let post = null;
                     let id = entry['id'];
+                    var exist=this.post_list.some(function(item){
+                      return item.postId === id
+                    });
+                    //console.log(exist);
+                    let post_idx = -1;
+                    if (exist) {
+                      post_idx = this.post_list.map(function(e) {
+                        return e.postId;
+                      }).indexOf(id);
+                      console.log("already exist, index is" + post_idx);
+                    }
+
                     let puser: User = null;
                     puser = new User("", "", "", this.imgTemp1);
                     this.getUserObservableByURL(entry['user']).subscribe(
@@ -96,11 +119,37 @@ export class PostService {
                         );
                         let c_text = comment_data['text'];
                         comment_obj = new Comment(c_user, c_text);
-                        postComments.push(comment_obj);
+                        if (post_idx === -1) {
+                          postComments.push(comment_obj);
+                        } else {
+                          this.post_list[post_idx].comments.push(comment_obj);
+                        }
+
                     }
-                    post = new Post(id, puser, image_path, postDate, postText, postTitle, postComments, likes, null);
-                    this.post_list.push(post);
+
+                    let postProducts: Product[] = [];
+                    for (let product_data of entry['products']) {
+                      let pd = new Product();
+                      pd.title = product_data['name'];
+                      pd.Price = product_data['price'];
+                      pd.Description = product_data['description'];
+                      if (post_idx === -1) {
+                        postProducts.push(pd);
+                      } else {
+                        this.post_list[post_idx].relatedProducts.push(pd);
+                      }
+                      postProducts.push(pd);
+                    }
+
+                    post = new Post(id, puser, image_path, postDate, postText, postTitle, postComments, likes, postProducts);
+
+
+
+                    if (!exist){
+                      this.post_list.push(post);
+                    }
                 }
+                console.log(this.post_list);
             },
             error => {
                 console.log(error);
@@ -116,20 +165,5 @@ export class PostService {
     getPostUrlById(post_id: number) {
         return this.baseurl + '/posts/' + post_id + '/';
     }
-
-
-
-    // add post(logged_in_user_id, post_content)
-
-    // add comment to post(logged_in_user_id, target_post_id, comment_content)
-
-    // update post_like(post_id, like_num)
-
-    // load posts according to product(post的product list包含该product_id )
-
-    // load posts according for search home page
-    // What rules are we going to use?
-
-    // load posts for logged in user(logged_in_user_id)
 
 }

@@ -20,10 +20,10 @@ export class ProfilePostListComponent implements OnInit {
       p_post => {
         console.log(p_post)
         for (let entry of p_post) {
-          // if (entry['images'].length != 0) {
-          // console.log(entry['images'][0]['image']);
-          //   image_path = entry['images'][0]['image'];
-          // }
+          if (entry['images'].length != 0) {
+          console.log(entry['images'][0]['image']);
+            image_path = entry['images'][0]['image'];
+          }
           let post = new Post(entry.id, new User(), image_path
             , entry.date, entry.text, entry.title, entry.comments, entry.likes, entry.relatedProducts);
           this.posts.push(post)

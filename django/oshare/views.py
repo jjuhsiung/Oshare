@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -30,9 +30,30 @@ class CustomObtainAuthToken(ObtainAuthToken):
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer     
+    
+    def put(self, request):
+        print("invoked puttttt")
+        if request.user.is_authenticated:
+            s = UserSerializer(instance=request.user, data=request.PUT)
+        if s.is_valid():
+            s.save()
+            return Response(
+                {'message': 'profile edited!'}, status=201)
+        else:
+            return Response(
+                {'message': 'you are not login!'}, status=401)
+            
+# url: http://127.0.0.1:8000/update_profile/id/
+class UserUpdateViewSet(viewsets.ModelViewSet):
+    '''
+    Partial update without password.
+    '''
+    queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    # authentication_classes = (TokenAuthentication,)
-    # permission_classes = (IsAuthenticated,)
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -73,7 +94,28 @@ class PostViewSet(viewsets.ModelViewSet):
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
-    # TODO: query with different rules
+    # TODO: add related product to post
+    @action(detail=True, methods=['post'])
+    def add_post_products(self, request, *args, **kwargs):
+        print("add related product invoked")
+        #print(request.body)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(request.body)
+
+        post = self.get_object()
+        queryset = Post.objects.filter(id=post.id)
+        print(body)
+        # update product
+        print(type(body['products']))
+        for item in body['products']:
+            product = Product.objects.get(id=item['id'])
+            print(product)
+            post.products.add(product)
+            post.save()
+
+        serializer = PostSerializer(
+            queryset, many=True, context={'request': request})
+        return Response(serializer.data)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -91,19 +133,41 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartSerializer
 
 
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    @action(detail=False, methods=['post'])
+    def checkout(self, request):
+        userId = int(request.data.get("userId"))
+        cartId = int(request.data.get("cartId"))
+
+        cart = Cart.objects.filter(id=cartId)[0]
+        user = User.objects.filter(id=userId)[0]
+
+        order = Order(user=user,
+            first_name=request.data.get("first_name"),
+            last_name=request.data.get("last_name"),
+            phone=request.data.get("phone"),
+            address=request.data.get("address"))
+        order.save()
+
+        productCountsSet = cart.productCounts.all()
+        for i in range(len(productCountsSet)):
+            productCount = productCountsSet[i]
+            orderProductCount = OrderProductCount(order=order,
+                                                product=productCount.product,
+                                                count=productCount.count)
+            productCount.delete()
+            orderProductCount.save()
+
+        queryset = Order.objects.filter(pk=order.pk)
+        serializer = OrderSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
-    print("----profile view set----")
-
-    @action(detail=False, methods=['get'])
-    def profile_of_logged_in_user(self, request):
-        print(request.data)
-        print("---profile_of_logged_in_user---")
-        queryset = UserProfile.objects.get(user=request.user.id)
-        serializer = ProfileSerializer(queryset, context={'request': request})
-        return Response(serializer.data)
-
 
 
 def update_products_view(request: HttpRequest) -> JsonResponse:

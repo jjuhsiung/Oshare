@@ -32,6 +32,8 @@ import { CartService } from './_services/cart.service';
 import { PostService } from './_services/post.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfilePostListComponent } from './profile/profile-post-list/profile-post-list.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { OrderProductListComponent } from './order-history/order-product-list/order-product-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -47,7 +49,8 @@ const appRoutes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'new-post', component: NewPostComponent }
+  { path: 'new-post', component: NewPostComponent },
+  { path: 'order-history', component: OrderHistoryComponent},
 ];
 
 @NgModule({
@@ -75,7 +78,9 @@ const appRoutes: Routes = [
     PostDetailComponent,
     RegisterComponent,
     NewPostComponent,
-    ProfilePostListComponent
+    ProfilePostListComponent,
+    OrderHistoryComponent,
+    OrderProductListComponent
   ],
   imports: [
     BrowserModule,
