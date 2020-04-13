@@ -46,12 +46,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         cart = Cart(user=user)
         cart.save()
         return user
-    
+
     def put(self, instance, validated_data):
         print("invoked put")
         instance.first_name = validated_data.get('first_name', instance.first_name)
         print('instance of username',instance.first_name)
-        return instance 
+        return instance
 
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
@@ -75,10 +75,9 @@ class PostImageSerializer(serializers.HyperlinkedModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     images = PostImageSerializer(many=True, read_only=True)
+    products = ProductSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
         fields = ['id', 'url', 'user', 'date', 'likes',
-                  'title', 'text', 'images', 'comments']
-
-
+                  'title', 'text', 'images', 'comments', 'products']

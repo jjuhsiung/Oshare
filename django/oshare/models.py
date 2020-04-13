@@ -19,7 +19,7 @@ class Post(models.Model):
     likes = models.IntegerField(default=0)
     title = models.CharField(max_length=200, null=True, default='python')
     text = models.CharField(max_length=1500)
-    #products = models.ManyToManyField('Product')
+    products = models.ManyToManyField('Product', related_name="products")
 
 
 class PostImage(models.Model):
@@ -71,4 +71,4 @@ class ProductCount(models.Model):
 class OrderProductCount(models.Model):
     count = models.IntegerField(default=0)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='productCounts')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)    
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
