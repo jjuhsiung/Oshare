@@ -30,12 +30,12 @@ class CustomObtainAuthToken(ObtainAuthToken):
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-
+    serializer_class = UserSerializer     
+    
     def put(self, request):
         print("invoked puttttt")
         if request.user.is_authenticated:
-            s = UserSerializer(instance=request.user, data=request.POST)
+            s = UserSerializer(instance=request.user, data=request.PUT)
         if s.is_valid():
             s.save()
             return Response(
@@ -43,6 +43,17 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response(
                 {'message': 'you are not login!'}, status=401)
+            
+# url: http://127.0.0.1:8000/update_profile/id/
+class UserUpdateViewSet(viewsets.ModelViewSet):
+    '''
+    Partial update without password.
+    '''
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
 
 class PostViewSet(viewsets.ModelViewSet):

@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount, UserProfile, OrderProductCount
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.password_validation import validate_password
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -12,15 +14,19 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
 class OrderProductCountSerializer(serializers.HyperlinkedModelSerializer):
     product = ProductSerializer()
+
     class Meta:
         model = OrderProductCount
         fields = ['id', 'order', 'product', 'count']
 
+
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     productCounts = OrderProductCountSerializer(many=True, read_only=True)
+
     class Meta:
         model = Order
-        fields = ['id', 'user', 'first_name', 'last_name', 'phone', 'address', 'order_time', 'productCounts']
+        fields = ['id', 'user', 'first_name', 'last_name',
+                  'phone', 'address', 'order_time', 'productCounts']
 
 
 class ProductCountSerializer(serializers.HyperlinkedModelSerializer):
@@ -28,30 +34,49 @@ class ProductCountSerializer(serializers.HyperlinkedModelSerializer):
         model = ProductCount
         fields = ['id', 'cart', 'product', 'count']
 
+
 class CartSerializer(serializers.HyperlinkedModelSerializer):
     productCounts = ProductCountSerializer(many=True, read_only=True)
+
     class Meta:
         model = Cart
         fields = ['id', 'url', 'productCounts']
 
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        validate_password(value)
+        return value
+
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     cart = CartSerializer(read_only=True)
     order = OrderSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'password', 'cart', 'order']
 
+
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
+        # user = User.objects.create_user(**validated_data)
+        user = User(
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            email=validated_data['email'],
+            username=validated_data['username'],
+        )
+        user.set_password(validated_data['password'])
+        user.save()
         cart = Cart(user=user)
         cart.save()
         return user
-
-    def put(self, instance, validated_data):
-        print("invoked put")
-        instance.first_name = validated_data.get('first_name', instance.first_name)
-        print('instance of username',instance.first_name)
-        return instance
 
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):

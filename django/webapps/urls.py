@@ -18,7 +18,7 @@ router.register(r'cart', views.CartViewSet)
 router.register(r'products', views.ProductViewSet)
 router.register(r'productCounts', views.ProductCountViewSet)
 router.register(r'orders', views.OrderViewSet)
-
+router.register(r'update_profile', views.UserUpdateViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

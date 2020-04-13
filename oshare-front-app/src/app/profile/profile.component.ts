@@ -22,7 +22,6 @@ export class ProfileComponent implements OnInit {
     this.form = formbuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      password: ['', Validators.required],
       username: ['', Validators.required],
       email: ['']
     })
@@ -35,9 +34,6 @@ export class ProfileComponent implements OnInit {
   }
   get username() {
     return this.form.get('username');
-  }
-  get password() {
-    return this.form.get('password');
   }
   get email() {
     return this.form.get('email');
@@ -63,7 +59,6 @@ export class ProfileComponent implements OnInit {
     formData.append('last_name', this.form.get('last_name').value);
     formData.append('username', this.form.get('username').value);
     formData.append('email', this.form.get('email').value);
-    formData.append('password', this.form.get('password').value);
 
     this.profileService.editProfile(this.form.getRawValue()).subscribe(
       response => {
@@ -74,7 +69,6 @@ export class ProfileComponent implements OnInit {
         console.log(error);
       }
     );
-    alert('profile edited!')
     window.location.reload();
   }
 }
