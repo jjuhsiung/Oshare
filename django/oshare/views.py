@@ -33,7 +33,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-# url: http://127.0.0.1:8000/update_profile/id/
+# url: http://127.0.0.1:8000/update_user/id/
 class UserUpdateViewSet(viewsets.ModelViewSet):
     '''
     Partial update without password.

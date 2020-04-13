@@ -13,6 +13,7 @@ import { ProfileService } from '../_services/profile.service';
 })
 export class ProfileComponent implements OnInit {
   form: FormGroup;
+  profileForm: FormGroup;
   file: File[] = null;
   userURL: string;
   profileURL: string;
@@ -24,6 +25,13 @@ export class ProfileComponent implements OnInit {
       last_name: ['', Validators.required],
       username: ['', Validators.required],
       email: ['']
+    })
+
+
+    this.profileForm = formbuilder.group({
+      phone: [''],
+      address: [''],
+      //profile_picture: ['']
     })
   }
   get first_name() {
@@ -38,6 +46,17 @@ export class ProfileComponent implements OnInit {
   get email() {
     return this.form.get('email');
   }
+  //profile:
+  get phone() {
+    return this.profileForm.get('phone');
+  }
+  get address() {
+    return this.profileForm.get('address');
+  }
+  get profile_picture() {
+    return this.profileForm.get('profile_picture');
+  }
+
 
 
   ngOnInit(): void {
@@ -51,7 +70,7 @@ export class ProfileComponent implements OnInit {
     this.file = <File[]>event.target.files;
   }
 
-  OnEditProfile() {
+  OnEditUser() {
     this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
     const formData = new FormData();
     formData.append('user', this.userURL);
@@ -60,10 +79,30 @@ export class ProfileComponent implements OnInit {
     formData.append('username', this.form.get('username').value);
     formData.append('email', this.form.get('email').value);
 
-    this.profileService.editProfile(this.form.getRawValue()).subscribe(
+    this.profileService.editUser(this.form.getRawValue()).subscribe(
       response => {
         this.profileURL = response.url;
-        alert('Profile successfully edit!');
+        alert('User info successfully edit!');
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    window.location.reload();
+  }
+
+  OnEditProfile() {
+    this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
+    const formData = new FormData();
+    formData.append('user', this.userURL);
+    formData.append('phone', this.profileForm.get('phone').value);
+    formData.append('address', this.profileForm.get('address').value);
+    //formData.append('profile_picture', this.form.get('profile_picture').value);
+
+    this.profileService.editProfile(this.profileForm.getRawValue()).subscribe(
+      response => {
+        this.profileURL = response.url;
+        alert('User profile successfully edit!');
       },
       error => {
         console.log(error);

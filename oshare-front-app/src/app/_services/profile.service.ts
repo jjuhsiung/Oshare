@@ -18,10 +18,17 @@ export class ProfileService {
     return this.response_object;
   }
 
+  editUser(formdata: any): Observable<any> {
+    console.log("--edit user--")
+    console.log(formdata)
+    var id = localStorage.getItem("userId");
+    return this.http.patch<any>(this.baseurl + '/update_user/' + id + '/', formdata);
+  }
+
   editProfile(formdata: any): Observable<any> {
     console.log("--edit profile--")
     console.log(formdata)
     var id = localStorage.getItem("userId");
-    return this.http.patch<any>(this.baseurl + '/update_profile/' + id + '/', formdata);
+    return this.http.patch<any>(this.baseurl + '/profile/' + id + '/', formdata);
   }
 }
