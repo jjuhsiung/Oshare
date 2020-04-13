@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.password_validation import validate_password
 from .models import Post, Comment, PostImage, Order, Cart, Product, Review, \
     ProductCount, UserProfile, OrderProductCount
 
@@ -19,15 +21,19 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
 class OrderProductCountSerializer(serializers.HyperlinkedModelSerializer):
     product = ProductSerializer()
+
     class Meta:
         model = OrderProductCount
         fields = ['id', 'order', 'product', 'count']
 
+
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     productCounts = OrderProductCountSerializer(many=True, read_only=True)
+
     class Meta:
         model = Order
-        fields = ['id', 'user', 'first_name', 'last_name', 'phone', 'address', 'order_time', 'productCounts']
+        fields = ['id', 'user', 'first_name', 'last_name',
+                  'phone', 'address', 'order_time', 'productCounts']
 
 
 class ProductCountSerializer(serializers.HyperlinkedModelSerializer):
@@ -35,30 +41,46 @@ class ProductCountSerializer(serializers.HyperlinkedModelSerializer):
         model = ProductCount
         fields = ['id', 'cart', 'product', 'count']
 
+
 class CartSerializer(serializers.HyperlinkedModelSerializer):
     productCounts = ProductCountSerializer(many=True, read_only=True)
+
     class Meta:
         model = Cart
         fields = ['id', 'url', 'productCounts']
 
+
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['user', 'phone', 'address', 'profile_picture']
+
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     cart = CartSerializer(read_only=True)
     order = OrderSerializer(many=True, read_only=True)
+    profile = ProfileSerializer(read_only=True)
+
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password', 'cart', 'order']
+        fields = ['first_name', 'last_name', 'username',
+                  'email', 'password', 'cart', 'order', 'profile']
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
+        # user = User.objects.create_user(**validated_data)
+        user = User(
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            email=validated_data['email'],
+            username=validated_data['username'],
+        )
+        user.set_password(validated_data['password'])
+        user.save()
         cart = Cart(user=user)
         cart.save()
+        profile = UserProfile(user=user)
+        profile.save()
         return user
-    
-    def put(self, instance, validated_data):
-        print("invoked put")
-        instance.first_name = validated_data.get('first_name', instance.first_name)
-        print('instance of username',instance.first_name)
-        return instance 
 
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
@@ -70,7 +92,7 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['user', 'phone', 'address', 'profile_picture', 'following']
+        fields = ['user', 'phone', 'address', 'profile_picture']
 
 
 class PostImageSerializer(serializers.HyperlinkedModelSerializer):
@@ -82,10 +104,9 @@ class PostImageSerializer(serializers.HyperlinkedModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     images = PostImageSerializer(many=True, read_only=True)
+    products = ProductSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
         fields = ['id', 'url', 'user', 'date', 'likes',
-                  'title', 'text', 'images', 'comments']
-
-
+                  'title', 'text', 'images', 'comments', 'products']

@@ -4,13 +4,14 @@ from django.utils import timezone
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='profile')
     phone = models.CharField(max_length=15)
     address = models.CharField(max_length=60)
     profile_picture = models.ImageField(
         upload_to="images/", default="images/profile.png")
-    following = models.ManyToManyField(
-        User, related_name='following', default=None)
+    # following = models.ManyToManyField(
+    #     User, related_name='following', default=None)
 
 
 class Post(models.Model):
@@ -19,7 +20,7 @@ class Post(models.Model):
     likes = models.IntegerField(default=0)
     title = models.CharField(max_length=200, null=True, default='python')
     text = models.CharField(max_length=1500)
-    #products = models.ManyToManyField('Product')
+    products = models.ManyToManyField('Product')
 
 
 class PostImage(models.Model):
@@ -38,7 +39,8 @@ class Comment(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='order')
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     phone = models.CharField(max_length=15)
@@ -47,7 +49,9 @@ class Order(models.Model):
     total = models.IntegerField(default=0)
 
 class Cart(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='cart')
+
 
 class Product(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -72,11 +76,13 @@ class Review(models.Model):
 # Product Count for cart
 class ProductCount(models.Model):
     count = models.IntegerField(default=0)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='productCounts')
+    cart = models.ForeignKey(
+        Cart, on_delete=models.CASCADE, related_name='productCounts')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 # Product Count for order
 class OrderProductCount(models.Model):
     count = models.IntegerField(default=0)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='productCounts')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)    
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name='productCounts')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
