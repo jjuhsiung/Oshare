@@ -30,20 +30,9 @@ class CustomObtainAuthToken(ObtainAuthToken):
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer     
-    
-    def put(self, request):
-        print("invoked puttttt")
-        if request.user.is_authenticated:
-            s = UserSerializer(instance=request.user, data=request.PUT)
-        if s.is_valid():
-            s.save()
-            return Response(
-                {'message': 'profile edited!'}, status=201)
-        else:
-            return Response(
-                {'message': 'you are not login!'}, status=401)
-            
+    serializer_class = UserSerializer
+
+
 # url: http://127.0.0.1:8000/update_profile/id/
 class UserUpdateViewSet(viewsets.ModelViewSet):
     '''
@@ -54,6 +43,10 @@ class UserUpdateViewSet(viewsets.ModelViewSet):
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+    
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = ProfileSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -98,7 +91,7 @@ class PostViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def add_post_products(self, request, *args, **kwargs):
         print("add related product invoked")
-        #print(request.body)
+        # print(request.body)
         body_unicode = request.body.decode('utf-8')
         body = json.loads(request.body)
 
@@ -146,28 +139,25 @@ class OrderViewSet(viewsets.ModelViewSet):
         user = User.objects.filter(id=userId)[0]
 
         order = Order(user=user,
-            first_name=request.data.get("first_name"),
-            last_name=request.data.get("last_name"),
-            phone=request.data.get("phone"),
-            address=request.data.get("address"))
+                      first_name=request.data.get("first_name"),
+                      last_name=request.data.get("last_name"),
+                      phone=request.data.get("phone"),
+                      address=request.data.get("address"))
         order.save()
 
         productCountsSet = cart.productCounts.all()
         for i in range(len(productCountsSet)):
             productCount = productCountsSet[i]
             orderProductCount = OrderProductCount(order=order,
-                                                product=productCount.product,
-                                                count=productCount.count)
+                                                  product=productCount.product,
+                                                  count=productCount.count)
             productCount.delete()
             orderProductCount.save()
 
         queryset = Order.objects.filter(pk=order.pk)
-        serializer = OrderSerializer(queryset, many=True, context={'request': request})
+        serializer = OrderSerializer(
+            queryset, many=True, context={'request': request})
         return Response(serializer.data)
-
-class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
-    serializer_class = ProfileSerializer
 
 
 def update_products_view(request: HttpRequest) -> JsonResponse:
