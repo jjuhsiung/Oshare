@@ -52,6 +52,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'new-post', component: NewPostComponent },
   { path: 'order-history', component: OrderHistoryComponent},
+  { path: 'add-review', component: AddReviewComponent},
 ];
 
 @NgModule({

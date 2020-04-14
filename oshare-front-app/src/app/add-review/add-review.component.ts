@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReviewService } from "../_services/review.service";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { UserService } from './../_services/user.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-add-review',
