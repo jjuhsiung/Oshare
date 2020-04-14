@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewService } from "../_services/review.service";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserService } from './../_services/user.service';
 
 @Component({
   selector: 'app-add-review',
   templateUrl: './add-review.component.html',
-  styleUrls: ['./add-review.component.css']
+  styleUrls: ['./add-review.component.css'],
 })
 export class AddReviewComponent implements OnInit {
 
@@ -15,6 +15,12 @@ export class AddReviewComponent implements OnInit {
   submitted = false;
   product_id=0;
   product_title='';
+  product_img;
+  rating: number;
+  rating2: number;
+  stars = [];
+  fake_stars = [];
+  durationInSeconds = 5;
 
   constructor(private formBuilder: FormBuilder,
               private api:ReviewService,
@@ -32,6 +38,9 @@ export class AddReviewComponent implements OnInit {
     const map = this.route.snapshot.queryParamMap;
     this.product_id = parseInt(map.get('product_id'));
     this.product_title = map.get('product_title');
+    this.product_img = map.get('product_img');
+    console.log(this.product_id);
+    console.log(this.product_img);
 
     this.reviewForm = this.formBuilder.group({
       headline: ['', Validators.required],
@@ -43,17 +52,16 @@ export class AddReviewComponent implements OnInit {
   get f() { return this.reviewForm.controls; }
 
   addreview(){
+    this.submitted = true;
+    if(this.reviewForm.invalid){
+      return;
+    }
     let formObj = this.reviewForm.getRawValue();
     const formData = new FormData();
-    // formData.append('user', this.userService.getUserURLById(localStorage.getItem('userId')));
-    // formData.append('headline', formObj.headline);
-    // formData.append('review', formObj.review);
-    // formData.append('rating', formObj.rating);
-    // formData.append('product', formObj.product_id)
     this.api.addReview(formObj.headline, formObj.review, formObj.rating, this.product_id);
-    // this.api.addReview(formData);
-    alert("add one Review Succeed!");
-    this.router.navigate(['/search']);
   }
 
+  redirect() {
+    this.router.navigate(['/product']);
+  }
 }
