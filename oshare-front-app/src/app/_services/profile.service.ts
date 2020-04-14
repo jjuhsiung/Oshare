@@ -18,6 +18,14 @@ export class ProfileService {
     return this.response_object;
   }
 
+  getProfileByURL(profileURL: string): Observable<any> {
+    return this.http.get<any>(profileURL);
+  }
+
+  editProfileByURL(profileURL: string, profileData){
+    return this.http.put<any>(profileURL, profileData);
+  }
+
   editUser(formdata: any): Observable<any> {
     console.log("--edit user--")
     console.log(formdata)

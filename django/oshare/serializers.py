@@ -52,7 +52,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     cart = CartSerializer(read_only=True)
     order = OrderSerializer(many=True, read_only=True)
-    profile = ProfileSerializer(read_only=True)
+    #profile = ProfileSerializer(read_only=True)
 
     class Meta:
         model = User

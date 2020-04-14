@@ -17,8 +17,8 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   file: File;
   userURL: string;
-  profileURL: string;
-  userprofile: Profile;
+  userprofile: Profile = new Profile("", "", "");
+  userProfileURL: string = "";
 
   constructor(formbuilder: FormBuilder, private router: Router,
     private userService: UserService, private profileService: ProfileService) {
@@ -67,13 +67,21 @@ export class ProfileComponent implements OnInit {
       this.router.navigate(['/search'])
     }
 
-    this.profileService.getProfileById(localStorage.getItem('userId')).subscribe(
-      data => {
-        this.userprofile.phone = data.phone;
-        this.userprofile.address = data.address;
-        this.userprofile.profile_picture = data.profile_picture;
-        console.log(data);
-      }, error => {
+    this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+      data=>{
+        this.userProfileURL = data.profile;
+        console.log(this.userProfileURL);
+        this.profileService.getProfileByURL(this.userProfileURL).subscribe(
+          profileData => {
+            this.userprofile.phone = profileData.phone;
+            this.userprofile.address = profileData.address;
+            this.userprofile.profile_picture = profileData.profile_picture;
+            console.log(this.userprofile);
+          }, error => {
+            console.log(error);
+          }
+        );
+      }, error=>{
         console.log(error);
       }
     );
@@ -81,7 +89,7 @@ export class ProfileComponent implements OnInit {
   }
 
   fileChanged(event) {
-    this.file = <File>event.target.files;
+    this.file = <File>event.target.files[0];
   }
 
   OnEditUser() {
@@ -95,7 +103,6 @@ export class ProfileComponent implements OnInit {
 
     this.profileService.editUser(this.form.getRawValue()).subscribe(
       response => {
-        this.profileURL = response.url;
         alert('User info successfully edit!');
       },
       error => {
@@ -111,13 +118,13 @@ export class ProfileComponent implements OnInit {
     formData.append('user', this.userURL);
     formData.append('phone', this.profileForm.get('phone').value);
     formData.append('address', this.profileForm.get('address').value);
-    // if (this.file != null) {
-    //   formData.append('profile_picture', this.file, this.file.name);
-    // }
+    if (this.file != null) {
+      formData.append('profile_picture', this.file, this.file.name);
+    }
 
-    this.profileService.editProfile(this.profileForm.getRawValue()).subscribe(
+    this.profileService.editProfileByURL(this.userProfileURL, formData).subscribe(
       response => {
-        this.profileURL = response.url;
+        console.log(response);
       },
       error => {
         console.log(error);
