@@ -12,10 +12,6 @@ import { switchMap } from 'rxjs/operators';
 export class ProductListComponent implements OnInit {
 
   Products: Array<object> = [];
-  pageNum = 1;
-  pageSize = 9;
-  MaxPageSize = 1;
-  pagelist = [];
   // productService: ProductService;
 
 
@@ -42,30 +38,11 @@ export class ProductListComponent implements OnInit {
 
   updateData(data: object): void {
     this.Products = data['response'];
-    this.MaxPageSize = this.Products.length/this.pageSize + 1;
-    this.pagelist = [];
-    for (let i=0;i<this.MaxPageSize-1;i++)
-      this.pagelist.push(i);
-    console.log(this.pagelist);
   }
 
   toDetail(id): void {
     this.api.currentproduct = id;
     this.router.navigate(['/product']);
-  }
-
-  PrePage(): void {
-    if (this.pageNum>1)
-      this.pageNum = this.pageNum -1;
-  }
-
-  NextPage(): void {
-    if (this.pageNum < this.MaxPageSize - 1)
-      this.pageNum = this.pageNum + 1;
-  }
-
-  ToPage(num): void {
-    this.pageNum = num;
   }
 
 }

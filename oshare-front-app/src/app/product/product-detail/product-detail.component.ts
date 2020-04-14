@@ -1,8 +1,9 @@
 import { ProductCountService } from './../../_services/product-count.service';
 import { Component, OnInit } from '@angular/core';
+import {Product} from '../../_models/product.model';
+import {PRODUCTS} from '../../MockProduct';
 import {ProductService} from '../../_services/product.service';
 import {ProductQuery} from "../../_models/ProductQuery";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-detail',
@@ -14,7 +15,7 @@ export class ProductDetailComponent implements OnInit {
 
   product: any;
   // product = PRODUCTS[0];
-  constructor(private api: ProductService, private productCountService: ProductCountService ,private router: Router) {
+  constructor(private api: ProductService, private productCountService: ProductCountService ) {
     let query = new ProductQuery();
     query.id = this.api.currentproduct;
     api.getProductsInfo(query);
@@ -29,13 +30,5 @@ export class ProductDetailComponent implements OnInit {
 
   add_to_cart() {
     this.productCountService.addToCart(this.product.id);
-  }
-
-  addReview() {
-    this.router.navigate(['/add-review'], {
-      queryParams: {
-        'product_id': this.product.id,
-        'product_title': this.product.name}
-    });
   }
 }

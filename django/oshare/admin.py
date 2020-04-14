@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Post, PostImage, Comment, Order, Cart, Product, ProductCount, UserProfile, Review
+from .models import User, Post, PostImage, Comment, Order, Cart, Product, ProductCount, UserProfile
 
 # Register your models here.
 # admin.site.register(FollowModel)
@@ -12,4 +12,3 @@ admin.site.register(Order)
 admin.site.register(Cart)
 #new added
 admin.site.register(UserProfile)
-admin.site.register(Review)

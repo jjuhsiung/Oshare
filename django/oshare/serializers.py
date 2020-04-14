@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount, UserProfile, OrderProductCount
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.password_validation import validate_password
-from .models import Post, Comment, PostImage, Order, Cart, Product, Review, \
-    ProductCount, UserProfile, OrderProductCount
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -11,12 +10,6 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         model = Product
         fields = ['id', 'name', 'brand', 'category', 'product_type',
                   'price', 'price_sign', 'currency', 'img_link', 'description']
-
-class ReviewSerializer(serializers.HyperlinkedModelSerializer):
-    product = ProductSerializer
-    class Meta:
-        model = Review
-        fields = ['headline', 'review', 'rating', 'user', 'product']
 
 
 class OrderProductCountSerializer(serializers.HyperlinkedModelSerializer):

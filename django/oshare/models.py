@@ -20,7 +20,7 @@ class Post(models.Model):
     likes = models.IntegerField(default=0)
     title = models.CharField(max_length=200, null=True, default='python')
     text = models.CharField(max_length=1500)
-    products = models.ManyToManyField('Product')
+    products = models.ManyToManyField('Product', related_name="products")
 
 
 class PostImage(models.Model):
@@ -48,6 +48,7 @@ class Order(models.Model):
     order_time = models.DateTimeField(default=timezone.now)
     total = models.IntegerField(default=0)
 
+
 class Cart(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='cart')
@@ -65,15 +66,9 @@ class Product(models.Model):
     img_link = models.URLField(max_length=300, null=True)
     description = models.CharField(default='', max_length=500, null=True)
 
-
-class Review(models.Model):
-    headline = models.CharField(max_length=100)
-    review = models.CharField(max_length=300)
-    rating = models.IntegerField(default=0)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
 # Product Count for cart
+
+
 class ProductCount(models.Model):
     count = models.IntegerField(default=0)
     cart = models.ForeignKey(
@@ -81,6 +76,8 @@ class ProductCount(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 # Product Count for order
+
+
 class OrderProductCount(models.Model):
     count = models.IntegerField(default=0)
     order = models.ForeignKey(
