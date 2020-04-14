@@ -1,22 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import { FacebookService, InitParams } from 'ngx-facebook';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'oshare-front-app';
-
-  constructor(private facebookService: FacebookService) {}
-
-  ngOnInit(): void {
-    this.initFacebookService();
-  }
-
-  private initFacebookService(): void {
-    const initParams: InitParams = { xfbml:true, version:'v3.2'};
-    this.facebookService.init(initParams);
-  }
 }
