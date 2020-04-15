@@ -70,3 +70,14 @@
       </div>
     </div>
 </div>
+<!---><cdk-virtual-scroll-viewport>
+  <div *cdkVirtualFor="let productEl of Products; let i = index">
+    <p>Hi I am here</p>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="" [id]="i" (click)="addToSelected(productEl.id, i)">
+        {{ productEl.name }}
+      </label>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport><!--->

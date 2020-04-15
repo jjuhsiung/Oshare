@@ -1,18 +1,21 @@
 import { PostImageService } from './../_services/post-image.service';
 import { UserService } from './../_services/user.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PostService } from '../_services/post.service';
 import { ProductService } from '../_services/product.service';
 import { ProductListService } from '../_services/product-list.service';
 import { Location } from '@angular/common';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
   styleUrls: ['./new-post.component.css'],
-  providers: [PostService, UserService, PostImageService, ProductService]
+  providers: [PostService, UserService, PostImageService, ProductService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewPostComponent implements OnInit {
 
