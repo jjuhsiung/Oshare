@@ -105,12 +105,12 @@
                 </div><br>
                 <div id="id_related_product">
                     <h2>Related Products</h2>
-                    <ul *ngFor="let p of relatedProducts" style="margin: 2px;">
+                    <ul *ngFor="let p of post_products" style="margin: 2px;">
                         <a href="/product">
-                            <img id="id_product_img" src="{{p.ProductImage}}">
+                            <img id="id_product_img" src="{{p.img_link}}">
                         </a>
                         <span style="font-size: 18px">
-                            {{p.title}}
+                            {{p.name}}
                         </span>
                     </ul>
                 </div>

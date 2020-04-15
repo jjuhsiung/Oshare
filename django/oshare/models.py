@@ -20,7 +20,7 @@ class Post(models.Model):
     likes = models.IntegerField(default=0)
     title = models.CharField(max_length=200, null=True, default='python')
     text = models.CharField(max_length=1500)
-    products = models.ManyToManyField('Product')
+    products = models.ManyToManyField('Product', related_name="products")
 
 
 class PostImage(models.Model):

@@ -34,7 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfilePostListComponent } from './profile/profile-post-list/profile-post-list.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { OrderProductListComponent } from './order-history/order-product-list/order-product-list.component';
-import {AddReviewComponent} from "./add-review/add-review.component";
+import { AddReviewComponent } from "./add-review/add-review.component";
 import { FacebookModule } from 'ngx-facebook';
 
 const appRoutes: Routes = [

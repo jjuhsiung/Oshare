@@ -40,6 +40,12 @@ export class PostService {
         return this.http.post<any>(this.baseurl + '/posts/' + post.postId + '/update_post_likes/' + '?latest_like=' + latest_like, "");
     }
 
+    updatePostProduct(base:string, productData): Observable<any> {
+      console.log("Adding related product to post");
+      console.log(base + 'add_post_products/');
+      return this.http.post<any>(base + 'add_post_products/', {'products':productData});
+    }
+
     getAllPosts(): Observable<any> {
         this.response_object = this.http.get(this.baseurl + '/posts/', { headers: this.httpHeaders });
         return this.response_object;
