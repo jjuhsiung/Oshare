@@ -136,3 +136,7 @@ textarea, select, input, button { outline: none; }
   margin-top: 20px;
   margin-bottom: 50px;
 }
+
+.checked {
+  color: orange;
+}

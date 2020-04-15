@@ -174,8 +174,12 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
             Product.objects.get(id=x['id'])
         except Product.DoesNotExist:
             price = 0.0
+            print(x)
             if x['price'] != None:
                 price = float(x['price'])
+            rating = 0.0
+            if x['rating']!=None:
+                rating= float(x['rating'])
             new_product = Product(
                 id=int(x['id']),
                 name=x['name'],
@@ -187,8 +191,9 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
                 currency=x['currency'],
                 img_link=x['image_link'],
                 description=x['description'],
-                rating=x['rating'],
+                rating=rating,
             )
+            print("rating:",new_product.rating)
             new_product.save()
     return JsonResponse({})
 
