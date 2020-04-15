@@ -43,14 +43,21 @@ class CartSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'url', 'productCounts']
 
 
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['user', 'phone', 'address', 'profile_picture']
+
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     cart = CartSerializer(read_only=True)
     order = OrderSerializer(many=True, read_only=True)
+    #profile = ProfileSerializer(read_only=True)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password', 'cart', 'order']
-
+        fields = ['first_name', 'last_name', 'username',
+                  'email', 'password', 'cart', 'order', 'profile']
 
     def create(self, validated_data):
         # user = User.objects.create_user(**validated_data)
@@ -64,6 +71,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.save()
         cart = Cart(user=user)
         cart.save()
+        profile = UserProfile(user=user)
+        profile.save()
         return user
 
 
@@ -76,7 +85,7 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['user', 'phone', 'address', 'profile_picture', 'following']
+        fields = ['user', 'phone', 'address', 'profile_picture']
 
 
 class PostImageSerializer(serializers.HyperlinkedModelSerializer):
