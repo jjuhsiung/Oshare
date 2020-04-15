@@ -21,6 +21,7 @@
         "@angular/router": "~9.0.5",
         "bootstrap": "^4.4.1",
         "jquery": "^3.4.1",
+        "ngx": "^2.4.0",
         "ngx-facebook": "git+https://github.com/jemys89/ngx-facebook.git",
         "rxjs": "~6.5.4",
         "tslib": "^1.10.0",
