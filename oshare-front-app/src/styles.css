@@ -130,3 +130,9 @@ textarea, select, input, button { outline: none; }
   margin-bottom: 15px;
   margin-top: 15px;
 }
+
+.serif {
+  font-family: "Times New Roman", Times, serif;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}

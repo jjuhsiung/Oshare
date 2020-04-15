@@ -29,6 +29,7 @@ class CustomObtainAuthToken(ObtainAuthToken):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    print("user view set")
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
@@ -43,7 +44,7 @@ class UserUpdateViewSet(viewsets.ModelViewSet):
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
-    
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
@@ -186,6 +187,7 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
                 currency=x['currency'],
                 img_link=x['image_link'],
                 description=x['description'],
+                rating=x['rating'],
             )
             new_product.save()
     return JsonResponse({})
@@ -273,51 +275,29 @@ class ProductViewSet(viewsets.ModelViewSet):
         return JsonResponse({'response': serializer.data})
 
 
-'''
-def get_product_view(request: HttpRequest) -> JsonResponse:
-    queryset = Product.objects.filter()
-    keys = request.GET.keys()
-    if 'id' in keys:
-        serializer = ProductSerializer(Product.objects.get(id=request.GET['id']), many=False,
-                                       context={'request': request})
-        return JsonResponse({'response': serializer.data})
-    if 'name' in keys:
-        queryset = queryset.filter(name=request.GET['name'])
-    if 'brand' in keys:
-        queryset = queryset.filter(brand=request.GET['brand'])
-    if 'category' in keys:
-        queryset = queryset.filter(category=request.GET['category'])
-    if 'type' in keys:
-        queryset = queryset.filter(product_type=request.GET['type'])
-    serializer = ProductSerializer(queryset, many=True, context={'request': request})
-    return JsonResponse({'response': serializer.data})
-'''
-'''
-def add_to_cart_view(request: HttpRequest) -> JsonResponse:
-    data = {}
-    try:
-        product_id = request.GET['id']
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    @action(detail=False, methods=['post'])
+    def add_review(self, request):
+        print(request.data)
+        print(request.data.get('headline'))
+        headline = request.data.get('headline')
+        review = request.data.get('review')
+        product_id = int(request.data.get('product_id'))
+        rating = int(request.data.get('rating'))
+        user = User.objects.get(id=int(request.data.get('user_id')))
+        new_review = Review(headline=headline, review=review, product_id=product_id, user=user, rating=rating)
+        new_review.save()
+        return Response({})
+
+    @action(detail=False, methods=['get'])
+    def get_product_reviews(self, request):
+        product_id = int(request.GET['product_id'])
         product = Product.objects.get(id=product_id)
-        cart = Cart.objects.get(user=request.user)
-    except Exception:
-        data["error"] = 'Fail to add to cart'
-        return JsonResponse(data)
-
-    try:
-        cart_product = ProductCount.objects.get(product=product, cart=cart)
-        cart_product.count += 1
-        cart_product.save()
-    except ProductCount.DoesNotExist:
-        cart_product = ProductCount(product=product, count=1, cart=cart)
-        cart_product.save()
-        cart.products.add(cart_product)
-
-    cart.total += 1
-    cart.save()
-    data["cart_count"] = cart.total
-    data["status"] = 'add to cart succeeded!'
-
-    return JsonResponse(data)
-
-
-'''
+        queryset = self.queryset.filter(product=product)
+        serializers = ReviewSerializer(
+            queryset, many=True, context={'request': request}
+        )
+        return Response(serializers.data)

@@ -1,6 +1,6 @@
 <div class="container mt-2 justify-content-center">
   <div class="row row-cols-3 justify-content-center">
-    <div *ngFor="let product of this.Products" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
+    <div *ngFor="let product of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
         <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
         <div style="font-size:12px" class="card-body border-1 p-2" >
         <div class="row border-2 d-flex justify-content-between" width="250px">
@@ -20,5 +20,12 @@
       </div>
     </div>
   </div>
+  <nav aria-label="Page navigation example m-auto">
+    <ul class="pagination justify-content-center">
+      <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
+      <li *ngFor="let i of pagelist" class="page-item"><a class="page-link" (click)="ToPage(i+1)">{{i+1}}</a></li>
+      <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
+    </ul>
+  </nav>
 </div>
 

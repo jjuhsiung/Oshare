@@ -98,7 +98,7 @@ export class CheckoutComponent implements OnInit {
         return actions.order.create({
           purchase_units: [
             {
-              description: this.productSummary,
+              description: "Order from oshare",
               amount: {
                 currency_code: 'USD',
                 value: this.totalPrice

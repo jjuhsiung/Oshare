@@ -126,7 +126,7 @@ export class PostService {
                         }
 
                     }
-
+                    
                     let postProducts: Product[] = [];
                     for (let product_data of entry['products']) {
                       let pd = new Product();

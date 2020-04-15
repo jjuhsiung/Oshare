@@ -34,6 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfilePostListComponent } from './profile/profile-post-list/profile-post-list.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { OrderProductListComponent } from './order-history/order-product-list/order-product-list.component';
+import { AddReviewComponent } from "./add-review/add-review.component";
+import { FacebookModule } from 'ngx-facebook';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -51,6 +53,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'new-post', component: NewPostComponent },
   { path: 'order-history', component: OrderHistoryComponent},
+  { path: 'add-review', component: AddReviewComponent},
 ];
 
 @NgModule({
@@ -80,14 +83,16 @@ const appRoutes: Routes = [
     NewPostComponent,
     ProfilePostListComponent,
     OrderHistoryComponent,
-    OrderProductListComponent
+    OrderProductListComponent,
+    AddReviewComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FacebookModule.forRoot(),
   ],
   providers: [
     CartService,
