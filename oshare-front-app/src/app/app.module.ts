@@ -35,6 +35,7 @@ import { ProfilePostListComponent } from './profile/profile-post-list/profile-po
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { OrderProductListComponent } from './order-history/order-product-list/order-product-list.component';
 import {AddReviewComponent} from "./add-review/add-review.component";
+import { FacebookModule } from 'ngx-facebook';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -90,7 +91,8 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FacebookModule.forRoot(),
   ],
   providers: [
     CartService,
