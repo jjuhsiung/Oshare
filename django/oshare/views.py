@@ -29,6 +29,7 @@ class CustomObtainAuthToken(ObtainAuthToken):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    print("user view set")
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
@@ -186,6 +187,7 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
                 currency=x['currency'],
                 img_link=x['image_link'],
                 description=x['description'],
+                rating=x['rating'],
             )
             new_product.save()
     return JsonResponse({})
