@@ -63,6 +63,28 @@ export class NewPostComponent implements OnInit {
 
   }
 
+  addToSelected(product_idx: number, list_idx: number) {
+    var exist=this.Products_selected.some(function(item){
+      return item['id'] === product_idx;
+    });
+
+    if (exist) {
+      console.log("Already selected, move out");
+
+      let idx = -1;
+      idx = this.Products_selected.map(function(e) {
+        return e['id'];
+      }).indexOf(product_idx);
+      this.Products_selected.splice(idx, 1);
+    } else {
+      console.log("Have not selected yet, add in");
+
+      this.Products_selected.push(this.Products[list_idx])
+    }
+
+    console.log(this.Products_selected);
+  }
+
   fileChanged(event){
     this.file = <File[]>event.target.files;
   }
@@ -83,7 +105,7 @@ export class NewPostComponent implements OnInit {
         console.log(this.postURL);
 
         // add product to post
-        this.postService.updatePostProduct(this.postURL, this.Products).subscribe(data => {
+        this.postService.updatePostProduct(this.postURL, this.Products_selected).subscribe(data => {
           console.log("Adding related product to post");
         })
         if(this.file!=null){
