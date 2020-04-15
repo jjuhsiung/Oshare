@@ -41,12 +41,12 @@ export class ProductListComponent implements OnInit {
 
 
   updateData(data: object): void {
-    //this.Products = data['response'];
-    for(let product_data of data['response'])
-    {
-      var product = new Product(product_data.name,product_data.rating, product_data.price, "", product_data.img_link, product_data.id);
-      this.Products.push(product);
-    }
+    this.Products = data['response'];
+    // for(let product_data of data['response'])
+    // {
+    //   var product = new Product(product_data.name,product_data.rating, product_data.price, "", product_data.img_link, product_data.id);
+    //   this.Products.push(product);
+    // }
     console.log(this.Products);
     this.MaxPageSize = this.Products.length/this.pageSize + 1;
     this.pagelist = [];

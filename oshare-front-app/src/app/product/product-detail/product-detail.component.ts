@@ -20,7 +20,7 @@ export class ProductDetailComponent implements OnInit {
     query.id = this.api.currentproduct;
     api.getProductsInfo(query);
     api.productsupdate.subscribe(data=>{
-      this.product = data['response']
+      this.product = data['response'];
     })
     console.log(this.product);
   }
