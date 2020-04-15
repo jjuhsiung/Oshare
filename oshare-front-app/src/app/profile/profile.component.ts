@@ -14,7 +14,6 @@ import { Profile } from '../_models/profile.model';
 })
 export class ProfileComponent implements OnInit {
   form: FormGroup;
-  profileForm: FormGroup;
   file: File;
   userURL: string;
   userprofile: Profile = new Profile("", "", "");
@@ -26,14 +25,9 @@ export class ProfileComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       username: ['', Validators.required],
-      email: ['']
-    })
-
-
-    this.profileForm = formbuilder.group({
+      email: [''],
       phone: [''],
       address: [''],
-      //profile_picture: ['']
     })
   }
   get first_name() {
@@ -50,13 +44,13 @@ export class ProfileComponent implements OnInit {
   }
   //profile:
   get phone() {
-    return this.profileForm.get('phone');
+    return this.form.get('phone');
   }
   get address() {
-    return this.profileForm.get('address');
+    return this.form.get('address');
   }
   get profile_picture() {
-    return this.profileForm.get('profile_picture');
+    return this.form.get('profile_picture');
   }
 
 
@@ -68,7 +62,7 @@ export class ProfileComponent implements OnInit {
     }
 
     this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
-      data=>{
+      data => {
         this.userProfileURL = data.profile;
         console.log(this.userProfileURL);
         this.profileService.getProfileByURL(this.userProfileURL).subscribe(
@@ -81,7 +75,7 @@ export class ProfileComponent implements OnInit {
             console.log(error);
           }
         );
-      }, error=>{
+      }, error => {
         console.log(error);
       }
     );
@@ -101,28 +95,22 @@ export class ProfileComponent implements OnInit {
     formData.append('username', this.form.get('username').value);
     formData.append('email', this.form.get('email').value);
 
+    const pForm = new FormData();
+    pForm.append('user', this.userURL);
+    pForm.append('phone', this.form.get('phone').value);
+    pForm.append('address', this.form.get('address').value);
+    if (this.file != null) {
+      pForm.append('profile_picture', this.file, this.file.name);
+    }
     this.profileService.editUser(this.form.getRawValue()).subscribe(
       response => {
-        alert('User info successfully edit!');
+        console.log(response)
       },
       error => {
         console.log(error);
       }
     );
-    window.location.reload();
-  }
-
-  OnEditProfile() {
-    this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
-    const formData = new FormData();
-    formData.append('user', this.userURL);
-    formData.append('phone', this.profileForm.get('phone').value);
-    formData.append('address', this.profileForm.get('address').value);
-    if (this.file != null) {
-      formData.append('profile_picture', this.file, this.file.name);
-    }
-
-    this.profileService.editProfileByURL(this.userProfileURL, formData).subscribe(
+    this.profileService.editProfileByURL(this.userProfileURL, pForm).subscribe(
       response => {
         console.log(response);
       },
@@ -134,5 +122,3 @@ export class ProfileComponent implements OnInit {
     window.location.reload();
   }
 }
-
-
