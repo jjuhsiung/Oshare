@@ -1,17 +1,14 @@
-<div class="card mb-4 shadow-sm">
-<a [routerLink]="['/post', post.postId]" (click)="onSelected()">
-    <svg class="bd-placeholder-img card-img-top" width="80%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-        <title>Placeholder</title>
-        <image attr.xlink:href="{{post.imagePath}}" height="100%" width="100%"/>
-        <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-    </svg>
-  </a>
+
+<div class="col-lg-4 col-sm-6 mb-4" style="max-height: 350px;min-height: 350px;max-width: 200px;min-width: 200px;">
+  <div class="card h-100">
+    <a [routerLink]="['/post', post.postId]" (click)="onSelected()">
+      <img class="card-img-top" src="{{post.imagePath}}" alt="">
+    </a>
     <div class="card-body">
-      <h4 class="card-text">{{post.postTitle}}</h4>
-      <div class="d-flex justify-content-between align-items-center">
-        <p>
-          {{post.postText}}
-        </p>
-      </div>
+      <h4 class="card-title">
+        <a href="#">{{post.postTitle}}</a>
+      </h4>
+      <p class="card-text">{{post.postText}}</p>
     </div>
+  </div>
 </div>
