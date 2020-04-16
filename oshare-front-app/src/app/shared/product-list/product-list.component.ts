@@ -16,11 +16,12 @@ export class ProductListComponent implements OnInit {
   pageSize = 9;
   MaxPageSize = 1;
   pagelist = [];
-  rating = 3;
+  productNum:number;
+  // rating = 3;
   // productService: ProductService;
 
 
-  constructor(private api: ProductService, private router: Router, private  route: ActivatedRoute) {
+  constructor(private api: ProductService, private router: Router, private route: ActivatedRoute) {
     // this.productService = api;
     this.api.productsupdate.subscribe(data => {
       this.updateData(data);
@@ -42,6 +43,7 @@ export class ProductListComponent implements OnInit {
 
   updateData(data: object): void {
     this.Products = data['response'];
+    this.productNum = this.Products.length;
     // for(let product_data of data['response'])
     // {
     //   var product = new Product(product_data.name,product_data.rating, product_data.price, "", product_data.img_link, product_data.id);
