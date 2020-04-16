@@ -1,12 +1,13 @@
-
 <div class="col-lg-4 col-sm-6 mb-4" style="max-height: 350px;min-height: 350px;max-width: 200px;min-width: 200px;">
   <div class="card h-100">
+    <div class="h-25">
     <a [routerLink]="['/post', post.postId]" (click)="onSelected()">
-      <img class="card-img-top" src="{{post.imagePath}}" alt="">
+      <img class="card-img-top" src="{{post.imagePath}}" alt="" style="max-height: 100px;">
     </a>
+    </div>
     <div class="card-body">
       <h4 class="card-title">
-        <a href="#">{{post.postTitle}}</a>
+        <a [routerLink]="['/post', post.postId]">{{post.postTitle}}</a>
       </h4>
       <p class="card-text">{{post.postText}}</p>
     </div>

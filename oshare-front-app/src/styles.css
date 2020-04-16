@@ -141,6 +141,5 @@ textarea, select, input, button { outline: none; }
   color: orange;
 }
 
-.text-font {
-  font-family: Helvetica;
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

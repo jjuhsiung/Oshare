@@ -1,16 +1,21 @@
 <app-header></app-header>
 <div class="container">
 
+    <div class="page-header">
+        <h1>Order History</h1>
+    </div>
+
     <div *ngIf="orders.length==0">
         <h3>You have no order.</h3>
     </div>
 
     <div *ngIf="orders.length!=0">
+    <ul class="list-group list-group-flush">
         <li *ngFor="let order of orders;  index as i" class="list-group-item">
-            <h2> Order {{i+1}} on {{order.date | date}}</h2>
-            <h3> Ship To {{order.firstname}} {{order.lastname}}</h3>
-            <h3> {{order.address}} </h3>
+            <h5> Order #{{i+1}} | {{order.date | date}} | {{order.total | currency: 'USD': true}}</h5>
+            <p> Ship To {{order.firstname}} {{order.lastname}}, {{order.address}}</p>
             <app-order-product-list [order]=order></app-order-product-list>
         </li>
+    </ul>
     </div>
 </div>

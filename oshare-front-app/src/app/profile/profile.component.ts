@@ -21,16 +21,16 @@ export class ProfileComponent implements OnInit {
   userProfileURL: string = "";
   user: User = new User();
 
-  constructor(formbuilder: FormBuilder, private router: Router,
+  constructor(private formbuilder: FormBuilder, private router: Router,
     private userService: UserService, private profileService: ProfileService) {
-    this.form = formbuilder.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      username: [''],
-      email: [''],
-      phone: [''],
-      address: [''],
-    })
+      this.form = this.formbuilder.group({
+        first_name: [''],
+        last_name: [''],
+        username: [''],
+        email: [''],
+        phone: [''],
+        address: [''],
+      })
   }
   get first_name() {
     return this.form.get('first_name');
@@ -76,7 +76,13 @@ export class ProfileComponent implements OnInit {
             this.userprofile.phone = profileData.phone;
             this.userprofile.address = profileData.address;
             this.userprofile.profile_picture = profileData.profile_picture;
-            console.log(this.userprofile);
+
+            this.form.controls['first_name'].setValue(this.user.firstName);
+            this.form.controls['last_name'].setValue(this.user.lastName);
+            this.form.controls['username'].setValue(this.user.username);
+            this.form.controls['email'].setValue(this.user.email);
+            this.form.controls['phone'].setValue(this.userprofile.phone);
+            this.form.controls['address'].setValue(this.userprofile.address);
           }, error => {
             console.log(error);
           }
@@ -119,12 +125,13 @@ export class ProfileComponent implements OnInit {
     this.profileService.editProfileByURL(this.userProfileURL, pForm).subscribe(
       response => {
         console.log(response);
+        alert('User profile successfully edit!');
       },
       error => {
         console.log(error);
       }
     );
-    alert('User profile successfully edit!');
+    
     window.location.reload();
   }
 }

@@ -36,6 +36,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
 import { OrderProductListComponent } from './order-history/order-product-list/order-product-list.component';
 import { AddReviewComponent } from "./add-review/add-review.component";
 import { FacebookModule } from 'ngx-facebook';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -93,6 +94,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     FacebookModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [
     CartService,

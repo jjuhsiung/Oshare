@@ -23,15 +23,18 @@ export class OrderHistoryComponent implements OnInit {
             order_json.last_name,
             order_json.phone,
             order_json.address,
-            order_json.order_time, [] as ProductCount[]);
+            order_json.order_time, [] as ProductCount[], 0);
           this.orders.push(order);
           var productCounts = order_json.productCounts;
+          var total = 0;
           for (var j = 0; j < productCounts.length; j++) {
+            total += productCounts[j].product.price * productCounts[j].count;
             var product = new Product(productCounts[j].product.name,
               "", productCounts[j].product.price, "", productCounts[j].product.img_link, "");
             var productCount = new ProductCount(product, productCounts[j].count, productCounts[j].id);
             order.productCounts.push(productCount);
           }
+          order.total = total;
         }
       }, error => {
         console.log(error);
