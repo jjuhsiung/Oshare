@@ -140,3 +140,6 @@ textarea, select, input, button { outline: none; }
 .checked {
   color: orange;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

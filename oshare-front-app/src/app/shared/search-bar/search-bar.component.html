@@ -71,17 +71,20 @@
 </ng-template>
 <ng-template #elseBlock>
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-4" style="padding-top: 0px">
       <div class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search Product" [(ngModel)]="input">
-        <button class="h3 btn btn-outline-success my-2 my-sm-0" (click)="DoSearch()">Search</button>
+        <input class="form-control mr-sm-2" style="width: 65px" type="text" placeholder="Search" aria-label="Search Product" [(ngModel)]="input">
+        <button class="h3 btn btn-outline-success my-2 my-sm-0" (click)="DoSearch()">Add products</button>
       </div>
     </div>
-    <div class="col-md-5">
-      <ul class="list-group list-group-horizontal float-right">
+
+    <div class="col-md-8  my-2 my-lg-0">
+      <ul class="list-group list-group-horizontal" style="margin-top: 0px">
         <li class="list-group-item no-border">
           <div class="dropdown h4">
-            <select class="no-border " id="dropdownMenuButtonA" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="brand">
+            <select class="no-border " id="dropdownMenuButtonA" data-toggle="dropdown"
+              aria-haspopup="true" [(ngModel)]="brand"
+              style="width: 65px">
               <option value="">Brand</option>
               <option *ngFor="let brand of this.brandlist" value={{brand}}>{{brand}}</option>
             </select>
@@ -112,4 +115,3 @@
     </div>
   </div>
 </ng-template>
-
