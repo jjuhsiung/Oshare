@@ -53,13 +53,13 @@ class CartSerializer(serializers.HyperlinkedModelSerializer):
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['user', 'phone', 'address', 'profile_picture']
+        fields = ['user', 'url', 'phone', 'address', 'profile_picture']
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     cart = CartSerializer(read_only=True)
     order = OrderSerializer(many=True, read_only=True)
-    profile = ProfileSerializer(read_only=True)
+    profile = ProfileSerializer(read_only=True, required=False)
 
     class Meta:
         model = User

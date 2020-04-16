@@ -6,10 +6,11 @@ export class User {
     email: string;
     profileImg: string;
 
-    constructor(username?: string, firstName?: string, lastName?: string, profileImg?: string) {
+    constructor(username?: string, firstName?: string, lastName?: string, profileImg?: string, email?: string) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.profileImg = profileImg;
+        this.email = email;
     }
 }

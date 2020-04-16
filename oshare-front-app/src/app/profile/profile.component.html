@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label for="first_name" class="col-form-label col-lg-2">First name:</label>
                 <div class="col-lg-6">
-                    <input formControlName="first_name" type="text" class="form-control form-control-lg"
+                    <input formControlName="first_name" type="text" placeholder={{user.firstName}} class="form-control form-control-lg"
                         id="first_name">
                     <div *ngIf="first_name.touched && first_name.invalid" class="alert alert-danger">
                         <div *ngIf="first_name.errors.required">first name is required.</div>
@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label for="last_name" class="col-form-label col-lg-2">Last name:</label>
                 <div class="col-lg-6">
-                    <input formControlName="last_name" type="text" class="form-control" id="text" rows="15">
+                    <input formControlName="last_name" type="text" placeholder={{user.lastName}} class="form-control" id="text" rows="15">
                     <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">last name is
                         required.</div>
                 </div>
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <label for="username" class="col-form-label col-lg-2">Username:</label>
                 <div class="col-lg-6">
-                    <input formControlName="username" type="text" class="form-control" id="text" rows="15">
+                    <input formControlName="username" type="text" placeholder={{user.username}} class="form-control" id="text" rows="15">
                     <div *ngIf="username.touched && username.invalid" class="alert alert-danger">username name is
                         required.</div>
                 </div>
@@ -64,7 +64,7 @@
             <div class="form-group">
                 <label for="email" class="col-form-label col-lg-2">Email:</label>
                 <div class="col-lg-6">
-                    <input formControlName="email" type="text" class="form-control" id="text" rows="15">
+                    <input formControlName="email" type="text" placeholder={{user.email}} class="form-control" id="text" rows="15">
                 </div>
             </div>
 

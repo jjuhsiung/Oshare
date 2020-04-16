@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { ProfileService } from '../_services/profile.service';
 import { Profile } from '../_models/profile.model';
+import { User } from '../_models/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -18,13 +19,14 @@ export class ProfileComponent implements OnInit {
   userURL: string;
   userprofile: Profile = new Profile("", "", "");
   userProfileURL: string = "";
+  user: User = new User();
 
   constructor(formbuilder: FormBuilder, private router: Router,
     private userService: UserService, private profileService: ProfileService) {
     this.form = formbuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      username: ['', Validators.required],
+      username: [''],
       email: [''],
       phone: [''],
       address: [''],
@@ -63,7 +65,11 @@ export class ProfileComponent implements OnInit {
 
     this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
       data => {
-        this.userProfileURL = data.profile;
+        this.user.firstName = data.first_name;
+        this.user.lastName = data.last_name;
+        this.user.username = data.username;
+        this.user.email = data.email;
+        this.userProfileURL = data.profile.url;
         console.log(this.userProfileURL);
         this.profileService.getProfileByURL(this.userProfileURL).subscribe(
           profileData => {
