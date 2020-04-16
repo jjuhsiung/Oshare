@@ -7,7 +7,7 @@ import { Comment } from 'src/app/_models/comment.model';
 import { Product } from 'src/app/_models/product.model';
 import { Post } from 'src/app/_models/post.model';
 import { User } from 'src/app/_models/user.model';
-import { ActivatedRoute } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-detail',
@@ -35,7 +35,8 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private userService: UserService,
     private commentService: CommentService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router: Router) {
 
     this.user = new User();
     this.post = new Post(this.postId, this.user)
@@ -121,4 +122,12 @@ export class PostDetailComponent implements OnInit {
     console.log("liked: " + this.liked);
   }
 
+  toDetail(id): void {
+    // this.api.currentproduct = id;
+    this.router.navigate(['/product'], {
+      queryParams: {
+        'product_id': id,
+      }
+    });
+  }
 }

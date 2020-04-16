@@ -106,9 +106,9 @@
                 <div id="id_related_product">
                     <h2>Related Products</h2>
                     <ul *ngFor="let p of post_products" style="margin: 2px;">
-                        <a href="/product">
-                            <img id="id_product_img" src="{{p.img_link}}">
-                        </a>
+<!--                        <a href="/product">-->
+                            <img id="id_product_img" style="cursor: pointer;" src="{{p.img_link}}" (click)="toDetail(p.id)">
+<!--                        </a>-->
                         <span style="font-size: 18px">
                             {{p.name}}
                         </span>
