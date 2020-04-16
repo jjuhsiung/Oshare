@@ -6,7 +6,7 @@
     </a>
     <div class="card-body">
       <h4 class="card-title">
-        <a href="#">{{post.postTitle}}</a>
+        <a [routerLink]="['/post', post.postId]">{{post.postTitle}}</a>
       </h4>
       <p class="card-text">{{post.postText}}</p>
     </div>
