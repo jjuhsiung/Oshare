@@ -1,51 +1,46 @@
-<!-- <div class="mb-lg-5 mx-lg-5">
-
-    <div id="id_post_container">
+<div class="background">
+    <div class="container">
         <div class="row">
             <div id="id_post_header">
+                <div class="page-header display-1">
+                    <h1 id="id_post_title">{{post.postTitle}}</h1>
+                </div>
                 <div id="id_post_name">
-                    <a class="text-dark" href="/profile">
-                        <span>{{post.user.firstName}} </span>
-                        <span>{{post.user.lastName}}</span>
-                    </a>
-                    <span>   | {{likesNum}} likes</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img class="rounded float-left" alt="profile-image" style="width: 30px; height: 30px;"
+                        src="{{profile_picture}}">
+                    <h2> {{post.user.firstName}} {{post.user.lastName}}</h2>
                     <span style="font-size: 12px;"> {{post.postDate}} </span><br>
                 </div><br>
-                <div>
-                    <span id="id_post_title">{{post.postTitle}}</span>
-                    <input type="button" id="id_like_btn" (click)="onLike()" value="❤️">
-                </div>
             </div>
         </div>
         <div class="column">
             <img id="id_post_img" src="{{post.imagePath}}">
             <div id="id_post_text">
-                <p>{{post.postText}}</p><br>
+                <p class="lead">{{post.postText}}</p><br>
             </div><br>
             <div id="id_related_product">
-                <h2>Related Products</h2>
-                <ul *ngFor="let p of relatedProducts" style="margin: 2px;">
-                    <a href="/product">
-                        <img id="id_product_img" src="{{p.ProductImage}}">
-                    </a>
+                <div class="page-header">Related Products</div>
+                <ul *ngFor="let p of post_products" style="margin: 2px;">
+                    <img id="id_product_img" style="cursor: pointer;" src="{{p.img_link}}" (click)="toDetail(p.id)">
                     <span style="font-size: 18px">
-                        {{p.title}}
+                        {{p.name}}
                     </span>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div id="id_related_comments">
-        <h2>Comment</h2>
-        <ul *ngFor="let cmt of post.comments" style="margin: 2px;">
-            <a href="/profile">
-                <img id="id_comment_img" src="{{cmt.user.profileImg}}">
-            </a>
-            <h3>{{cmt.commentText}}</h3>
-            <h3>{{cmt.user.firstName}} {{cmt.user.lastName}} {{cmt.commentTime}}</h3>
-        </ul><br>
-        <div>
+    <div class="container">
+        <div class="page-header">Comment</div>
+        <div class="row">
+            <ul *ngFor="let cmt of post.comments" style="margin: 2px;">
+                <div>
+                    <span class="col">{{cmt.commentText}} </span>
+                    <span class="lead">{{cmt.user.firstName}} {{cmt.user.lastName}} {{cmt.commentTime}}</span>
+                </div>
+            </ul>
+        </div><br><br>
+        <div class="row">
             <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
                 <div id="id_comment_input">
                     <label for="newComment">Leave Comment:</label>
@@ -53,89 +48,6 @@
                     <button class="btn btn-light" type="submit" id="id_submit_btn">Submit</button>
                 </div>
             </form>
-        </div>
-    </div>
-
-</div> -->
-
-<div class="background">
-    <span id="ball"></span>
-    <span class="ball"></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <div class="mb-lg-5 mx-lg-5">
-
-        <div id="id_post_container">
-            <div class="row">
-                <div id="id_post_header">
-                    <div id="id_post_name">
-                        <a class="text-dark" href="/profile">
-                            <span>{{post.user.firstName}} </span>
-                            <span>{{post.user.lastName}}</span>
-                        </a>
-                        <span> | {{likesNum}} likes</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span style="font-size: 12px;"> {{post.postDate}} </span><br>
-                    </div><br>
-                    <div>
-                        <span id="id_post_title">{{post.postTitle}}</span>
-                        <input type="button" id="id_like_btn" (click)="onLike()" value="❤️">
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <img id="id_post_img" src="{{post.imagePath}}">
-                <div id="id_post_text">
-                    <p>{{post.postText}}</p><br>
-                </div><br>
-                <div id="id_related_product">
-                    <h2>Related Products</h2>
-                    <ul *ngFor="let p of post_products" style="margin: 2px;">
-<!--                        <a href="/product">-->
-                            <img id="id_product_img" style="cursor: pointer;" src="{{p.img_link}}" (click)="toDetail(p.id)">
-<!--                        </a>-->
-                        <span style="font-size: 18px">
-                            {{p.name}}
-                        </span>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="id_related_comments">
-            <h2>Comment</h2>
-            <ul *ngFor="let cmt of post.comments" style="margin: 2px;">
-                <a href="/profile">
-                    <img id="id_comment_img" src="{{cmt.user.profileImg}}">
-                </a>
-                <h3>{{cmt.commentText}}</h3>
-                <h3>{{cmt.user.firstName}} {{cmt.user.lastName}} {{cmt.commentTime}}</h3>
-            </ul><br>
-            <div>
-                <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
-                    <div id="id_comment_input">
-                        <label for="newComment">Leave Comment:</label>
-                        <input id="id_input_textbox" type="text" formControlName="newComment"><br>
-                        <button class="btn btn-light" type="submit" id="id_submit_btn">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
+        </div><br><br>
     </div>
 </div>

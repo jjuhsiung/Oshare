@@ -7,7 +7,9 @@ import { Comment } from 'src/app/_models/comment.model';
 import { Product } from 'src/app/_models/product.model';
 import { Post } from 'src/app/_models/post.model';
 import { User } from 'src/app/_models/user.model';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Profile } from 'src/app/_models/profile.model';
+import { ProfileService } from 'src/app/_services/profile.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -30,11 +32,15 @@ export class PostDetailComponent implements OnInit {
   response_object = null;
   post_products: Array<object> = [];
 
+  profile_picture: "";
+  userProfileURL: string = "";
+
   constructor(
     private formBuilder: FormBuilder,
     private postService: PostService,
     private userService: UserService,
     private commentService: CommentService,
+    private profileService: ProfileService,
     private route: ActivatedRoute,
     private router: Router) {
 
@@ -73,6 +79,17 @@ export class PostDetailComponent implements OnInit {
         this.post.likes = response.likes;
         this.post.imagePath = response.images[0].image;
         this.post_products = response.products;
+        this.userProfileURL = response.user;
+        console.log(this.userProfileURL)
+
+        this.profileService.getProfileByURL(this.userProfileURL).subscribe(
+          profileData => {
+            this.profile_picture = profileData.profile.profile_picture;
+          }, error => {
+            console.log(error);
+          }
+        );
+
         console.log("this-post-products");
         console.log(this.post_products);
 
