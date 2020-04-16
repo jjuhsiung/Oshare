@@ -15,13 +15,14 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   loading = false;
+  message: any;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router : Router) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
 
   }
 
   ngOnInit(): void {
-    if(localStorage.getItem('userToken') != null){
+    if (localStorage.getItem('userToken') != null) {
       this.router.navigate(['/search'])
     }
 
@@ -33,31 +34,26 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.loginForm.controls; }
 
-  // onSubmit() {
-  //   this.submitted = true;
-  //   console.log("submited: " + this.submitted)
-  //   console.log(this.loginForm.value)
-  //   // stop here if form is invalid
-  //   if (this.loginForm.invalid) {
-  //     return;
-  //   }
-  //   this.loading = true;
-  //   this.loginForm.reset();
-  // }
-
-  onLogin(){
+  onLogin() {
     let formObj = this.loginForm.getRawValue();
+    if (this.loginForm.invalid) {
+      this.message = 'Username or Password required!'
+      this.loginForm.reset()
+      return;
+    }
     this.userService.loginUser(formObj).subscribe(
       response => {
-        //console.log(response);
         localStorage.setItem('userToken', response.token);
         localStorage.setItem('userId', response.id);
         alert('Logged in successfully!');
         this.router.navigate(['/search']);
       },
-      error =>{
+      error => {
         console.log(error);
+        this.message = 'Wrong username or password!'
+        this.loginForm.reset()
       }
+
     );
   }
 }
