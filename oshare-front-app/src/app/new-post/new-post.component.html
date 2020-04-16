@@ -5,7 +5,16 @@
         <h1>Create New Post</h1>
     </div>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
+      <app-search-bar></app-search-bar>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3">
+        <h3>Product Found</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
       <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
 
           <div class="form-group">
@@ -57,16 +66,35 @@
       <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
 
       </div>
-      <div class="col-md-8">
-        <app-search-bar></app-search-bar>
-            <div *ngFor="let productEl of Products; let i = index">
+      <div class="col-md-4">
+        <div style="min-width: 30px; min-height: 270px; border:1px dashed black;">
+            <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" value="" [id]="i" (click)="addToSelected(productEl.id, i)">
+                  <input type="checkbox" value="" [id]="i" (click)="addToSelected(productEl.id, i)" >
                   {{ productEl.name }}
                 </label>
               </div>
+              <hr>
             </div>
+        </div>
+        <nav aria-label="Page navigation example m-auto">
+          <ul class="pagination justify-content-center">
+            <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
+            <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
+          </ul>
+        </nav>
       </div>
     </div>
 </div>
+<!---><cdk-virtual-scroll-viewport>
+  <div *cdkVirtualFor="let productEl of Products; let i = index">
+    <p>Hi I am here</p>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="" [id]="i" (click)="addToSelected(productEl.id, i)">
+        {{ productEl.name }}
+      </label>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport><!--->
