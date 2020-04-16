@@ -58,7 +58,7 @@ export class ProductListComponent implements OnInit {
   }
 
   toDetail(id): void {
-    // this.api.currentproduct = id;
+    this.api.addClick(id);
     this.router.navigate(['/product'], {
       queryParams: {
         'product_id': id,

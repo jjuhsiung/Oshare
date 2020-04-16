@@ -61,13 +61,18 @@ export class ProductService {
     });
   }
 
-  // addToCart(id){
-  //   let para = new HttpParams();
-  //   para = para.set('id', id.toString());
-  //   this.http.get<any>(this.baseurl + '/add_to_cart', {headers: this.httpHeaders, params: para}).subscribe(data => {
-  //     this.productsupdate.next(data);
-  //   });
-  // }
+  addClick(id){
+    let para = new HttpParams();
+    if (id != 0) {
+      para = para.set('id', id.toString());
+    }
+    this.http.post<any>(this.baseurl + '/products/add_click', para).subscribe(data => {
+      console.log(data);
+    });
+    // this.http.post<any>(this.baseurl + '/products/add_click', {headers: this.httpHeaders, params: para}).subscribe(data => {
+    //   this.productsupdate.next(data);
+    // });
+  }
 
   getProductByURL(product_url): Observable<any>{
     return this.http.get<any>(product_url);

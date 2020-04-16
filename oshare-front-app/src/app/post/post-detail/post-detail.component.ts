@@ -10,6 +10,7 @@ import { User } from 'src/app/_models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Profile } from 'src/app/_models/profile.model';
 import { ProfileService } from 'src/app/_services/profile.service';
+import {ProductService} from "../../_services/product.service";
 
 @Component({
   selector: 'app-post-detail',
@@ -42,7 +43,8 @@ export class PostDetailComponent implements OnInit {
     private commentService: CommentService,
     private profileService: ProfileService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private productService: ProductService) {
 
     this.user = new User();
     this.post = new Post(this.postId, this.user)
@@ -140,7 +142,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   toDetail(id): void {
-    // this.api.currentproduct = id;
+    this.productService.addClick(id);
     this.router.navigate(['/product'], {
       queryParams: {
         'product_id': id,

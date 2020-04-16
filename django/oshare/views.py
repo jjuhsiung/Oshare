@@ -196,6 +196,7 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
                 description=x['description'],
                 rating=rating,
                 tag_list=tag_list,
+                click=0,
             )
             # print("rating:",new_product.rating)
             new_product.save()
@@ -283,6 +284,23 @@ class ProductViewSet(viewsets.ModelViewSet):
         # return Response(serializer.data)
         return JsonResponse({'response': serializer.data})
 
+    @action(detail=False, methods=['post'])
+    def add_click(self, request):
+        keys = request.GET.keys()
+        if 'id' in keys:
+            print("id",id)
+            product=Product.objects.get(id=request.GET['id'])
+            print("click after change",product.click)
+            product.click+=1
+            print(product.click)
+            product.save()
+
+    @action(detail=False, methods=['get'])
+    def get_popular_product(self, request):
+        queryset = Product.objects.order_by('-click')[:3]
+        serializer = ProductSerializer(
+            queryset, many=True, context={'request': request})
+        return Response(serializer.data)
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()

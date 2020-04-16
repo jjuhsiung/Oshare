@@ -1,6 +1,7 @@
 import { CartService } from '../../_services/cart.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Router} from "@angular/router";
+import {ProductService} from "../../_services/product.service";
 
 @Component({
   selector: 'app-product-count-item',
@@ -29,7 +30,7 @@ export class ProductCountItemComponent implements OnInit {
     index : this.index,
   };
 
-  constructor(private CartService: CartService,private router:Router) {
+  constructor(private CartService: CartService,private router:Router,private productService: ProductService) {
   }
 
   countChange = (count: number) => {
@@ -50,7 +51,7 @@ export class ProductCountItemComponent implements OnInit {
   }
 
   toDetail(id): void {
-    // this.api.currentproduct = id;
+    this.productService.addClick(id);
     this.router.navigate(['/product'], {
       queryParams: {
         'product_id': id,
