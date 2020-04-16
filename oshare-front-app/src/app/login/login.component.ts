@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   loading = false;
+  message: any;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
 
@@ -36,12 +37,12 @@ export class LoginComponent implements OnInit {
   onLogin() {
     let formObj = this.loginForm.getRawValue();
     if (this.loginForm.invalid) {
-      alert("Please enter both fields")
+      this.message = 'Username or Password required!'
+      this.loginForm.reset()
       return;
     }
     this.userService.loginUser(formObj).subscribe(
       response => {
-        //console.log(response);
         localStorage.setItem('userToken', response.token);
         localStorage.setItem('userId', response.id);
         alert('Logged in successfully!');
@@ -49,7 +50,8 @@ export class LoginComponent implements OnInit {
       },
       error => {
         console.log(error);
-        alert('Wrong username or password!');
+        this.message = 'Wrong username or password!'
+        this.loginForm.reset()
       }
 
     );
