@@ -3,7 +3,7 @@ import { ReviewService } from "../_services/review.service";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../_services/user.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-add-review',
@@ -32,13 +32,13 @@ export class AddReviewComponent implements OnInit {
               private route:ActivatedRoute,
               private userService:UserService,
               // private dialogService: DialogService,
-              private modalService: NgbModal,
+              // private modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('userToken') == null){
       alert('Required Login!');
-      this.router.navigate(['/search'])
+      this.router.navigate(['/search']);
     }
 
     const map = this.route.snapshot.queryParamMap;
@@ -80,26 +80,26 @@ export class AddReviewComponent implements OnInit {
     }
   }
 
-  open(content) {
-    if(this.reviewForm.invalid){
-      return;
-    }
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
+  // open(content) {
+  //   if(this.reviewForm.invalid){
+  //     return;
+  //   }
+  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
+  //
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return  `with: ${reason}`;
+  //   }
+  // }
   // showModal() {
   //   this.dialogService.addDialog(ReviewModalComponent, { title: 'Alert title!', message: 'Alert message!!!' });
   // }
