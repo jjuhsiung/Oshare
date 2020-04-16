@@ -29,7 +29,7 @@ export class ProfileHeaderComponent implements OnInit {
         this.userprofile.lastName = data.last_name;
         this.userprofile.username = data.username;
 
-        this.profileService.getProfileByURL(data.profile).subscribe(
+        this.profileService.getProfileByURL(data.profile.url).subscribe(
           profileData =>{
             this.userprofile.profileImg = profileData.profile_picture;
           }, error=>{
