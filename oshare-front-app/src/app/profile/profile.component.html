@@ -17,20 +17,13 @@
             </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="album py-5 bg-light">
-                <div class="container">
-                    <app-profile-post-list></app-profile-post-list>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
 
-    <div class="container">
-        <h1>Edit User Info</h1>
+    <br><br><br>
+
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-md-6">
+        <h3>Personal Information</h3> <br><br>
         <form [formGroup]="form" (ngSubmit)="OnEditUser()" class="form-horizontal">
             <div class="form-group">
                 <label for="first_name" class="col-form-label col-lg-2">First name:</label>
@@ -92,8 +85,27 @@
                 </div>
             </div>
             <div>
-                <button type="submit" class="btn btn-dark">Save Info</button>
+                <button type="submit" class="btn btn-dark">Save</button>
             </div>
         </form>
-    </div><br><br><br>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+    <br><br><br>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+        <h3> My Post </h3>
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <app-profile-post-list></app-profile-post-list>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
 </main>
