@@ -1,5 +1,6 @@
 import { CartService } from '../../_services/cart.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-count-item',
@@ -24,10 +25,11 @@ export class ProductCountItemComponent implements OnInit {
     imgURL : this.imgURL,
     productName : this.productName,
     count : this.count,
-    price : this.price
+    price : this.price,
+    index : this.index,
   };
 
-  constructor(private CartService: CartService) {
+  constructor(private CartService: CartService,private router:Router) {
   }
 
   countChange = (count: number) => {
@@ -38,10 +40,21 @@ export class ProductCountItemComponent implements OnInit {
   
   ngOnInit(): void {
     this.totalPrice = this.price * this.count;
+    console.log("this.index");
+    console.log(this.index);
+    console.log(this.imgURL);
   }
 
   removeButtonClicked(){
     this.productDelete.emit();
   }
 
+  toDetail(id): void {
+    // this.api.currentproduct = id;
+    this.router.navigate(['/product'], {
+      queryParams: {
+        'product_id': id,
+      }
+    });
+  }
 }
