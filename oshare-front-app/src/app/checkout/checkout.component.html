@@ -6,7 +6,7 @@
     </div>
 
     <div>
-        <h3>Total Price: {{totalPrice}}</h3>
+        <h3>Total Price: {{totalPrice | currency: 'USD': true}}</h3>
         <p>Order Summary: {{productSummary}}</p>
     </div>
 
@@ -113,7 +113,7 @@
                     <h1>Pay by Paypal</h1>
                 </div>
 
-                <div *ngIf=paidFor>
+                <div *ngIf="paidFor">
                     <h1>Paid Succesfully!</h1>
                 </div>
 

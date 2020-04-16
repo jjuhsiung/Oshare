@@ -6,6 +6,7 @@ export class Order {
     public address: string;
     public date: Date;
     public productCounts : ProductCount[];
+    public total: number;
     
 
     constructor(firstname?: string, 
@@ -13,12 +14,14 @@ export class Order {
         phone?: string, 
         address?: string, 
         date?: Date,
-        productCounts?: ProductCount[]) {
+        productCounts?: ProductCount[],
+        total?: number) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.phone = phone;
         this.address = address;
         this.date = date;
         this.productCounts = productCounts;
+        this.total = total;
     }
   }
