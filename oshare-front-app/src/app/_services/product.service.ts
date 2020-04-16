@@ -12,7 +12,7 @@ export class ProductService {
   remoteurl = 'http://127.0.0.1:8000';
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   productsupdate = new Subject<any>();
-  currentproduct: any;
+  // currentproduct: any;
 
   constructor(private http: HttpClient) {
   }

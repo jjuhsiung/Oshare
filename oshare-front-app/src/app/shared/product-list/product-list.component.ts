@@ -56,8 +56,12 @@ export class ProductListComponent implements OnInit {
   }
 
   toDetail(id): void {
-    this.api.currentproduct = id;
-    this.router.navigate(['/product']);
+    // this.api.currentproduct = id;
+    this.router.navigate(['/product'], {
+      queryParams: {
+        'product_id': id,
+      }
+    });
   }
 
   PrePage(): void {
@@ -72,6 +76,22 @@ export class ProductListComponent implements OnInit {
 
   ToPage(num): void {
     this.pageNum = num;
+  }
+
+  SortbyPriceHtoL(): void {
+    this.Products.sort((a,b)=> parseFloat(b['price'])-parseFloat(a['price']));
+  }
+
+  SortbyPriceLtoH(): void {
+    this.Products.sort((a,b)=>parseFloat(a['price'])-parseFloat(b['price']));
+  }
+
+  SortbyRatingHtoL(): void {
+    this.Products.sort((a,b)=>parseFloat(b['rating'])-parseFloat(a['rating']));
+  }
+
+  SortbyRatingLtoH(): void {
+    this.Products.sort((a,b)=>parseFloat(a['rating'])-parseFloat(b['rating']));
   }
 
 }

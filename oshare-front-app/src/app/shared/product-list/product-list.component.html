@@ -1,4 +1,28 @@
 <div class="container mt-2 justify-content-center">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="SortbyPrice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            By price
+          </a>
+          <div class="dropdown-menu" aria-labelledby="SortbyPrice">
+            <button class="dropdown-item" (click)="SortbyPriceHtoL()">HtoL</button>
+            <button class="dropdown-item" (click)="SortbyPriceLtoH()">LtoH</button>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="SortbyRaing" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            By rating
+          </a>
+          <div class="dropdown-menu" aria-labelledby="SortbyRating">
+            <a class="dropdown-item" (click)="SortbyRatingHtoL()">HtoL</a>
+            <a class="dropdown-item" (click)="SortbyRatingLtoH()">LtoH</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
   <div class="row row-cols-3 justify-content-center">
     <div *ngFor="let product of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
       <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
@@ -45,7 +69,7 @@
   <nav aria-label="Page navigation example m-auto">
     <ul class="pagination justify-content-center">
       <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
-      <li *ngFor="let i of pagelist" class="page-item"><a class="page-link" (click)="ToPage(i+1)">{{i+1}}</a></li>
+      <li *ngFor="let i of pagelist" [ngClass]="{active:(i+1)==pageNum}" class="page-item"><a class="page-link" (click)="ToPage(i+1)">{{i+1}}</a></li>
       <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
     </ul>
   </nav>

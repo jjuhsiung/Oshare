@@ -290,15 +290,28 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def add_review(self, request):
-        print(request.data)
-        print(request.data.get('headline'))
+
         headline = request.data.get('headline')
         review = request.data.get('review')
         product_id = int(request.data.get('product_id'))
         rating = int(request.data.get('rating'))
         user = User.objects.get(id=int(request.data.get('user_id')))
-        new_review = Review(headline=headline, review=review, product_id=product_id, user=user, rating=rating)
+        product = Product.objects.get(id=product_id)
+        new_review = Review(headline=headline, review=review, product=product, user=user, rating=rating)
         new_review.save()
+        reviews = Review.objects.filter(product=product)
+        total_rating = 0
+        total = 0
+        print(reviews)
+        for x in reviews:
+            if x.rating > 0.1:
+                total += 1
+                total_rating += x.rating
+        if total > 0:
+            # product = Product.objects.get(id=product_id)
+            product.rating = total_rating/total
+            product.save()
+            print(product)
         return Response({})
 
     @action(detail=False, methods=['get'])

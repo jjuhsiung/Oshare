@@ -3,6 +3,7 @@ import {ProductService} from '../../_services/product.service';
 import {ReviewService} from "../../_services/review.service";
 import {User} from "../../_models/user.model";
 import { UserService } from './../../_services/user.service';
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -15,8 +16,9 @@ export class ReviewListComponent implements OnInit {
   Reviews: any;
   id = 0;
   // Reviews = REVIEWS;
-  constructor(private api: ProductService, private reviewapi: ReviewService, private userService: UserService) {
-    this.id = this.api.currentproduct;
+  constructor(private api: ProductService, private reviewapi: ReviewService, private userService: UserService, private route: ActivatedRoute) {
+    // this.id = this.api.currentproduct;
+    this.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
     reviewapi.reviewsupdate.subscribe(data=>{
       this.Reviews = [];
       for (let i = 0;i< data.length;i++)

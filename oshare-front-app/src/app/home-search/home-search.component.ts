@@ -37,7 +37,11 @@ export class HomeSearchComponent implements OnInit {
 
   toDetail(id): void {
     console.log(id);
-    this.productService.currentproduct = id;
-    this.router.navigate(['/product']);
+    // this.productService.currentproduct = id;
+    this.router.navigate(['/product'], {
+      queryParams: {
+        'product_id': id,
+      }
+    });
   }
 }

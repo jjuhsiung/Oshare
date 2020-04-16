@@ -58,10 +58,14 @@ export class AddReviewComponent implements OnInit {
     }
     let formObj = this.reviewForm.getRawValue();
     const formData = new FormData();
-    this.api.addReview(formObj.headline, formObj.review, formObj.rating, this.product_id);
+    this.api.addReview(formObj.headline, formObj.review, this.rating, this.product_id);
   }
 
   redirect() {
-    this.router.navigate(['/product']);
+    this.router.navigate(['/product'], {
+      queryParams: {
+        'product_id': this.product_id,
+      }
+    });
   }
 }
