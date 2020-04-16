@@ -180,6 +180,9 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
             rating = 0.0
             if x['rating']!=None:
                 rating= float(x['rating'])
+            tag_list = ""
+            if x['tag_list']!=None:
+                tag_list=json.dumps(x['tag_list'])
             new_product = Product(
                 id=int(x['id']),
                 name=x['name'],
@@ -192,6 +195,7 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
                 img_link=x['image_link'],
                 description=x['description'],
                 rating=rating,
+                tag_list=tag_list,
             )
             # print("rating:",new_product.rating)
             new_product.save()

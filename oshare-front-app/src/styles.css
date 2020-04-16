@@ -140,3 +140,7 @@ textarea, select, input, button { outline: none; }
 .checked {
   color: orange;
 }
+
+.text-font {
+  font-family: Helvetica;
+}

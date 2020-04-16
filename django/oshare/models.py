@@ -65,6 +65,7 @@ class Product(models.Model):
     img_link = models.URLField(max_length=300, null=True)
     description = models.CharField(default='', max_length=500, null=True)
     rating = models.FloatField(default=0.0)
+    tag_list = models.CharField(max_length=500,null=True)
 
 class Review(models.Model):
     headline = models.CharField(max_length=100)
