@@ -10,7 +10,7 @@ import { User } from 'src/app/_models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Profile } from 'src/app/_models/profile.model';
 import { ProfileService } from 'src/app/_services/profile.service';
-import {ProductService} from "../../_services/product.service";
+import { ProductService } from "../../_services/product.service";
 
 @Component({
   selector: 'app-post-detail',
@@ -32,9 +32,10 @@ export class PostDetailComponent implements OnInit {
   likesNum = 0;
   response_object = null;
   post_products: Array<object> = [];
-
+  related_product_title: string = "";
   profile_picture: "";
   userProfileURL: string = "";
+  class: string = ""
 
   constructor(
     private formBuilder: FormBuilder,
@@ -92,6 +93,11 @@ export class PostDetailComponent implements OnInit {
           }
         );
 
+        if (this.post_products.length != 0) {
+          this.related_product_title = "Related Product"
+          this.class = "page-header"
+        }
+
         console.log("this-post-products");
         console.log(this.post_products);
 
@@ -111,6 +117,9 @@ export class PostDetailComponent implements OnInit {
               console.log(error);
             }
           );
+        }
+        if (commentArr.length == 0) {
+          this.post.comments.push(new Comment(null, 'No comments yet'));
         }
         console.log(this.post.comments);
       }, error => {
