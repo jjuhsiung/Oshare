@@ -9,7 +9,7 @@
                     <img class="rounded float-left" alt="profile-image" style="width: 30px; height: 30px;"
                         src="{{profile_picture}}">
                     <h2> {{post.user.firstName}} {{post.user.lastName}}</h2>
-                    <span style="font-size: 12px;"> {{post.postDate}} </span><br>
+                    <span style="font-size: 12px;"> {{post.postDate | date}} </span><br>
                 </div><br>
             </div>
         </div>
