@@ -1,91 +1,104 @@
- #id_product_img {
-     border-radius: 50%;
-     width: 50px;
- }
+.background {
+    /* The image used */
+    background-color: rgba(210, 216, 218, 0.1);
+    /* Half height */
+    height: 70%;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    /* Center and scale the image nicely */
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
- .container {
-     width: 900px;
- }
+#id_product_img {
+    border-radius: 50%;
+    width: 50px;
+}
 
- #id_post_img {
-     width: 300px;
-     padding: 10px;
- }
+.container {
+    width: 900px;
+}
 
- #id_post_text {
-     font-size: 20px;
-     padding: 2px;
-     margin-top: 5px;
-     color: gray;
- }
+#id_post_img {
+    width: 300px;
+    padding: 10px;
+}
 
- #id_post_title {
-     font-size: 40px;
-     color: rgb(133, 21, 105);
- }
+#id_post_text {
+    font-size: 20px;
+    padding: 2px;
+    margin-top: 5px;
+    color: gray;
+}
 
- #id_related_comments {
-     margin-left: auto;
-     margin-right: auto;
-     width: 80em;
- }
+#id_post_title {
+    font-size: 40px;
+    color: rgb(133, 21, 105, .8);
+}
 
- #id_post_header {
-     padding: 5px;
- }
+#id_related_comments {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80em;
+}
 
- #id_profile_picture {
-     border-radius: 50%;
-     width: 120px;
- }
+#id_post_header {
+    padding: 5px;
+}
 
- #id_comment_img, #id_post_name {
-     font-size: 25px;
-     color: gray;
- }
+#id_profile_picture {
+    border-radius: 50%;
+    width: 120px;
+}
 
- #id_share_post_btn {
-     background: none;
-     padding: 1em;
- }
+#id_comment_img, #id_post_name {
+    font-size: 25px;
+    color: gray;
+}
 
- #id_profile_picture {
-     background: none;
-     padding: 1em;
- }
+#id_share_post_btn {
+    background: none;
+    padding: 1em;
+}
 
- #id_input_textbox {
-     background-color: rgb(236, 233, 233);
-     width: 860px;
-     opacity: 0.5;
-     font-family: 'Roboto', sans-serif;
-     color: #333;
-     font-size: 20px;
-     padding: 1.5rem 2rem;
-     border-radius: 0.2rem;
-     border: none;
-     display: block;
-     border-bottom: 0.3rem solid transparent;
-     transition: all 0.3s;
- }
+#id_profile_picture {
+    background: none;
+    padding: 1em;
+}
 
- #id_submit_btn {
-     position: relative;
-     display: block;
-     width: 200px;
-     height: 36px;
-     border-radius: 18px;
-     background-color: #949390;
-     border: solid 1px transparent;
-     color: #fff;
-     font-size: 18px;
-     font-weight: 300;
-     cursor: pointer;
-     transition: all .1s ease-in-out;
- }
+#id_input_textbox {
+    background-color: rgb(236, 233, 233);
+    width: 860px;
+    opacity: 0.5;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 20px;
+    padding: 1.5rem 2rem;
+    border-radius: 0.2rem;
+    border: none;
+    display: block;
+    border-bottom: 0.3rem solid transparent;
+    transition: all 0.3s;
+}
 
- #id_submit_btn:hover {
-     background-color: lightgray;
-     border-color: #fff;
-     transition: all .1s ease-in-out;
- }
+#id_submit_btn {
+    position: relative;
+    display: block;
+    width: 200px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: #949390;
+    border: solid 1px transparent;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+}
+
+#id_submit_btn:hover {
+    background-color: rgb(133, 21, 105, .5);
+    transition: all .1s ease-in-out;
+}

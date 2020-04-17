@@ -94,7 +94,7 @@ export class PostDetailComponent implements OnInit {
         );
 
         if (this.post_products.length != 0) {
-          this.related_product_title = "Related Product"
+          this.related_product_title = "Shop this look"
           this.class = "page-header"
         }
 

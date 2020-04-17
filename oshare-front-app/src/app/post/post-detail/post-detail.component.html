@@ -6,18 +6,17 @@
                     <h1 id="id_post_title">{{post.postTitle}}</h1>
                 </div>
                 <div id="id_post_name">
-
                     <img class="rounded float-left" alt="profile-image" style="width: 30px; height: 30px;"
                         src="{{profile_picture}}">&nbsp;&nbsp;
-                    <h2> {{post.user.firstName}} {{post.user.lastName}}</h2>
-                    <p style="font-size: 12px;"> {{post.postDate | date:'yyyy-MM-dd-mm:ss'}} </p><br>
-                </div><br>
+                    <span > {{post.user.firstName}} {{post.user.lastName}}</span>&nbsp;&nbsp;
+                    <span style="font-size: 12px;"> {{post.postDate | date:'yyyy-MM-dd-mm:ss'}} </span><br>
+                </div>
             </div>
         </div>
         <div class="column">
-            <img id="id_post_img" src="{{post.imagePath}}">
+            <img id="id_post_img" src="{{post.imagePath}}"><br><br>
             <div id="id_post_text">
-                <p class="lead">{{post.postText}}</p><br>
+                <p style="font-size: 15px;">{{post.postText}}</p><br>
             </div><br>
             <div id="id_related_product">
                 <h3 class="{{class}}">{{related_product_title}}</h3>
@@ -29,17 +28,15 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div><br><br>
 
     <div class="container">
-        <h3 class="page-header">Comment</h3>
-        <div class="row">
-            <ul *ngFor="let cmt of post.comments" style="margin: 2px;">
-                <div style="font-size: 18px;">
-                    <span class="col">{{cmt.commentText}} </span>
-                    <span class="lead">{{cmt.user.firstName}} {{cmt.user.lastName}}
-                            at {{cmt.commentTime | date:'yyyy-MM-dd-mm:ss'}}</span>
-                </div>
+        <h3 class="page-header">Comments</h3>
+        <div class="col">
+            <ul *ngFor="let cmt of post.comments" style="margin: 5px; font-size: 18px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{cmt.commentText}} </span>
+                <span class="lead">{{cmt.user.firstName}} {{cmt.user.lastName}}
+                    at {{cmt.commentTime | date:'yyyy-MM-dd-mm:ss'}}</span>
             </ul>
         </div><br><br>
         <h3 class="page-header" for="newComment">Leave Comment:</h3>
