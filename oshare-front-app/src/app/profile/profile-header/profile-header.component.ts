@@ -15,7 +15,7 @@ export class ProfileHeaderComponent implements OnInit {
   selectedProfile: any;
   userprofile: User;
   posts: Post[]
-  image = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg'
+  default_image = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg'
 
   constructor(private userservice: UserService, private profileService: ProfileService) {
     this.userprofile = new User();
@@ -30,9 +30,13 @@ export class ProfileHeaderComponent implements OnInit {
         this.userprofile.username = data.username;
 
         this.profileService.getProfileByURL(data.profile.url).subscribe(
-          profileData =>{
+          profileData => {
             this.userprofile.profileImg = profileData.profile_picture;
-          }, error=>{
+            if (this.userprofile.profileImg == null) {
+              this.userprofile.profileImg = this.default_image
+              console.log(this.userprofile.profileImg)
+            }
+          }, error => {
             console.log(error);
           }
         );

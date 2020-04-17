@@ -7,19 +7,23 @@
                 </div>
                 <div id="id_post_name">
                     <img class="rounded float-left" alt="profile-image" style="width: 30px; height: 30px;"
-                        src="{{profile_picture}}">
-                    <h2> {{post.user.firstName}} {{post.user.lastName}}</h2>
-                    <span style="font-size: 12px;"> {{post.postDate | date}} </span><br>
-                </div><br>
+                        src="{{profile_picture}}">&nbsp;&nbsp;
+                    <span> {{post.user.firstName}} {{post.user.lastName}}</span>&nbsp;&nbsp;
+                    <span style="font-size: 12px;"> {{post.postDate | date:'yyyy-MM-dd-mm:ss'}} </span><br>
+                </div>
             </div>
         </div>
         <div class="column">
-            <img id="id_post_img" src="{{post.imagePath}}">
+            <div class="page-header">
+                <span *ngFor="let img of postImages" style="margin: 5px; font-size: 18px;" >
+                    <img id="id_post_img" src="{{img}}">
+                </span>
+            </div>
             <div id="id_post_text">
-                <p class="lead">{{post.postText}}</p><br>
+                <p style="font-size: 15px;">{{post.postText}}</p><br>
             </div><br>
             <div id="id_related_product">
-                <div class="page-header">Related Products</div>
+                <h3 class="{{class}}">{{related_product_title}}</h3>
                 <ul *ngFor="let p of post_products" style="margin: 2px;">
                     <img id="id_product_img" style="cursor: pointer;" src="{{p.img_link}}" (click)="toDetail(p.id)">
                     <span style="font-size: 18px">
@@ -28,26 +32,21 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div><br><br>
 
     <div class="container">
-        <div class="page-header">Comment</div>
-        <div class="row">
-            <ul *ngFor="let cmt of post.comments" style="margin: 2px;">
-                <div>
-                    <span class="col">{{cmt.commentText}} </span>
-                    <span class="lead">{{cmt.user.firstName}} {{cmt.user.lastName}} {{cmt.commentTime}}</span>
-                </div>
+        <h3 class="page-header">Comments</h3>
+        <div class="col">
+            <ul *ngFor="let cmt of post.comments" style="margin: 5px; font-size: 18px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{cmt.commentText}} </span>
+                <span class="lead">{{cmt.user.firstName}} {{cmt.user.lastName}}
+                    at {{cmt.commentTime | date:'yyyy-MM-dd-mm:ss'}}</span>
             </ul>
         </div><br><br>
-        <div class="row">
-            <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
-                <div id="id_comment_input">
-                    <label for="newComment">Leave Comment:</label>
-                    <input id="id_input_textbox" type="text" formControlName="newComment"><br>
-                    <button class="btn btn-light" type="submit" id="id_submit_btn">Submit</button>
-                </div>
-            </form>
-        </div><br><br>
-    </div>
+        <h3 class="page-header" for="newComment">Leave Comment:</h3>
+        <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
+            <input id="id_input_textbox" type="text" formControlName="newComment"><br>
+            <button class="btn btn-light" type="submit" id="id_submit_btn">Submit</button>
+        </form>
+    </div><br><br><br><br>
 </div>

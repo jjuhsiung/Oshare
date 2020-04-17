@@ -21,10 +21,13 @@
     "@angular/platform-browser": "~9.0.5",
     "@angular/platform-browser-dynamic": "~9.0.5",
     "@angular/router": "~9.0.5",
+    "@material/card": "^5.1.0",
     "bootstrap": "^4.4.1",
+    "infinite-scroll": "^3.0.6",
     "jquery": "^3.4.1",
     "ngx": "^2.4.0",
     "ngx-facebook": "git+https://github.com/jemys89/ngx-facebook.git",
+    "popper.js": "^1.16.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

@@ -23,14 +23,14 @@ export class ProfileComponent implements OnInit {
 
   constructor(private formbuilder: FormBuilder, private router: Router,
     private userService: UserService, private profileService: ProfileService) {
-      this.form = this.formbuilder.group({
-        first_name: [''],
-        last_name: [''],
-        username: [''],
-        email: [''],
-        phone: [''],
-        address: [''],
-      })
+    this.form = this.formbuilder.group({
+      first_name: [''],
+      last_name: [''],
+      username: [''],
+      email: [''],
+      phone: [''],
+      address: [''],
+    })
   }
   get first_name() {
     return this.form.get('first_name');
@@ -131,7 +131,7 @@ export class ProfileComponent implements OnInit {
         console.log(error);
       }
     );
-    
+
     window.location.reload();
   }
 }

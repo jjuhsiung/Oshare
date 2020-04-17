@@ -10,7 +10,7 @@ import { User } from 'src/app/_models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Profile } from 'src/app/_models/profile.model';
 import { ProfileService } from 'src/app/_services/profile.service';
-import {ProductService} from "../../_services/product.service";
+import { ProductService } from "../../_services/product.service";
 
 @Component({
   selector: 'app-post-detail',
@@ -25,16 +25,18 @@ export class PostDetailComponent implements OnInit {
   post: Post;
   user: User;
   postComments: Comment[] = [];
-  //relatedProducts: Product[];
+  default_image = "https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg"
   commentForm: FormGroup;
   loading = false;
   liked = false;
   likesNum = 0;
   response_object = null;
   post_products: Array<object> = [];
-
-  profile_picture: "";
+  related_product_title: string = "";
+  profile_picture: any;
   userProfileURL: string = "";
+  class: string = ""
+  postImages = []
 
   constructor(
     private formBuilder: FormBuilder,
@@ -79,18 +81,30 @@ export class PostDetailComponent implements OnInit {
         this.post.postTitle = response.title;
         this.post.postText = response.text;
         this.post.likes = response.likes;
-        this.post.imagePath = response.images[0].image;
+        this.post.imagePath = response.images;
         this.post_products = response.products;
         this.userProfileURL = response.user;
         console.log(this.userProfileURL)
 
+        for(var i = 0; i < response.images.length; i++){
+          this.postImages[i] = response.images[i].image
+        }
+
         this.profileService.getProfileByURL(this.userProfileURL).subscribe(
           profileData => {
             this.profile_picture = profileData.profile.profile_picture;
+            if (this.profile_picture == null) {
+              this.profile_picture = this.default_image;
+            }
           }, error => {
             console.log(error);
           }
         );
+
+        if (this.post_products.length != 0) {
+          this.related_product_title = "Shop this look"
+          this.class = "page-header"
+        }
 
         console.log("this-post-products");
         console.log(this.post_products);
@@ -111,6 +125,9 @@ export class PostDetailComponent implements OnInit {
               console.log(error);
             }
           );
+        }
+        if (commentArr.length == 0) {
+          this.post.comments.push(new Comment(null, 'No comments yet'));
         }
         console.log(this.post.comments);
       }, error => {
