@@ -16,11 +16,12 @@ export class ProductListComponent implements OnInit {
   pageSize = 9;
   MaxPageSize = 1;
   pagelist = [];
-  rating = 3;
+  productNum:number;
+  // rating = 3;
   // productService: ProductService;
 
 
-  constructor(private api: ProductService, private router: Router, private  route: ActivatedRoute) {
+  constructor(private api: ProductService, private router: Router, private route: ActivatedRoute) {
     // this.productService = api;
     this.api.productsupdate.subscribe(data => {
       this.updateData(data);
@@ -42,6 +43,7 @@ export class ProductListComponent implements OnInit {
 
   updateData(data: object): void {
     this.Products = data['response'];
+    this.productNum = this.Products.length;
     // for(let product_data of data['response'])
     // {
     //   var product = new Product(product_data.name,product_data.rating, product_data.price, "", product_data.img_link, product_data.id);
@@ -56,8 +58,12 @@ export class ProductListComponent implements OnInit {
   }
 
   toDetail(id): void {
-    this.api.currentproduct = id;
-    this.router.navigate(['/product']);
+    this.api.addClick(id);
+    this.router.navigate(['/product'], {
+      queryParams: {
+        'product_id': id,
+      }
+    });
   }
 
   PrePage(): void {
@@ -72,6 +78,22 @@ export class ProductListComponent implements OnInit {
 
   ToPage(num): void {
     this.pageNum = num;
+  }
+
+  SortbyPriceHtoL(): void {
+    this.Products.sort((a,b)=> parseFloat(b['price'])-parseFloat(a['price']));
+  }
+
+  SortbyPriceLtoH(): void {
+    this.Products.sort((a,b)=>parseFloat(a['price'])-parseFloat(b['price']));
+  }
+
+  SortbyRatingHtoL(): void {
+    this.Products.sort((a,b)=>parseFloat(b['rating'])-parseFloat(a['rating']));
+  }
+
+  SortbyRatingLtoH(): void {
+    this.Products.sort((a,b)=>parseFloat(a['rating'])-parseFloat(b['rating']));
   }
 
 }

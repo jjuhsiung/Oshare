@@ -1,11 +1,9 @@
 <div class="container">
-
-
     <form class="form-group">
         <div class="row">
 
             <div class="col-sm-1">
-                <img [src]=imgURL class="rounded float-right" height="100" width="100">
+                <img [src]=imgURL class="rounded float-right" style="cursor: pointer;" height="100" width="100" (click)="toDetail(index)">
             </div>
             <div class="col-sm-3 my-auto">
                 <p class="text-lg-left">{{productName}}</p>

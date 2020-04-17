@@ -9,10 +9,7 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=15)
     address = models.CharField(max_length=60)
     profile_picture = models.ImageField(
-        upload_to="images/", default="images/profile.png")
-    # following = models.ManyToManyField(
-    #     User, related_name='following', default=None)
-
+        upload_to="images/")
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -66,6 +63,7 @@ class Product(models.Model):
     description = models.CharField(default='', max_length=500, null=True)
     rating = models.FloatField(default=0.0)
     tag_list = models.CharField(max_length=500,null=True)
+    click = models.IntegerField()
 
 class Review(models.Model):
     headline = models.CharField(max_length=100)

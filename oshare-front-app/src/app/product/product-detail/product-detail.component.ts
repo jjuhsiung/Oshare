@@ -2,7 +2,7 @@ import { ProductCountService } from './../../_services/product-count.service';
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../_services/product.service';
 import {ProductQuery} from "../../_models/ProductQuery";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -15,9 +15,10 @@ export class ProductDetailComponent implements OnInit {
 
   product: any;
 
-  constructor(private api: ProductService, private productCountService: ProductCountService ,private router: Router) {
+  constructor(private api: ProductService, private productCountService: ProductCountService ,private router: Router, private route: ActivatedRoute) {
     let query = new ProductQuery();
-    query.id = this.api.currentproduct;
+    // query.id = this.api.currentproduct;
+    query.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
     api.getProductsInfo(query);
     api.productsupdate.subscribe(data=>{
       this.product = data['response'];

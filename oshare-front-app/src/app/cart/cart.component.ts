@@ -32,7 +32,7 @@ export class CartComponent implements OnInit {
         for(let i=0; i<Response.cart.productCounts.length; i++){
           this.productService.getProductByURL(Response.cart.productCounts[i].product).subscribe(
             product_data=>{
-              var product = new Product(product_data.name,"", product_data.price, "", product_data.img_link, product_data.id);
+              var product = new Product(product_data.name,"", product_data.price, "", product_data.img_link, "", product_data.id);
               var productCount = new ProductCount(product, Response.cart.productCounts[i].count, Response.cart.productCounts[i].id);
               this.cart.products.push(productCount);
               this.cart.subtotal += productCount.count * product.Price;
@@ -41,7 +41,7 @@ export class CartComponent implements OnInit {
             }
           )
         }
-        //console.log(this.cart.products);
+        console.log(this.cart.products);
       }, error => {
         console.log(error);
       }

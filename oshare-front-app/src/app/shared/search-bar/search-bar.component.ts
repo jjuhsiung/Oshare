@@ -30,7 +30,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (location.pathname == '/search') {
+    if (location.pathname != '/new-post') {
       this.to_result = true;
     } else {
       this.to_result = false;
@@ -63,7 +63,7 @@ export class SearchBarComponent implements OnInit {
     }
     this.api.getProductsInfo(this.query);
     this.to_result = false;
-    if (location.pathname == '/search') {
+    if (location.pathname != '/new-post') {
       this.to_result = true;
     }
     console.log('compare path name');
