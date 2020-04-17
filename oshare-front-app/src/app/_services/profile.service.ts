@@ -18,7 +18,7 @@ export class ProfileService {
   }
 
   editProfileByURL(profileURL: string, profileData){
-    return this.http.put<any>(profileURL, profileData);
+    return this.http.patch<any>(profileURL, profileData);
   }
 
   editUser(formdata: any): Observable<any> {

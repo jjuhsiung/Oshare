@@ -7,7 +7,7 @@
     </span>
 
     <div *ngIf="checkLoginStatus()" class="dropdown">
-      <a class="nav-link h5 text-white">User Info</a>
+      <a class="nav-link h4 text-white">Hi, {{firstname}}!</a>
       <div class="dropdown-content">	
           <a href="/profile"> <i class='far fa-user-circle'></i> Profile</a>
           <a href="/new-post"> <i class='far fa-edit'></i> New Post</a>
@@ -18,7 +18,7 @@
     </div>
 
     <div *ngIf="!checkLoginStatus()" class="dropdown">
-        <a class="nav-link h5 text-white">User Info</a>
+        <a class="nav-link h4 text-white">Hi, Welcome!</a>
         <div class="dropdown-content">
             <a href="/register"> Register</a>
             <a href="/login">Log In</a>

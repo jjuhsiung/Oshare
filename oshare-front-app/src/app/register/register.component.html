@@ -1,17 +1,18 @@
 <app-header></app-header>
 <div class="container">
 
-    <div class="page-header">
-        <h1>Register</h1>
-    </div>
-    <form [formGroup]="form" (ngSubmit)="registerUser()" class="form-horizontal">
+    <div class="row d-flex justify-content-center">
 
-        <div class="row">
-            <div class="col-lg-8">
+        <div class="col-lg-6">
+
+            <div class="page-header">
+                <h1>Register</h1>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="registerUser()" class="form-horizontal">
 
                 <div class="form-group">
                     <label for="username" class="col-form-label col-lg-2">Username:</label>
-                    <div class="col-lg-6">
+                    <div class="col-lg-10">
                         <input
                             formControlName="username"
                             type="text"
@@ -25,7 +26,7 @@
 
                 <div class="form-group">
                     <label for="password" class="col-form-label col-lg-2">Password:</label>
-                    <div class="col-lg-6">     
+                    <div class="col-lg-10">     
                         <input
                             formControlName="password" 
                             type="password"
@@ -37,7 +38,7 @@
 
                 <div class="form-group">
                     <label for="first_name" class="col-form-label col-lg-2">Firstname:</label>
-                    <div class="col-lg-6">    
+                    <div class="col-lg-10">    
                         <input
                             formControlName="first_name"
                             type="text"
@@ -49,7 +50,7 @@
 
                 <div class="form-group">
                     <label for="last_name" class="col-form-label col-lg-2">Lastname:</label>
-                    <div class="col-lg-6">
+                    <div class="col-lg-10">
                         <input 
                             formControlName="last_name"
                             type="text" 
@@ -61,7 +62,7 @@
 
                 <div class="form-group">
                     <label for="email" class="col-form-label col-lg-2">Email:</label>
-                    <div class="col-lg-6">
+                    <div class="col-lg-10">
                         <input
                             formControlName="email"
                             type="text" 
@@ -71,15 +72,72 @@
                     </div>
                 </div>
 
-            </div>
-                
-            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="phone" class="col-form-label col-lg-2">Phone:</label>
+                    <div class="col-lg-10">
+                        <input
+                            formControlName="phone"
+                            type="text" 
+                            class="form-control" 
+                            id="phone">
+                        <div *ngIf="phone.touched && phone.invalid" class="alert alert-danger">Phone is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address" class="col-form-label col-lg-2">Address:</label>
+                    <div class="col-lg-10">
+                        <input
+                            formControlName="address"
+                            type="text" 
+                            class="form-control" 
+                            id="address">
+                        <div *ngIf="address.touched && address.invalid" class="alert alert-danger">Address is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="city" class="col-form-label col-lg-2">City:</label>
+                    <div class="col-lg-10">
+                        <input
+                            formControlName="city"
+                            type="text" 
+                            class="form-control" 
+                            id="city">
+                        <div *ngIf="city.touched && city.invalid" class="alert alert-danger">City is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="state" class="col-form-label col-lg-2">State:</label>
+                    <div class="col-lg-10">
+                        <input
+                            formControlName="state"
+                            type="text" 
+                            class="form-control" 
+                            id="state">
+                        <div *ngIf="state.touched && state.invalid" class="alert alert-danger">State is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="zip_code" class="col-form-label col-lg-2">Zip Code:</label>
+                    <div class="col-lg-10">
+                        <input
+                            formControlName="zip_code"
+                            type="text" 
+                            class="form-control" 
+                            id="zip_code">
+                        <div *ngIf="zip_code.touched && zip_code.invalid" class="alert alert-danger">Zip code is required.</div>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-dark">Register</button>
-            </div>
+
+            </form>
+                
         </div>
 
-    </form>
-        
-
+    </div>
 
 </div>
