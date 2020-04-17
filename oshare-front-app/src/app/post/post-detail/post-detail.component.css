@@ -1,12 +1,9 @@
 .background {
-    /* The image used */
     background-color: rgba(210, 216, 218, 0.1);
-    /* Half height */
     height: 70%;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
-    /* Center and scale the image nicely */
     background-position: right;
     background-repeat: no-repeat;
     background-size: cover;
@@ -22,8 +19,10 @@
 }
 
 #id_post_img {
-    width: 300px;
+    max-width: 250px;
+    max-height: 300px;
     padding: 10px;
+    border: 1px #ddd;
 }
 
 #id_post_text {

@@ -36,6 +36,7 @@ export class PostDetailComponent implements OnInit {
   profile_picture: any;
   userProfileURL: string = "";
   class: string = ""
+  postImages = []
 
   constructor(
     private formBuilder: FormBuilder,
@@ -80,10 +81,14 @@ export class PostDetailComponent implements OnInit {
         this.post.postTitle = response.title;
         this.post.postText = response.text;
         this.post.likes = response.likes;
-        this.post.imagePath = response.images[0].image;
+        this.post.imagePath = response.images;
         this.post_products = response.products;
         this.userProfileURL = response.user;
         console.log(this.userProfileURL)
+
+        for(var i = 0; i < response.images.length; i++){
+          this.postImages[i] = response.images[i].image
+        }
 
         this.profileService.getProfileByURL(this.userProfileURL).subscribe(
           profileData => {

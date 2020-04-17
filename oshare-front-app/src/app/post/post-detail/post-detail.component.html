@@ -8,13 +8,17 @@
                 <div id="id_post_name">
                     <img class="rounded float-left" alt="profile-image" style="width: 30px; height: 30px;"
                         src="{{profile_picture}}">&nbsp;&nbsp;
-                    <span > {{post.user.firstName}} {{post.user.lastName}}</span>&nbsp;&nbsp;
+                    <span> {{post.user.firstName}} {{post.user.lastName}}</span>&nbsp;&nbsp;
                     <span style="font-size: 12px;"> {{post.postDate | date:'yyyy-MM-dd-mm:ss'}} </span><br>
                 </div>
             </div>
         </div>
         <div class="column">
-            <img id="id_post_img" src="{{post.imagePath}}"><br><br>
+            <div class="page-header">
+                <span *ngFor="let img of postImages" style="margin: 5px; font-size: 18px;" >
+                    <img id="id_post_img" src="{{img}}">
+                </span>
+            </div>
             <div id="id_post_text">
                 <p style="font-size: 15px;">{{post.postText}}</p><br>
             </div><br>
