@@ -3,7 +3,7 @@ import { UserService } from './_services/user.service';
 import { NewPostComponent } from './new-post/new-post.component';
 import { CheckoutService } from './_services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -39,6 +39,8 @@ import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GlobalStreamComponent } from './global-stream/global-stream.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { AgmCoreModule } from '@agm/core';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -61,6 +63,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -89,7 +92,7 @@ const appRoutes: Routes = [
     OrderHistoryComponent,
     OrderProductListComponent,
     AddReviewComponent,
-    GlobalStreamComponent
+    GlobalStreamComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +102,12 @@ const appRoutes: Routes = [
     HttpClientModule,
     FacebookModule.forRoot(),
     BrowserAnimationsModule,
-    ScrollingModule
+    ScrollingModule,
+    MatGoogleMapsAutocompleteModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC73BtQ0PBboPi_JlWKRc22qy1lq-OqDko',
+      libraries: ['places']
+    }),
   ],
   providers: [
     CartService,

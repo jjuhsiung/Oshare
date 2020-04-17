@@ -1,20 +1,23 @@
 import { ProfileService } from './../_services/profile.service';
 import { Router } from '@angular/router';
 import { UserService } from './../_services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+/// <reference types="@types/googlemaps" />
+import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  providers: [UserService]
+  providers: [UserService],
 })
 export class RegisterComponent implements OnInit {
-
+  
   form;
   userURL: string = "";
   profileURL: string= "";
+  public selectedAddress: PlaceResult;
 
   get username(){
     return this.form.get('username');
@@ -44,17 +47,6 @@ export class RegisterComponent implements OnInit {
     return this.form.get('address');
   }
 
-  get city(){
-    return this.form.get('city');
-  }
-
-  get state(){
-    return this.form.get('state');
-  }
-
-  get zip_code(){
-    return this.form.get('zip_code');
-  }
 
   registration_form_value = {
     username: '',
@@ -64,9 +56,6 @@ export class RegisterComponent implements OnInit {
     email: '',
     phone: '',
     address: '',
-    city: '',
-    state: '',
-    zip_code: ''
   }
 
   constructor(fb: FormBuilder, 
@@ -81,9 +70,6 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.required],
       phone: ['', Validators.required],
       address: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zip_code: ['', Validators.required]
     });
   }
 
@@ -123,4 +109,13 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
+  onAutocompleteSelected(result: PlaceResult) {
+    //console.log('onAutocompleteSelected: ', result);
+    //console.log(result.formatted_address);
+    this.form.controls['address'].setValue(result.formatted_address);
+  }
+
 }
+
+
