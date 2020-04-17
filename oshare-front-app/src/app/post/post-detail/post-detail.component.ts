@@ -25,7 +25,7 @@ export class PostDetailComponent implements OnInit {
   post: Post;
   user: User;
   postComments: Comment[] = [];
-  //relatedProducts: Product[];
+  default_image = "https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg"
   commentForm: FormGroup;
   loading = false;
   liked = false;
@@ -33,7 +33,7 @@ export class PostDetailComponent implements OnInit {
   response_object = null;
   post_products: Array<object> = [];
   related_product_title: string = "";
-  profile_picture: "";
+  profile_picture: any;
   userProfileURL: string = "";
   class: string = ""
 
@@ -88,6 +88,9 @@ export class PostDetailComponent implements OnInit {
         this.profileService.getProfileByURL(this.userProfileURL).subscribe(
           profileData => {
             this.profile_picture = profileData.profile.profile_picture;
+            if (this.profile_picture == null) {
+              this.profile_picture = this.default_image;
+            }
           }, error => {
             console.log(error);
           }
