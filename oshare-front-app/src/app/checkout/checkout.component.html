@@ -57,52 +57,14 @@
                 <div class="form-group">
                     <label for="shipping_address" class="col-form-label col-lg-2">Street Address:</label>
                     <div class="col-lg-6">
-                        <input 
-                            formControlName="address"
-                            type="text" 
-                            class="form-control" 
-                            id="shipping_address">
-                        <div *ngIf="address.touched && address.invalid" class="alert alert-danger">Address is required.</div>
+                        <mat-google-maps-autocomplete country="us"
+                                                            type="address"
+                                                            appearance="outline"
+                                                            (onAutocompleteSelected)="onAutocompleteSelected($event)">
+                        ></mat-google-maps-autocomplete>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="shipping_city" class="col-form-label col-lg-2">City:</label>
-                    <div class="col-lg-6">
-                        <input
-                            formControlName="city"
-                            type="text" 
-                            class="form-control" 
-                            id="shipping_city">
-                        <div *ngIf="city.touched && city.invalid" class="alert alert-danger">City is required.</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="shipping_state" class="col-form-label col-lg-2">State:</label>
-                    <div class="col-lg-6">
-                        <input
-                            formControlName="state"
-                            type="text" 
-                            class="form-control" 
-                            id="shipping_state">
-                        <div *ngIf="state.touched && state.invalid" class="alert alert-danger">State is required.</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="shipping_zipcode" class="col-form-label col-lg-2">Zip Code:</label>
-                    <div class="col-lg-6">
-                        <input 
-                            formControlName="zipcode"
-                            type="text" 
-                            class="form-control" 
-                            id="shipping_zipcode">
-                        <div *ngIf="zipcode.touched && zipcode.invalid" class="alert alert-danger">Zip code is required.</div>
-                    </div>
-                </div>
-
-                
                 <button type="submit" class="btn btn-dark" (click)="placeOrderButtonClicked()">Place Order</button>
 
             </div>
