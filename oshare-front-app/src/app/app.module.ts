@@ -37,6 +37,8 @@ import { OrderProductListComponent } from './order-history/order-product-list/or
 import { AddReviewComponent } from "./add-review/add-review.component";
 import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GlobalStreamComponent } from './global-stream/global-stream.component';
+import { ScrollingModule} from '@angular/cdk/scrolling';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -55,6 +57,7 @@ const appRoutes: Routes = [
   { path: 'new-post', component: NewPostComponent },
   { path: 'order-history', component: OrderHistoryComponent},
   { path: 'add-review', component: AddReviewComponent},
+  { path: 'global-stream', component: GlobalStreamComponent},
 ];
 
 @NgModule({
@@ -85,7 +88,8 @@ const appRoutes: Routes = [
     ProfilePostListComponent,
     OrderHistoryComponent,
     OrderProductListComponent,
-    AddReviewComponent
+    AddReviewComponent,
+    GlobalStreamComponent
   ],
   imports: [
     BrowserModule,
@@ -95,6 +99,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     FacebookModule.forRoot(),
     BrowserAnimationsModule,
+    ScrollingModule
   ],
   providers: [
     CartService,
