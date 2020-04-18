@@ -18,7 +18,7 @@ export class CheckoutComponent implements OnInit {
 
   form;
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
-  
+
   productSummary: string = "";
   totalPrice: number = 0;
   paidFor: boolean = false;
@@ -27,7 +27,7 @@ export class CheckoutComponent implements OnInit {
     private userService: UserService,
     private productService: ProductService,
     private router: Router,
-    fb: FormBuilder) { 
+    fb: FormBuilder) {
 
     this.form = fb.group({
       firstname: ['', Validators.required, firstNameValidators.lengthCheck],
@@ -154,6 +154,9 @@ export class CheckoutComponent implements OnInit {
             alert('Order successfully created!');
             this.paidFor = false;
             this.router.navigate(['/order-history']);
+
+            // TODO: Send email regarding order info to the user
+
           }, error => {
             console.log(error);
           }
