@@ -43,6 +43,14 @@ export class RegisterComponent implements OnInit {
     return this.form.get('email');
   }
 
+  get phone(){
+    return this.form.get('phone');
+  }
+
+  get address(){
+    return this.form.get('address');
+  }
+
   send_email(): Observable<any> {
       return this.http.post<any>(this.baseurl + '/send_template_email/',
                                 { title: 'Angular POST Request Example',
