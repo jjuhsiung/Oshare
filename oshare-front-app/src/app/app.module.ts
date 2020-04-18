@@ -9,7 +9,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
-import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProductComponent } from './product/product.component';
 import { ProfileHeaderComponent } from './profile/profile-header/profile-header.component';
@@ -38,15 +37,15 @@ import { AddReviewComponent } from "./add-review/add-review.component";
 import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GlobalStreamComponent } from './global-stream/global-stream.component';
-import { ScrollingModule} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { AgmCoreModule } from '@agm/core';
 import { AccountPageComponent } from './account-page/account-page.component';
 import { MatTabsModule } from '@angular/material/tabs';
 
 const appRoutes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: HomeSearchComponent },
+  { path: 'login', component: HomeSearchComponent },
   { path: 'post-list', component: PostListComponent },
   { path: 'post-item', component: PostItemComponent },
   { path: 'search', component: HomeSearchComponent },
@@ -58,18 +57,18 @@ const appRoutes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'new-post', component: NewPostComponent },
-  { path: 'add-review', component: AddReviewComponent},
-  { path: 'global-stream', component: GlobalStreamComponent},
-  { path: 'account', component: AccountPageComponent}
+  { path: 'add-review', component: AddReviewComponent },
+  { path: 'global-stream', component: GlobalStreamComponent },
+  { path: 'account', component: AccountPageComponent }
 ];
 
 @NgModule({
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     HeaderComponent,
     SearchBarComponent,
-    LoginComponent,
+    // LoginComponent,
     ProfileComponent,
     ProductComponent,
     ProfileHeaderComponent,
@@ -111,9 +110,9 @@ const appRoutes: Routes = [
       libraries: ['places']
     }),
     MatTabsModule
-    
+
   ],
-  exports:[
+  exports: [
     MatTabsModule,
   ],
   providers: [
