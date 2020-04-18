@@ -40,8 +40,11 @@
   aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+      <div class="modal-footer">
+        <button type="button" class="button-cross" data-dismiss="modal" (click)="hide()">X</button>
+      </div>
       <div class="modal-header">
-        <h2 class="header">Login</h2>
+        <h2 class="header">Sign in to O Sha'Re</h2>
       </div>
       <div class="modal-body">
         <form [formGroup]="loginForm" (submit)="onLogin()" class="container">
@@ -67,12 +70,10 @@
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               Login
             </button><br><br>
+            <h4>Don't have an O Sha'Re account?  </h4>
             <a routerLink="/register" class="button-regis">Register</a>
           </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="button-login" data-dismiss="modal" (click)="hide()">Close</button>
       </div>
     </div>
   </div>

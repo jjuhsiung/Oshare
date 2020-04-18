@@ -14,10 +14,16 @@ li {
 /* Dropdown Button */
 
 .dropbtn {
-    background-color: #292b2c;
     color: white;
-    padding: 16px;
+    padding: 30px;
     font-size: small;
+    border: none;
+}
+
+.button-cross {
+    background-color: none;
+    font-size: 20px;
+    font-weight: bold;
     border: none;
 }
 
