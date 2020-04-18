@@ -66,12 +66,20 @@ class Product(models.Model):
     click_num = models.IntegerField(default=0)
     bought_num = models.IntegerField(default=0)
 
+
 class Review(models.Model):
     headline = models.CharField(max_length=100)
     review = models.CharField(max_length=300)
     rating = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+
+class ProductColor(models.Model):
+    hex_value = models.CharField(max_length=50,null=True)
+    color_name = models.CharField(max_length=50,null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
 
 # Product Count for cart
 class ProductCount(models.Model):

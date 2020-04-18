@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.password_validation import validate_password
-from .models import Post, Comment, PostImage, Order, Cart, Product, Review, \
+from .models import Post, Comment, PostImage, Order, Cart, Product, Review, ProductColor,\
     ProductCount, UserProfile, OrderProductCount
 
 
@@ -13,11 +13,18 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
                   'price', 'price_sign', 'currency', 'img_link', 'description','rating','tag_list',
                   'click_num', 'bought_num']
 
+
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     product = ProductSerializer
     class Meta:
         model = Review
         fields = ['headline', 'review', 'rating', 'user', 'product']
+
+class ProductColorSerializer(serializers.HyperlinkedModelSerializer):
+    product = ProductSerializer
+    class Meta:
+        model = ProductColor
+        fields = ['hex_value', 'color_name','product']
 
 
 class OrderProductCountSerializer(serializers.HyperlinkedModelSerializer):
