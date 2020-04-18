@@ -361,9 +361,9 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
     # Send plain text EMAIL
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
-    sender_email = "peilinanuo@gmail.com"
-    receiver_email = "aduyino6@gmail.com"
-    password = "Anuo@723"
+    sender_email = "osharecosmetics@gmail.com"
+    receiver_email = "fionakuo26@gmail.com"
+    password = "nmfpnidcluwfbptm"
     #password = input("Type your password and press enter:")
     message = """\
     Subject: Hi there
