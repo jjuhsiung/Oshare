@@ -5,6 +5,8 @@ import { CheckoutService } from '../_services/checkout.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
+/// <reference types="@types/googlemaps" />
+import PlaceResult = google.maps.places.PlaceResult;
 
 declare var paypal;
 
@@ -19,6 +21,7 @@ export class CheckoutComponent implements OnInit {
   form;
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
 
+  public selectedAddress: PlaceResult;
   productSummary: string = "";
   totalPrice: number = 0;
   paidFor: boolean = false;
@@ -33,10 +36,7 @@ export class CheckoutComponent implements OnInit {
       firstname: ['', Validators.required, firstNameValidators.lengthCheck],
       lastname: ['', Validators.required],
       phone: ['', Validators.required],
-      address: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipcode: ['', Validators.required],
+      address: ['', Validators.required]
     });
 
     this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
@@ -81,18 +81,6 @@ export class CheckoutComponent implements OnInit {
     return this.form.get('address');
   }
 
-  get city(){
-    return this.form.get('city');
-  }
-
-  get state(){
-    return this.form.get('state');
-  }
-
-  get zipcode(){
-    return this.form.get('zipcode');
-  }
-
   checkout(){
     console.log(this.form.value);
   }
@@ -124,7 +112,11 @@ export class CheckoutComponent implements OnInit {
     .render(this.paypalElement.nativeElement);
 
   }
-
+  onAutocompleteSelected(result: PlaceResult) {
+    //console.log('onAutocompleteSelected: ', result);
+    //console.log(result.formatted_address);
+    this.form.controls['address'].setValue(result.formatted_address);
+  }
   placeOrderButtonClicked(){
 
     if(this.paidFor == false){

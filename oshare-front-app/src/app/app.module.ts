@@ -1,15 +1,15 @@
+import { AccountPageComponent } from './account-page/account-page.component';
 import { PostImageService } from './_services/post-image.service';
 import { UserService } from './_services/user.service';
 import { NewPostComponent } from './new-post/new-post.component';
 import { CheckoutService } from './_services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
-import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProductComponent } from './product/product.component';
 import { ProfileHeaderComponent } from './profile/profile-header/profile-header.component';
@@ -38,11 +38,19 @@ import { AddReviewComponent } from "./add-review/add-review.component";
 import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GlobalStreamComponent } from './global-stream/global-stream.component';
-import { ScrollingModule} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatSidenavModule } from '@angular/material/sidenav';
+// import { MultiSelectAllModule } from '@syncfusion/ej2-angular-dropdowns';
+// import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MatSliderModule } from '@angular/material/slider';
+import { Ng5SliderModule } from 'ng5-slider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { AgmCoreModule } from '@agm/core';
 
 const appRoutes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: HomeSearchComponent },
+  { path: 'login', component: HomeSearchComponent },
   { path: 'post-list', component: PostListComponent },
   { path: 'post-item', component: PostItemComponent },
   { path: 'search', component: HomeSearchComponent },
@@ -55,17 +63,21 @@ const appRoutes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'new-post', component: NewPostComponent },
-  { path: 'order-history', component: OrderHistoryComponent},
-  { path: 'add-review', component: AddReviewComponent},
-  { path: 'global-stream', component: GlobalStreamComponent},
+  { path: 'add-review', component: AddReviewComponent },
+  { path: 'global-stream', component: GlobalStreamComponent },
+  { path: 'account', component: AccountPageComponent },
+  { path: 'order-history', component: OrderHistoryComponent },
+  { path: 'add-review', component: AddReviewComponent },
+  { path: 'account', component: AccountPageComponent }
 ];
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     HeaderComponent,
     SearchBarComponent,
-    LoginComponent,
+    // LoginComponent,
     ProfileComponent,
     ProductComponent,
     ProfileHeaderComponent,
@@ -89,6 +101,7 @@ const appRoutes: Routes = [
     OrderHistoryComponent,
     OrderProductListComponent,
     AddReviewComponent,
+    AccountPageComponent,
     GlobalStreamComponent
   ],
   imports: [
@@ -99,7 +112,17 @@ const appRoutes: Routes = [
     HttpClientModule,
     FacebookModule.forRoot(),
     BrowserAnimationsModule,
-    ScrollingModule
+    MatSidenavModule,
+    // MultiSelectAllModule,
+    // NgMultiSelectDropDownModule.forRoot(),
+    MatSliderModule,
+    Ng5SliderModule,
+    MatMenuModule,
+    MatGoogleMapsAutocompleteModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC73BtQ0PBboPi_JlWKRc22qy1lq-OqDko',
+      libraries: ['places']
+    }),
   ],
   providers: [
     CartService,

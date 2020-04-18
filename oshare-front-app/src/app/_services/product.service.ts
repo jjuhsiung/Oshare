@@ -62,11 +62,12 @@ export class ProductService {
   }
 
   addClick(id){
+    console.log(id);
     let para = new HttpParams();
     if (id != 0) {
       para = para.set('id', id.toString());
     }
-    this.http.post<any>(this.baseurl + '/products/add_click', para).subscribe(data => {
+    this.http.post<any>(this.baseurl + '/products/add_click/', para).subscribe(data => {
       console.log(data);
     });
     // this.http.post<any>(this.baseurl + '/products/add_click', {headers: this.httpHeaders, params: para}).subscribe(data => {

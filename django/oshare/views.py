@@ -50,7 +50,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
 
-
+    def partial_update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
+        
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -256,7 +259,13 @@ class ProductViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(name=request.GET['name'])
             print("queryset after name", len(queryset))
         if 'brand' in keys:
-            queryset = queryset.filter(brand=request.GET['brand'])
+            brand_list=request.GET['brand'].split(",")
+            brandset = Product.objects.none()
+            for brand in brand_list:
+                print("brand",brand)
+                tempset = queryset.filter(brand=brand)
+                brandset = brandset | tempset
+            queryset = brandset
             print("queryset after brand", len(queryset), request.GET['brand'])
         if 'category' in keys:
             queryset = queryset.filter(category=request.GET['category'])
