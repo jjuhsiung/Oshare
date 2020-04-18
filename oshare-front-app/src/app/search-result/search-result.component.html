@@ -1,21 +1,115 @@
 <div class="row">
-    <div class="col-md-12">
-        <app-header></app-header>
-    </div>
+  <div class="col-md-12">
+    <app-header></app-header>
+  </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <form>
-            <div class="row justify-content-center">
-<!--                <div class="col-md-3"></div>-->
-<!--                <div class="col-md-6">-->
-                    <app-search-bar></app-search-bar>
-<!--                </div>-->
-<!--                <div class="col-md-3"></div>-->
-            </div>
-        </form>
-    </div>
-</div>
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+
+<!--<ul class="list-group list-group-horizontal float-right pink">-->
+<!--  <li class="list-group-item no-border">-->
+<!--    <div class="dropdown h5" style="font-size:15px;height: 35px">-->
+<!--      <select class="no-border pink" id="dropdownMenuButtonA" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="brand">-->
+<!--        <option value="">Brand</option>-->
+<!--        <option value="">-->
+<!--          <div class="dropdown h5" style="font-size:15px;height: 35px">-->
+<!--            <select class="no-border pink"  data-toggle="dropdown" aria-haspopup="true">-->
+<!--            </select>-->
+<!--          </div>-->
+<!--        </option>-->
+<!--        <option *ngFor="let brand of this.brandlist" value={{brand}}>{{brand}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--  <li class="list-group-item no-border">-->
+<!--    <div class="dropdown h5" style="font-size:15px;height: 35px">-->
+<!--      <select class="no-border pink" id="dropdownMenuButtonB" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="price">-->
+<!--        <option value="">Price</option>-->
+<!--        <option value="high">high</option>-->
+<!--        <option value="medium">medium</option>-->
+<!--        <option value="low">low</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--  <li class="list-group-item no-border">-->
+<!--    <div class="dropdown h5" style="font-size:15px;height: 35px">-->
+<!--      <select class="no-border pink" id="dropdownMenuButtonC" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="ProductType">-->
+<!--        <option value="">Type</option>-->
+<!--        <option value="blush">Blush</option>-->
+<!--        <option value="eyeliner">Eyeliner</option>-->
+<!--        <option value="eyeshadow">Eyeshadow</option>-->
+<!--        <option value="foundation">Foundation</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--</ul>-->
+<!--<div class="btn-group dropdown">-->
+<!--  <button class="dropdown-toggle">Toggle</button>-->
+<!--  <ul class="dropdown-menu">-->
+<!--    <li>Item 1</li>-->
+<!--    <li>Item 2</li>-->
+<!--    <li class="dropdown-submenu">-->
+<!--      Sub List-->
+<!--      <ul class="dropdown-menu">-->
+<!--        <li>Submenu Item 1</li>-->
+<!--        <li>Submenu Item 2</li>-->
+<!--      </ul>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--  <div class="col-md-12">-->
+<!--    <form>-->
+<!--      <div class="row justify-content-center">-->
+<!--        <app-search-bar></app-search-bar>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
 <div class="row justify-content-center">
-        <app-product-list></app-product-list>
+  <!--  <mat-sidenav-container class="example-container" style="position: fixed">-->
+  <!--    <div class="pull-left">-->
+  <div class="col-sm-3 border-right" style="border-right-color: black;border-right-width: 1px">
+    <!--    <mat-sidenav class="pull-left" style="width: 300px" mode="side" opened>-->
+    <div class="row h4 justify-content-center" style="margin-left: 0px">Brand</div>
+    <div class="row justify-content-center">
+      <div class="justify-content-center" style="margin-left: 30px">
+        <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate style="min-width: 180px;height: 250px;overflow-y: auto;overflow-x: hidden">
+          <div class="row h4">
+            <!--              <div class="col" style="margin-left: 20px">Brand</div>-->
+            <!--              <div class="col">-->
+            <!--                &lt;!&ndash;              <input type="submit" value="Submit">&ndash;&gt;-->
+            <!--              </div>-->
+            <!--            <span>Brand</span> <input type="submit" value="Submit">-->
+          </div>
+          <div *ngFor="let data of Data; let i=index">
+            <label>
+              <input type="checkbox" [value]="data.value" (change)="onCheckboxChange($event)" />
+              {{data.name}}
+            </label>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--      <div class="row">-->
+    <div class="row h4 justify-content-center" style="margin-left: 0px">Price
+    </div>
+    <div class="custom-slider justify-content-center" style="max-width: 180px;margin-left: 80px">
+      <ng5-slider [(value)]="lowValue"[(highValue)]="highValue" [options]="options2"></ng5-slider>
+    </div>
+    <div class="row justify-content-center">
+      <button style="font-size: 13px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Apply Filter</button>
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <!--    <mat-sidenav-content>-->
+    <app-product-list>
+    </app-product-list>
+    <!--    </mat-sidenav-content>-->
+  </div>
+  <!--  </mat-sidenav-container>-->
+
 </div>

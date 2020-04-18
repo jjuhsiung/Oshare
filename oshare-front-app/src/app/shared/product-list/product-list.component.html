@@ -1,6 +1,6 @@
 <div *ngIf="productNum>0; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
-  <div class="container mt-2 justify-content-center">
+  <div class="container mt-1 justify-content-center">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -9,8 +9,8 @@
               By price
             </a>
             <div class="dropdown-menu" aria-labelledby="SortbyPrice">
-              <button class="dropdown-item" (click)="SortbyPriceHtoL()">HtoL</button>
-              <button class="dropdown-item" (click)="SortbyPriceLtoH()">LtoH</button>
+              <button class="dropdown-item" (click)="SortbyPriceHtoL()">High to Low</button>
+              <button class="dropdown-item" (click)="SortbyPriceLtoH()">Low to High</button>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -18,29 +18,23 @@
               By rating
             </a>
             <div class="dropdown-menu" aria-labelledby="SortbyRating">
-              <a class="dropdown-item" (click)="SortbyRatingHtoL()">HtoL</a>
-              <a class="dropdown-item" (click)="SortbyRatingLtoH()">LtoH</a>
+              <a class="dropdown-item" (click)="SortbyRatingHtoL()">High to Low</a>
+              <a class="dropdown-item" (click)="SortbyRatingLtoH()">Low to High</a>
             </div>
           </li>
         </ul>
       </div>
     </nav>
     <div class="row row-cols-3 justify-content-center">
-      <div *ngFor="let product of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
-        <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
+      <div *ngFor="let product of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize" class="gutters card col" style="max-width: 20rem;">
+        <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="150px" height="150px" alt="" (click)="toDetail(product.id)">
         <div style="font-size:12px" class="card-body border-1 p-2" >
-          <div class="row border-2 d-flex justify-content-between" width="250px">
-            <div class="card-title h4" style="max-width: 20rem;">
+          <div class="row border-2 d-flex justify-content-center" width="250px">
+            <div class="h4" style="max-width: 18rem;">
               {{product.name}}
             </div>
-            <!--          <div class="pull-right">-->
-            <!--            <img src="assets/img/heart.svg">-->
-            <!--          </div>-->
           </div>
           <div class="row border-2 d-flex card-title justify-content-between" width="250px">
-            <!--          <div class="card-title" style="max-width: 20rem;">-->
-            <!--            Rating={{product.Rate}}-->
-            <!--          </div>-->
             <div class="pull-left">
               <div *ngIf="product.rating >=0.5; then thenBlock else elseBlock"></div>
               <ng-template #thenBlock><span class="fa fa-star checked" style="font-size: large;"></span></ng-template>
@@ -78,8 +72,10 @@
   </div>
 </ng-template>
 <ng-template #elseBlock>
-  <div class="row h1">0 Product results found!</div>
-  <div class="row h3" style="height: 30px;">Let us help. Have you tried:</div>
-  <div class="row" style="font-size: 15px;height: 30px;">– Double-checking the spelling of your search term?</div>
-  <div class="row" style="font-size: 15px;height: 30px;">– Searching for a similar word or entering a broader term?</div>
+  <div class="container justify-content-center">
+    <div class="row h1 justify-content-center">0 Product results found!</div>
+    <div class="row h3 justify-content-center" style="height: 30px;">Let us help. Have you tried:</div>
+    <div class="row justify-content-center" style="font-size: 15px;height: 30px;">– Double-checking the spelling of your search term?</div>
+    <div class="row justify-content-center" style="font-size: 15px;height: 30px;">– Searching for a similar word or entering a broader term?</div>
+  </div>
 </ng-template>

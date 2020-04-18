@@ -1,72 +1,46 @@
 <div *ngIf="to_result; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
-  <div class="row">
-    <div class="col-md-7 pull-left">
+  <div class="row pull-right">
+<!--    <div class="col-md-7 pull-left">-->
       <div class="h5 form-inline mr-auto" style="width: 100%;height: 40px">
-        <input style="font-size:15px;width:450px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="input">
+        <input style="font-size:15px;width:300px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="input">
         <button style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</button>
       </div>
-    </div>
+<!--    </div>-->
 
-    <!--<div class="d-flex justify-content-center my-4">-->
-    <!--  <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>-->
-    <!--  <form class="range-field w-25">-->
-    <!--    <input class="border-0" type="range" min="0" max="100" />-->
-    <!--  </form>-->
-    <!--  <form class="range-field w-25">-->
-    <!--    <input class="border-0" type="range" min="0" max="100" />-->
-    <!--  </form>-->
-    <!--  <span class="font-weight-bold indigo-text ml-2 mt-1">100</span>-->
-    <!--</div>-->
-
-    <div class="col-md-5">
-      <ul class="list-group list-group-horizontal float-right pink">
-        <li class="list-group-item no-border">
-          <div class="dropdown h5" style="font-size:15px;height: 35px">
-            <select class="no-border pink" id="dropdownMenuButtonA" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="brand">
-              <option value="">Brand</option>
-              <option *ngFor="let brand of this.brandlist" value={{brand}}>{{brand}}</option>
-            </select>
-            <!--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonA">-->
-            <!--                <a class="dropdown-item" href="#">Lancome</a>-->
-            <!--                <a class="dropdown-item" href="#">Biotherm</a>-->
-            <!--                <a class="dropdown-item" href="#">Kiehl‘s</a>-->
-            <!--                </div>-->
-          </div>
-        </li>
-        <li class="list-group-item no-border">
-          <div class="dropdown h5" style="font-size:15px;height: 35px">
-            <select class="no-border pink" id="dropdownMenuButtonB" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="price">
-              <option value="">Price</option>
-              <option value="high">high</option>
-              <option value="medium">medium</option>
-              <option value="low">low</option>
-            </select>
-            <!--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonA">-->
-            <!--                <a class="dropdown-item" href="#">Lancome</a>-->
-            <!--                <a class="dropdown-item" href="#">Biotherm</a>-->
-            <!--                <a class="dropdown-item" href="#">Kiehl‘s</a>-->
-            <!--                </div>-->
-          </div>
-        </li>
-        <li class="list-group-item no-border">
-          <div class="dropdown h5" style="font-size:15px;height: 35px">
-            <select class="no-border pink" id="dropdownMenuButtonC" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="ProductType">
-              <option value="">Type</option>
-              <option value="blush">Blush</option>
-              <option value="eyeliner">Eyeliner</option>
-              <option value="eyeshadow">Eyeshadow</option>
-              <option value="foundation">Foundation</option>
-            </select>
-            <!--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonA">-->
-            <!--                <a class="dropdown-item" href="#">Lancome</a>-->
-            <!--                <a class="dropdown-item" href="#">Biotherm</a>-->
-            <!--                <a class="dropdown-item" href="#">Kiehl‘s</a>-->
-            <!--                </div>-->
-          </div>
-        </li>
-      </ul>
-    </div>
+<!--    <div class="col-md-5">-->
+<!--      <ul class="list-group list-group-horizontal float-right pink">-->
+<!--        <li class="list-group-item no-border">-->
+<!--          <div class="dropdown h5" style="font-size:15px;height: 35px">-->
+<!--            <select class="no-border pink" id="dropdownMenuButtonA" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="brand">-->
+<!--              <option value="">Brand</option>-->
+<!--              <option *ngFor="let brand of this.brandlist" value={{brand}}>{{brand}}</option>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--        <li class="list-group-item no-border">-->
+<!--          <div class="dropdown h5" style="font-size:15px;height: 35px">-->
+<!--            <select class="no-border pink" id="dropdownMenuButtonB" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="price">-->
+<!--              <option value="">Price</option>-->
+<!--              <option value="high">high</option>-->
+<!--              <option value="medium">medium</option>-->
+<!--              <option value="low">low</option>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--        <li class="list-group-item no-border">-->
+<!--          <div class="dropdown h5" style="font-size:15px;height: 35px">-->
+<!--            <select class="no-border pink" id="dropdownMenuButtonC" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="ProductType">-->
+<!--              <option value="">Type</option>-->
+<!--              <option value="blush">Blush</option>-->
+<!--              <option value="eyeliner">Eyeliner</option>-->
+<!--              <option value="eyeshadow">Eyeshadow</option>-->
+<!--              <option value="foundation">Foundation</option>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
   </div>
 </ng-template>
 <ng-template #elseBlock>
