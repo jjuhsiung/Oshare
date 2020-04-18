@@ -62,7 +62,8 @@
                             <mat-google-maps-autocomplete country="us"
                                                                 type="address"
                                                                 appearance="outline"
-                                                                (onAutocompleteSelected)="onAutocompleteSelected($event)">
+                                                                (onChange)="formChange($event)"
+                                                                (onAutocompleteSelected)="formChange($event)">
                             ></mat-google-maps-autocomplete>
                         </div>
                     </div>
