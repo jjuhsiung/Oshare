@@ -47,6 +47,8 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { AgmCoreModule } from '@agm/core';
+import { MatStepperModule} from '@angular/material/stepper';
+import {MatIconModule} from '@angular/material/icon';
 
 const appRoutes: Routes = [
   { path: '', component: HomeSearchComponent },
@@ -123,6 +125,8 @@ const appRoutes: Routes = [
       apiKey: 'AIzaSyC73BtQ0PBboPi_JlWKRc22qy1lq-OqDko',
       libraries: ['places']
     }),
+    MatStepperModule,
+    MatIconModule
   ],
   providers: [
     CartService,
