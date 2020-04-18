@@ -34,15 +34,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfilePostListComponent } from './profile/profile-post-list/profile-post-list.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { OrderProductListComponent } from './order-history/order-product-list/order-product-list.component';
-import { AddReviewComponent } from './add-review/add-review.component';
+import { AddReviewComponent } from "./add-review/add-review.component";
 import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSidenavModule} from '@angular/material/sidenav';
 // import { MultiSelectAllModule } from '@syncfusion/ej2-angular-dropdowns';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-// import {MatSliderModule} from '@angular/material/slider';
+import {MatSliderModule} from '@angular/material/slider';
 import { Ng5SliderModule } from 'ng5-slider';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { AgmCoreModule } from '@agm/core';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -101,12 +103,14 @@ const appRoutes: Routes = [
     HttpClientModule,
     FacebookModule.forRoot(),
     BrowserAnimationsModule,
-    // MatSidenavModule,
+    MatSidenavModule,
     // MultiSelectAllModule,
     // NgMultiSelectDropDownModule.forRoot(),
-    // MatSliderModule,
+    MatSliderModule,
     Ng5SliderModule,
     MatMenuModule,
+    MatGoogleMapsAutocompleteModule,
+    AgmCoreModule.forRoot(),
   ],
   providers: [
     CartService,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../_services/product.service';
 import {ProductQuery} from '../../_models/ProductQuery';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {Product} from "../../_models/product.model";
+import {Product} from '../../_models/product.model';
 
 @Component({
   selector: 'app-product-list',
@@ -13,10 +13,10 @@ export class ProductListComponent implements OnInit {
 
   Products: Array<object> = [];
   pageNum = 1;
-  pageSize = 9;
+  pageSize = 12;
   MaxPageSize = 1;
   pagelist = [];
-  productNum:number;
+  productNum: number;
   // rating = 3;
   // productService: ProductService;
 

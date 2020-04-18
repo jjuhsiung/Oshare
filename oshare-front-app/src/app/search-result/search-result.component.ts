@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../_services/product.service';
 import {ProductQuery} from '../_models/ProductQuery';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+// import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import {FormGroup, FormBuilder, FormArray, FormControl} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import { Options } from 'ng5-slider';
@@ -35,7 +35,7 @@ export class SearchResultComponent implements OnInit {
     ceil: 80,
     step: 1,
     showTicks: false,
-    animate:false
+    animate: false,
   };
   // value;
   // maps the local data column to fields property

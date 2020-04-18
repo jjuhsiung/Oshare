@@ -1,3 +1,5 @@
+@use "@material/card/mdc-card";
+@include card.core-styles;
 .ax_default {
   font-family:'Arial Normal', 'Arial', sans-serif;
   font-weight:400;

@@ -1,4 +1,5 @@
 <div class="background pos-f-t">
+
   <nav class="navbar" style="background-color: #f8f9fa;">
     <div class="col-sm-4 justify-content-center">
       <div class="justify-content-center">
@@ -10,26 +11,31 @@
         <a class="nav-link h1" href="/search">O Sha'Re Cosmetics <span class="sr-only">(current)</span></a>
       </div>
     </div>
+    <!--    <span class="active text-white">-->
+    <!--      <a class="nav-link h1" href="/search">O Sha'Re Cosmetics <span class="sr-only">(current)</span></a>-->
+    <!--    </span>-->
     <div class="col-sm-4">
       <div *ngIf="checkLoginStatus()" class="dropdown">
-        <a class="nav-link h5">User Info</a>
+        <a class="nav-link h4 text-white">Hi, {{firstname}}!</a>
         <div class="dropdown-content">
-          <a href="/profile"> <i class='far fa-user-circle'></i> Profile</a>
+          <a href="/account"> <i class='far fa-user-circle'></i> My Account</a>
           <a href="/new-post"> <i class='far fa-edit'></i> New Post</a>
           <a href="/cart"> <i class='fas fa-shopping-cart'></i> Cart</a>
-          <a href="/order-history"> <i class='fa fa-history'></i> Order</a>
           <a (click)="Logout()" href="/login">Logout</a>
         </div>
       </div>
+
       <div *ngIf="!checkLoginStatus()" class="dropdown">
-        <a class="nav-link h5">User Info</a>
+        <a class="nav-link h4 text-white">Hi, Welcome!</a>
         <div class="dropdown-content">
           <a href="/register"> Register</a>
           <a href="/login">Log In</a>
         </div>
       </div>
     </div>
+
   </nav>
+</div>
 <!--  <nav class="navbar">-->
 <!--    <button mat-button [matMenuTriggerFor]="type" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">Shop</button>-->
 <!--    <mat-menu #type="matMenu">-->
@@ -79,4 +85,4 @@
 <!--    </mat-menu>-->
 <!--  </nav>-->
 
-</div>
+

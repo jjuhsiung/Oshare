@@ -6,6 +6,8 @@ import { UserService } from '../_services/user.service';
 import { ProfileService } from '../_services/profile.service';
 import { Profile } from '../_models/profile.model';
 import { User } from '../_models/user.model';
+/// <reference types="@types/googlemaps" />
+import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
   selector: 'app-profile',
@@ -20,17 +22,18 @@ export class ProfileComponent implements OnInit {
   userprofile: Profile = new Profile("", "", "");
   userProfileURL: string = "";
   user: User = new User();
+  public selectedAddress: PlaceResult;
 
   constructor(private formbuilder: FormBuilder, private router: Router,
     private userService: UserService, private profileService: ProfileService) {
-      this.form = this.formbuilder.group({
-        first_name: [''],
-        last_name: [''],
-        username: [''],
-        email: [''],
-        phone: [''],
-        address: [''],
-      })
+    this.form = this.formbuilder.group({
+      first_name: [''],
+      last_name: [''],
+      username: [''],
+      email: [''],
+      phone: [''],
+      address: [''],
+    })
   }
   get first_name() {
     return this.form.get('first_name');
@@ -131,7 +134,13 @@ export class ProfileComponent implements OnInit {
         console.log(error);
       }
     );
-    
+
     window.location.reload();
+  }
+
+  onAutocompleteSelected(result: PlaceResult) {
+    //console.log('onAutocompleteSelected: ', result);
+    //console.log(result.formatted_address);
+    this.form.controls['address'].setValue(result.formatted_address);
   }
 }
