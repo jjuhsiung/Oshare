@@ -41,6 +41,8 @@ import { GlobalStreamComponent } from './global-stream/global-stream.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { AgmCoreModule } from '@agm/core';
+import { AccountPageComponent } from './account-page/account-page.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -52,14 +54,13 @@ const appRoutes: Routes = [
   { path: 'post/:id', component: PostComponent },
   { path: 'product', component: ProductComponent },
   { path: 'product-list', component: ProductListComponent },
-  { path: 'profile', component: ProfileComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'new-post', component: NewPostComponent },
-  { path: 'order-history', component: OrderHistoryComponent},
   { path: 'add-review', component: AddReviewComponent},
   { path: 'global-stream', component: GlobalStreamComponent},
+  { path: 'account', component: AccountPageComponent}
 ];
 
 @NgModule({
@@ -93,6 +94,7 @@ const appRoutes: Routes = [
     OrderProductListComponent,
     AddReviewComponent,
     GlobalStreamComponent,
+    AccountPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +110,11 @@ const appRoutes: Routes = [
       apiKey: 'AIzaSyC73BtQ0PBboPi_JlWKRc22qy1lq-OqDko',
       libraries: ['places']
     }),
+    MatTabsModule
+    
+  ],
+  exports:[
+    MatTabsModule,
   ],
   providers: [
     CartService,

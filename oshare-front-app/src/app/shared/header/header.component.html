@@ -9,10 +9,9 @@
     <div *ngIf="checkLoginStatus()" class="dropdown">
       <a class="nav-link h4 text-white">Hi, {{firstname}}!</a>
       <div class="dropdown-content">	
-          <a href="/profile"> <i class='far fa-user-circle'></i> Profile</a>
+          <a href="/account"> <i class='far fa-user-circle'></i> My Account</a>
           <a href="/new-post"> <i class='far fa-edit'></i> New Post</a>
           <a href="/cart"> <i class='fas fa-shopping-cart'></i> Cart</a>
-          <a href="/order-history"> <i class='fa fa-history'></i> Order</a>
           <a (click)="Logout()" href="/login">Logout</a>
       </div>
     </div>
