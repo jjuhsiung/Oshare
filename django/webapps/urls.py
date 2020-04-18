@@ -27,6 +27,7 @@ urlpatterns = [
     #path(r'api-auth', include('rest_framework.urls', namespace='rest_framework')),
     path('auth/', views.CustomObtainAuthToken.as_view()),
     path('update_product', views.update_products_view),
+    path('send_template_email/', views.send_template_email_view),
     # path('get_product', views.get_product_view),
     #path('add_to_cart', views.add_to_cart_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
