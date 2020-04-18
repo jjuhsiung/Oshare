@@ -136,10 +136,15 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  onAutocompleteSelected(result: PlaceResult) {
-    //console.log('onAutocompleteSelected: ', result);
-    //console.log(result.formatted_address);
-    this.form.controls['address'].setValue(result.formatted_address);
-  }
+  formChange(result: PlaceResult){
 
+    var address;
+    address = result;
+    if(result.formatted_address!=null){
+      address = result.formatted_address;
+    }
+    this.form.controls['address'].setValue(address);
+    //console.log(this.form.get('address').value);
+
+  }
 }
