@@ -12,37 +12,33 @@ import {ProductCount} from "../_models/product-count.model";
 export class HomeSearchComponent implements OnInit {
   popularProducts = [];
 
-  constructor(private productService: ProductService,private router: Router) {
-    var i:number;
-    var url:string='http://127.0.0.1:8000/products/';
-    for(i=1;i<=3;i++)
-    {
-      // TODO: get popular products by click numbers
-      // TODO: the order can not be guaranteed
-      var temp=url.concat(i.toString());
-      this.productService.getProductByURL(temp).subscribe(
-        product_data => {
-          console.log(product_data);
-          this.popularProducts.push(product_data);
-        }, error =>{
-          console.log(error);
-        }
-      )
-    }
-    console.log(this.popularProducts);
-  }
+  constructor(private productService: ProductService,private router: Router) { }
 
   ngOnInit(): void {
+    let user_id = 0;
+    if (localStorage.getItem('userId')!=null)
+    {
+      user_id = parseInt(localStorage.getItem('userId'));
+    }
+    this.productService.getPoplarProduct(user_id).subscribe(
+      product_data => {
+        // console.log(product_data);
+        this.popularProducts = product_data;
+      }, error =>{
+        console.log(error);
+      }
+    )
   }
 
   toDetail(id): void {
     console.log(id);
-    this.productService.addClick(id);
     // this.productService.currentproduct = id;
+    this.productService.ProductClick(id);
     this.router.navigate(['/product'], {
       queryParams: {
         'product_id': id,
       }
     });
   }
+
 }

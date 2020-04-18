@@ -41,7 +41,7 @@ export class CartComponent implements OnInit {
             }
           )
         }
-        console.log(this.cart.products);
+        //console.log(this.cart.products);
       }, error => {
         console.log(error);
       }

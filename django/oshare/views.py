@@ -17,6 +17,7 @@ import json
 import urllib
 import json
 from requests.utils import requote_uri
+import smtplib, ssl
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
@@ -52,7 +53,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     def partial_update(self, request, *args, **kwargs):
         kwargs['partial'] = True
         return self.update(request, *args, **kwargs)
-        
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -199,7 +200,6 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
                 description=x['description'],
                 rating=rating,
                 tag_list=tag_list,
-                click=0,
             )
             # print("rating:",new_product.rating)
             new_product.save()
@@ -223,6 +223,8 @@ class ProductCountViewSet(viewsets.ModelViewSet):
         cartId = int(request.data.get("cartId"))
         productId = int(request.data.get("productId"))
         product = Product.objects.get(id=productId)
+        product.bought_num += 1
+        product.save()
         cart = Cart.objects.get(id=cartId)
 
         try:
@@ -243,6 +245,37 @@ class ProductCountViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    @action(detail=False, methods=['get'])
+    def click_product(self, request):
+        product_id = int(request.GET['product_id'])
+        product = Product.objects.get(id=product_id)
+        product.click_num += 1
+        product.save()
+        return Response()
+
+    @action(detail=False, methods=['get'])
+    def get_popular(self, request):
+        if 'user_id' in request.GET:
+            print(int(request.GET['user_id']))
+            user = User.objects.get(id=int(request.GET['user_id']))
+            reviews = Review.objects.filter(user=user)[:4]
+            queryset = []
+            for x in reviews:
+                if x.product not in queryset:
+                    queryset.append(x.product)
+            more_product = Product.objects.all().order_by('-click_num')[:4]
+            for x in more_product:
+                if x not in queryset:
+                    queryset.append(x)
+            queryset = queryset[:4]
+        else:
+            print('Anonymous User')
+            queryset = Product.objects.all().order_by('-click_num')[:4]
+        serializer = ProductSerializer(
+            queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+
 
     @action(detail=False, methods=['get'])
     def search_product(self, request):
@@ -293,23 +326,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         # return Response(serializer.data)
         return JsonResponse({'response': serializer.data})
 
-    @action(detail=False, methods=['post'])
-    def add_click(self, request):
-        keys = request.GET.keys()
-        if 'id' in keys:
-            print("id",id)
-            product=Product.objects.get(id=request.GET['id'])
-            print("click after change",product.click)
-            product.click+=1
-            print(product.click)
-            product.save()
-
-    @action(detail=False, methods=['get'])
-    def get_popular_product(self, request):
-        queryset = Product.objects.order_by('-click')[:3]
-        serializer = ProductSerializer(
-            queryset, many=True, context={'request': request})
-        return Response(serializer.data)
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
@@ -350,3 +366,29 @@ class ReviewViewSet(viewsets.ModelViewSet):
             queryset, many=True, context={'request': request}
         )
         return Response(serializers.data)
+
+@csrf_exempt
+def send_template_email_view(request: HttpRequest) -> JsonResponse:
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(request.body)
+    print(body)
+
+    # Send plain text EMAIL
+    port = 465  # For SSL
+    smtp_server = "smtp.gmail.com"
+    sender_email = "peilinanuo@gmail.com"
+    receiver_email = "aduyino6@gmail.com"
+    password = "Anuo@723"
+    #password = input("Type your password and press enter:")
+    message = """\
+    Subject: Hi there
+    This message is sent from Python."""
+
+    # Create a secure SSL context
+    context = ssl.create_default_context()
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message)
+
+    return JsonResponse({"result": "Email sent successfully!"});

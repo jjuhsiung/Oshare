@@ -17,9 +17,9 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  getProductInfo(): Observable<any> {
-    return this.http.get(this.baseurl + '/product/', {headers: this.httpHeaders});
-  }
+  // getProductInfo(): Observable<any> {
+  //   return this.http.get(this.baseurl + '/product/', {headers: this.httpHeaders});
+  // }
 
   getProductsInfo(query: ProductQuery) {
     console.log(query);
@@ -61,22 +61,34 @@ export class ProductService {
     });
   }
 
-  addClick(id){
-    console.log(id);
+  // addToCart(id){
+  //   let para = new HttpParams();
+  //   para = para.set('id', id.toString());
+  //   this.http.get<any>(this.baseurl + '/add_to_cart', {headers: this.httpHeaders, params: para}).subscribe(data => {
+  //     this.productsupdate.next(data);
+  //   });
+  // }
+
+  getPoplarProduct(user_id): Observable<any>{
     let para = new HttpParams();
-    if (id != 0) {
-      para = para.set('id', id.toString());
-    }
-    this.http.post<any>(this.baseurl + '/products/add_click/', para).subscribe(data => {
-      console.log(data);
-    });
-    // this.http.post<any>(this.baseurl + '/products/add_click', {headers: this.httpHeaders, params: para}).subscribe(data => {
-    //   this.productsupdate.next(data);
-    // });
+    if (user_id!=0)
+      para = para.set('user_id', user_id);
+    return this.http.get<any>(this.baseurl + '/products/get_popular', {headers: this.httpHeaders, params: para});
   }
 
   getProductByURL(product_url): Observable<any>{
     return this.http.get<any>(product_url);
+  }
+
+  ProductClick(product_id){
+    let para = new HttpParams();
+    para = para.set('product_id', product_id);
+    this.http.get(this.baseurl + '/products/click_product', {headers: this.httpHeaders, params: para}).subscribe(
+      product_data => {}
+      , error =>{
+        console.log(error);
+      }
+    )
   }
 
 }

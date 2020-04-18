@@ -1,8 +1,10 @@
 import { ProfileService } from './../_services/profile.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { UserService } from './../_services/user.service';
 import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 /// <reference types="@types/googlemaps" />
 import PlaceResult = google.maps.places.PlaceResult;
 
@@ -13,8 +15,10 @@ import PlaceResult = google.maps.places.PlaceResult;
   providers: [UserService],
 })
 export class RegisterComponent implements OnInit {
-  
+
   form;
+  baseurl = 'http://127.0.0.1:8000';
+  httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   userURL: string = "";
   profileURL: string= "";
   public selectedAddress: PlaceResult;
@@ -47,6 +51,17 @@ export class RegisterComponent implements OnInit {
     return this.form.get('address');
   }
 
+  send_email(): Observable<any> {
+      return this.http.post<any>(this.baseurl + '/send_template_email/',
+                                { title: 'Angular POST Request Example',
+                                  username: this.form.getRawValue()['username'].toString(),
+                                  firstname: this.form.getRawValue()['first_name'].toString(),
+                                  lastname: this.form.getRawValue()['last_name'].toString(),
+                                  email: this.form.getRawValue()['email'].toString()
+                                },
+                                { headers: this.httpHeaders});
+  }
+
 
   registration_form_value = {
     username: '',
@@ -58,10 +73,11 @@ export class RegisterComponent implements OnInit {
     address: '',
   }
 
-  constructor(fb: FormBuilder, 
-    private userService: UserService, 
+  constructor(fb: FormBuilder,
+    private userService: UserService,
     private profileService: ProfileService,
-    private router: Router) { 
+    private router: Router,
+    private http: HttpClient) {
     this.form = fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -98,6 +114,16 @@ export class RegisterComponent implements OnInit {
             console.log(response);
             alert('User has been created');
             this.router.navigate(['/login']);
+
+            this.send_email().subscribe(
+              data => {
+                console.log("SEND EMAIL FUNCTION CALLED");
+                console.log(data);
+              },
+              error => {
+                console.log(error);
+              }
+            )
           }, error =>{
             console.log(error);
           }
@@ -117,5 +143,3 @@ export class RegisterComponent implements OnInit {
   }
 
 }
-
-

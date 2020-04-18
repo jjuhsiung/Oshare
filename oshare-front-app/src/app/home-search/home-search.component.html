@@ -13,11 +13,26 @@
 <!--      </form>-->
 <!--    </div>-->
 <!--  </div>-->
+  <!--  <div class="row justify-content-center">-->
+  <!--    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cheap-makeup-1552932789.jpg?crop=1xw:1xh;center,top&resize=980:*">-->
+  <!--  </div>-->
   <div class="row justify-content-center">
-    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cheap-makeup-1552932789.jpg?crop=1xw:1xh;center,top&resize=980:*">
-  </div>
+    <div class="carousel slide" data-ride="carousel" data-interval="3000" style="width: 980px">
+      <div class="justify-content-center carousel-inner" style="width: 980px">
+        <div class="carousel-item active">
+          <img class="d-block" src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cheap-makeup-1552932789.jpg?crop=1xw:1xh;center,top&resize=980:*" alt="First slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block" src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cheap-makeup-1552932789.jpg?crop=1xw:1xh;center,top&resize=980:*" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block" src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cheap-makeup-1552932789.jpg?crop=1xw:1xh;center,top&resize=980:*" alt="Third slide">
+        </div>
+      </div>
+    </div>
+  </div>>
 
-  <div class="row h1 justify-content-center page-header" style="margin-bottom: 0px">Popular Products</div>
+  <div class="row h1 justify-content-center serif" style="margin-bottom: 0px">Popular Products</div>
   <div class="row row-cols-3 justify-content-center">
     <div *ngFor="let product of this.popularProducts" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
       <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
@@ -60,5 +75,10 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="row h1 justify-content-center serif" style="margin-bottom: 10px">Popular Posts</div>
+  <div class="row row-cols-3 justify-content-center">
+    <app-post-list></app-post-list>
   </div>
 </main>

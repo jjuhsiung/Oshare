@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../_services/product.service';
 import {ProductQuery} from '../../_models/ProductQuery';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {Product} from '../../_models/product.model';
+import {Product} from "../../_models/product.model";
 
 @Component({
   selector: 'app-product-list',
@@ -21,7 +21,7 @@ export class ProductListComponent implements OnInit {
   // productService: ProductService;
 
 
-  constructor(private api: ProductService, private router: Router, private route: ActivatedRoute) {
+  constructor(private api: ProductService, private router: Router, private  route: ActivatedRoute) {
     // this.productService = api;
     this.api.productsupdate.subscribe(data => {
       this.updateData(data);
@@ -58,7 +58,8 @@ export class ProductListComponent implements OnInit {
   }
 
   toDetail(id): void {
-    this.api.addClick(id);
+    // this.api.currentproduct = id;
+    this.api.ProductClick(id);
     this.router.navigate(['/product'], {
       queryParams: {
         'product_id': id,
@@ -94,6 +95,20 @@ export class ProductListComponent implements OnInit {
 
   SortbyRatingLtoH(): void {
     this.Products.sort((a,b)=>parseFloat(a['rating'])-parseFloat(b['rating']));
+  }
+
+  SortbyBrandName(): void {
+    this.Products.sort((a,b)=>{
+      if (a['brand']==null)
+        return 1;
+      if (b['brand']==null)
+        return -1;
+      return a['brand'].localeCompare(b['brand'])
+    });
+  }
+
+  SortbySelling(): void {
+    this.Products.sort((a,b)=>parseInt(b['bought_num'])-parseFloat(a['Bought_num']));
   }
 
 }
