@@ -1,9 +1,10 @@
+import { AccountPageComponent } from './account-page/account-page.component';
 import { PostImageService } from './_services/post-image.service';
 import { UserService } from './_services/user.service';
 import { NewPostComponent } from './new-post/new-post.component';
 import { CheckoutService } from './_services/checkout.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -63,9 +64,11 @@ const appRoutes: Routes = [
   { path: 'new-post', component: NewPostComponent },
   { path: 'order-history', component: OrderHistoryComponent},
   { path: 'add-review', component: AddReviewComponent},
+  { path: 'account', component: AccountPageComponent}
 ];
 
 @NgModule({
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -93,7 +96,8 @@ const appRoutes: Routes = [
     ProfilePostListComponent,
     OrderHistoryComponent,
     OrderProductListComponent,
-    AddReviewComponent
+    AddReviewComponent,
+    AccountPageComponent
   ],
   imports: [
     BrowserModule,
