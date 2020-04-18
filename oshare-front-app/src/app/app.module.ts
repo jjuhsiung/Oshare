@@ -1,3 +1,4 @@
+import { AccountPageComponent } from './account-page/account-page.component';
 import { PostImageService } from './_services/post-image.service';
 import { UserService } from './_services/user.service';
 import { NewPostComponent } from './new-post/new-post.component';
@@ -38,10 +39,14 @@ import { FacebookModule } from 'ngx-facebook';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GlobalStreamComponent } from './global-stream/global-stream.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatSidenavModule } from '@angular/material/sidenav';
+// import { MultiSelectAllModule } from '@syncfusion/ej2-angular-dropdowns';
+// import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MatSliderModule } from '@angular/material/slider';
+import { Ng5SliderModule } from 'ng5-slider';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { AgmCoreModule } from '@agm/core';
-import { AccountPageComponent } from './account-page/account-page.component';
-import { MatTabsModule } from '@angular/material/tabs';
 
 const appRoutes: Routes = [
   { path: '', component: HomeSearchComponent },
@@ -53,12 +58,16 @@ const appRoutes: Routes = [
   { path: 'post/:id', component: PostComponent },
   { path: 'product', component: ProductComponent },
   { path: 'product-list', component: ProductListComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'new-post', component: NewPostComponent },
   { path: 'add-review', component: AddReviewComponent },
   { path: 'global-stream', component: GlobalStreamComponent },
+  { path: 'account', component: AccountPageComponent },
+  { path: 'order-history', component: OrderHistoryComponent },
+  { path: 'add-review', component: AddReviewComponent },
   { path: 'account', component: AccountPageComponent }
 ];
 
@@ -92,8 +101,8 @@ const appRoutes: Routes = [
     OrderHistoryComponent,
     OrderProductListComponent,
     AddReviewComponent,
-    GlobalStreamComponent,
     AccountPageComponent,
+    GlobalStreamComponent
   ],
   imports: [
     BrowserModule,
@@ -103,17 +112,17 @@ const appRoutes: Routes = [
     HttpClientModule,
     FacebookModule.forRoot(),
     BrowserAnimationsModule,
-    ScrollingModule,
+    MatSidenavModule,
+    // MultiSelectAllModule,
+    // NgMultiSelectDropDownModule.forRoot(),
+    MatSliderModule,
+    Ng5SliderModule,
+    MatMenuModule,
     MatGoogleMapsAutocompleteModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC73BtQ0PBboPi_JlWKRc22qy1lq-OqDko',
       libraries: ['places']
     }),
-    MatTabsModule
-
-  ],
-  exports: [
-    MatTabsModule,
   ],
   providers: [
     CartService,

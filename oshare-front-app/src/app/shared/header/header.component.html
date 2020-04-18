@@ -1,29 +1,38 @@
 <div class="background pos-f-t">
 
-  <nav class="navbar bg-dark">
-
-    <span class="active text-white">
-      <a class="nav-link h1" href="/search">O Sha'Re Cosmetics <span class="sr-only">(current)</span></a>
-    </span>
-
-    <div *ngIf="checkLoginStatus()" class="dropdown">
-      <a class="nav-link h4 text-white">Hi, {{firstname}}!</a>
-      <div class="dropdown-content">
-        <a href="/account"> <i class='far fa-user-circle'></i> My Account</a>
-        <a href="/new-post"> <i class='far fa-edit'></i> New Post</a>
-        <a href="/cart"> <i class='fas fa-shopping-cart'></i> Cart</a>
-        <a (click)="Logout()" href="/search">Logout</a>
+  <nav class="navbar" style="background-color: #f8f9fa;">
+    <div class="col-sm-4 justify-content-center">
+      <div class="justify-content-center">
+        <app-search-bar></app-search-bar>
       </div>
     </div>
-
-    <div *ngIf="!checkLoginStatus()" class="dropdown">
-      <a class="nav-link h4 text-white">Hi, Welcome!</a>
-      <div class="dropdown-content">
-        <a href="/register"> Register</a>
-        <a type="button" (click)="show()">Log In</a>
+    <div class="col-sm-4 justify-content-center">
+      <div class="active" style="margin-left: 40px">
+        <a class="nav-link h1" href="/search">O Sha'Re Cosmetics <span class="sr-only">(current)</span></a>
       </div>
     </div>
+    <!--    <span class="active text-white">-->
+    <!--      <a class="nav-link h1" href="/search">O Sha'Re Cosmetics <span class="sr-only">(current)</span></a>-->
+    <!--    </span>-->
+    <div class="col-sm-4">
+      <div *ngIf="checkLoginStatus()" class="dropdown">
+        <a class="nav-link h4">Hi, {{firstname}}!</a>
+        <div class="dropdown-content">
+          <a href="/account"> <i class='far fa-user-circle'></i> My Account</a>
+          <a href="/new-post"> <i class='far fa-edit'></i> New Post</a>
+          <a href="/cart"> <i class='fas fa-shopping-cart'></i> Cart</a>
+          <a (click)="Logout()" href="/search">Logout</a>
+        </div>
+      </div>
 
+      <div *ngIf="!checkLoginStatus()" class="dropdown">
+        <a class="nav-link h4 text-white">Hi, Welcome!</a>
+        <div class="dropdown-content">
+          <a href="/register"> Register</a>
+          <a type="button" (click)="show()">Log In</a>
+        </div>
+      </div>
+    </div>
   </nav>
 </div>
 
@@ -69,3 +78,51 @@
     </div>
   </div>
 </div>
+<!--  <nav class="navbar">-->
+<!--    <button mat-button [matMenuTriggerFor]="type" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">Shop</button>-->
+<!--    <mat-menu #type="matMenu">-->
+<!--&lt;!&ndash;      <button mat-menu-item *ngFor="let type of this.typeList" [matMenuTriggerFor]={{type}}>{{type}}</button>&ndash;&gt;-->
+<!--      <button mat-menu-item [matMenuTriggerFor]="blush">Blush</button>-->
+<!--      <button mat-menu-item [matMenuTriggerFor]="blush">Blush</button>-->
+<!--      <button mat-menu-item [matMenuTriggerFor]="blush">Bronzer</button>-->
+<!--      <button mat-menu-item [matMenuTriggerFor]="eyeliner">Eyeliner</button>-->
+<!--      <button mat-menu-item [matMenuTriggerFor]="eyeshadow">Eyeshadow</button>-->
+<!--      <button mat-menu-item [matMenuTriggerFor]="foundation">Foundation</button>-->
+<!--    </mat-menu>-->
+
+<!--    <mat-menu #blush="matMenu">-->
+<!--      <button mat-menu-item>Fishes</button>-->
+<!--      <button mat-menu-item>Amphibians</button>-->
+<!--      <button mat-menu-item>Reptiles</button>-->
+<!--      <button mat-menu-item>Birds</button>-->
+<!--      <button mat-menu-item>Mammals</button>-->
+<!--    </mat-menu>-->
+
+<!--    <mat-menu #eyeliner="matMenu">-->
+<!--      <button mat-menu-item>Insects</button>-->
+<!--      <button mat-menu-item>Molluscs</button>-->
+<!--      <button mat-menu-item>Crustaceans</button>-->
+<!--      <button mat-menu-item>Corals</button>-->
+<!--      <button mat-menu-item>Arachnids</button>-->
+<!--      <button mat-menu-item>Velvet worms</button>-->
+<!--      <button mat-menu-item>Horseshoe crabs</button>-->
+<!--    </mat-menu>-->
+<!--    <mat-menu #eyeshadow="matMenu">-->
+<!--      <button mat-menu-item>Insects</button>-->
+<!--      <button mat-menu-item>Molluscs</button>-->
+<!--      <button mat-menu-item>Crustaceans</button>-->
+<!--      <button mat-menu-item>Corals</button>-->
+<!--      <button mat-menu-item>Arachnids</button>-->
+<!--      <button mat-menu-item>Velvet worms</button>-->
+<!--      <button mat-menu-item>Horseshoe crabs</button>-->
+<!--    </mat-menu>-->
+<!--    <mat-menu #foundation="matMenu">-->
+<!--      <button mat-menu-item>Insects</button>-->
+<!--      <button mat-menu-item>Molluscs</button>-->
+<!--      <button mat-menu-item>Crustaceans</button>-->
+<!--      <button mat-menu-item>Corals</button>-->
+<!--      <button mat-menu-item>Arachnids</button>-->
+<!--      <button mat-menu-item>Velvet worms</button>-->
+<!--      <button mat-menu-item>Horseshoe crabs</button>-->
+<!--    </mat-menu>-->
+<!--  </nav>-->
