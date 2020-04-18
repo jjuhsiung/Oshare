@@ -1,20 +1,25 @@
 import { PostImageService } from './../_services/post-image.service';
 import { UserService } from './../_services/user.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild  } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PostService } from '../_services/post.service';
 import { ProductService } from '../_services/product.service';
 import { ProductListService } from '../_services/product-list.service';
 import { Location } from '@angular/common';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
   styleUrls: ['./new-post.component.css'],
-  providers: [PostService, UserService, PostImageService, ProductService]
+  providers: [PostService, UserService, PostImageService, ProductService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewPostComponent implements OnInit {
+  @ViewChild(CdkVirtualScrollViewport)
+  viewport: CdkVirtualScrollViewport;
 
   form;
   file: File[] = null;
@@ -23,6 +28,11 @@ export class NewPostComponent implements OnInit {
   images = [];
   Products: Array<object> = [];
   Products_selected: Array<object> = [];
+
+  pageNum = 1;
+  pageSize = 5;
+  MaxPageSize = 1;
+  pagelist = [];
 
   constructor(
     fb: FormBuilder,
@@ -40,9 +50,13 @@ export class NewPostComponent implements OnInit {
 
     console.log("init new post page");
     this.productService.productsupdate.subscribe(data => {
-
       this.Products = data['response'];
       console.log(this.Products);
+      this.MaxPageSize = this.Products.length/this.pageSize + 1;
+      this.pagelist = [];
+      for (let i=0;i<this.MaxPageSize-1;i++)
+        this.pagelist.push(i);
+      console.log(this.pagelist);
     });
   }
 
@@ -61,6 +75,42 @@ export class NewPostComponent implements OnInit {
       this.router.navigate(['/search'])
     }
 
+  }
+
+  PrePage(): void {
+    if (this.pageNum>1)
+      this.pageNum = this.pageNum -1;
+  }
+
+  NextPage(): void {
+    if (this.pageNum < this.MaxPageSize - 1)
+      this.pageNum = this.pageNum + 1;
+  }
+
+  ToPage(num): void {
+    this.pageNum = num;
+  }
+
+  addToSelected(product_idx: number, list_idx: number) {
+    var exist=this.Products_selected.some(function(item){
+      return item['id'] === product_idx;
+    });
+
+    if (exist) {
+      console.log("Already selected, move out");
+
+      let idx = -1;
+      idx = this.Products_selected.map(function(e) {
+        return e['id'];
+      }).indexOf(product_idx);
+      this.Products_selected.splice(idx, 1);
+    } else {
+      console.log("Have not selected yet, add in");
+
+      this.Products_selected.push(this.Products[list_idx])
+    }
+
+    console.log(this.Products_selected);
   }
 
   fileChanged(event){
@@ -83,7 +133,7 @@ export class NewPostComponent implements OnInit {
         console.log(this.postURL);
 
         // add product to post
-        this.postService.updatePostProduct(this.postURL, this.Products).subscribe(data => {
+        this.postService.updatePostProduct(this.postURL, this.Products_selected).subscribe(data => {
           console.log("Adding related product to post");
         })
         if(this.file!=null){

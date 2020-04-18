@@ -1,24 +1,85 @@
-<div class="container mt-2 justify-content-center">
-  <div class="row row-cols-3 justify-content-center">
-    <div *ngFor="let product of this.Products" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
+<div *ngIf="productNum>0; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <div class="container mt-2 justify-content-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="SortbyPrice" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              By price
+            </a>
+            <div class="dropdown-menu" aria-labelledby="SortbyPrice">
+              <button class="dropdown-item" (click)="SortbyPriceHtoL()">HtoL</button>
+              <button class="dropdown-item" (click)="SortbyPriceLtoH()">LtoH</button>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="SortbyRaing" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              By rating
+            </a>
+            <div class="dropdown-menu" aria-labelledby="SortbyRating">
+              <a class="dropdown-item" (click)="SortbyRatingHtoL()">HtoL</a>
+              <a class="dropdown-item" (click)="SortbyRatingLtoH()">LtoH</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row row-cols-3 justify-content-center">
+      <div *ngFor="let product of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
         <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
         <div style="font-size:12px" class="card-body border-1 p-2" >
-        <div class="row border-2 d-flex justify-content-between" width="250px">
-          <div class="card-title" style="max-width: 20rem;">
-          {{product.name}}
+          <div class="row border-2 d-flex justify-content-between" width="250px">
+            <div class="card-title h4" style="max-width: 20rem;">
+              {{product.name}}
+            </div>
+            <!--          <div class="pull-right">-->
+            <!--            <img src="assets/img/heart.svg">-->
+            <!--          </div>-->
           </div>
-<!--          <div class="pull-right">-->
-<!--            <img src="assets/img/heart.svg">-->
-<!--          </div>-->
-        </div>
-        <div class="row d-flex" width="250px">
-          <div class="pull-left" style="margin-left: 35px;margin-right:20px;">
-          <img src="assets/img/chat.svg">
+          <div class="row border-2 d-flex card-title justify-content-between" width="250px">
+            <!--          <div class="card-title" style="max-width: 20rem;">-->
+            <!--            Rating={{product.Rate}}-->
+            <!--          </div>-->
+            <div class="pull-left">
+              <div *ngIf="product.rating >=0.5; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock><span class="fa fa-star checked" style="font-size: large;"></span></ng-template>
+              <ng-template #elseBlock><span class="fa fa-star" style="font-size: large;"></span></ng-template>
+              <div *ngIf="product.rating >=1.5; then thenBlock2 else elseBlock2"></div>
+              <ng-template #thenBlock2><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+              <ng-template #elseBlock2><span class="fa fa-star" style="font-size: large"></span></ng-template>
+              <div *ngIf="product.rating >=2.5; then thenBlock3 else elseBlock3"></div>
+              <ng-template #thenBlock3><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+              <ng-template #elseBlock3><span class="fa fa-star" style="font-size: large"></span></ng-template>
+              <div *ngIf="product.rating >=3.5; then thenBlock4 else elseBlock4"></div>
+              <ng-template #thenBlock4><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+              <ng-template #elseBlock4><span class="fa fa-star" style="font-size: large"></span></ng-template>
+              <div *ngIf="product.rating >=4.5; then thenBlock5 else elseBlock5"></div>
+              <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+              <ng-template #elseBlock5><span class="fa fa-star" style="font-size: large"></span></ng-template>
+            </div>
           </div>
-          <div class="card-text">This is a template comment.</div>
+          <div class="row d-flex card-title justify-content-between" width="250px">
+            <!--          <div class="pull-left" style="margin-left: 35px;margin-right:20px;">-->
+            <!--            <img src="assets/img/chat.svg">-->
+            <!--          </div>-->
+            <div class="card-text h4" style="margin-top:0px">${{product.price}}</div>
+          </div>
         </div>
       </div>
     </div>
+    <nav aria-label="Page navigation example m-auto">
+      <ul class="pagination justify-content-center">
+        <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
+        <li *ngFor="let i of pagelist" [ngClass]="{active:(i+1)==pageNum}" class="page-item"><a class="page-link" (click)="ToPage(i+1)">{{i+1}}</a></li>
+        <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
+      </ul>
+    </nav>
   </div>
-</div>
-
+</ng-template>
+<ng-template #elseBlock>
+  <div class="row h1">0 Product results found!</div>
+  <div class="row h3" style="height: 30px;">Let us help. Have you tried:</div>
+  <div class="row" style="font-size: 15px;height: 30px;">– Double-checking the spelling of your search term?</div>
+  <div class="row" style="font-size: 15px;height: 30px;">– Searching for a similar word or entering a broader term?</div>
+</ng-template>

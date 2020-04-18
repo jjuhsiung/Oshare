@@ -16,6 +16,7 @@ export class SearchBarComponent implements OnInit {
   price = '';
   ProductType = '';
   query = new ProductQuery();
+  to_result = true;
   brandlist: string[] = ['almay', 'alva', 'anna sui', 'annabelle', 'benefit', 'boosh',
 'burt\'s bees', 'butter london', 'c\'est moi', 'cargo cosmetics', 'china glaze', 'clinique',
 'coastal classic creation', 'colourpop', 'covergirl', 'dalish', 'deciem', 'dior', 'dr. hauschka',
@@ -29,7 +30,13 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("current url");
+    if (location.pathname != '/new-post') {
+      this.to_result = true;
+    } else {
+      this.to_result = false;
+    }
+
+    console.log('current url');
     console.log(location.pathname);
   }
 
@@ -55,17 +62,17 @@ export class SearchBarComponent implements OnInit {
       }
     }
     this.api.getProductsInfo(this.query);
-    let to_result = false;
-    if (location.pathname == "/search") {
-      to_result = true;
+    this.to_result = false;
+    if (location.pathname != '/new-post') {
+      this.to_result = true;
     }
-    console.log("compare path name");
-    console.log(to_result);
-    if (to_result) {
-      console.log("current url is /search");
+    console.log('compare path name');
+    console.log(this.to_result);
+    if (this.to_result) {
+      console.log('current url is /search');
       this.router.navigate(['/search-result'], {queryParams: this.query});
-    } else if (location.pathname == "/new-post") {
-      console.log("current url is /new-post");
+    } else if (location.pathname == '/new-post') {
+      console.log('current url is /new-post');
     }
   }
 }

@@ -1,9 +1,9 @@
 import { ProductCountService } from './../../_services/product-count.service';
 import { Component, OnInit } from '@angular/core';
-import {Product} from '../../_models/product.model';
-import {PRODUCTS} from '../../MockProduct';
 import {ProductService} from '../../_services/product.service';
 import {ProductQuery} from "../../_models/ProductQuery";
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-product-detail',
@@ -14,13 +14,14 @@ import {ProductQuery} from "../../_models/ProductQuery";
 export class ProductDetailComponent implements OnInit {
 
   product: any;
-  // product = PRODUCTS[0];
-  constructor(private api: ProductService, private productCountService: ProductCountService ) {
+
+  constructor(private api: ProductService, private productCountService: ProductCountService ,private router: Router, private route: ActivatedRoute) {
     let query = new ProductQuery();
-    query.id = this.api.currentproduct;
+    // query.id = this.api.currentproduct;
+    query.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
     api.getProductsInfo(query);
     api.productsupdate.subscribe(data=>{
-      this.product = data['response']
+      this.product = data['response'];
     })
     console.log(this.product);
   }
@@ -30,5 +31,20 @@ export class ProductDetailComponent implements OnInit {
 
   add_to_cart() {
     this.productCountService.addToCart(this.product.id);
+  }
+
+  addReview() {
+    if (localStorage.getItem('userToken') == null) {
+      alert('Required Login!');
+      this.router.navigate(['/login']);
+    }
+    console.log("add review");
+    this.router.navigate(['/add-review'], {
+      queryParams: {
+        'product_id': this.product.id,
+        'product_title': this.product.name,
+        'product_img' : this.product.img_link,
+      }
+    });
   }
 }

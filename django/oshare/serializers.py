@@ -1,15 +1,22 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Post, Comment, PostImage, Order, Cart, Product, ProductCount, UserProfile, OrderProductCount
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.password_validation import validate_password
+from .models import Post, Comment, PostImage, Order, Cart, Product, Review, \
+    ProductCount, UserProfile, OrderProductCount
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         fields = ['id', 'name', 'brand', 'category', 'product_type',
-                  'price', 'price_sign', 'currency', 'img_link', 'description']
+                  'price', 'price_sign', 'currency', 'img_link', 'description','rating','tag_list','click']
+
+class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+    product = ProductSerializer
+    class Meta:
+        model = Review
+        fields = ['headline', 'review', 'rating', 'user', 'product']
 
 
 class OrderProductCountSerializer(serializers.HyperlinkedModelSerializer):
@@ -46,13 +53,13 @@ class CartSerializer(serializers.HyperlinkedModelSerializer):
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['user', 'phone', 'address', 'profile_picture']
+        fields = ['user', 'url', 'phone', 'address', 'profile_picture']
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     cart = CartSerializer(read_only=True)
     order = OrderSerializer(many=True, read_only=True)
-    #profile = ProfileSerializer(read_only=True)
+    profile = ProfileSerializer(read_only=True, required=False)
 
     class Meta:
         model = User

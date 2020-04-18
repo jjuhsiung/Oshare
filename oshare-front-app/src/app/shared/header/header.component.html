@@ -1,55 +1,29 @@
 <div class="background pos-f-t">
-  <div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 container-fluid ">
-          <nav class="navbar navbar-expand-lg navbar-white text-white">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link h4" href="/profile">My Profile</a>
-                </li>
-                <li *ngIf="checkLoginStatus()" class="nav-item">
-                  <a class="nav-link h4" href="/cart">My Cart</a>
-                </li>
-                <li *ngIf="checkLoginStatus()" class="nav-item">
-                  <a class="nav-link h4" href="new-post">New Post</a>
-                </li>
-                <li *ngIf="!checkLoginStatus()" class="nav-item">
-                  <a class="nav-link h4" href="/login">Log In</a>
-                </li>
-                <li *ngIf="!checkLoginStatus()" class="nav-item">
-                  <a class="nav-link h4" href="/register">Register</a>
-                </li>
-                <li *ngIf="checkLoginStatus()" class="nav-item">
-                  <a class="nav-link h4" href="/order-history">Order History</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        <div class="col-md-3"></div>
-      </div>
-    </div>
-  </div>
-  <nav class="navbar navbar-dark bg-dark">
-    <h1 class="text-white">O Sha'e Cosmetics</h1>
+
+  <nav class="navbar bg-dark">
 
     <span class="active text-white">
-      <a class="nav-link h4" href="/search">Home <span class="sr-only">(current)</span></a>
-    </span>
-    <span *ngIf="checkLoginStatus()" class="active text-white">
-      <a class="nav-link h4" (click)="Logout()" href="/login">Log Out</a>
+      <a class="nav-link h1" href="/search">O Sha'Re Cosmetics <span class="sr-only">(current)</span></a>
     </span>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-      aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div *ngIf="checkLoginStatus()" class="dropdown">
+      <a class="nav-link h4 text-white">Hi, {{firstname}}!</a>
+      <div class="dropdown-content">	
+          <a href="/profile"> <i class='far fa-user-circle'></i> Profile</a>
+          <a href="/new-post"> <i class='far fa-edit'></i> New Post</a>
+          <a href="/cart"> <i class='fas fa-shopping-cart'></i> Cart</a>
+          <a href="/order-history"> <i class='fa fa-history'></i> Order</a>
+          <a (click)="Logout()" href="/login">Logout</a>
+      </div>
+    </div>
+
+    <div *ngIf="!checkLoginStatus()" class="dropdown">
+        <a class="nav-link h4 text-white">Hi, Welcome!</a>
+        <div class="dropdown-content">
+            <a href="/register"> Register</a>
+            <a href="/login">Log In</a>
+        </div>
+    </div>
+
   </nav>
 </div>

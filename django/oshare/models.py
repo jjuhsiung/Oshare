@@ -9,10 +9,7 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=15)
     address = models.CharField(max_length=60)
     profile_picture = models.ImageField(
-        upload_to="images/", default="images/profile.png")
-    # following = models.ManyToManyField(
-    #     User, related_name='following', default=None)
-
+        upload_to="images/")
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -48,7 +45,6 @@ class Order(models.Model):
     order_time = models.DateTimeField(default=timezone.now)
     total = models.IntegerField(default=0)
 
-
 class Cart(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='cart')
@@ -65,10 +61,18 @@ class Product(models.Model):
     currency = models.CharField(default="USD", max_length=10, null=True)
     img_link = models.URLField(max_length=300, null=True)
     description = models.CharField(default='', max_length=500, null=True)
+    rating = models.FloatField(default=0.0)
+    tag_list = models.CharField(max_length=500,null=True)
+    click = models.IntegerField()
+
+class Review(models.Model):
+    headline = models.CharField(max_length=100)
+    review = models.CharField(max_length=300)
+    rating = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 # Product Count for cart
-
-
 class ProductCount(models.Model):
     count = models.IntegerField(default=0)
     cart = models.ForeignKey(
@@ -76,8 +80,6 @@ class ProductCount(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 # Product Count for order
-
-
 class OrderProductCount(models.Model):
     count = models.IntegerField(default=0)
     order = models.ForeignKey(

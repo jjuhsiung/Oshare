@@ -1,45 +1,81 @@
-<div class="container justify-content-center" style="width: 90rem;">
-  <div class="jumbotron row justify-content-center">
-    <img class="product-left-img col-lg-4" src="{{this.product.img_link}}" alt="Card image">
-    <div class="col-lg-4">
-      <div class="row card-title" style="font-size:18px;">
-        {{this.product.name}}
+<div class="container justify-content-center" style="width: 100rem;">
+  <!--  <div class="jumbotron row justify-content-center">-->
+  <div class="col-sm-5 justify-content-center">
+    <img class="product-left-img" src="{{this?.product?.img_link}}" alt="Card image">
+  </div>
+  <div class="col-sm-7">
+    <div class="row card-title h1 text-font" style="margin-bottom: 20px;font-weight:bold;">
+      {{this?.product?.name}}
+    </div>
+    <div class="row mt-3" style="font-size:15px;margin-top: 30px">
+      <!--        <span>Rating: </span><span style="color:#000000;"> 10.0</span>-->
+      <div *ngIf="product.rating >=0.5; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock><span class="fa fa-star checked" style="font-size: large;"></span></ng-template>
+      <ng-template #elseBlock><span class="fa fa-star" style="font-size: large;"></span></ng-template>
+      <div *ngIf="product.rating >=1.5; then thenBlock2 else elseBlock2"></div>
+      <ng-template #thenBlock2><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+      <ng-template #elseBlock2><span class="fa fa-star" style="font-size: large"></span></ng-template>
+      <div *ngIf="product.rating >=2.5; then thenBlock3 else elseBlock3"></div>
+      <ng-template #thenBlock3><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+      <ng-template #elseBlock3><span class="fa fa-star" style="font-size: large"></span></ng-template>
+      <div *ngIf="product.rating >=3.5; then thenBlock4 else elseBlock4"></div>
+      <ng-template #thenBlock4><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+      <ng-template #elseBlock4><span class="fa fa-star" style="font-size: large"></span></ng-template>
+      <div *ngIf="product.rating >=4.5; then thenBlock5 else elseBlock5"></div>
+      <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+      <ng-template #elseBlock5><span class="fa fa-star" style="font-size: large"></span></ng-template>
+    </div>
+    <div class="row h2" style="margin-bottom: 20px;">Price: {{this?.product?.price}} USD</div>
+    <div class="row mt-3" style="margin-bottom: 0px">
+      <h3 style="margin-bottom: 0px;font-family: Helvetica;font-weight: bold;">Description</h3>
+    </div>
+    <div class="row mt-3" style="margin-top: 0px">
+      <p style="font-size:17px;" class="card-text text-font">
+        {{this?.product?.description}}
+      </p>
+    </div>
+    <div class="row mt-3">
+      <p class="product-info h3"><span style="font-weight:bold;">Brand: </span><span> {{product.brand}}</span></p>
+    </div>
+    <div class="row mt-3">
+      <p class="product-info h3"><span style="font-weight:bold">Type: </span><span>{{product.product_type}}</span></p>
+    </div>
+    <div class="row mt-3">
+      <p class="product-info h3"><span style="font-weight:bold">Guarantee: </span><span>1 year</span></p>
+    </div>
+    <div class="row mt-3" style="margin-bottom: 20px">
+      <p class="product-info h3"><span style="font-weight:bold">Delivery time: </span><span>3~4 days</span></p>
+    </div>
+    <div class="row mt-3" style="margin-top: 30px;margin-bottom: 30px;">
+      <div class="col-sm-2" style="margin-right:20px;padding: 0px;margin-top: 10px;">
+        <button class="btn btn-dark text-font" style="font-size:15px;margin-left: 0px;" data-toggle="modal" data-target="#exampleModal" (click)="add_to_cart()">Add to cart</button>
       </div>
-      <div class="row mt-3" style="font-size:15px;">
-        <span>Rating: </span><span style="color:#000000;"> 10.0</span>
-        <span class="align-self-end mx-5">Price: {{this.product.price}} USD</span>
-      </div>
-      <div class="row mt-3">
-        <h4 style="margin-bottom: 0px;" class="card-title">Description</h4>
-      </div>
-      <div class="row mt-3">
-        <p style="font-size:15px;" class="card-text">
-          {{this.product.description}}
-        </p>
-      </div>
-      <div class="row mt-3">
-        <button style="font-size:15px;" class="btn btn-info mx-3" data-toggle="modal" data-target="#exampleModal" (click)="add_to_cart()">Add to Cart</button>
-        <button style="font-size:15px;" class="btn btn-info mx-3" routerLink="/cart">Check out</button>
+<!--      <div class="col-sm-2" style="margin-right:30px;margin-top: 10px;">-->
+<!--        <button style="font-size:15px;" class="btn btn-dark mx-2 text-font" routerLink="/cart">Check out</button>-->
+<!--      </div>-->
+      <div class="col-sm-2" style="margin-right:20px;margin-top: 10px;">
+        <button style="font-size:15px;" class="btn btn-dark mx-2 text-font" (click)="addReview()">Write a review</button>
       </div>
     </div>
   </div>
+  <!--  </div>-->
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-<!--      <div class="modal-header">-->
-<!--        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
-<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--          <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--      </div>-->
+      <!--      <div class="modal-header">-->
+      <!--        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+      <!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+      <!--          <span aria-hidden="true">&times;</span>-->
+      <!--        </button>-->
+      <!--      </div>-->
       <div class="modal-body h3">
         Successfully added to cart!
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-<!--        <button type="button" class="btn btn-primary">Save changes</button>-->
+        <!--        <button type="button" class="btn btn-primary">Save changes</button>-->
       </div>
     </div>
   </div>

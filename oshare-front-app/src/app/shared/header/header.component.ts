@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/_services/user.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  firstname = "";
+  lastname = "";
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+
+    if(this.checkLoginStatus()){
+      this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+        data =>{
+          this.firstname = data.first_name;
+          this.lastname = data.last_name;
+        }, error=>{
+          console.log(error);
+        }
+      );
+    }
   }
   Logout() {
     localStorage.removeItem('userToken');
@@ -23,6 +37,8 @@ export class HeaderComponent implements OnInit {
       location.reload();
     }
   }
+
+  
 
   checkLoginStatus() {
     return localStorage.getItem('userToken') != null;

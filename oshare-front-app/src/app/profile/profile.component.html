@@ -17,9 +17,92 @@
             </form>
         </div>
     </div>
+
+    <br><br><br>
+
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
+            <h3 class="page-header">Personal Information</h3> <br><br>
+            <form [formGroup]="form" (ngSubmit)="OnEditUser()" class="form-horizontal">
+                <div class="form-group">
+                    <label for="first_name" class="col-form-label col-lg-2">First name:</label>
+                    <div class="col-lg-6">
+                        <input formControlName="first_name" type="text" value={{user.firstName}}
+                            class="form-control form-control-lg" id="first_name">
+                        <div *ngIf="first_name.touched && first_name.invalid" class="alert alert-danger">
+                            <div *ngIf="first_name.errors.required">first name is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name" class="col-form-label col-lg-2">Last name:</label>
+                    <div class="col-lg-6">
+                        <input formControlName="last_name" type="text" value={{user.lastName}} class="form-control"
+                            id="text" rows="15">
+                        <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">last name is
+                            required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username" class="col-form-label col-lg-2">Username:</label>
+                    <div class="col-lg-6">
+                        <input formControlName="username" type="text" value={{user.username}} class="form-control"
+                            id="text" rows="15">
+                        <div *ngIf="username.touched && username.invalid" class="alert alert-danger">username name is
+                            required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="col-form-label col-lg-2">Email:</label>
+                    <div class="col-lg-6">
+                        <input formControlName="email" type="text" value={{user.email}} class="form-control" id="text"
+                            rows="15">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="col-form-label col-lg-2">Phone:</label>
+                    <div class="col-lg-6">
+                        <input formControlName="phone" type="text" value={{userprofile.phone}}
+                            class="form-control form-control-lg" id="phone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address" class="col-form-label col-lg-2">Address:</label>
+                    <div class="col-lg-6">
+                        <mat-google-maps-autocomplete country="us" type="address" appearance="outline"
+                            address={{userprofile.address}} (onAutocompleteSelected)="onAutocompleteSelected($event)">
+                            ></mat-google-maps-autocomplete>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="upload-label" for="upload" class="col-form-label col-lg-2">Upload Image: </label>
+                    <div class="col-lg-3">
+                        <input id="upload" type="file" class="form-control" accept="image/*" multiple=""
+                            (change)="fileChanged($event)">
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-outline-secondary">Save</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+    <br><br><br>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h3 class="page-header"> My Post </h3>
             <div class="album py-5 bg-light">
                 <div class="container">
                     <app-profile-post-list></app-profile-post-list>
@@ -29,71 +112,4 @@
         <div class="col-md-3"></div>
     </div>
 
-    <div class="container">
-        <h1>Edit User Info</h1>
-        <form [formGroup]="form" (ngSubmit)="OnEditUser()" class="form-horizontal">
-            <div class="form-group">
-                <label for="first_name" class="col-form-label col-lg-2">First name:</label>
-                <div class="col-lg-6">
-                    <input formControlName="first_name" type="text" class="form-control form-control-lg"
-                        id="first_name">
-                    <div *ngIf="first_name.touched && first_name.invalid" class="alert alert-danger">
-                        <div *ngIf="first_name.errors.required">first name is required.</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="last_name" class="col-form-label col-lg-2">Last name:</label>
-                <div class="col-lg-6">
-                    <input formControlName="last_name" type="text" class="form-control" id="text" rows="15">
-                    <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">last name is
-                        required.</div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="username" class="col-form-label col-lg-2">Username:</label>
-                <div class="col-lg-6">
-                    <input formControlName="username" type="text" class="form-control" id="text" rows="15">
-                    <div *ngIf="username.touched && username.invalid" class="alert alert-danger">username name is
-                        required.</div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="email" class="col-form-label col-lg-2">Email:</label>
-                <div class="col-lg-6">
-                    <input formControlName="email" type="text" class="form-control" id="text" rows="15">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="phone" class="col-form-label col-lg-2">Phone:</label>
-                <div class="col-lg-6">
-                    <input formControlName="phone" type="text" placeholder={{userprofile.phone}}
-                        class="form-control form-control-lg" id="phone">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="address" class="col-form-label col-lg-2">Address:</label>
-                <div class="col-lg-6">
-                    <input formControlName="address" type="text" placeholder={{userprofile.address}}
-                        class="form-control" id="text" rows="15">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label id="upload-label" for="upload" class="col-form-label col-lg-2">Upload Image: </label>
-                <div class="col-lg-3">
-                    <input id="upload" type="file" class="form-control" accept="image/*" multiple=""
-                        (change)="fileChanged($event)">
-                </div>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-dark">Save Info</button>
-            </div>
-        </form>
-    </div><br><br><br>
 </main>

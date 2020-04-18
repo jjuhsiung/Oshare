@@ -1,31 +1,68 @@
 <main role="main">
-    <div class="row">
-        <div class="col-md-12">
-            <app-header></app-header>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <app-header></app-header>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <form>
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <app-search-bar></app-search-bar>
-                    </div>
-                    <div class="col-md-3"></div>
-                </div>
-            </form>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <div class="row justify-content-center">
+          <!--                    <div class="col-md-3"></div>-->
+          <!--                    <div class="col-md-6">-->
+          <app-search-bar></app-search-bar>
+          <!--                    </div>-->
+          <!--                    <div class="col-md-3"></div>-->
         </div>
+      </form>
     </div>
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="album py-5 bg-light">
-                <div class="container">
-                    <app-post-list></app-post-list> 
-                </div>
-            </div>
+  </div>
+  <div class="row justify-content-center">
+    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cheap-makeup-1552932789.jpg?crop=1xw:1xh;center,top&resize=980:*">
+  </div>
+
+  <div class="row h1 justify-content-center page-header" style="margin-bottom: 0px">Popular Products</div>
+  <div class="row row-cols-3 justify-content-center">
+    <div *ngFor="let product of this.popularProducts" class="gutters card col" style="max-width: 30rem;min-width: 30rem;">
+      <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="200px" height="200px" alt="" (click)="toDetail(product.id)">
+      <div style="font-size:12px" class="card-body border-1 p-2" >
+        <div class="row border-2 d-flex justify-content-between" width="250px">
+          <div class="card-title h4" style="max-width: 20rem;">
+            {{product.name}}
+          </div>
+          <!--          <div class="pull-right">-->
+          <!--            <img src="assets/img/heart.svg">-->
+          <!--          </div>-->
         </div>
-        <div class="col-md-3"></div>
+        <div class="row border-2 d-flex card-title justify-content-between" width="250px">
+          <!--          <div class="card-title" style="max-width: 20rem;">-->
+          <!--            Rating={{product.Rate}}-->
+          <!--          </div>-->
+          <div class="pull-left">
+            <div *ngIf="product.rating >=0.5; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock><span class="fa fa-star checked" style="font-size: large;"></span></ng-template>
+            <ng-template #elseBlock><span class="fa fa-star" style="font-size: large;"></span></ng-template>
+            <div *ngIf="product.rating >=1.5; then thenBlock2 else elseBlock2"></div>
+            <ng-template #thenBlock2><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+            <ng-template #elseBlock2><span class="fa fa-star" style="font-size: large"></span></ng-template>
+            <div *ngIf="product.rating >=2.5; then thenBlock3 else elseBlock3"></div>
+            <ng-template #thenBlock3><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+            <ng-template #elseBlock3><span class="fa fa-star" style="font-size: large"></span></ng-template>
+            <div *ngIf="product.rating >=3.5; then thenBlock4 else elseBlock4"></div>
+            <ng-template #thenBlock4><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+            <ng-template #elseBlock4><span class="fa fa-star" style="font-size: large"></span></ng-template>
+            <div *ngIf="product.rating >=4.5; then thenBlock5 else elseBlock5"></div>
+            <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+            <ng-template #elseBlock5><span class="fa fa-star" style="font-size: large"></span></ng-template>
+          </div>
+        </div>
+        <div class="row d-flex card-title justify-content-between" width="250px">
+<!--          <div class="pull-left" style="margin-left: 35px;margin-right:20px;">-->
+<!--            <img src="assets/img/chat.svg">-->
+<!--          </div>-->
+          <div class="card-text h4" style="margin-top:0px">${{product.price}}</div>
+        </div>
+      </div>
     </div>
+  </div>
 </main>

@@ -1,0 +1,107 @@
+<app-header></app-header>
+<h1 align="center" class="justify-content-center serif" >Rate &amp; Review</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm justify-content-center">
+      <img class="center-block" src="{{product_img}}" width="300px" height="300px">
+    </div>
+    <div class="col-sm">
+      <form [formGroup]="reviewForm" (submit)="addreview()" class="container justify-content-center">
+        <h3 class="header">{{product_title}}</h3><br><br>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <h3 class="header">Rate this product</h3><br>
+        <div *ngIf="rating >=1; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock><span class="fa fa-star checked" style="font-size: xx-large;" (mouseover)="rating=1"></span></ng-template>
+        <ng-template #elseBlock><span class="fa fa-star" style="font-size: xx-large;" (mouseover)="rating=1"></span></ng-template>
+        <div *ngIf="rating>=2; then thenBlock2 else elseBlock2"></div>
+        <ng-template #thenBlock2><span class="fa fa-star checked" style="font-size: xx-large" (mouseover)="rating=2"></span></ng-template>
+        <ng-template #elseBlock2><span class="fa fa-star" style="font-size: xx-large" (mouseover)="rating=2"></span></ng-template>
+        <div *ngIf="rating>=3; then thenBlock3 else elseBlock3"></div>
+        <ng-template #thenBlock3><span class="fa fa-star checked" style="font-size: xx-large" (mouseover)="rating=3"></span></ng-template>
+        <ng-template #elseBlock3><span class="fa fa-star" style="font-size: xx-large" (mouseover)="rating=3"></span></ng-template>
+        <div *ngIf="rating>=4; then thenBlock4 else elseBlock4"></div>
+        <ng-template #thenBlock4><span class="fa fa-star checked" style="font-size: xx-large" (mouseover)="rating=4"></span></ng-template>
+        <ng-template #elseBlock4><span class="fa fa-star" style="font-size: xx-large" (mouseover)="rating=4"></span></ng-template>
+        <div *ngIf="rating>=5; then thenBlock5 else elseBlock5"></div>
+        <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: xx-large" (mouseover)="rating=5"></span></ng-template><br><br>
+        <ng-template #elseBlock5><span class="fa fa-star" style="font-size: xx-large" (mouseover)="rating=5"></span></ng-template><br><br>
+        <div class="form-group">
+          <label for="headline" class="label-text" style="font-size: 15px">Headline</label>
+<!--          <input style="min-height:50px" type="text" formControlName="headline" class="form-control"-->
+<!--                 [ngClass]="{ 'is-invalid': submitted && f.headline.errors }" />-->
+          <textarea formControlName="headline" class="form-control" rows="2" [ngClass]="{ 'is-invalid': submitted && f.headline.errors }"></textarea>
+          <div *ngIf="submitted && f.headline.errors" class="invalid-feedback">
+            <div *ngIf="f.headline.errors.required">headline is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="review" class="label-text" style="font-size: 15px">Review</label>
+<!--          <input type="text" formControlName="review" class="form-control"-->
+<!--                 [ngClass]="{ 'is-invalid': submitted && f.review.errors }" />-->
+          <textarea
+            formControlName="review"
+            class="form-control"
+            rows="3"
+            [ngClass]="{ 'is-invalid': submitted && f.review.errors }"
+            required
+          ></textarea>
+          <div *ngIf="submitted && f.review.errors" class="invalid-feedback">
+            <div *ngIf="f.review.errors.required">review is required</div>
+          </div>
+          <div *ngIf="f.review.touched && f.review.invalid" class="alert alert-danger">
+                <div *ngIf="f.review.errors.required">Review is required.</div>
+            </div>
+        </div>
+<!--        <div class="form-group">-->
+<!--          <label for="rating" class="label-text">review</label>-->
+<!--          <input type="number" formControlName="rating" class="form-control" min="0" max="5"-->
+<!--                 [ngClass]="{ 'is-invalid': submitted && f.rating.errors }" />-->
+<!--          <div *ngIf="submitted && f.rating.errors" class="invalid-feedback">-->
+<!--            <div *ngIf="f.rating.errors.required">rating is required</div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="form-group">
+<!--          <div *ngIf="f.review.errors.required; then waitSubmitBlock else submitBlock"></div>-->
+<!--        <ng-template #waitSubmitBlock><button class="btn" (onclick)="submitted=true">wait Review</button></ng-template>-->
+<!--        <ng-template #submitBlock><button class="btn btn-light" type="submit">add Review</button></ng-template>-->
+          <button class="btn btn-light" id="submitBtn" data-toggle="modal" data-target="#exampleModal" type="submit">add Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div *ngIf="submitSuccess; then thenBlock6 else elseBlock6"></div>
+        <ng-template #thenBlock6><h2 class="modal-title" id="exampleModalLabel" style="margin-top: 15px;margin-bottom: 15px">Thank You</h2></ng-template>
+        <ng-template #elseBlock6><h2 class="modal-title" id="exampleModalLabel" style="margin-top: 15px;margin-bottom: 15px">Oops...</h2></ng-template>
+<!--        <h2 class="modal-title" id="exampleModalLabel" style="margin-top: 15px;margin-bottom: 15px">Thank You</h2>-->
+      </div>
+      <div class="modal-body h4 justify-content-center center-block" style="margin-top: 30px;margin-bottom: 30px">
+        <div *ngIf="submitSuccess; then thenBlock7 else elseBlock7"></div>
+        <ng-template #thenBlock7><h4>Your review has been successfully added!</h4></ng-template>
+        <ng-template #elseBlock7><h4>It seems you have not completed the review...</h4></ng-template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="redirect()">Close</button>
+        <!--        <button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>-->
+<!--  <div class="modal" tabindex="-1" role="dialog" style="display: block" [style.display]="showModal ? 'block' : 'none'">-->
+<!--     <div class="modal-dialog">-->
+<!--        <div class="modal-popup">-->
+<!--          <div class="popup-title">-->
+<!--            <span>title</span>-->
+<!--&lt;!&ndash;            <i class="icon-cancel fr" data-dismiss="modal" aria-label="Close" (click)="cancelAction()"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p *ngIf="subTitle">{{subTitle}}</p>&ndash;&gt;-->
+<!--          </div>-->
+<!--        <ng-content></ng-content>-->
+<!--      </div>-->
+<!--  </div>-->
+<!--</div>-->
+

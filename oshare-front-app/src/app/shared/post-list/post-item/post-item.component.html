@@ -1,18 +1,22 @@
-<div class="card mb-4 shadow-sm">
-<a [routerLink]="['/post', post.postId]" (click)="onSelected()">
-    <svg class="bd-placeholder-img card-img-top" width="80%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-        <title>Placeholder</title>
-        <image attr.xlink:href="{{post.imagePath}}" height="100%" width="100%"/>
-        <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-    </svg>
-  </a>
-    <div class="card-body">
-      <p class="card-text">{{post.postTitle}}</p>
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="btn-group">
-          <button id="id_like_button" (click)="likeBtnClicked()" type="button" class="btn btn-sm btn-outline-secondary">❤️</button>
-        </div>
-        <small class="text-muted">{{post.likes}} likes</small>
-      </div>
+<!-->  <div class="card h-100">
+    <div class="h-25">
+    <a [routerLink]="['/post', post.postId]" (click)="onSelected()">
+      <img class="card-img-top" src="{{post.imagePath}}" alt="">
+    </a>
     </div>
+    <div class="card-body">
+      <h4 class="card-title">
+        <a [routerLink]="['/post', post.postId]">{{post.postTitle}}</a>
+      </h4>
+      <p class="card-text">{{post.postText}}</p>
+    </div>
+  </div>
+</div><!-->
+<div class="card flex-md-row mb-4 box-shadow h-md-250">
+  <div class="card-body d-flex flex-column align-items-start">
+    <h2 class="d-inline-block mb-2 text-primary">{{post.postTitle}}</h2>
+    <p class="card-text mb-auto">{{post.postText}}</p>
+    <a [routerLink]="['/post', post.postId]" (click)="onSelected()">Continue reading</a>
+  </div>
+  <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" src="{{post.imagePath}}" data-holder-rendered="true" style="width: 200px; height: 250px;">
 </div>

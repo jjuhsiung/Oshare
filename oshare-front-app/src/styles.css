@@ -1,3 +1,5 @@
+@use "@material/card/mdc-card";
+@include card.core-styles;
 .ax_default {
   font-family:'Arial Normal', 'Arial', sans-serif;
   font-weight:400;
@@ -130,3 +132,16 @@ textarea, select, input, button { outline: none; }
   margin-bottom: 15px;
   margin-top: 15px;
 }
+
+.serif {
+  font-family: "Times New Roman", Times, serif;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.checked {
+  color: orange;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -4,56 +4,79 @@
     <div class="page-header">
         <h1>Create New Post</h1>
     </div>
-    <app-search-bar></app-search-bar>
-    <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
+    <div class="row">
+      <div class="col-md-8">
+      <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
 
-        <div class="form-group">
-            <label for="title" class="col-form-label col-lg-2">Title:</label>
-            <div class="col-lg-6">
-                <input
-                    formControlName="title"
-                    type="text"
-                    class="form-control form-control-lg"
-                    id="title">
-                <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
-                    <div *ngIf="title.errors.required">Title is required.</div>
-                </div>
+          <div class="form-group">
+              <label for="title" class="col-form-label col-lg-2">Title:</label>
+              <div class="col-lg-6">
+                  <input
+                      formControlName="title"
+                      type="text"
+                      class="form-control form-control-lg"
+                      id="title">
+                  <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+                      <div *ngIf="title.errors.required">Title is required.</div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="text" class="col-form-label col-lg-2">Content:</label>
+              <div class="col-lg-6">
+                  <textarea
+                      formControlName="text"
+                      type="text"
+                      class="form-control"
+                      id="text"
+                      rows="15"></textarea>
+                  <div *ngIf="text.touched && text.invalid" class="alert alert-danger">Content is required.</div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label id="upload-label" for="upload" class="col-form-label col-lg-2">Upload Image: </label>
+              <div class="col-lg-3">
+                  <input
+                      id="upload"
+                      type="file"
+                      class="form-control"
+                      accept="image/*"
+                      multiple=""
+                      (change)="fileChanged($event)">
+              </div>
+          </div>
+
+          <div>
+              <button type="submit" class="btn btn-dark">Create Post</button>
+          </div>
+
+
+      </form>
+      <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+
+      </div>
+      <aside class="col-md-4">
+        <h3>Product Found</h3>
+        <app-search-bar></app-search-bar>
+        <div style="min-width: 30px; min-height: 270px; border:1px dashed black;">
+            <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="" [id]="i" (click)="addToSelected(productEl.id, i)" >
+                  {{ productEl.name }}
+                </label>
+              </div>
+              <hr>
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="text" class="col-form-label col-lg-2">Content:</label>
-            <div class="col-lg-6">
-                <textarea
-                    formControlName="text"
-                    type="text"
-                    class="form-control"
-                    id="text"
-                    rows="15"></textarea>
-                <div *ngIf="text.touched && text.invalid" class="alert alert-danger">Content is required.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label id="upload-label" for="upload" class="col-form-label col-lg-2">Upload Image: </label>
-            <div class="col-lg-3">
-                <input
-                    id="upload"
-                    type="file"
-                    class="form-control"
-                    accept="image/*"
-                    multiple=""
-                    (change)="fileChanged($event)">
-            </div>
-        </div>
-
-        <div>
-            <button type="submit" class="btn btn-dark">Create Post</button>
-        </div>
-
-
-    </form>
-
-    <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
-
+        <nav aria-label="Page navigation example m-auto">
+          <ul class="pagination justify-content-center">
+            <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
+            <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
 </div>

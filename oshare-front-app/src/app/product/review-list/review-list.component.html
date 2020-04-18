@@ -1,15 +1,38 @@
 <div class="container custom-container-width justify-content-center" >
-    <ul class="list-group">
-      <li class="list-group-item" style="font-size:18px;"><span>Reviews:</span></li>
-      <li class="list-group-item">
-        <div  *ngFor="let review of this.Reviews" class="d-flex">
-          <img src="assets/img/u238.png" width="35px" height="35px" style="margin-right: 5px">
-          <div>
-            <p><span style="font-size:17px;">{{review.Username}}</span></p>
-            <p><span style="font-size:15px;">{{review.Comment}}</span></p>
-          </div>
-<!--          <div class="w-500"></div>-->
+  <ul class="list-group">
+    <!--      <h1 align="center" class="justify-content-center serif" >Rate &amp; Review</h1>-->
+    <li align="center" class="list-group-item serif h1" style="margin-bottom: 0px"><span>Rate &amp; Review</span></li>
+    <li class="list-group-item">
+      <div  *ngFor="let review of this.Reviews" class="d-flex">
+        <div class="col-sm-2">
+          <img class="row" src="assets/img/u238.png" width="35px" height="35px" style="margin-right: 5px">
+          <p><span style="font-size:17px;">{{review.user.firstName}} {{review.user.lastName}}<br><br> </span></p>
         </div>
-      </li>
-    </ul>
+        <div class="col-sm-10">
+          <div class="row mt-3" style="font-size:15px;">
+            <!--        <span>Rating: </span><span style="color:#000000;"> 10.0</span>-->
+            <div *ngIf="review.review.rating >=0.5; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock><span class="fa fa-star checked" style="font-size: large;"></span></ng-template>
+            <ng-template #elseBlock><span class="fa fa-star" style="font-size: large;"></span></ng-template>
+            <div *ngIf="review.review.rating >=1.5; then thenBlock2 else elseBlock2"></div>
+            <ng-template #thenBlock2><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+            <ng-template #elseBlock2><span class="fa fa-star" style="font-size: large"></span></ng-template>
+            <div *ngIf="review.review.rating >=2.5; then thenBlock3 else elseBlock3"></div>
+            <ng-template #thenBlock3><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+            <ng-template #elseBlock3><span class="fa fa-star" style="font-size: large"></span></ng-template>
+            <div *ngIf="review.review.rating >=3.5; then thenBlock4 else elseBlock4"></div>
+            <ng-template #thenBlock4><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+            <ng-template #elseBlock4><span class="fa fa-star" style="font-size: large"></span></ng-template>
+            <div *ngIf="review.review.rating >=4.5; then thenBlock5 else elseBlock5"></div>
+            <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
+            <ng-template #elseBlock5><span class="fa fa-star" style="font-size: large"></span></ng-template>
+          </div>
+          <!--            <p>rating={{review.review.rating}}</p>-->
+          <!--            <p><span style="font-size:17px;">{{review.user.firstName}} {{review.user.lastName}}<br><br> rating={{review.review.rating}}</span></p>-->
+          <p><span style="font-size:15px;">{{review.review.review}}</span></p>
+        </div>
+        <!--          <div class="w-500"></div>-->
+      </div>
+    </li>
+  </ul>
 </div>
