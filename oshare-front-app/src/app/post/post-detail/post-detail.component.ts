@@ -159,7 +159,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   toDetail(id): void {
-    this.productService.addClick(id);
+    this.productService.ProductClick(id);
     this.router.navigate(['/product'], {
       queryParams: {
         'product_id': id,

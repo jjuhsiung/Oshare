@@ -63,7 +63,8 @@ class Product(models.Model):
     description = models.CharField(default='', max_length=500, null=True)
     rating = models.FloatField(default=0.0)
     tag_list = models.CharField(max_length=500,null=True)
-    click = models.IntegerField()
+    click_num = models.IntegerField(default=0)
+    bought_num = models.IntegerField(default=0)
 
 class Review(models.Model):
     headline = models.CharField(max_length=100)

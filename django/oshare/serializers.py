@@ -10,7 +10,8 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         fields = ['id', 'name', 'brand', 'category', 'product_type',
-                  'price', 'price_sign', 'currency', 'img_link', 'description','rating','tag_list','click']
+                  'price', 'price_sign', 'currency', 'img_link', 'description','rating','tag_list',
+                  'click_num', 'bought_num']
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     product = ProductSerializer
