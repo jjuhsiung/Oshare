@@ -255,7 +255,13 @@ class ProductViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(name=request.GET['name'])
             print("queryset after name", len(queryset))
         if 'brand' in keys:
-            queryset = queryset.filter(brand=request.GET['brand'])
+            brand_list=request.GET['brand'].split(",")
+            brandset = Product.objects.none()
+            for brand in brand_list:
+                print("brand",brand)
+                tempset = queryset.filter(brand=brand)
+                brandset = brandset | tempset
+            queryset = brandset
             print("queryset after brand", len(queryset), request.GET['brand'])
         if 'category' in keys:
             queryset = queryset.filter(category=request.GET['category'])
