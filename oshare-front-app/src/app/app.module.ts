@@ -49,6 +49,7 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
 import { AgmCoreModule } from '@agm/core';
 import { MatStepperModule} from '@angular/material/stepper';
 import {MatIconModule} from '@angular/material/icon';
+import { UniqueUsernameValidatorDirective } from './register/validators/unique-username-validator.directive';
 
 const appRoutes: Routes = [
   { path: '', component: HomeSearchComponent },
@@ -104,7 +105,8 @@ const appRoutes: Routes = [
     OrderProductListComponent,
     AddReviewComponent,
     AccountPageComponent,
-    GlobalStreamComponent
+    GlobalStreamComponent,
+    UniqueUsernameValidatorDirective
   ],
   imports: [
     BrowserModule,

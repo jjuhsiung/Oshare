@@ -83,8 +83,8 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       address: ['', Validators.required],
     });
   }
@@ -94,48 +94,63 @@ export class RegisterComponent implements OnInit {
 
   registerUser(){
 
-    const formData = new FormData();
-    console.log(this.form.getRawValue());
-    formData.append('first_name', this.form.get('first_name').value);
-    formData.append('last_name', this.form.get('last_name').value);
-    formData.append('username', this.form.get('username').value);
-    formData.append('password', this.form.get('password').value);
-    formData.append('email', this.form.get('email').value);
+    if(this.form.valid){
+      const formData = new FormData();
+      console.log(this.form.getRawValue());
+      formData.append('first_name', this.form.get('first_name').value);
+      formData.append('last_name', this.form.get('last_name').value);
+      formData.append('username', this.form.get('username').value);
+      formData.append('password', this.form.get('password').value);
+      formData.append('email', this.form.get('email').value);
+  
+      this.userService.registerUser(formData).subscribe(
+        response => {
+          this.profileURL = response.profile.url;
+          const pForm = new FormData();
+          pForm.append('phone', this.form.get('phone').value);
+          pForm.append('address', this.form.get('address').value);
+  
+          this.profileService.editProfileByURL(this.profileURL, pForm).subscribe(
+            response => {
+              console.log(response);
+              alert('User has been created');
+              this.router.navigate(['/login']);
+  
+              this.send_email().subscribe(
+                data => {
+                  console.log("SEND EMAIL FUNCTION CALLED");
+                  console.log(data);
+                },
+                error => {
+                  console.log(error);
+                }
+              )
+            }, error =>{
+              console.log(error);
+            }
+          )
+  
+        },
+        error =>{
+          console.log(error);
+        }
+      );
+    } else {
+      this.validateAllFormFields(this.form);
+    }
 
-    this.userService.registerUser(formData).subscribe(
-      response => {
-        this.profileURL = response.profile.url;
-        const pForm = new FormData();
-        pForm.append('phone', this.form.get('phone').value);
-        pForm.append('address', this.form.get('address').value);
 
-        this.profileService.editProfileByURL(this.profileURL, pForm).subscribe(
-          response => {
-            console.log(response);
-            alert('User has been created');
-            this.router.navigate(['/login']);
-
-            this.send_email().subscribe(
-              data => {
-                console.log("SEND EMAIL FUNCTION CALLED");
-                console.log(data);
-              },
-              error => {
-                console.log(error);
-              }
-            )
-          }, error =>{
-            console.log(error);
-          }
-        )
-
-      },
-      error =>{
-        console.log(error);
-      }
-    );
   }
-
+  validateAllFormFields(formGroup: FormGroup) {
+  Object.keys(formGroup.controls).forEach(field => {
+    const control = formGroup.get(field);
+    if (control instanceof FormControl) {
+      control.markAsTouched({ onlySelf: true });
+    } else if (control instanceof FormGroup) {
+      this.validateAllFormFields(control);
+    }
+  });
+}
   formChange(result: PlaceResult){
 
     var address;

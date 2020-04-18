@@ -18,6 +18,7 @@ import urllib
 import json
 from requests.utils import requote_uri
 import smtplib, ssl
+from rest_framework.generics import get_object_or_404
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
@@ -34,6 +35,14 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
+    @action(detail=False, methods=['get'])
+    def get_by_username(self, request, pk=None):
+        queryset = User.objects.filter(username=request.GET['username'])
+        try:
+            user = get_object_or_404(queryset)
+            return Response(UserSerializer(user, context={'request': request}).data, status=status.HTTP_200_OK)
+        except:
+            return JsonResponse({"detail":"Not Found"})
 
 # url: http://127.0.0.1:8000/update_user/id/
 class UserUpdateViewSet(viewsets.ModelViewSet):
