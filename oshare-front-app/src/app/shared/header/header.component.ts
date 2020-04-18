@@ -21,8 +21,17 @@ export class HeaderComponent implements OnInit {
   message: any = "";
 
   constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) { }
-  typeList: string[] = ['Blush', 'Bronzer', 'Eyebrow', 'Eyeliner'];
-  // typeList: string[] = ['Blush','Bronzer','Eyebrow','Eyeliner','Eyeshadow','Foundation','Lip liner','Lipstick','Mascara','Nail polish'];
+  // typeList: string[] = ['Blush', 'Bronzer', 'Eyebrow', 'Eyeliner'];
+  typeList: Array<object> = [{name: 'Blush', category: ['Powder', 'Cream']},
+    {name: 'Bronzer', category: ['Powder']},
+    {name: 'Eyebrow', category: ['Pencil']},
+    {name: 'Eyeliner', category: ['Liquid', 'Pencil', 'Gel', 'Cream']},
+    {name: 'Eyeshadow', category: ['Palette', 'Pencil', 'Cream']}, // TODO: blank field
+    {name: 'Foundation', category: ['Liquid', 'Contour', 'Bb cc', 'Concealer', 'Cream', 'Mineral', 'Powder', 'Highlighter']},
+    {name: 'Lip liner', category: ['Pencil']},
+    {name: 'Lipstick', category: ['Lipstick', 'Lip gloss', 'Liquid', 'Lip stain']},
+    {name: 'Mascara', category: ['']},
+    {name: 'Nail polish', category: ['']}];
   brandlist: string[] = ['almay', 'alva', 'anna sui', 'annabelle', 'benefit', 'boosh',
     'burt\'s bees', 'butter london', 'c\'est moi', 'cargo cosmetics', 'china glaze', 'clinique',
     'coastal classic creation', 'colourpop', 'covergirl', 'dalish', 'deciem', 'dior', 'dr. hauschka',

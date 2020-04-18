@@ -70,10 +70,19 @@ export class ProductService {
   // }
 
   getPoplarProduct(user_id): Observable<any>{
+    console.log("getPopularProduct");
     let para = new HttpParams();
     if (user_id!=0)
       para = para.set('user_id', user_id);
     return this.http.get<any>(this.baseurl + '/products/get_popular', {headers: this.httpHeaders, params: para});
+  }
+
+  getProductColor(product_id): Observable<any>{
+    console.log("getProductColor");
+    let para = new HttpParams();
+    if (product_id!=0)
+      para = para.set('product_id', product_id);
+    return this.http.get<any>(this.baseurl + '/products/get_product_color', {headers: this.httpHeaders, params: para});
   }
 
   getProductByURL(product_url): Observable<any>{

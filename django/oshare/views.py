@@ -210,8 +210,17 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
                 rating=rating,
                 tag_list=tag_list,
             )
-            # print("rating:",new_product.rating)
             new_product.save()
+            if x['product_colors']!=None:
+                print(x['id'])
+                for colors in x['product_colors']:
+                    print("colors",colors)
+                    new_product_color = ProductColor(
+                        hex_value=colors['hex_value'],
+                        color_name=colors['colour_name'],
+                        product=new_product,
+                    )
+                    new_product_color.save()
     return JsonResponse({})
 
 
@@ -284,6 +293,24 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer = ProductSerializer(
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def get_product_color(self, request):
+        print("get_product_color")
+        if 'product_id' in request.GET:
+            print(int(request.GET['product_id']))
+            # product = Product.objects.get(id=product_id)
+            queryset = ProductColor.objects.all()
+            print(len(queryset))
+            # queryset = self.queryset.filter(product=product)
+            product = Product.objects.get(id=int(request.GET['product_id']))
+            productColor = product.productcolor_set.all()
+
+            # productColor = queryset.filter(product=product)
+            print(len(productColor))
+            serializer=ProductColorSerializer(productColor, many=True, context={'request': request})
+            return Response(serializer.data)
+        return Response(None)
 
 
     @action(detail=False, methods=['get'])

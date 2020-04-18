@@ -14,6 +14,12 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class ProductDetailComponent implements OnInit {
 
   product: any;
+  productColor: any;
+  myStyles = {
+    'background-color': 'lime',
+    'font-size': '20px',
+    'font-weight': 'bold'
+  }
 
   constructor(private api: ProductService, private productCountService: ProductCountService ,private router: Router, private route: ActivatedRoute) {
     let query = new ProductQuery();
@@ -22,11 +28,28 @@ export class ProductDetailComponent implements OnInit {
     api.getProductsInfo(query);
     api.productsupdate.subscribe(data=>{
       this.product = data['response'];
+      this.api.getProductColor(this.product.id).subscribe(
+        product_color => {
+          // console.log(product_data);
+          this.productColor = product_color;
+          console.log(this.productColor);
+        }, error => {
+          console.log(error);
+        }
+      )
     })
     console.log(this.product);
   }
 
   ngOnInit(): void {
+    console.log(this.product);
+  }
+
+  setMyStyles(color) {
+    let styles = {
+      'background-color': color.hex_value,
+    };
+    return styles;
   }
 
   add_to_cart() {
