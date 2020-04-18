@@ -18,6 +18,7 @@ export class PostService {
     response_object = null;
     public post_list: Post[] = [];
 
+    // refetch post list every 10 seconds
     mySubscription: Subscription;
 
     baseurl = "http://127.0.0.1:8000";

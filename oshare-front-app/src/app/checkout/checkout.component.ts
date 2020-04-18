@@ -50,9 +50,15 @@ export class CheckoutComponent implements OnInit {
               console.log(error);
             }
           )
+
+
         }
         console.log(this.productSummary);
         console.log(this.totalPrice);
+
+
+
+
       }, error => {
         console.log(error);
       }
@@ -88,7 +94,7 @@ export class CheckoutComponent implements OnInit {
             {
               amount: {
                 currency_code: 'USD',
-                value: this.totalPrice.toString()
+                value: this.totalPrice.toFixed(2),
               }
             }
           ]
@@ -139,7 +145,7 @@ export class CheckoutComponent implements OnInit {
             //console.log(checkoutResponse);
             alert('Order successfully created!');
             this.paidFor = false;
-            this.router.navigate(['/order-history']);
+            this.router.navigate(['/search']);
 
             // TODO: Send email regarding order info to the user
 
