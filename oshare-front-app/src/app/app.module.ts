@@ -114,7 +114,10 @@ const appRoutes: Routes = [
     Ng5SliderModule,
     MatMenuModule,
     MatGoogleMapsAutocompleteModule,
-    AgmCoreModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC73BtQ0PBboPi_JlWKRc22qy1lq-OqDko',
+      libraries: ['places']
+    }),
   ],
   providers: [
     CartService,
