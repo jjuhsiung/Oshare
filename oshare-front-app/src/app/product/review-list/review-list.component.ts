@@ -15,6 +15,7 @@ export class ReviewListComponent implements OnInit {
 
   Reviews: any;
   id = 0;
+  reviewNum: number;
   // Reviews = REVIEWS;
   constructor(private api: ProductService, private reviewapi: ReviewService, private userService: UserService, private route: ActivatedRoute) {
     // this.id = this.api.currentproduct;
@@ -39,6 +40,7 @@ export class ReviewListComponent implements OnInit {
             console.log(error);
           })
       }
+      this.reviewNum = this.Reviews.length;
     });
     this.reviewapi.getReviews(this.id);
   }
