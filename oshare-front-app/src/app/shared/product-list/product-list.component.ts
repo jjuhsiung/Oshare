@@ -111,4 +111,10 @@ export class ProductListComponent implements OnInit {
     this.Products.sort((a,b)=>parseInt(b['bought_num'])-parseFloat(a['Bought_num']));
   }
 
+  showPage(i): boolean {
+    if ((i <= this.pageNum && this.pageNum - i < 5) || (i > this.pageNum && i - this.pageNum < 5))
+      return true;
+    return false;
+  }
+
 }
