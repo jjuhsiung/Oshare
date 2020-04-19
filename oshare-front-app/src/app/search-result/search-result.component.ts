@@ -40,16 +40,7 @@ export class SearchResultComponent implements OnInit {
   // value;
   // maps the local data column to fields property
   public localFields: Object = { text: 'Name'};
-  Data: Array<any> = [
-    { name:'almay',value:'almay'},
-    { name: 'alva',value: 'alva'},
-    { name: 'anna sui',value: 'anna sui'},
-    { name: 'annabelle',value: 'annabelle'},
-    { name: 'benefit', value: 'benefit'},
-    { name: 'boosh',value: 'boosh'},
-    { name: 'burt\'s bees',value: 'burt\'s bees'},
-    { name: 'butter london',value: 'burt\'s bees'},
-  ];
+
   form: FormGroup;
   onCheckboxChange(e)
   {
@@ -85,10 +76,8 @@ export class SearchResultComponent implements OnInit {
     this.api.getProductsInfo(query);
   }
 
-  onSubmit(form)
-  {
-    // console.log(this.value.toString());
-    // console.log(this.dropdownList);
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   // selectedBrand()
