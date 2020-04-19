@@ -4,11 +4,11 @@
         <h1>Create New Post</h1>
     </div>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
           <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
             <div class="form-group">
                 <label for="title" class="col-form-label col-lg-2" style="font-size: 150%;">Title:</label>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <input
                         formControlName="title"
                         type="text"
@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label for="text" class="col-form-label col-lg-2"style="font-size: 150%;">Content:</label>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <textarea
                         formControlName="text"
                         type="text"
@@ -35,7 +35,7 @@
 
             <div class="form-group">
                 <label id="upload-label" for="upload" class="col-form-label col-lg-2"style="font-size: 150%;">Upload Image: </label>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <input
                         id="upload"
                         type="file"
@@ -53,7 +53,7 @@
           <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
         </div>
 
-        <aside class="col-md-4">
+        <aside class="col-md-5">
           <h3>Tag a Product</h3>
           <div ><app-search-bar></app-search-bar></div>
           <div style="height:250px">
@@ -64,10 +64,13 @@
                          value="" [id]="i"
                          (click)="addToSelected($event.target, productEl.id, i)"
                          style="font-size: 120%;">
+
                   <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">
                     {{ productEl.name }}
                   </label>
+                  <img style="width:40px;height:40px"[src]="productEl.img_link">
                 </div>
+
               </div>
           </div>
           <nav aria-label="Page navigation example m-auto">
