@@ -47,7 +47,7 @@ export class AddReviewComponent implements OnInit {
     console.log(this.product_img);
 
     this.reviewForm = this.formBuilder.group({
-      headline: ['', Validators.required],
+      headline: [''],
       review: ['', Validators.required],
       rating: [0, Validators.required],
     });
