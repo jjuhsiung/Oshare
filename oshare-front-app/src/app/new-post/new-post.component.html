@@ -8,61 +8,62 @@
       <div class="card-header d-flex flex-between-center bg-light py-2">
         <h1>Create a post</h1>
       </div>
-      <div class="card-body p-0">
-        <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
-          <div class="form-group">
-              <label for="title" class="col-form-label col-lg-2" style="font-size: 150%;">Title:</label>
-              <div class="col-md-7">
-                  <input
-                      formControlName="title"
-                      type="text"
-                      class="form-control form-control-lg"
-                      id="title">
-                  <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
-                      <div *ngIf="title.errors.required">Title is required.</div>
-                  </div>
-              </div>
-          </div>
+      <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
+        <div class="card-body p-0">
 
-          <div class="form-group">
-              <label for="text" class="col-form-label col-lg-2"style="font-size: 150%;">Content:</label>
-              <div class="col-md-7">
-                  <textarea
-                      formControlName="text"
-                      type="text"
-                      class="form-control"
-                      id="text"
-                      rows="15"></textarea>
-                  <div *ngIf="text.touched && text.invalid" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
-                  <div *ngIf="text.length > 2000" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
-              </div>
-          </div>
+            <div class="form-group">
+                <label for="title" class="col-form-label col-lg-2" style="font-size: 150%;">Title:</label>
+                <div class="col-md-7">
+                    <input
+                        formControlName="title"
+                        type="text"
+                        class="form-control form-control-lg"
+                        id="title">
+                    <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+                        <div *ngIf="title.errors.required">Title is required.</div>
+                    </div>
+                </div>
+            </div>
 
-          <div class="form-group">
-              <label id="upload-label" for="upload" class="col-form-label col-lg-2"style="font-size: 150%;">Upload Image: </label>
-              <div class="col-md-3">
-                  <input
-                      id="upload"
-                      type="file"
-                      class="form-control"
-                      accept="image/*"
-                      multiple=""
-                      (change)="fileChanged($event)">
-              </div>
-          </div>
-        </form>
-        <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
-      </div>
-      <div class="card-footer bg-light py-2">
-        <div class="row flex-between-center">
-          <button type="submit" class="btn btn-dark">Create Post</button>
+            <div class="form-group">
+                <label for="text" class="col-form-label col-lg-2"style="font-size: 150%;">Content:</label>
+                <div class="col-md-7">
+                    <textarea
+                        formControlName="text"
+                        type="text"
+                        class="form-control"
+                        id="text"
+                        rows="15"></textarea>
+                    <div *ngIf="text.touched && text.invalid" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
+                    <div *ngIf="text.length > 2000" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label id="upload-label" for="upload" class="col-form-label col-lg-2"style="font-size: 150%;">Upload Image: </label>
+                <div class="col-md-3">
+                    <input
+                        id="upload"
+                        type="file"
+                        class="form-control"
+                        accept="image/*"
+                        multiple=""
+                        (change)="fileChanged($event)">
+                </div>
+            </div>
+
+          <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
         </div>
-      </div>
+        <div class="card-footer bg-light py-2">
+          <div class="row flex-between-center">
+            <button type="submit" class="btn btn-dark">Create Post</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
   <div class="col-lg-5 col-xl-4 pl-lg-2 mb-3">
     <div class="card h-lg-100">
-
       <div class="card-header d-flex flex-between-center bg-light py-2">
         <h1>Tag a product</h1>
       </div>
