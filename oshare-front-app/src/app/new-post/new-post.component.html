@@ -1,81 +1,99 @@
 <app-header></app-header>
+
 <div class="container">
-    <div class="page-header">
-        <h1>Create New Post</h1>
-    </div>
-      <div class="row">
-        <div class="col-md-8">
-          <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
-            <div class="form-group">
-                <label for="title" class="col-form-label col-lg-2" style="font-size: 150%;">Title:</label>
-                <div class="col-md-8">
-                    <input
-                        formControlName="title"
-                        type="text"
-                        class="form-control form-control-lg"
-                        id="title">
-                    <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
-                        <div *ngIf="title.errors.required">Title is required.</div>
-                    </div>
-                </div>
-            </div>
+<div class="row no-gutters">
+  <div class="col-lg-7 col-xl-8 pr-lg-2 mb-3">
+    <div class="card h-lg-100 overflow-hidden">
 
-            <div class="form-group">
-                <label for="text" class="col-form-label col-lg-2"style="font-size: 150%;">Content:</label>
-                <div class="col-md-8">
-                    <textarea
-                        formControlName="text"
-                        type="text"
-                        class="form-control"
-                        id="text"
-                        rows="15"></textarea>
-                    <div *ngIf="text.touched && text.invalid" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label id="upload-label" for="upload" class="col-form-label col-lg-2"style="font-size: 150%;">Upload Image: </label>
-                <div class="col-md-4">
-                    <input
-                        id="upload"
-                        type="file"
-                        class="form-control"
-                        accept="image/*"
-                        multiple=""
-                        (change)="fileChanged($event)">
-                </div>
-            </div>
-
-            <div>
-                <button type="submit" class="btn btn-dark">Create Post</button>
-            </div>
-          </form>
-          <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
-        </div>
-
-        <aside class="col-md-4">
-          <h3>Tag a Product</h3>
-          <div ><app-search-bar></app-search-bar></div>
-          <div style="height:250px">
-              <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
-
-                <div class="custom-control custom-checkbox" style="margin-bottom: 5px;" >
-                  <input class="custom-control-input" type="checkbox"
-                         value="" [id]="i"
-                         (click)="addToSelected($event.target, productEl.id, i)"
-                         style="font-size: 120%;">
-                  <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">
-                    {{ productEl.name }}
-                  </label>
-                </div>
+      <div class="card-header d-flex flex-between-center bg-light py-2">
+        <h1>Create a post</h1>
+      </div>
+      <div class="card-body p-0">
+        <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
+          <div class="form-group">
+              <label for="title" class="col-form-label col-lg-2" style="font-size: 150%;">Title:</label>
+              <div class="col-md-7">
+                  <input
+                      formControlName="title"
+                      type="text"
+                      class="form-control form-control-lg"
+                      id="title">
+                  <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+                      <div *ngIf="title.errors.required">Title is required.</div>
+                  </div>
               </div>
           </div>
+
+          <div class="form-group">
+              <label for="text" class="col-form-label col-lg-2"style="font-size: 150%;">Content:</label>
+              <div class="col-md-7">
+                  <textarea
+                      formControlName="text"
+                      type="text"
+                      class="form-control"
+                      id="text"
+                      rows="15"></textarea>
+                  <div *ngIf="text.touched && text.invalid" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
+                  <div *ngIf="text.length > 2000" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label id="upload-label" for="upload" class="col-form-label col-lg-2"style="font-size: 150%;">Upload Image: </label>
+              <div class="col-md-3">
+                  <input
+                      id="upload"
+                      type="file"
+                      class="form-control"
+                      accept="image/*"
+                      multiple=""
+                      (change)="fileChanged($event)">
+              </div>
+          </div>
+        </form>
+        <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+      </div>
+      <div class="card-footer bg-light py-2">
+        <div class="row flex-between-center">
+          <button type="submit" class="btn btn-dark">Create Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5 col-xl-4 pl-lg-2 mb-3">
+    <div class="card h-lg-100">
+
+      <div class="card-header d-flex flex-between-center bg-light py-2">
+        <h1>Tag a product</h1>
+      </div>
+      <div class="card-body pb-0" style="height:300px">
+        <app-search-bar></app-search-bar>
+        <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
+          <div class="custom-control custom-checkbox" style="margin-bottom: 5px;" >
+            <input class="custom-control-input" type="checkbox"
+                   value="" [id]="i"
+                   (click)="addToSelected($event.target, productEl.id, i)"
+                   style="font-size: 120%;">
+
+            <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">
+              {{ productEl.name }}
+            </label>
+            <hr class="border-200">
+          </div>
+
+        </div>
+      </div>
+      <div class="card-footer bg-light py-2" >
+        <div class="row flex-between-center">
           <nav aria-label="Page navigation example m-auto">
             <ul class="pagination justify-content-center">
               <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
               <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
             </ul>
           </nav>
-        </aside>
+        </div>
       </div>
+    </div>
+  </div>
+  </div>
 </div>
