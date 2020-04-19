@@ -59,9 +59,9 @@
           <div style="min-width: 30px; min-height: 200px; border:1px dashed black;">
               <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
                 <hr>
-                <div class="checkbox">
-                  <label>
-                    <input style="min-height: 50px;" type="checkbox" value="" [id]="i" (click)="addToSelected(productEl.id, i)" >
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" style="min-height: 50px;" type="checkbox" value="" [id]="i" (click)="addToSelected($event.target, productEl.id, i)" >
+                  <label class="custom-control-label" [for]="i">
                     {{ productEl.name }}
                   </label>
                 </div>
