@@ -76,4 +76,8 @@ export class ProductDetailComponent implements OnInit {
       }
     });
   }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 }

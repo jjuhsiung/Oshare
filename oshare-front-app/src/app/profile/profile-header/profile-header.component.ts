@@ -15,7 +15,7 @@ export class ProfileHeaderComponent implements OnInit {
   selectedProfile: any;
   userprofile: User;
   posts: Post[]
-  default_image = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg'
+  default_image = 'https://cdn.clipart.email/b40fc2605be10cd3ea8f2e5e1b5db9f4_profile-clipart-default-user-9-market-access-transformation_960-960.jpeg'
 
   constructor(private userservice: UserService, private profileService: ProfileService) {
     this.userprofile = new User();

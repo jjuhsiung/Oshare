@@ -26,13 +26,11 @@
         <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: xx-large" (mouseover)="rating=5"></span></ng-template><br><br>
         <ng-template #elseBlock5><span class="fa fa-star" style="font-size: xx-large" (mouseover)="rating=5"></span></ng-template><br><br>
         <div class="form-group">
-          <label for="headline" class="label-text" style="font-size: 15px">Headline</label>
-<!--          <input style="min-height:50px" type="text" formControlName="headline" class="form-control"-->
-<!--                 [ngClass]="{ 'is-invalid': submitted && f.headline.errors }" />-->
+          <label for="headline" class="label-text" style="font-size: 15px">Headline (optional)</label>
           <textarea formControlName="headline" class="form-control" rows="2" [ngClass]="{ 'is-invalid': submitted && f.headline.errors }"></textarea>
-          <div *ngIf="submitted && f.headline.errors" class="invalid-feedback">
-            <div *ngIf="f.headline.errors.required">headline is required</div>
-          </div>
+<!--          <div *ngIf="submitted && f.headline.errors" class="invalid-feedback">-->
+<!--            <div *ngIf="f.headline.errors.required">headline is required</div>-->
+<!--          </div>-->
         </div>
         <div class="form-group">
           <label for="review" class="label-text" style="font-size: 15px">Review</label>
@@ -60,11 +58,8 @@
 <!--            <div *ngIf="f.rating.errors.required">rating is required</div>-->
 <!--          </div>-->
 <!--        </div>-->
-        <div class="form-group">
-<!--          <div *ngIf="f.review.errors.required; then waitSubmitBlock else submitBlock"></div>-->
-<!--        <ng-template #waitSubmitBlock><button class="btn" (onclick)="submitted=true">wait Review</button></ng-template>-->
-<!--        <ng-template #submitBlock><button class="btn btn-light" type="submit">add Review</button></ng-template>-->
-          <button class="btn btn-light" id="submitBtn" data-toggle="modal" data-target="#exampleModal" type="submit">add Review</button>
+        <div class="form-group" style="margin-bottom: 20px">
+          <button style="font-size: 15px;" class="btn btn-dark h3" id="submitBtn" data-toggle="modal" data-target="#exampleModal" type="submit">Add Review</button>
         </div>
       </form>
     </div>

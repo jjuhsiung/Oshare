@@ -1,0 +1,28 @@
+<!--    <mat-sidenav class="pull-left" style="width: 300px" mode="side" opened>-->
+<div class="row h4 justify-content-center" style="margin-left: 0px">Brand</div>
+<div class="row justify-content-center">
+  <div class="justify-content-center" style="margin-left: 30px">
+    <div style="min-width: 180px;max-height: 220px;overflow-y: auto;overflow-x: hidden">
+      <!--    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate style="min-width: 180px;max-height: 240px;overflow-y: auto;overflow-x: hidden">-->
+      <!--      <div class="text-font" style="font-size: 14px" *ngFor="let data of brandlist; let i=index">-->
+      <!--        <input type="checkbox"  [(ngModel)]="data.checked" (change)="onCheckboxChange($event)">-->
+      <!--        {{capitalizeFirstLetter(brandlist[i].name)}}-->
+      <!--      </div>-->
+      <div class="row text-font" style="min-height: 25px;font-size: 14px;margin-left: 30px" *ngFor="let data of brandlist">
+        <input type="checkbox" name="test" [(ngModel)]="data.checked"> {{capitalizeFirstLetter(data.name)}}
+      </div>
+    </div>
+  </div>
+</div>
+<!--      <div class="row">-->
+<div class="row h4 justify-content-center" style="margin-left: 0px">Price
+</div>
+<div class="custom-slider justify-content-center" style="max-width: 180px;margin-left: 80px">
+  <ng5-slider [(value)]="lowValue"[(highValue)]="highValue" [options]="options2"></ng5-slider>
+</div>
+<div class="row justify-content-center">
+  <button style="font-size: 13px" class="btn btn-dark btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Apply Filter</button>
+</div>
+<div class="row justify-content-center">
+  <button style="font-size: 13px" class="btn btn-dark btn-unique btn-rounded btn-sm my-0" (click)="ResetFilter()">Reset All Filter</button>
+</div>
