@@ -1,17 +1,20 @@
-.navbar-nav li:hover > ul.dropdown-menu {
+.navbar-nav li:hover>ul.dropdown-menu {
     display: block;
 }
+
 .dropdown-submenu {
-    position:relative;
+    position: relative;
 }
+
 .dropdown-submenu>.dropdown-menu {
     top: 0;
     left: 100%;
-    margin-top:-6px;
+    margin-top: -6px;
 }
 
 /* rotate caret on hover */
-.dropdown-menu > li > a:hover:after {
+
+.dropdown-menu>li>a:hover:after {
     text-decoration: underline;
     transform: rotate(-90deg);
 }
@@ -22,11 +25,6 @@ li {
 
 .text-font {
     font-family: Helvetica;
-}
-
-#popUpWindow {
-    opacity: 0.9;
-    background-color: rgb(226, 223, 223);
 }
 
 /* Dropdown Button */
@@ -109,5 +107,3 @@ li {
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
-
-
