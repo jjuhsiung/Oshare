@@ -7,7 +7,7 @@
         <div class="col-md-8">
           <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
             <div class="form-group">
-                <label for="title" class="col-form-label col-lg-2">Title:</label>
+                <label for="title" class="col-form-label col-lg-2" style="font-size: 150%;">Title:</label>
                 <div class="col-md-8">
                     <input
                         formControlName="title"
@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group">
-                <label for="text" class="col-form-label col-lg-2">Content:</label>
+                <label for="text" class="col-form-label col-lg-2"style="font-size: 150%;">Content:</label>
                 <div class="col-md-8">
                     <textarea
                         formControlName="text"
@@ -29,12 +29,12 @@
                         class="form-control"
                         id="text"
                         rows="15"></textarea>
-                    <div *ngIf="text.touched && text.invalid" class="alert alert-danger">Content is required.</div>
+                    <div *ngIf="text.touched && text.invalid" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label id="upload-label" for="upload" class="col-form-label col-lg-2">Upload Image: </label>
+                <label id="upload-label" for="upload" class="col-form-label col-lg-2"style="font-size: 150%;">Upload Image: </label>
                 <div class="col-md-4">
                     <input
                         id="upload"
@@ -55,13 +55,16 @@
 
         <aside class="col-md-4">
           <h3>Tag a Product</h3>
-          <app-search-bar></app-search-bar>
-          <div style="min-width: 30px; min-height: 200px; border:1px dashed black;">
+          <div ><app-search-bar></app-search-bar></div>
+          <div style="height:250px">
               <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
-                <hr>
-                <div class="checkbox">
-                  <label>
-                    <input style="min-height: 50px;" type="checkbox" value="" [id]="i" (click)="addToSelected(productEl.id, i)" >
+
+                <div class="custom-control custom-checkbox" style="margin-bottom: 5px;" >
+                  <input class="custom-control-input" type="checkbox"
+                         value="" [id]="i"
+                         (click)="addToSelected($event.target, productEl.id, i)"
+                         style="font-size: 120%;">
+                  <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">
                     {{ productEl.name }}
                   </label>
                 </div>

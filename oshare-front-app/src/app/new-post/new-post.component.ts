@@ -30,7 +30,7 @@ export class NewPostComponent implements OnInit {
   Products_selected: Array<object> = [];
 
   pageNum = 1;
-  pageSize = 5;
+  pageSize = 4;
   MaxPageSize = 1;
   pagelist = [];
 
@@ -91,23 +91,25 @@ export class NewPostComponent implements OnInit {
     this.pageNum = num;
   }
 
-  addToSelected(product_idx: number, list_idx: number) {
+  addToSelected(el, product_idx: number, list_idx: number) {
     var exist=this.Products_selected.some(function(item){
       return item['id'] === product_idx;
     });
 
     if (exist) {
       console.log("Already selected, move out");
-
       let idx = -1;
       idx = this.Products_selected.map(function(e) {
         return e['id'];
       }).indexOf(product_idx);
       this.Products_selected.splice(idx, 1);
+
+      el.checked = false;
     } else {
       console.log("Have not selected yet, add in");
+      this.Products_selected.push(this.Products[list_idx]);
 
-      this.Products_selected.push(this.Products[list_idx])
+      el.checked = true;
     }
 
     console.log(this.Products_selected);

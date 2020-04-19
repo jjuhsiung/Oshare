@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "~9.0.5",
     "@angular/router": "~9.0.5",
     "@syncfusion/ej2-angular-dropdowns": "^18.1.44",
+    "@types/jquery": "^3.3.35",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "ng-multiselect-dropdown": "^0.2.10",

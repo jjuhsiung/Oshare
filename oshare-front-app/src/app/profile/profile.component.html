@@ -51,13 +51,15 @@
         <div class="form-group">
             <label for="address" class="col-form-label col-lg-1"><h5>Address:</h5></label>
             <div class="col-lg-8">
-                <mat-google-maps-autocomplete country="us"
-                                                    type="address"
-                                                    appearance="standard"
-                                                    addressLabelText=""
-                                                    address={{userprofile.address}}
-                                                    (onAutocompleteSelected)="onAutocompleteSelected($event)">
-                ></mat-google-maps-autocomplete>
+                <div style="font-size: 12px">
+                    <mat-google-maps-autocomplete country="us"
+                                                        type="address"
+                                                        appearance="outline"
+                                                        addressLabelText=""
+                                                        address={{userprofile.address}}
+                                                        (onAutocompleteSelected)="onAutocompleteSelected($event)">
+                    ></mat-google-maps-autocomplete>
+                </div>
             </div>
         </div>
 
