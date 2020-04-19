@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from './../_services/user.service';
 import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 /// <reference types="@types/googlemaps" />
 import PlaceResult = google.maps.places.PlaceResult;
@@ -18,48 +18,49 @@ export class RegisterComponent implements OnInit {
 
   form;
   baseurl = 'http://127.0.0.1:8000';
-  httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+  httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   userURL: string = "";
-  profileURL: string= "";
+  profileURL: string = "";
   public selectedAddress: PlaceResult;
 
-  get username(){
+  get username() {
     return this.form.get('username');
   }
 
-  get password(){
+  get password() {
     return this.form.get('password');
   }
 
-  get first_name(){
+  get first_name() {
     return this.form.get('first_name');
   }
 
-  get last_name(){
+  get last_name() {
     return this.form.get('last_name');
   }
 
-  get email(){
+  get email() {
     return this.form.get('email');
   }
 
-  get phone(){
+  get phone() {
     return this.form.get('phone');
   }
 
-  get address(){
+  get address() {
     return this.form.get('address');
   }
 
   send_email(): Observable<any> {
-      return this.http.post<any>(this.baseurl + '/send_template_email/',
-                                { title: 'Angular POST Request Example',
-                                  username: this.form.getRawValue()['username'].toString(),
-                                  firstname: this.form.getRawValue()['first_name'].toString(),
-                                  lastname: this.form.getRawValue()['last_name'].toString(),
-                                  email: this.form.getRawValue()['email'].toString()
-                                },
-                                { headers: this.httpHeaders});
+    return this.http.post<any>(this.baseurl + '/send_template_email/',
+      {
+        title: 'Angular POST Request Example',
+        username: this.form.getRawValue()['username'].toString(),
+        firstname: this.form.getRawValue()['first_name'].toString(),
+        lastname: this.form.getRawValue()['last_name'].toString(),
+        email: this.form.getRawValue()['email'].toString()
+      },
+      { headers: this.httpHeaders });
   }
 
 
@@ -92,9 +93,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  registerUser(){
+  registerUser() {
 
-    if(this.form.valid){
+    if (this.form.valid) {
       const formData = new FormData();
       console.log(this.form.getRawValue());
       formData.append('first_name', this.form.get('first_name').value);
@@ -102,20 +103,20 @@ export class RegisterComponent implements OnInit {
       formData.append('username', this.form.get('username').value);
       formData.append('password', this.form.get('password').value);
       formData.append('email', this.form.get('email').value);
-  
+
       this.userService.registerUser(formData).subscribe(
         response => {
           this.profileURL = response.profile.url;
           const pForm = new FormData();
           pForm.append('phone', this.form.get('phone').value);
           pForm.append('address', this.form.get('address').value);
-  
+
           this.profileService.editProfileByURL(this.profileURL, pForm).subscribe(
             response => {
               console.log(response);
               alert('User has been created');
               this.router.navigate(['/login']);
-  
+
               this.send_email().subscribe(
                 data => {
                   console.log("SEND EMAIL FUNCTION CALLED");
@@ -125,13 +126,13 @@ export class RegisterComponent implements OnInit {
                   console.log(error);
                 }
               )
-            }, error =>{
+            }, error => {
               console.log(error);
             }
           )
-  
+
         },
-        error =>{
+        error => {
           console.log(error);
         }
       );
@@ -142,20 +143,21 @@ export class RegisterComponent implements OnInit {
 
   }
   validateAllFormFields(formGroup: FormGroup) {
-  Object.keys(formGroup.controls).forEach(field => {
-    const control = formGroup.get(field);
-    if (control instanceof FormControl) {
-      control.markAsTouched({ onlySelf: true });
-    } else if (control instanceof FormGroup) {
-      this.validateAllFormFields(control);
-    }
-  });
-}
-  formChange(result: PlaceResult){
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+  
+  formChange(result: PlaceResult) {
 
     var address;
     address = result;
-    if(result.formatted_address!=null){
+    if (result.formatted_address != null) {
       address = result.formatted_address;
     }
     this.form.controls['address'].setValue(address);

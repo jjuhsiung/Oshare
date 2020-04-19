@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../_services/post.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { ProfileService } from '../_services/profile.service';
@@ -27,12 +27,12 @@ export class ProfileComponent implements OnInit {
   constructor(private formbuilder: FormBuilder, private router: Router,
     private userService: UserService, private profileService: ProfileService) {
     this.form = this.formbuilder.group({
-      first_name: [''],
-      last_name: [''],
-      username: [''],
-      email: [''],
-      phone: [''],
-      address: [''],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      address: ['', Validators.required],
     })
   }
   get first_name() {
@@ -102,42 +102,57 @@ export class ProfileComponent implements OnInit {
   }
 
   OnEditUser() {
-    this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
-    const formData = new FormData();
-    formData.append('user', this.userURL);
-    formData.append('first_name', this.form.get('first_name').value);
-    formData.append('last_name', this.form.get('last_name').value);
-    formData.append('username', this.form.get('username').value);
-    formData.append('email', this.form.get('email').value);
 
-    const pForm = new FormData();
-    pForm.append('user', this.userURL);
-    pForm.append('phone', this.form.get('phone').value);
-    pForm.append('address', this.form.get('address').value);
-    if (this.file != null) {
-      pForm.append('profile_picture', this.file, this.file.name);
+    if(this.form.valid){
+      this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
+      const formData = new FormData();
+      formData.append('user', this.userURL);
+      formData.append('first_name', this.form.get('first_name').value);
+      formData.append('last_name', this.form.get('last_name').value);
+      formData.append('username', this.form.get('username').value);
+      formData.append('email', this.form.get('email').value);
+
+      const pForm = new FormData();
+      pForm.append('user', this.userURL);
+      pForm.append('phone', this.form.get('phone').value);
+      pForm.append('address', this.form.get('address').value);
+      if (this.file != null) {
+        pForm.append('profile_picture', this.file, this.file.name);
+      }
+      this.profileService.editUser(this.form.getRawValue()).subscribe(
+        response => {
+          console.log(response)
+        },
+        error => {
+          console.log(error);
+        }
+      );
+      this.profileService.editProfileByURL(this.userProfileURL, pForm).subscribe(
+        response => {
+          console.log(response);
+          alert('User profile successfully edit!');
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
+      window.location.reload();
+    } else {
+      this.validateAllFormFields(this.form);
     }
-    this.profileService.editUser(this.form.getRawValue()).subscribe(
-      response => {
-        console.log(response)
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    this.profileService.editProfileByURL(this.userProfileURL, pForm).subscribe(
-      response => {
-        console.log(response);
-        alert('User profile successfully edit!');
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-    window.location.reload();
   }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
   onAutocompleteSelected(result: PlaceResult) {
     //console.log('onAutocompleteSelected: ', result);
     //console.log(result.formatted_address);
