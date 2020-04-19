@@ -98,6 +98,7 @@
                 <div class="form-group">
                     <label for="address" class="col-form-label col-lg-2"><h5>Address:</h5></label>
                     <div class="col-lg-10">
+                    <div style="font-size: 12px">
                         <mat-google-maps-autocomplete country="us"
                                                             type="address"
                                                             appearance="outline"
@@ -105,6 +106,7 @@
                                                             addressLabelText=""
                                                             (onAutocompleteSelected)="formChange($event)">
                         ></mat-google-maps-autocomplete>
+                    </div>
                     </div>
                 </div>
 
