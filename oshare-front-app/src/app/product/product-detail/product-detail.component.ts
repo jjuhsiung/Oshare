@@ -53,7 +53,13 @@ export class ProductDetailComponent implements OnInit {
   }
 
   add_to_cart() {
-    this.productCountService.addToCart(this.product.id);
+    if (localStorage.getItem('userToken') == null) {
+      alert('Required Login!');
+      location.reload();
+    } else {
+      this.productCountService.addToCart(this.product.id);
+    }
+    
   }
 
   addReview() {

@@ -86,7 +86,7 @@ export class PostDetailComponent implements OnInit {
         this.userProfileURL = response.user;
         console.log(this.userProfileURL)
 
-        for(var i = 0; i < response.images.length; i++){
+        for (var i = 0; i < response.images.length; i++) {
           this.postImages[i] = response.images[i].image
         }
 
@@ -140,22 +140,21 @@ export class PostDetailComponent implements OnInit {
     const formdata = new FormData();
     formdata.append('user', this.userService.getUserURLById(localStorage.getItem('userId')));
     formdata.append('post', this.postService.getPostUrlById(this.postId));
-    formdata.append('text', this.commentForm.get('newComment').value);
+    var comment = this.commentForm.get('newComment').value
+    formdata.append('text', comment);
+    if (comment == null || comment.trim(' ') == '') {
+      alert("Please add a valid comment!")
+      this.commentForm.reset();
+      return;
+    }
     this.commentService.writeComment(formdata).subscribe(
       response => {
       }, error => {
         console.log(error);
       }
     );
-    alert("comment submit!")
+    alert("Comment submit!")
     window.location.reload();
-  }
-
-  onLike() {
-    this.liked = !this.liked;
-    if (this.liked) this.likesNum += 1
-    else this.likesNum -= 1
-    console.log("liked: " + this.liked);
   }
 
   toDetail(id): void {
