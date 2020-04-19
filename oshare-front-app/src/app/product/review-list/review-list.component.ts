@@ -29,9 +29,11 @@ export class ReviewListComponent implements OnInit {
         }
         this.userService.getUserObjectByURL(review.review.user).subscribe(
           userdata => {
+            console.log(userdata.profile.profile_picture);
             review.user.firstName = userdata.first_name;
             review.user.lastName = userdata.last_name;
             review.user.username = userdata.username;
+            review.user.profileImg = userdata.profile.profile_picture;
             this.Reviews.push(review);
           }, error => {
             console.log(error);

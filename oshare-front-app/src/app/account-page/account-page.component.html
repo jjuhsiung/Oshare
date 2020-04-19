@@ -1,21 +1,27 @@
 <app-header></app-header>
 
-<div class="tab">
-  <app-profile-header></app-profile-header>
-  <br>
-  <button class="tablinks" (click)="changeTab($event, 'Profile')" id="defaultOpen">My Profile</button>
-  <button class="tablinks" (click)="changeTab($event, 'OrderHistory')">Order History</button>
-  <button class="tablinks" (click)="changeTab($event, 'MyPosts')">My Posts</button>
-</div>
+<div class="row d-flex justify-content-center">
+  <div class="col-lg-11">
 
-<div id="Profile" class="tabcontent">
-  <app-profile></app-profile>
-</div>
+    <div class="tab">
+      <app-profile-header></app-profile-header>
+      <br>
+      <button class="tablinks" (click)="changeTab($event, 'Profile')" id="defaultOpen">My Profile</button>
+      <button class="tablinks" (click)="changeTab($event, 'OrderHistory')">Order History</button>
+      <button class="tablinks" (click)="changeTab($event, 'MyPosts')">My Posts</button>
+    </div>
 
-<div id="OrderHistory" class="tabcontent">
-  <app-order-history></app-order-history>
-</div>
+    <div id="Profile" class="tabcontent">
+      <app-profile></app-profile>
+    </div>
 
-<div id="MyPosts" class="tabcontent">
-  <app-profile-post-list></app-profile-post-list>
+    <div id="OrderHistory" class="tabcontent">
+      <app-order-history></app-order-history>
+    </div>
+
+    <div id="MyPosts" class="tabcontent">
+      <app-profile-post-list></app-profile-post-list>
+    </div>
+
+  </div>
 </div>

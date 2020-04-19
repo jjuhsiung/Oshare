@@ -5,7 +5,7 @@
     <li class="list-group-item">
       <div  *ngFor="let review of this.Reviews" class="d-flex">
         <div class="col-sm-2">
-          <img class="row" src="assets/img/u238.png" width="35px" height="35px" style="margin-right: 5px">
+          <img class="row" src="{{review.user.profileImg}}" width="35px" height="35px" style="margin-right: 5px">
           <p><span style="font-size:17px;">{{review.user.firstName}} {{review.user.lastName}}<br><br> </span></p>
         </div>
         <div class="col-sm-10">
