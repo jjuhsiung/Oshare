@@ -30,7 +30,7 @@ export class NewPostComponent implements OnInit {
   Products_selected: Array<object> = [];
 
   pageNum = 1;
-  pageSize = 5;
+  pageSize = 4;
   MaxPageSize = 1;
   pagelist = [];
 

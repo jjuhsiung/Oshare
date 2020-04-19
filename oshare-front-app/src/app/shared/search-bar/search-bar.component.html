@@ -1,11 +1,9 @@
-<div *ngIf="to_result; then thenBlock else elseBlock"></div>
-<ng-template #thenBlock>
-  <div class="row pull-right">
+<div class="row pull-right">
 <!--    <div class="col-md-7 pull-left">-->
-      <div class="h5 form-inline mr-auto" style="width: 100%;height: 40px">
-        <input style="font-size:15px;width:300px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="input">
-        <button style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</button>
-      </div>
+    <div class="h5 form-inline mr-auto" style="width: 100%;height: 40px">
+      <input style="font-size:15px;width:300px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="input">
+      <button style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</button>
+    </div>
 <!--    </div>-->
 
 <!--    <div class="col-md-5">-->
@@ -41,51 +39,4 @@
 <!--        </li>-->
 <!--      </ul>-->
 <!--    </div>-->
-  </div>
-</ng-template>
-<ng-template #elseBlock>
-  <div class="row input-group">
-    <div class="col-md-4" style="padding-top: 0px">
-      <div class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" style="width: 65px" type="text" placeholder="Search" aria-label="Search Product" [(ngModel)]="input">
-        <button class="h3 btn btn-outline-success my-2 my-sm-0" (click)="DoSearch()">Add products</button>
-      </div>
-    </div>
-
-<!--    <div class="input-group-append col-md-8 my-2 my-lg-0">-->
-<!--      <ul class="list-group list-group-horizontal" style="margin-top: 0px">-->
-<!--        <li class="list-group-item no-border">-->
-<!--          <div class="dropdown h4">-->
-<!--            <select class="no-border " id="dropdownMenuButtonA" data-toggle="dropdown"-->
-<!--              aria-haspopup="true" [(ngModel)]="brand"-->
-<!--              style="width: 65px">-->
-<!--              <option value="">Brand</option>-->
-<!--              <option *ngFor="let brand of this.brandlist" value={{brand}}>{{brand}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--        </li>-->
-<!--        <li class="list-group-item no-border">-->
-<!--          <div class="dropdown h4">-->
-<!--            <select class="no-border " id="dropdownMenuButtonB" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="price">-->
-<!--              <option value="">Price</option>-->
-<!--              <option value="high">high</option>-->
-<!--              <option value="medium">medium</option>-->
-<!--              <option value="low">low</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--        </li>-->
-<!--        <li class="list-group-item no-border">-->
-<!--          <div class="dropdown h4">-->
-<!--            <select class="no-border " id="dropdownMenuButtonC" data-toggle="dropdown" aria-haspopup="true" [(ngModel)]="ProductType">-->
-<!--              <option value="">Type</option>-->
-<!--              <option value="blush">Blush</option>-->
-<!--              <option value="eyeliner">Eyeliner</option>-->
-<!--              <option value="eyeshadow">Eyeshadow</option>-->
-<!--              <option value="foundation">Foundation</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</ng-template>-->
+</div>
