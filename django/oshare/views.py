@@ -18,6 +18,8 @@ import urllib
 import json
 from requests.utils import requote_uri
 import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from rest_framework.generics import get_object_or_404
 
 
@@ -413,18 +415,47 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = "osharecosmetics@gmail.com"
-    receiver_email = "fionakuo26@gmail.com"
+    receiver_email = "aduyino6@gmail.com"
     password = "nmfpnidcluwfbptm"
     #password = input("Type your password and press enter:")
-    message = """\
+    message_plain = """\
     Subject: Hi there
     This message is sent from Python."""
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "multipart test"
+    message["From"] = sender_email
+    message["To"] = receiver_email
 
+    # Create the plain-text and HTML version of your message
+    text = """\
+    Hi, beautiful!
+    Want a new look?"""
+    html = """\
+    <html>
+      <body>
+        <p>Hi,<br>
+           How are you?<br>
+           <a href="http://www.realpython.com">O'share</a>
+           has many great products.
+        </p>
+      </body>
+    </html>
+    """
+
+    # Turn these into plain/html MIMEText objects
+    part1 = MIMEText(text, "plain")
+    part2 = MIMEText(html, "html")
+
+    # Add HTML/plain-text parts to MIMEMultipart message
+    # The email client will try to render the last part first
+    message.attach(part1)
+    message.attach(part2)
     # Create a secure SSL context
     context = ssl.create_default_context()
 
     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
         server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, message)
+        server.sendmail(sender_email, receiver_email, message.as_string())
+        print("email sent");
 
     return JsonResponse({"result": "Email sent successfully!"});
