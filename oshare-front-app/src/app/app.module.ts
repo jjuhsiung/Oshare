@@ -50,6 +50,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MatStepperModule} from '@angular/material/stepper';
 import {MatIconModule} from '@angular/material/icon';
 import { UniqueUsernameValidatorDirective } from './register/validators/unique-username-validator.directive';
+import { SideBarComponent } from './search-result/side-bar/side-bar.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeSearchComponent },
@@ -106,7 +107,8 @@ const appRoutes: Routes = [
     AddReviewComponent,
     AccountPageComponent,
     GlobalStreamComponent,
-    UniqueUsernameValidatorDirective
+    UniqueUsernameValidatorDirective,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,

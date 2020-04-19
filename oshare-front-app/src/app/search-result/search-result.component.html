@@ -4,7 +4,6 @@
   </div>
 </div>
 
-
 <!-- Copyright 2019 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that
     can be found in the LICENSE file at http://angular.io/license -->
@@ -70,32 +69,8 @@
 <!--  </div>-->
 <!--</div>-->
 <div class="row justify-content-center">
-  <!--  <mat-sidenav-container class="example-container" style="position: fixed">-->
-  <!--    <div class="pull-left">-->
   <div class="col-sm-3 border-right" style="border-right-color: black;border-right-width: 1px">
-    <!--    <mat-sidenav class="pull-left" style="width: 300px" mode="side" opened>-->
-    <div class="row h4 justify-content-center" style="margin-left: 0px">Brand</div>
-    <div class="row justify-content-center">
-      <div class="justify-content-center" style="margin-left: 30px">
-        <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate style="min-width: 180px;max-height: 240px;overflow-y: auto;overflow-x: hidden">
-          <div class="text-font" style="font-size: 14px" *ngFor="let data of brandlist; let i=index">
-<!--            <label>-->
-              <input type="checkbox" [value]="data" (change)="onCheckboxChange($event)" />
-              {{capitalizeFirstLetter(data)}}
-<!--            </label>-->
-          </div>
-        </form>
-      </div>
-    </div>
-    <!--      <div class="row">-->
-    <div class="row h4 justify-content-center" style="margin-left: 0px">Price
-    </div>
-    <div class="custom-slider justify-content-center" style="max-width: 180px;margin-left: 80px">
-      <ng5-slider [(value)]="lowValue"[(highValue)]="highValue" [options]="options2"></ng5-slider>
-    </div>
-    <div class="row justify-content-center">
-      <button style="font-size: 13px" class="btn btn-dark btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Apply Filter</button>
-    </div>
+    <app-side-bar></app-side-bar>
   </div>
   <div class="col-sm-9">
     <!--    <mat-sidenav-content>-->
