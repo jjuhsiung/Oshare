@@ -1,8 +1,8 @@
 <!--    <mat-sidenav class="pull-left" style="width: 300px" mode="side" opened>-->
-<div class="row h4 justify-content-center" style="margin-left: 0px">Brand</div>
-<div class="row justify-content-center">
+<div *ngIf="showBrand" class="row h4 justify-content-center" style="margin-left: 0px">Brand</div>
+<div *ngIf="showBrand" class="row justify-content-center">
   <div class="justify-content-center" style="margin-left: 30px">
-    <div style="min-width: 180px;max-height: 220px;overflow-y: auto;overflow-x: hidden">
+    <div style="min-width: 200px;max-height: 220px;overflow-y: auto;overflow-x: hidden">
       <!--    <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate style="min-width: 180px;max-height: 240px;overflow-y: auto;overflow-x: hidden">-->
       <!--      <div class="text-font" style="font-size: 14px" *ngFor="let data of brandlist; let i=index">-->
       <!--        <input type="checkbox"  [(ngModel)]="data.checked" (change)="onCheckboxChange($event)">-->
@@ -11,6 +11,22 @@
       <div class="row text-font" style="min-height: 25px;font-size: 14px;margin-left: 30px" *ngFor="let data of brandlist">
         <input type="checkbox" name="test" [(ngModel)]="data.checked"> {{capitalizeFirstLetter(data.name)}}
       </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showType" class="row h4 justify-content-center" style="margin-left: 0px">Type</div>
+<div *ngIf="showType" class="row justify-content-center">
+  <div class="justify-content-center" style="margin-left: 30px">
+    <div style="min-width: 180px;max-height: 220px;overflow-y: auto;overflow-x: hidden">
+      <ul class="heroes row text-font">
+        <li *ngFor="let type of typeList" (click)="onSelect(type.value)" [class.selected]="type.value == selectedType">
+<!--          <span class="badge">{{type.name}}</span>-->
+          {{type.name}}
+        </li>
+      </ul>
+<!--      <div class="row text-font" style="min-height: 25px;font-size: 14px;margin-left: 30px" *ngFor="let type of typeList">-->
+<!--        {{capitalizeFirstLetter(type.name)}}-->
+<!--      </div>-->
     </div>
   </div>
 </div>

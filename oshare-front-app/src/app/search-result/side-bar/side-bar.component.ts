@@ -42,6 +42,16 @@ export class SideBarComponent implements OnInit {
     {name: 'w3llpeople', checked: false}, {name: 'wet n wild', checked: false},
     {name: 'zorah', checked: false}, {name: 'zorah biocosmetiques', checked: false},
   ];
+  typeList: Array<object> = [{name: 'Blush', value: 'blush', category: ['Powder', 'Cream']},
+    {name: 'Bronzer', value: 'bronzer', category: ['Powder']},
+    {name: 'Eyebrow', value: 'eyebrow', category: ['Pencil']},
+    {name: 'Eyeliner', value: 'eyeliner', category: ['Liquid', 'Pencil', 'Gel', 'Cream']},
+    {name: 'Eyeshadow', value: 'eyeshadow', category: ['Palette', 'Pencil', 'Cream']}, // TODO: blank field
+    {name: 'Foundation', value: 'foundation', category: ['Liquid', 'Contour', 'Bb cc', 'Concealer', 'Cream', 'Mineral', 'Powder', 'Highlighter']},
+    {name: 'Lip liner', value: 'lip liner', category: ['Pencil']},
+    {name: 'Lipstick', value: 'lipstick', category: ['Lipstick', 'Lip gloss', 'Liquid', 'Lip stain']},
+    {name: 'Mascara', value: 'mascara', category: null},
+    {name: 'Nail polish', value: 'nail polish', category: null}];
 
   lowValue = 0;
   highValue = 80;
@@ -53,6 +63,9 @@ export class SideBarComponent implements OnInit {
     animate: false,
   };
   checkedArray: Array<string>;
+  showBrand: boolean;
+  showType: boolean;
+  selectedType: string;
 
   // form: FormGroup;
   // onCheckboxChange(e) {
@@ -93,6 +106,25 @@ export class SideBarComponent implements OnInit {
       query[x] = map.get(x);
     }
     console.log(query);
+    this.query = query;
+
+    this.selectedType = '';
+    if(query.ProductType!="")
+    {
+      this.showType=false;
+    }
+    else{
+      this.showType=true;
+    }
+    // this.showType=true;
+    if(query.brand!="")
+    {
+      this.showBrand=false;
+    }
+    else
+    {
+      this.showBrand=true;
+    }
     this.api.getProductsInfo(query);
   }
 
@@ -107,30 +139,41 @@ export class SideBarComponent implements OnInit {
     console.log(items);
   }
 
+  onSelect(type): void {
+    this.selectedType = type;
+  }
+
   DoSearch(): void {
-    const map = this.route.parent.snapshot.queryParamMap;
-    const query = new ProductQuery();
-    for (const x of map.keys) {
-      query[x] = map.get(x);
-    }
-    console.log(query);
-    this.query = query;
+    // const map = this.route.parent.snapshot.queryParamMap;
+    // const query = new ProductQuery();
+    // for (const x of map.keys) {
+    //   query[x] = map.get(x);
+    // }
+    // console.log(query);
+    // this.query = query;
     // this.query = new ProductQuery();
-    this.checkedArray = [];
-    for(let brand of this.brandlist)
+    if(this.showBrand)
     {
-      if(brand.checked==true)
+      this.checkedArray = [];
+      for(let brand of this.brandlist)
       {
-        this.checkedArray.push(brand.name);
+        if(brand.checked==true)
+        {
+          this.checkedArray.push(brand.name);
+        }
       }
+      console.log(this.checkedArray.toString());
+      this.query.brand = this.checkedArray.toString();
     }
-    console.log(this.brand);
-    console.log(this.checkedArray.toString());
-    this.query.brand = this.checkedArray.toString();
+
     // this.query.brand = this.form.value.checkArray.toString();
     // this.form.reset();
     this.query.PriceGreaterThan = this.lowValue;
     this.query.PriceLessThan = this.highValue;
+    if(this.showType)
+    {
+      this.query.ProductType=this.selectedType;
+    }
     console.log(this.query);
     this.api.getProductsInfo(this.query);
     // this.form.value['checkArray']=[];
@@ -145,6 +188,7 @@ export class SideBarComponent implements OnInit {
     for (let i = 0; i < this.brandlist.length; i++) {
       this.brandlist[i].checked = false;
     }
+    this.selectedType="";
     this.ngOnInit();
   }
 }

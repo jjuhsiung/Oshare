@@ -1,27 +1,33 @@
 <div class="background pos-f-t">
 
-  <nav class="navbar" style="background-color: #f8f9fa;">
+  <nav class="navbar" style="margin-bottom:0px;background-color: #f8f9fa;">
     <div class="col-sm-4 justify-content-center">
       <div class="justify-content-center">
         <app-search-bar></app-search-bar>
       </div>
     </div>
     <div class="col-sm-4 justify-content-center">
-      <div class="active" style="margin-left: 40px">
-        <a class="nav-link h1" href="/search">O Sha'Re Cosmetics <span class="sr-only">(current)</span></a>
+      <!--      <div class="center-block active" style="margin-left: 40px;">-->
+      <div class="center-block">
+        <a class="center-block nav-link h1 justify-content-center" style="margin-top: 10px;text-align: center" href="/search">
+          O Sha'Re Cosmetics
+          <!--          <span class="sr-only">(current)</span>-->
+        </a>
       </div>
     </div>
     <!--    <span class="active text-white">-->
     <!--      <a class="nav-link h1" href="/search">O Sha'Re Cosmetics <span class="sr-only">(current)</span></a>-->
     <!--    </span>-->
-    <div class="col-sm-4">
-      <div *ngIf="checkLoginStatus()" class="dropdown">
-        <a class="nav-link h4">Hi, {{firstname}}!</a>
-        <div class="dropdown-content">
-          <a href="/account"> <i class='far fa-user-circle'></i> My Account</a>
-          <a href="/new-post"> <i class='far fa-edit'></i> New Post</a>
-          <a href="/cart"> <i class='fas fa-shopping-cart'></i> Cart</a>
-          <a (click)="Logout()" href="/search">Logout</a>
+    <div class="col-sm-4 justify-content-center">
+      <div class="justify-content-center" style="margin-left: 80px">
+        <div *ngIf="checkLoginStatus()" class="center-block dropdown">
+          <a class="nav-link h4" style="text-align: center">Hi, {{firstname}}!</a>
+          <div class="dropdown-content">
+            <a href="/account"> <i class='far fa-user-circle'></i> My Account</a>
+            <a href="/new-post"> <i class='far fa-edit'></i> New Post</a>
+            <a href="/cart"> <i class='fas fa-shopping-cart'></i> Cart</a>
+            <a (click)="Logout()" href="/search">Logout</a>
+          </div>
         </div>
       </div>
 
@@ -34,34 +40,14 @@
       </div>
     </div>
   </nav>
-  <nav class="navbar navbar-expand-sm py-0 navbar-light bg-light" style="max-height:20px;font-size: 15px">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <nav class="navbar navbar-expand-sm py-0 navbar-light bg-light" style="margin-top: 0px;max-height:20px;font-size: 15px;">
+<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--      <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
     <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
       <ul class="navbar-nav col-sm-8 justify-content-center">
-        <!--        <li class="nav-item active col-sm-4">-->
-        <!--          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
-        <!--        </li>-->
-
-        <!--        <ul class="dropdown-menu multi-column columns-2">-->
-        <!--          <div class="row">-->
-        <!--            <div class="col-sm-6" *ngFor="let persons of chunk(persons, 3)">-->
-        <!--              <a>Test</a>-->
-        <!--              <ul class="multi-column-dropdown">-->
-        <!--                <li *ngFor="let person of persons"><a href="#">{{person.name}}</a></li>-->
-        <!--              </ul>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </ul>-->
-
-        <!--        <div class="form-group">-->
-        <!--          <label for="theComboCSS">Three Columns:</label>-->
-        <!--          <wj-combo-box [dropDownCssClass]="'cb-flex'" [displayMemberPath]="'country'" [itemsSource]="data">-->
-        <!--          </wj-combo-box>-->
-        <!--        </div>-->
         <div class="col-sm-4 justify-content-center">
-          <li class="nav-item dropdown center-block">
+          <li class="center-block nav-item dropdown" style="left: 30%">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Shop </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li style="max-height: 30px;font-size: 13px" *ngFor="let type of this.typeList" class="dropdown-submenu">
@@ -80,7 +66,7 @@
           </li>
         </div>
         <div class="col-sm-4 justify-content-center">
-          <li class="nav-item dropdown center-block">
+          <li class="nav-item dropdown center-block" style="left: 35%">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Brand </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="max-height: 400px;overflow-y: auto" >
               <li style="max-height: 30px;font-size: 13px" *ngFor="let brand of this.brandlist" class="dropdown-submenu">
@@ -90,8 +76,8 @@
           </li>
         </div>
         <div class="col-sm-4 justify-content-center">
-          <li class="nav-item center-block">
-            <a class="nav-link" href="global-stream">Community</a>
+          <li class="nav-item center-block" style="left: 60%">
+            <a class="nav-link" style="text-align: center" href="global-stream">Community</a>
           </li>
         </div>
       </ul>
