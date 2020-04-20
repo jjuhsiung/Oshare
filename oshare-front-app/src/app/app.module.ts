@@ -51,6 +51,7 @@ import { MatStepperModule} from '@angular/material/stepper';
 import {MatIconModule} from '@angular/material/icon';
 import { UniqueUsernameValidatorDirective } from './register/validators/unique-username-validator.directive';
 import { SideBarComponent } from './search-result/side-bar/side-bar.component';
+import { CartDropdownComponent } from './cart/cart-dropdown/cart-dropdown.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeSearchComponent },
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
   { path: 'account', component: AccountPageComponent },
   { path: 'order-history', component: OrderHistoryComponent },
   { path: 'add-review', component: AddReviewComponent },
-  { path: 'account', component: AccountPageComponent }
+  { path: 'account', component: AccountPageComponent },
+  { path: 'cart-dropdown', component: CartDropdownComponent }
 ];
 
 @NgModule({
@@ -108,7 +110,8 @@ const appRoutes: Routes = [
     AccountPageComponent,
     GlobalStreamComponent,
     UniqueUsernameValidatorDirective,
-    SideBarComponent
+    SideBarComponent,
+    CartDropdownComponent
   ],
   imports: [
     BrowserModule,

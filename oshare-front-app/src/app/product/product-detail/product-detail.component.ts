@@ -1,3 +1,4 @@
+import { CartService } from './../../_services/cart.service';
 import { ProductCountService } from './../../_services/product-count.service';
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../_services/product.service';
@@ -21,7 +22,11 @@ export class ProductDetailComponent implements OnInit {
     'font-weight': 'bold'
   }
 
-  constructor(private api: ProductService, private productCountService: ProductCountService ,private router: Router, private route: ActivatedRoute) {
+  constructor(private api: ProductService, 
+    private productCountService: ProductCountService,
+    private cartService: CartService,
+    private router: Router, 
+    private route: ActivatedRoute) {
     let query = new ProductQuery();
     // query.id = this.api.currentproduct;
     query.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
@@ -61,6 +66,11 @@ export class ProductDetailComponent implements OnInit {
     }
     
   }
+
+  reload(){
+    window.location.reload();
+  }
+
 
   addReview() {
     if (localStorage.getItem('userToken') == null) {
