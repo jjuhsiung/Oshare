@@ -5,8 +5,8 @@ import { UserService } from './../_services/user.service';
 import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-/// <reference types="@types/googlemaps" />
 import PlaceResult = google.maps.places.PlaceResult;
+import {baseurl} from "../MockComments";
 
 @Component({
   selector: 'app-register',
@@ -17,7 +17,9 @@ import PlaceResult = google.maps.places.PlaceResult;
 export class RegisterComponent implements OnInit {
 
   form;
-  baseurl = 'http://127.0.0.1:8000';
+  baseurl = baseurl;
+  // baseurl = 'http://127.0.0.1:8000';
+  // baseUrl: 'http://ec2-54-183-253-130.us-west-1.compute.amazonaws.com:8000';
   httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   userURL: string = "";
   profileURL: string = "";

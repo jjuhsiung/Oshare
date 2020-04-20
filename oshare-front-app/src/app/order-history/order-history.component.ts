@@ -29,8 +29,9 @@ export class OrderHistoryComponent implements OnInit {
           var total = 0;
           for (var j = 0; j < productCounts.length; j++) {
             total += productCounts[j].product.price * productCounts[j].count;
+            console.log(productCounts[j].product);
             var product = new Product(productCounts[j].product.name,
-              "", productCounts[j].product.price, "", productCounts[j].product.img_link, "");
+              "", productCounts[j].product.price, "", productCounts[j].product.img_link, "", productCounts[j].product.id);
             var productCount = new ProductCount(product, productCounts[j].count, productCounts[j].id);
             order.productCounts.push(productCount);
           }

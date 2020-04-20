@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {ProductQuery} from '../_models/ProductQuery';
+import {baseurl} from "../MockComments";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ProductService {
-  baseurl = 'http://127.0.0.1:8000';
-  remoteurl = 'http://127.0.0.1:8000';
+  baseurl = baseurl;
+  // baseurl = 'http://127.0.0.1:8000';
+  // baseUrl: 'http://ec2-54-183-253-130.us-west-1.compute.amazonaws.com:8000';
+
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   productsupdate = new Subject<any>();
   // currentproduct: any;

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Order } from 'src/app/_models/order.model';
+import {ProductService} from "../../_services/product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order-product-list',
@@ -9,9 +11,18 @@ import { Order } from 'src/app/_models/order.model';
 export class OrderProductListComponent implements OnInit {
 
   @Input() order: Order;
-  constructor() { }
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log(this.order.productCounts);
   }
 
+  toDetail(id): void {
+    this.productService.ProductClick(id);
+    this.router.navigate(['/product'], {
+      queryParams: {
+        'product_id': id,
+      }
+    });
+  }
 }

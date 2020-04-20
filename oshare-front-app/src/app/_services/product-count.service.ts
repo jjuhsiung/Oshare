@@ -1,13 +1,16 @@
 import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {baseurl} from "../MockComments";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductCountService {
 
-  baseurl = "http://127.0.0.1:8000";
+  baseurl = baseurl;
+  // baseurl = "http://127.0.0.1:8000";
+  // baseUrl: 'http://ec2-54-183-253-130.us-west-1.compute.amazonaws.com:8000';
   constructor(private httpClient: HttpClient, private userService: UserService) { }
 
   updateProductCount(index: number, count: number){

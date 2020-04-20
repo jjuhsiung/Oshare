@@ -45,18 +45,18 @@ export class HeaderComponent implements OnInit {
     'sinful colours', 'smashbox', 'stila', 'suncoat', 'w3llpeople', 'wet n wild', 'zorah',
     'zorah biocosmetiques'];
 
-   persons = [
-        {name: 'John',
-            age: '35'},
-        {name: 'Peter',
-            age: '14'},
-        {name: 'Amanda',
-            age: '23'},
-        {name: 'Joseph',
-            age: '17'},
-        {name: 'Juliet',
-            age: '2'}
-    ];
+   // persons = [
+   //      {name: 'John',
+   //          age: '35'},
+   //      {name: 'Peter',
+   //          age: '14'},
+   //      {name: 'Amanda',
+   //          age: '23'},
+   //      {name: 'Joseph',
+   //          age: '17'},
+   //      {name: 'Juliet',
+   //          age: '2'}
+   //  ];
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
