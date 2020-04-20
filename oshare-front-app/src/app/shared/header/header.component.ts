@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
 
   firstname = '';
   lastname = '';
+  cartProductCount = 0;
   showModal: boolean;
   query = new ProductQuery();
 
@@ -23,8 +24,11 @@ export class HeaderComponent implements OnInit {
   loading = false;
   message: any = '';
 
+  currentURL = location.pathname;
+
   constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder, private productService: ProductService) { }
   // typeList: string[] = ['Blush', 'Bronzer', 'Eyebrow', 'Eyeliner'];
+  
   typeList: Array<object> = [{name: 'Blush', value: 'blush', category: ['Powder', 'Cream']},
     {name: 'Bronzer', value: 'bronzer', category: ['Powder']},
     {name: 'Eyebrow', value: 'eyebrow', category: ['Pencil']},
@@ -58,7 +62,7 @@ export class HeaderComponent implements OnInit {
    //          age: '2'}
    //  ];
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -66,15 +70,21 @@ export class HeaderComponent implements OnInit {
 
     if (this.checkLoginStatus()) {
       this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
-        data => {
+        data =>{
           this.firstname = data.first_name;
           this.lastname = data.last_name;
-        }, error => {
-          console.log(error);
+          this.cartProductCount = 0;
+          for(var i=0; i<data.cart.productCounts.length; i++){
+            this.cartProductCount += data.cart.productCounts[i].count;
+          }
+        },
+        error =>{
+          console.log('fetch failed', error);
         }
       );
-    }
+
   }
+}
 
   public chunk(arr, size) {
     const newArr = [];

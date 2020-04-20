@@ -1,7 +1,7 @@
 import { CartService } from '../../_services/cart.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {Router} from "@angular/router";
-import {ProductService} from "../../_services/product.service";
+import { Router } from "@angular/router";
+import { ProductService } from "../../_services/product.service";
 
 @Component({
   selector: 'app-product-count-item',
@@ -18,27 +18,27 @@ export class ProductCountItemComponent implements OnInit {
   @Input() productCountId: number;
   @Output() productUpdate = new EventEmitter();
   @Output() productDelete = new EventEmitter();
-  
+
   totalPrice: number;
 
   product = {
-    productCountId : this.productCountId,
-    imgURL : this.imgURL,
-    productName : this.productName,
-    count : this.count,
-    price : this.price,
-    index : this.index,
+    productCountId: this.productCountId,
+    imgURL: this.imgURL,
+    productName: this.productName,
+    count: this.count,
+    price: this.price,
+    index: this.index,
   };
 
-  constructor(private CartService: CartService,private router:Router,private productService: ProductService) {
+  constructor(private CartService: CartService, private router: Router, private productService: ProductService) {
   }
 
   countChange = (count: number) => {
     this.totalPrice = this.price * count;
     this.count = count;
-    this.productUpdate.emit({'id': this.productCountId, 'count':count});
+    this.productUpdate.emit({ 'id': this.productCountId, 'count': count });
   }
-  
+
   ngOnInit(): void {
     this.totalPrice = this.price * this.count;
     console.log("this.index");
@@ -46,7 +46,7 @@ export class ProductCountItemComponent implements OnInit {
     console.log(this.imgURL);
   }
 
-  removeButtonClicked(){
+  removeButtonClicked() {
     this.productDelete.emit();
   }
 
