@@ -25,10 +25,18 @@ SECRET_KEY = '*%22y^rt)s(d-fg7=7$u!9$skfesbba$t^2vt00dxuk47rtq9m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "ec2-54-183-253-130.us-west-1.compute.amazonaws.com",
+    "ec2-54-153-122-82.us-west-1.compute.amazonaws.com",
+]
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:4200",
+    "http://ec2-54-183-253-130.us-west-1.compute.amazonaws.com:4200",
+    "https://ec2-54-153-122-82.us-west-1.compute.amazonaws.com:4200",
+    "https://osharecosmetics.herokuapp.com",
 ]
 
 
