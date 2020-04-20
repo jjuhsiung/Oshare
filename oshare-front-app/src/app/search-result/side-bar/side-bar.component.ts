@@ -155,7 +155,10 @@ export class SideBarComponent implements OnInit {
       }
     }
     console.log(this.checkedArray.toString());
-    this.query.brand = this.checkedArray.toString();
+    if(this.checkedArray.length>0) {
+      this.query.brand = this.checkedArray.toString();
+    }
+
     // }
 
     // this.query.brand = this.form.value.checkArray.toString();
@@ -164,7 +167,9 @@ export class SideBarComponent implements OnInit {
     this.query.PriceLessThan = this.highValue;
     // if(this.showType)
     // {
-    this.query.ProductType=this.selectedType;
+    if (this.selectedType!="") {
+      this.query.ProductType = this.selectedType;
+    }
     // }
     console.log(this.query);
     this.api.getProductsInfo(this.query);
