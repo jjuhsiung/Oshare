@@ -6,9 +6,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { PostService } from '../_services/post.service';
 import { ProductService } from '../_services/product.service';
 import { ProductListService } from '../_services/product-list.service';
+import { ProductQuery } from '../_models/ProductQuery';
 import { Location } from '@angular/common';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 
 @Component({
   selector: 'app-new-post',
@@ -32,6 +33,22 @@ export class NewPostComponent implements OnInit {
   pageSize = 4;
   MaxPageSize = 1;
   pagelist = [];
+
+  input = '';
+  brand = '';
+  price = '';
+  ProductType = '';
+  query = new ProductQuery();
+  to_result = true;
+  brandlist: string[] = ['almay', 'alva', 'anna sui', 'annabelle', 'benefit', 'boosh',
+'burt\'s bees', 'butter london', 'c\'est moi', 'cargo cosmetics', 'china glaze', 'clinique',
+'coastal classic creation', 'colourpop', 'covergirl', 'dalish', 'deciem', 'dior', 'dr. hauschka',
+'e.l.f.', 'essie', 'fenty', 'glossier', 'green people', 'iman', 'l\'oreal', 'lotus cosmetics usa', 'maia\'s mineral galaxy',
+'marcelle', 'marienatie', 'maybelline', 'milani', 'mineral fusion', 'misa', 'mistura', 'moov',
+'nudus', 'nyx', 'orly', 'pacifica', 'penny lane organics', 'physicians formula', 'piggy paint',
+'pure anada', 'rejuva minerals', 'revlon', 'sally b\'s skin yummies', 'salon perfect', 'sante',
+'sinful colours', 'smashbox', 'stila', 'suncoat', 'w3llpeople', 'wet n wild', 'zorah',
+'zorah biocosmetiques'];
 
   constructor(
     fb: FormBuilder,
@@ -88,6 +105,42 @@ export class NewPostComponent implements OnInit {
 
   ToPage(num): void {
     this.pageNum = num;
+  }
+
+  DoSearch(): void {
+    // this.query = new ProductQuery();
+    console.log(this.brand);
+    console.log(this.input);
+    this.query.ProductTags = '';
+    this.query.ProductType = this.ProductType;
+    this.query.brand = this.brand;
+    this.query.ProductCategory = '';
+    this.query.input = this.input;
+    if (this.price !== '') {
+      if (this.price === 'high') {
+        this.query.PriceGreaterThan = 30;
+        this.query.PriceLessThan = 0;
+      } else if (this.price === 'medium') {
+        this.query.PriceGreaterThan = 10;
+        this.query.PriceLessThan = 30;
+      } else if (this.price === 'low') {
+        this.query.PriceLessThan = 10;
+        this.query.PriceGreaterThan = 0;
+      }
+    }
+    this.productService.getProductsInfo(this.query);
+    this.to_result = false;
+    if (location.pathname != '/new-post') {
+      this.to_result = true;
+    }
+    console.log('compare path name');
+    console.log(this.to_result);
+    if (this.to_result) {
+      console.log('current url is /search');
+      this.router.navigate(['/search-result'], {queryParams: this.query});
+    } else if (location.pathname == '/new-post') {
+      console.log('current url is /new-post');
+    }
   }
 
   addToSelected(el, product_idx: number, list_idx: number) {

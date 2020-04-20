@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../../_services/product.service';
-import {ProductQuery} from '../../_models/ProductQuery';
+import { ProductService } from '../../_services/product.service';
+import { ProductQuery } from '../../_models/ProductQuery';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -68,11 +68,7 @@ export class SearchBarComponent implements OnInit {
     }
     console.log('compare path name');
     console.log(this.to_result);
-    if (this.to_result) {
-      console.log('current url is /search');
-      this.router.navigate(['/search-result'], {queryParams: this.query});
-    } else if (location.pathname == '/new-post') {
-      console.log('current url is /new-post');
-    }
+    console.log('current url is /search');
+    this.router.navigate(['/search-result'], {queryParams: this.query});
   }
 }

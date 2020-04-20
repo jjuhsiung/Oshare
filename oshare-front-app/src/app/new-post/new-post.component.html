@@ -1,5 +1,4 @@
 <app-header></app-header>
-
 <div class="container">
 <div class="row no-gutters">
   <div class="col-lg-7 col-xl-8 pr-lg-2 mb-3">
@@ -69,7 +68,12 @@
       </div>
       <div class="card-body pb-0" style="height:300px">
         <div class="row justify-content-center">
-          <app-search-bar></app-search-bar>
+          <div class="row pull-right">
+              <div class="h5 form-inline mr-auto" style="width: 100%;height: 40px">
+                <input style="font-size:15px;width:300px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Add Product" aria-label="Search" [(ngModel)]="input">
+                <button style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</button>
+              </div>
+          </div>
         </div>
         <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
           <div class="custom-control custom-checkbox" style="margin-bottom: 5px;" >
