@@ -151,3 +151,15 @@ body {
   text-align: center !important;
   transform: translate(-50%, 0) !important;
 }
+
+.navbar-expand-sm{
+  max-height: 30px;
+}
+
+#navbarNavDropdown{
+  max-height: 30px;
+}
+
+#navbarTab{
+  max-height: 30px;
+}

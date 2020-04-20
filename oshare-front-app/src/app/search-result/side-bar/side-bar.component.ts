@@ -144,36 +144,28 @@ export class SideBarComponent implements OnInit {
   }
 
   DoSearch(): void {
-    // const map = this.route.parent.snapshot.queryParamMap;
-    // const query = new ProductQuery();
-    // for (const x of map.keys) {
-    //   query[x] = map.get(x);
-    // }
-    // console.log(query);
-    // this.query = query;
-    // this.query = new ProductQuery();
-    if(this.showBrand)
+    // if(this.showBrand)
+    // {
+    this.checkedArray = [];
+    for(let brand of this.brandlist)
     {
-      this.checkedArray = [];
-      for(let brand of this.brandlist)
+      if(brand.checked==true)
       {
-        if(brand.checked==true)
-        {
-          this.checkedArray.push(brand.name);
-        }
+        this.checkedArray.push(brand.name);
       }
-      console.log(this.checkedArray.toString());
-      this.query.brand = this.checkedArray.toString();
     }
+    console.log(this.checkedArray.toString());
+    this.query.brand = this.checkedArray.toString();
+    // }
 
     // this.query.brand = this.form.value.checkArray.toString();
     // this.form.reset();
     this.query.PriceGreaterThan = this.lowValue;
     this.query.PriceLessThan = this.highValue;
-    if(this.showType)
-    {
-      this.query.ProductType=this.selectedType;
-    }
+    // if(this.showType)
+    // {
+    this.query.ProductType=this.selectedType;
+    // }
     console.log(this.query);
     this.api.getProductsInfo(this.query);
     // this.form.value['checkArray']=[];
