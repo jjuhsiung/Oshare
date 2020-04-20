@@ -68,13 +68,15 @@
         <h1>Tag a product</h1>
       </div>
       <div class="card-body pb-0" style="height:300px">
-        <app-search-bar></app-search-bar>
+        <div class="row justify-content-center">
+          <app-search-bar></app-search-bar>
+        </div>
         <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
           <div class="custom-control custom-checkbox" style="margin-bottom: 5px;" >
             <input class="custom-control-input" type="checkbox"
                    value="" [id]="i"
                    (click)="addToSelected($event.target, productEl.id, i)"
-                   style="font-size: 120%;">
+                   style="transform : scale(10); width:50px">
 
             <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">
               {{ productEl.name }}

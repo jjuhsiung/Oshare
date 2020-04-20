@@ -15,7 +15,6 @@ import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
   templateUrl: './new-post.component.html',
   styleUrls: ['./new-post.component.css'],
   providers: [PostService, UserService, PostImageService, ProductService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewPostComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport)
