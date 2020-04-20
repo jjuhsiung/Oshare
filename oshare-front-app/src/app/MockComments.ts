@@ -1,5 +1,6 @@
 import {Review} from './_models/review.model';
 
+export const baseurl = 'http://ec2-54-153-122-82.us-west-1.compute.amazonaws.com:8000';
 export const REVIEWS: Review[] = [
   {
     UserImage: '',

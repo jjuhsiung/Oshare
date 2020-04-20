@@ -6,6 +6,7 @@ import { Comment } from '../_models/comment.model';
 import { User } from '../_models/user.model';
 import { Product } from '../_models/product.model';
 import { PostImageService } from './post-image.service'
+import {baseurl} from "../MockComments";
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,9 @@ export class PostService {
     // refetch post list every 10 seconds
     mySubscription: Subscription;
 
-    baseurl = "http://127.0.0.1:8000";
+    baseurl = baseurl;
+    // baseurl = "http://127.0.0.1:8000";
+    // baseUrl: 'http://ec2-54-183-253-130.us-west-1.compute.amazonaws.com:8000';
     httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
     constructor(private http: HttpClient, private postImageService: PostImageService) {

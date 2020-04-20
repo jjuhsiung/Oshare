@@ -2,12 +2,12 @@
   <ul class="list-group">
     <!--      <h1 align="center" class="justify-content-center serif" >Rate &amp; Review</h1>-->
     <li align="center" class="list-group-item serif h1" style="margin-bottom: 0px"><span>Rate &amp; Review</span></li>
-    <div *ngIf="reviewNum>0; then thenBlock else elseBlock"></div>
+    <div *ngIf="checkReview(this.Reviews)>0; then thenBlock else elseBlock"></div>
     <ng-template #thenBlock>
       <li class="list-group-item">
         <div  *ngFor="let review of this.Reviews" class="d-flex" style="margin-bottom: 20px">
           <div class="col-sm-2">
-            <img class="row" src="{{review.user.profileImg}}" width="35px" height="35px" style="margin-right: 5px">
+            <img class="row" src="{{checkImg(review.user.profileImg)}}" width="35px" height="35px" style="margin-right: 5px">
             <div class="row" style="font-size:16px;">{{review.user.firstName}} {{review.user.lastName}}</div>
           </div>
           <div class="col-sm-10">
