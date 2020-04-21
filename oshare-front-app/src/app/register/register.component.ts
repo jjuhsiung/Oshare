@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import PlaceResult = google.maps.places.PlaceResult;
-import {baseurl} from "../MockComments";
+import { baseurl } from "../MockComments";
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,7 @@ import {baseurl} from "../MockComments";
   providers: [UserService],
 })
 export class RegisterComponent implements OnInit {
-
+  message: any;
   form;
   baseurl = baseurl;
   // baseurl = 'http://127.0.0.1:8000';
@@ -129,19 +129,23 @@ export class RegisterComponent implements OnInit {
                 }
               )
             }, error => {
-              console.log(error);
+              this.message = error;
+              console.log(this.message)
             }
           )
-
         },
         error => {
-          console.log(error);
+          this.message = error;
+          console.log(this.message);
         }
       );
     } else {
+      if (this.form.invalid()) {
+        this.message = 'Invalid input please try again';
+        return;
+      }
       this.validateAllFormFields(this.form);
     }
-
 
   }
   validateAllFormFields(formGroup: FormGroup) {
@@ -153,8 +157,9 @@ export class RegisterComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
+    this.router.navigate(['/search']);
   }
-  
+
   formChange(result: PlaceResult) {
 
     var address;
