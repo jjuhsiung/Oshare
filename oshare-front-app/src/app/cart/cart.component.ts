@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ProductCountService } from './../_services/product-count.service';
 import { ProductCount } from './../_models/product-count.model';
 import { ProductService } from './../_services/product.service';
@@ -19,14 +20,19 @@ export class CartComponent implements OnInit {
   cart = {
     products: [],
     subtotal: 0,
-    shipping: "0",
-    tax: "0"
+    productcount: 0,
   }
 
   constructor(
     private userService: UserService, 
     private productService: ProductService,
-    private productCountService: ProductCountService) { 
+    private productCountService: ProductCountService,
+    private router: Router) { 
+
+      if(localStorage.getItem('userId')==null){
+        alert('Required login.');
+        this.router.navigate(['/search']);
+      }
     this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
       Response =>{
         for(let i=0; i<Response.cart.productCounts.length; i++){
@@ -36,6 +42,7 @@ export class CartComponent implements OnInit {
               var productCount = new ProductCount(product, Response.cart.productCounts[i].count, Response.cart.productCounts[i].id);
               this.cart.products.push(productCount);
               this.cart.subtotal += productCount.count * product.Price;
+              this.cart.productcount += productCount.count;
             }, error=>{
               console.log(error);
             }
@@ -80,8 +87,10 @@ export class CartComponent implements OnInit {
 
   updateSubTotalPrice(){
     this.cart.subtotal = 0;
+    this.cart.productcount = 0;
     for (let product of this.cart.products) {
       this.cart.subtotal += product.product.Price * product.count;
+      this.cart.productcount += product.count;
     }    
   }
 

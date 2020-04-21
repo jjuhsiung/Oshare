@@ -3,7 +3,7 @@ import { UserService } from 'src/app/_services/user.service';
 import { firstNameValidators } from './validators/firstname.validator';
 import { CheckoutService } from '../_services/checkout.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Validators, FormBuilder} from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
 /// <reference types="@types/googlemaps" />
 import PlaceResult = google.maps.places.PlaceResult;
@@ -32,10 +32,15 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     fb: FormBuilder) {
 
+    if(localStorage.getItem('userId')==null){
+      alert('Required login.');
+      this.router.navigate(['/search']);
+    }
+
     this.form = fb.group({
-      firstname: ['', Validators.required, firstNameValidators.lengthCheck],
+      firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       address: ['', Validators.required]
     });
 
@@ -129,10 +134,27 @@ export class CheckoutComponent implements OnInit {
 
   }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
   placeOrderButtonClicked(){
 
+    if (!this.form.valid) {
+      this.validateAllFormFields(this.form);
+      alert('Shipping information is invalid.');
+      return;
+    }
+
     if(this.paidFor == false){
-      alert("paid first!");
+      alert("Paid first!");
       return;
     }
 
