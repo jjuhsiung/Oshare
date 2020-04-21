@@ -46,6 +46,10 @@
         <h3 class="page-header" for="newComment">Leave Comment:</h3>
         <form [formGroup]="commentForm" (submit)="onCommentSubmit()">
             <input id="id_input_textbox" type="text" formControlName="newComment"><br>
+            <div *ngIf="newComment.touched && newComment.invalid" class="alert alert-danger">
+                <div *ngIf="newComment.errors.required">Comment is required.</div>
+                <div *ngIf="newComment.errors.maxlength">Comment length should less than 300.</div>
+            </div>
             <button class="btn btn-light" type="submit" id="id_submit_btn">Submit</button>
         </form>
     </div><br><br><br><br>
