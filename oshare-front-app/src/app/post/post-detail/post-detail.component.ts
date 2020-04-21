@@ -152,6 +152,10 @@ export class PostDetailComponent implements OnInit {
 
   onCommentSubmit() {
 
+    if(localStorage.getItem('userId')==null){
+      alert('Required Login.');
+    }
+
     if(!this.commentForm.valid){
       this.validateAllFormFields(this.commentForm);
       return;
