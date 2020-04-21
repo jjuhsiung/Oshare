@@ -10,7 +10,7 @@
     </div>
 
     <div *ngIf="posts.length!=0">
-      <div class="row pull-center">
+      <div class="row pull-center container-fluid">
         <div *ngFor="let postEl of posts; let i = index">
           <div *ngIf="i % 3 == 0" class="row">
             <div class="col-center-block col-md-4"><app-post-item [post]="posts[i]"></app-post-item></div>
@@ -20,5 +20,4 @@
         </div>
       </div>
     </div>
-
 </div>

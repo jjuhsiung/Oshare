@@ -5,3 +5,13 @@
     word-break:break-all;
     overflow: hidden;
 }
+@media only screen and (min-width: 1500px) {
+  .card {
+    min-width: 360px
+  }
+}
+@media only screen and (max-width: 1500px) {
+  .card {
+    min-width: 350px
+  }
+}
