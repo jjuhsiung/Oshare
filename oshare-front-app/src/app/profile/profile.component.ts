@@ -131,13 +131,14 @@ export class ProfileComponent implements OnInit {
         response => {
           console.log(response);
           alert('User profile successfully edit!');
+          window.location.reload();
         },
         error => {
           console.log(error);
         }
       );
 
-      window.location.reload();
+      
     } else {
       this.validateAllFormFields(this.form);
     }
