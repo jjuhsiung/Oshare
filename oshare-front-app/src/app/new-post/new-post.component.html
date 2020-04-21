@@ -38,13 +38,13 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div >
               <label for="tag" class="col-form-label col-lg-3" style="font-size: 150%;">Tag a product:</label>
               <div formControlName="tag" class="card-body pb-0" style="height:300px">
                 <div class="row" style="margin-left:120px">
                   <div class="h5 form-inline mr-auto" style="width: 100%;height: 40px; margin-left:-50px">
                     <input style="font-size:15px;width:300px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Add Product" aria-label="Search" [(ngModel)]="input">
-                    <button style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</button>
+                    <label style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</label>
                   </div>
                 </div>
                 <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize; let i = index;">
@@ -59,9 +59,6 @@
                       {{ productEl.name }}
                     </label>
                     <img [src]="productEl.img_link" style=" margin-left:10px; width:30px; height:30px">
-                  </div>
-                  <div class="row flex-between-center">
-
                   </div>
                 </div>
                 <nav aria-label="Page navigation example m-auto">
