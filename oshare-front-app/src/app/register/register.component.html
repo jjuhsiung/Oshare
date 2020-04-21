@@ -23,6 +23,7 @@
                         <div *ngIf="(username.touched || username.dirty) && username.invalid" class="alert alert-danger">
                             <div *ngIf="username.errors.required">Username is required.</div>
                             <div *ngIf="username.errors['UniqueUsername']">Username already exist.</div>
+                            <div *ngIf="username.errors.maxlength">Username length should be less than 150.</div>
                         </div>
                     </div>
                 </div>
@@ -47,7 +48,10 @@
                             type="text"
                             class="form-control form-control-lg" 
                             id="first_name">
-                        <div *ngIf="first_name.touched && first_name.invalid" class="alert alert-danger">Firstname is required.</div>
+                        <div *ngIf="first_name.touched && first_name.invalid" class="alert alert-danger">
+                            <div *ngIf="first_name.errors.required">Firstname is required.</div>
+                            <div *ngIf="first_name.errors.maxlength">Firstname length should be less than 30.</div>
+                        </div>
                     </div>
                 </div>
 
@@ -59,7 +63,10 @@
                             type="text" 
                             class="form-control form-control-lg" 
                             id="last_name">
-                        <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">Lastname is required.</div>
+                        <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">
+                            <div *ngIf="last_name.errors.required">Lastname is required.</div>
+                            <div *ngIf="last_name.errors.maxlength">Lastname length should be less than 150.</div>
+                        </div>
 
                     </div>
                 </div>

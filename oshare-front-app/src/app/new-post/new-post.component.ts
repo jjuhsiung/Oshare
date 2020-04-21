@@ -63,8 +63,8 @@ export class NewPostComponent implements OnInit {
     private postImageService: PostImageService) {
 
     this.form = fb.group({
-      title: ['', Validators.required],
-      text: ['', Validators.required],
+      title: ['', [Validators.required, Validators.maxLength(200)]],
+      text: ['', [Validators.required, Validators.maxLength(5000)]],
       upload: ['', Validators.required]
     });
 

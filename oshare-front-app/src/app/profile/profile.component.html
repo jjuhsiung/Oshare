@@ -11,7 +11,8 @@
                 <input formControlName="first_name" type="text" value={{user.firstName}}
                     class="form-control form-control-lg" id="first_name">
                 <div *ngIf="first_name.touched && first_name.invalid" class="alert alert-danger">
-                    <div *ngIf="first_name.errors.required">first name is required.</div>
+                    <div *ngIf="first_name.errors.required">Firstname is required.</div>
+                    <div *ngIf="first_name.errors.maxlength">Firstname length should be less than 30.</div>
                 </div>
             </div>
         </div>
@@ -20,8 +21,10 @@
             <label for="last_name" class="col-form-label col-lg-1"><h5>Last name:</h5></label>
             <div class="col-lg-8">
                 <input formControlName="last_name" type="text" value={{user.lastName}} class="form-control form-control-lg">
-                <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">last name is
-                    required.</div>
+                <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">
+                    <div *ngIf="last_name.errors.required">Lastname is required.</div>
+                    <div *ngIf="last_name.errors.maxlength">Lastname length should be less than 150.</div>
+                </div>
             </div>
         </div>
 
