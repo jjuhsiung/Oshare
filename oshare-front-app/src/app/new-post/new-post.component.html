@@ -1,87 +1,91 @@
 <app-header></app-header>
 <div class="container">
-<div class="row no-gutters justify-content-center">
-  <div class="col-lg-7 col-xl-8 pr-lg-2 mb-3">
-    <div class="card h-lg-100 overflow-hidden">
+  <div class="row no-gutters justify-content-center">
+    <div class="col-lg-7 col-xl-8 pr-lg-2 mb-3">
 
-      <div class="d-flex flex-between-center py-2">
+      <div class="page-header">
         <h1>Create a post</h1>
       </div>
       <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
         <div class="card-body p-0">
 
-            <div class="form-group">
-                <label for="title" class="col-form-label col-lg-2" style="font-size: 150%;">Title:</label>
-                <div class="col-md-7">
-                    <input
-                        formControlName="title"
-                        type="text"
-                        class="form-control form-control-lg"
-                        id="title">
-                    <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
-                        <div *ngIf="title.errors.required">Title is required.</div>
-                    </div>
-                </div>
+          <div class="form-group">
+            <label for="title" class="col-form-label col-lg-3" style="font-size: 150%;">Title*:</label>
+            <div class="col-md-7">
+              <input
+                formControlName="title"
+                type="text"
+                class="form-control form-control-lg"
+                id="title">
+              <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+                <div *ngIf="title.errors.required">Title is required.</div>
+              </div>
             </div>
+          </div>
 
-            <div class="form-group">
-                <label for="text" class="col-form-label col-lg-2"style="font-size: 150%;">Content:</label>
-                <div class="col-md-7">
-                    <textarea
-                        formControlName="text"
-                        type="text"
-                        class="form-control"
-                        id="text"
-                        rows="15"></textarea>
-                    <div *ngIf="text.touched && text.invalid" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
-                    <div *ngIf="text.length > 2000" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
-                </div>
+          <div class="form-group">
+            <label for="text" class="col-form-label col-lg-3" style="font-size: 150%;">Content*:</label>
+            <div class="col-md-7">
+                  <textarea
+                    formControlName="text"
+                    type="text"
+                    class="form-control"
+                    id="text"
+                    rows="15"></textarea>
+              <div *ngIf="text.touched && text.invalid" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
+              <div *ngIf="text.length > 2000" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
             </div>
+          </div>
 
-            <div >
-              <label for="tag" class="col-form-label col-lg-3" style="font-size: 150%;">Tag a product:</label>
-              <div formControlName="tag" class="card-body pb-0" style="height:300px">
-                <div class="row" style="margin-left:120px">
-                  <div class="h5 form-inline mr-auto" style="width: 100%;height: 40px; margin-left:-50px">
-                    <input style="font-size:15px;width:300px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Add Product" aria-label="Search" [(ngModel)]="input">
-                    <label style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</label>
-                  </div>
-                </div>
-                <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize; let i = index;">
-                  <div class="custom-control custom-checkbox" style="margin-bottom: 10px; margin-left:120px" >
-                    <input class="custom-control-input justify-content-center" type="checkbox"
-                           value="" [id]="i"
-                           (click)="addToSelected($event.target, productEl.id, i)"
-                           [checked]="checked_status[productEl.id]"
-                           style="width:50px">
+          <div class="form-group">
+            <label for="upload" id="upload-label" class="col-form-label col-lg-3" style="font-size: 150%;">Upload Image*: </label>
+            <div class="col-md-3">
+              <input
+                formControlName="upload"
+                id="upload"
+                type="file"
+                class="form-control"
+                accept="image/*"
+                multiple=""
+                (change)="fileChanged($event)">
 
-                    <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">
-                      {{ productEl.name }}
-                    </label>
-                    <img [src]="productEl.img_link" style=" margin-left:10px; width:30px; height:30px">
-                  </div>
-                </div>
-                <nav aria-label="Page navigation example m-auto">
-                  <ul class="pagination justify-content-center">
-                    <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
-                    <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
-                  </ul>
-                </nav>
+              <div *ngIf="upload.touched && upload.invalid" class="alert alert-danger">At least upload an image.</div>
+            </div>
+          </div>
+
+          <div class="form-group" style="height: 300px">
+            <label for="tag" class="col-form-label col-lg-3" style="font-size: 150%;">Tag a product:</label>
+            <div class="form-inline">
+              <div class="col-lg-9">
+                <input id="tag" style="font-size:15px; width:300px; height:35px;" class="form-control mr-sm-2" type="text" placeholder="Enter a product name" aria-label="Search" [formControl]="productName">
+                <span style="font-size:15px; height:35px" class="btn btn-unique btn-rounded btn-sm" (click)="DoSearch()">Search</span>
               </div>
             </div>
 
-            <div class="form-group">
-                <label id="upload-label" for="upload" class="col-form-label col-lg-2"style="font-size: 150%;">Upload Image: </label>
-                <div class="col-md-3">
-                    <input
-                        id="upload"
-                        type="file"
-                        class="form-control"
-                        accept="image/*"
-                        multiple=""
-                        (change)="fileChanged($event)">
-                </div>
+            <div class="custom-control custom-checkbox"
+                 style="padding-left: 230px; padding-top: 10px"
+                 *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;
+                  let i = index;">
+
+              <input class="custom-control-input justify-content-center" type="checkbox"
+                     value="" [id]="i"
+                     (click)="addToSelected($event.target, productEl.id, i)"
+                     [checked]="checked_status[productEl.id]">
+
+              <label class="custom-control-label" [for]="i" style="font-size: 150%; color: dimgray;">
+                <img [src]="productEl.img_link" style="width:40px; height:40px">{{ productEl.name }}
+              </label>
+
             </div>
+
+            <nav aria-label="Page navigation example m-auto">
+              <ul class="pagination justify-content-center">
+                <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
+                <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
+              </ul>
+            </nav>
+
+          </div>
 
           <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
         </div>
@@ -91,7 +95,7 @@
           </div>
         </div>
       </form>
+
     </div>
-  </div>
   </div>
 </div>

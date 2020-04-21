@@ -17,6 +17,7 @@ export class SearchBarComponent implements OnInit {
   ProductType = '';
   query = new ProductQuery();
   to_result = true;
+  placeHolder = 'Search';
   brandlist: string[] = ['almay', 'alva', 'anna sui', 'annabelle', 'benefit', 'boosh',
 'burt\'s bees', 'butter london', 'c\'est moi', 'cargo cosmetics', 'china glaze', 'clinique',
 'coastal classic creation', 'colourpop', 'covergirl', 'dalish', 'deciem', 'dior', 'dr. hauschka',
@@ -27,9 +28,17 @@ export class SearchBarComponent implements OnInit {
 'sinful colours', 'smashbox', 'stila', 'suncoat', 'w3llpeople', 'wet n wild', 'zorah',
 'zorah biocosmetiques'];
   constructor(private api: ProductService, private router: Router) {
+    this.api.currentQuery.subscribe(query => {
+      console.log(query);
+      if(query.input!=null&&query.input!='')
+      {
+        this.placeHolder=query.input;
+      }
+    });
   }
 
   ngOnInit(): void {
+    console.log(this.placeHolder);
     if (location.pathname != '/new-post') {
       this.to_result = true;
     } else {
@@ -41,7 +50,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   DoSearch(): void {
-    // this.query = new ProductQuery();
     console.log(this.brand);
     console.log(this.input);
     this.query.ProductTags = '';

@@ -17,7 +17,7 @@ export class AddReviewComponent implements OnInit {
   product_title = '';
   product_img;
   rating: number;
-  rating2: number;
+  // rating2: number;
   stars = [];
   fake_stars = [];
   durationInSeconds = 5;
@@ -59,7 +59,8 @@ export class AddReviewComponent implements OnInit {
 
   addreview() {
     this.submitted = true;
-    if (this.reviewForm.invalid) {
+    console.log(this.rating);
+    if (this.reviewForm.invalid || this.rating==null) {
       return;
     }
     this.submitSuccess = true;

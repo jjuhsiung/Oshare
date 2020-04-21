@@ -1,7 +1,3 @@
 /venv/
 .vscode
 .DS_Store
-oshare-front-app/package-lock.json
-*.json
-oshare-front-app/package.json
-oshare-front-app/package-lock.json

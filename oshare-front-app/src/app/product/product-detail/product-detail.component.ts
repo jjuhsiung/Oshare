@@ -22,11 +22,11 @@ export class ProductDetailComponent implements OnInit {
     'font-weight': 'bold'
   }
 
-  constructor(private api: ProductService, 
-    private productCountService: ProductCountService,
-    private cartService: CartService,
-    private router: Router, 
-    private route: ActivatedRoute) {
+  constructor(private api: ProductService,
+              private productCountService: ProductCountService,
+              private cartService: CartService,
+              private router: Router,
+              private route: ActivatedRoute) {
     let query = new ProductQuery();
     // query.id = this.api.currentproduct;
     query.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
@@ -47,6 +47,31 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.router);
+    // this.api.getProductByURL(Response.cart.productCounts[i].product).subscribe(
+    //   product_data=>{
+    //     this.totalPrice += product_data.price * Response.cart.productCounts[i].count;
+    //     this.productSummary+= product_data.name + " x" + Response.cart.productCounts[i].count+", ";
+    //   }, error=>{
+    //     console.log(error);
+    //   }
+    // )
+    let query = new ProductQuery();
+    // query.id = this.api.currentproduct;
+    query.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
+    this.api.getProductsInfo(query);
+    this.api.productsupdate.subscribe(data=>{
+      this.product = data['response'];
+      this.api.getProductColor(this.product.id).subscribe(
+        product_color => {
+          // console.log(product_data);
+          this.productColor = product_color;
+          console.log(this.productColor);
+        }, error => {
+          console.log(error);
+        }
+      )
+    })
     console.log(this.product);
   }
 
@@ -64,7 +89,7 @@ export class ProductDetailComponent implements OnInit {
     } else {
       this.productCountService.addToCart(this.product.id);
     }
-    
+
   }
 
   reload(){
