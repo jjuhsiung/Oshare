@@ -47,11 +47,12 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { AgmCoreModule } from '@agm/core';
-import { MatStepperModule} from '@angular/material/stepper';
-import {MatIconModule} from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
 import { UniqueUsernameValidatorDirective } from './register/validators/unique-username-validator.directive';
 import { SideBarComponent } from './search-result/side-bar/side-bar.component';
 import { CartDropdownComponent } from './cart/cart-dropdown/cart-dropdown.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const appRoutes: Routes = [
   { path: '', component: HomeSearchComponent },
@@ -133,7 +134,8 @@ const appRoutes: Routes = [
       libraries: ['places']
     }),
     MatStepperModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule
   ],
   providers: [
     CartService,
