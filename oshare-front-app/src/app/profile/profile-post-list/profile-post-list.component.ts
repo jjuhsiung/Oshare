@@ -12,6 +12,10 @@ export class ProfilePostListComponent implements OnInit {
 
   posts: Post[];
   constructor(private postService: PostService) { }
+  pageNum = 1;
+  pageSize = 4;
+  MaxPageSize = 1;
+  pagelist = [];
 
   ngOnInit(): void {
     this.posts = [];
@@ -19,6 +23,11 @@ export class ProfilePostListComponent implements OnInit {
     this.postService.getPostByUser(localStorage.getItem('userId')).subscribe(
       p_post => {
         console.log(p_post)
+        this.pagelist = [];
+        this.MaxPageSize = p_post.length/this.pageSize + 1;
+        for (let i=0;i<this.MaxPageSize-1;i++)
+        this.pagelist.push(i);
+
         for (let entry of p_post) {
           if (entry['images'].length != 0) {
           console.log(entry['images'][0]['image']);
@@ -34,5 +43,24 @@ export class ProfilePostListComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  PrePage(): void {
+    if (this.pageNum>1)
+      this.pageNum = this.pageNum -1;
+  }
+
+  NextPage(): void {
+    this.pageNum = this.pageNum + 1;
+  }
+
+  ToPage(num): void {
+    this.pageNum = num;
+  }
+
+  showPage(i): boolean {
+    if ((i <= this.pageNum && this.pageNum - i < 5) || (i > this.pageNum && i - this.pageNum < 5))
+      return true;
+    return false;
   }
 }
