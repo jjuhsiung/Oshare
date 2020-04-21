@@ -154,11 +154,7 @@ export class NewPostComponent implements OnInit {
   }
 
   addToSelected(el, product_idx: number, list_idx: number) {
-    var exist=this.Products_selected.some(function(item){
-      return item['id'] === product_idx;
-    });
-
-    if (exist) {
+    if (this.checked_status[product_idx]) {
       console.log("Already selected, move out");
       let idx = -1;
       idx = this.Products_selected.map(function(e) {
