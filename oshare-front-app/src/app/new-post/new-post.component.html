@@ -1,10 +1,10 @@
 <app-header></app-header>
 <div class="container">
-<div class="row no-gutters">
+<div class="row no-gutters justify-content-center">
   <div class="col-lg-7 col-xl-8 pr-lg-2 mb-3">
     <div class="card h-lg-100 overflow-hidden">
 
-      <div class="card-header d-flex flex-between-center bg-light py-2">
+      <div class="d-flex flex-between-center py-2">
         <h1>Create a post</h1>
       </div>
       <form [formGroup]="form" (ngSubmit)="createPost()" class="form-horizontal">
@@ -38,6 +38,38 @@
                 </div>
             </div>
 
+            <div >
+              <label for="tag" class="col-form-label col-lg-3" style="font-size: 150%;">Tag a product:</label>
+              <div formControlName="tag" class="card-body pb-0" style="height:300px">
+                <div class="row" style="margin-left:120px">
+                  <div class="h5 form-inline mr-auto" style="width: 100%;height: 40px; margin-left:-50px">
+                    <input style="font-size:15px;width:300px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Add Product" aria-label="Search" [(ngModel)]="input">
+                    <label style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</label>
+                  </div>
+                </div>
+                <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize; let i = index;">
+                  <div class="custom-control custom-checkbox" style="margin-bottom: 10px; margin-left:120px" >
+                    <input class="custom-control-input justify-content-center" type="checkbox"
+                           value="" [id]="i"
+                           (click)="addToSelected($event.target, productEl.id, i)"
+                           [checked]="checked_status[productEl.id]"
+                           style="width:50px">
+
+                    <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">
+                      {{ productEl.name }}
+                    </label>
+                    <img [src]="productEl.img_link" style=" margin-left:10px; width:30px; height:30px">
+                  </div>
+                </div>
+                <nav aria-label="Page navigation example m-auto">
+                  <ul class="pagination justify-content-center">
+                    <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
+                    <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+
             <div class="form-group">
                 <label id="upload-label" for="upload" class="col-form-label col-lg-2"style="font-size: 150%;">Upload Image: </label>
                 <div class="col-md-3">
@@ -53,53 +85,12 @@
 
           <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
         </div>
-        <div class="card-footer bg-light py-2">
-          <div class="row flex-between-center">
-            <button type="submit" class="btn btn-dark">Create Post</button>
+        <div class="py-2">
+          <div class="row justify-content-left" style="margin-left:5px">
+            <button type="submit" class="btn btn-dark"><font size="3">Create Post</font></button>
           </div>
         </div>
       </form>
-    </div>
-  </div>
-  <div class="col-lg-5 col-xl-4 pl-lg-2 mb-3">
-    <div class="card h-lg-100">
-      <div class="card-header d-flex flex-between-center bg-light py-2">
-        <h1>Tag a product</h1>
-      </div>
-      <div class="card-body pb-0" style="height:300px">
-        <div class="row justify-content-center">
-          <div class="row pull-right">
-              <div class="h5 form-inline mr-auto" style="width: 100%;height: 40px">
-                <input style="font-size:15px;width:300px;height:35px" class="form-control mr-sm-2" type="text" placeholder="Add Product" aria-label="Search" [(ngModel)]="input">
-                <button style="font-size:15px;height:35px" class="btn btn-unique btn-rounded btn-sm my-0" (click)="DoSearch()">Search</button>
-              </div>
-          </div>
-        </div>
-        <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
-          <div class="custom-control custom-checkbox" style="margin-bottom: 5px;" >
-            <input class="custom-control-input" type="checkbox"
-                   value="" [id]="i"
-                   (click)="addToSelected($event.target, productEl.id, i)"
-                   style="transform : scale(10); width:50px">
-
-            <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">
-              {{ productEl.name }}
-            </label>
-            <hr class="border-200">
-          </div>
-
-        </div>
-      </div>
-      <div class="card-footer bg-light py-2" >
-        <div class="row flex-between-center">
-          <nav aria-label="Page navigation example m-auto">
-            <ul class="pagination justify-content-center">
-              <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
-              <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
     </div>
   </div>
   </div>

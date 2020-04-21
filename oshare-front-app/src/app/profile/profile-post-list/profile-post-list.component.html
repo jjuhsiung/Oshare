@@ -11,14 +11,19 @@
 
     <div *ngIf="posts.length!=0">
       <div class="row pull-center">
-        <div *ngFor="let postEl of posts; let i = index">
-          <div *ngIf="i % 3 == 0" class="row">
-            <div class="col-center-block col-md-4"><app-post-item [post]="posts[i]"></app-post-item></div>
-            <div class="col-center-block col-md-4"><app-post-item *ngIf="i + 1 < posts.length" [post]="posts[i+1]"></app-post-item></div>
-            <div class="col-center-block col-md-4"><app-post-item *ngIf="i + 2 < posts.length" [post]="posts[i+2]"></app-post-item></div>
-          </div>
+        <div *ngFor="let post of posts | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;" class="gutters col" style="max-width: 40rem;">
+            <div class="col-center-block"><app-post-item [post]="post"></app-post-item></div>
         </div>
-      </div>
-    </div>
 
+      </div>
+      <nav aria-label="Page navigation example m-auto">
+        <ul class="pagination justify-content-center">
+          <li *ngIf="pageNum>1" class="page-item"><a class="page-link" (click)="PrePage()">Previous</a></li>
+          <li *ngFor="let i of pagelist" [ngClass]="{active:(i+1)==pageNum}" class="page-item">
+            <a *ngIf="showPage(i)" class="page-link" (click)="ToPage(i+1)">{{i+1}}</a>
+          </li>
+          <li *ngIf="pageNum<MaxPageSize-1" class="page-item"><a class="page-link" (click)="NextPage()">Next</a></li>
+        </ul>
+      </nav>
+    </div>
 </div>

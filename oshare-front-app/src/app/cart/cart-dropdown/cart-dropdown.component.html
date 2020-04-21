@@ -1,26 +1,34 @@
 <div class="container">
   <div class="shopping-cart">
 
-    <ul class="shopping-cart-items">
-        <li *ngFor="let productCount of cart.products" class="list-group-item">
-            <img [src]=productCount.product.ProductImage class="rounded" style="cursor: pointer; object-fit: scale-down;" height="60" width="60" (click)="toDetail(productCount.product.index)">
-            <span class="item-name">{{productCount.product.title}}</span>
-            <span class="item-price">{{productCount.product.Price | currency: 'USD': true}}</span>
-            <span class="item-quantity">Quantity: {{productCount.count}}</span>
-        </li>
-    </ul>
+    <div *ngIf="cart.products.length==0">
+        <h3>Your cart is empty!</h3>
+        <a href="/search" class="btn btn-outline-secondary">Start Shopping!!</a>
+    </div>
 
-    <div class="row">
-      <div class="col align-self-center">
-        <div class="shopping-cart-total">
-          <span class="lighter-text">Total:</span>
-          <span class="main-color-text">{{cart.subtotal  | currency: 'USD': true }}</span>
+    <div *ngIf="cart.products.length!=0">
+
+      <ul class="shopping-cart-items">
+          <li *ngFor="let productCount of cart.products" class="list-group-item">
+              <img [src]=productCount.product.ProductImage class="rounded" style="cursor: pointer; object-fit: scale-down;" height="60" width="60" (click)="toDetail(productCount.product.index)">
+              <span class="item-name">{{productCount.product.title}}</span>
+              <span class="item-price">{{productCount.product.Price | currency: 'USD': true}}</span>
+              <span class="item-quantity">Quantity: {{productCount.count}}</span>
+          </li>
+      </ul>
+
+      <div class="row">
+        <div class="col align-self-center">
+          <div class="shopping-cart-total">
+            <span class="lighter-text">Total:</span>
+            <span class="main-color-text">{{cart.subtotal  | currency: 'USD': true }}</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col align-self-center">
-        <a href="/checkout" class="btn btn-outline-secondary">Checkout</a> 
+      <div class="row">
+        <div class="col align-self-center">
+          <a href="/checkout" class="btn btn-outline-secondary">Checkout</a> 
+        </div>
       </div>
     </div>
 

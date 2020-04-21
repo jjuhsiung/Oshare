@@ -28,7 +28,7 @@ export class PostService {
     httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
     constructor(private http: HttpClient, private postImageService: PostImageService) {
-        console.log("post-service");
+        //console.log("post-service");
         this.mySubscription = interval(10000).subscribe((x => {
           this.constructPostList();
         }))
@@ -45,8 +45,8 @@ export class PostService {
     }
 
     updatePostProduct(base:string, productData): Observable<any> {
-      console.log("Adding related product to post");
-      console.log(base + 'add_post_products/');
+    //  console.log("Adding related product to post");
+    //  console.log(base + 'add_post_products/');
       return this.http.post<any>(base + 'add_post_products/', {'products':productData});
     }
 
@@ -71,12 +71,12 @@ export class PostService {
     }
 
     constructPostList() {
-        console.log("Refreshing Post List");
+        //console.log("Refreshing Post List");
         //this.post_list.length = 0;
         this.getAllPosts().subscribe(
             data => {
-                console.log(data);
-                console.log("Yinuod constructPostList invoked");
+                //console.log(data);
+                //console.log("Yinuod constructPostList invoked");
                 for (let entry of data) {
                     let post = null;
                     let id = entry['id'];
@@ -89,7 +89,7 @@ export class PostService {
                       post_idx = this.post_list.map(function(e) {
                         return e.postId;
                       }).indexOf(id);
-                      console.log("already exist, index is" + post_idx);
+                    //  console.log("already exist, index is" + post_idx);
                     }
 
                     let puser: User = null;
@@ -103,7 +103,7 @@ export class PostService {
                     );
                     let image_path = 'https://i.pinimg.com/280x280_RS/78/28/3c/78283c0ec328cd2a2ae06366a610dbbc.jpg';
                     if (entry['images'].length !== 0) {
-                        console.log(entry['images'][0]['image']);
+                    //    console.log(entry['images'][0]['image']);
                         image_path = entry['images'][0]['image'];
                     }
                     let postDate = new Date(entry['date']);
@@ -153,7 +153,7 @@ export class PostService {
                       this.post_list.push(post);
                     }
                 }
-                console.log(this.post_list);
+                // console.log(this.post_list);
             },
             error => {
                 console.log(error);
