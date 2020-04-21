@@ -76,9 +76,10 @@
                     <div class="col-lg-10">
                         <input
                             formControlName="email"
-                            type="text" 
+                            type="email" 
                             class="form-control form-control-lg" 
-                            id="email">
+                            id="email"
+                            required>
                         <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
                             <div *ngIf="email.errors.required">Email is required.</div>
                             <div *ngIf="email.errors?.email">Email is invalid.</div>
