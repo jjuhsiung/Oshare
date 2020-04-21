@@ -54,7 +54,6 @@
 
 
   </nav>
-  <!--  <div class="container" style="max-height: 30px" >-->
   <nav style="margin-top: 0px;margin-bottom:0px;height:60%;font-size: 15px;" id="navbarTab" class="navbar-expand-sm navbar py-0 navbar-light bg-light">
     <!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
     <!--      <span class="navbar-toggler-icon"></span>-->
@@ -66,16 +65,16 @@
             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Shop </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li style="max-height: 30px;font-size: 13px" *ngFor="let type of this.typeList" class="dropdown-submenu">
-                <div class="dropdown-item dropdown-toggle" (click)="DoSearchType(type)">{{type.name}}</div>
-                <ul *ngIf="type.category" class="list-unstyled col-md-4 dropdown-menu">
-                  <li class="dropdown-item" style="font-size: 13px" *ngFor="let subtype of type.category" (click)="DoSearchCategory(type,subtype)">{{subtype}}</li>
-                  <!--                <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 1</a>-->
-                  <!--                  <ul class="dropdown-menu">-->
-                  <!--                    <li><a class="dropdown-item" href="#">Subsubmenu1</a></li>-->
-                  <!--                    <li><a class="dropdown-item" href="#">Subsubmenu1</a></li>-->
-                  <!--                  </ul>-->
-                  <!--                </li>-->
-                </ul>
+                <div *ngIf="type.category!=null; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                  <div class="dropdown-item dropdown-toggle" style="cursor:pointer" (click)="DoSearchType(type)">{{type.name}}</div>
+                  <ul class="list-unstyled col-md-4 dropdown-menu">
+                    <li class="dropdown-item" style="font-size: 13px;cursor: pointer" *ngFor="let subtype of type.category" (click)="DoSearchCategory(type,subtype)">{{subtype}}</li>
+                  </ul>
+                </ng-template>
+                <ng-template #elseBlock>
+                  <div class="dropdown-item" style="cursor:pointer" (click)="DoSearchType(type)">{{type.name}}</div>
+                </ng-template>
               </li>
             </ul>
           </li>
@@ -85,7 +84,7 @@
             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Brand </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="max-height: 400px;overflow-y: auto" >
               <li style="max-height: 30px;font-size: 13px" *ngFor="let brand of this.brandlist" class="dropdown-submenu">
-                <div class="dropdown-item" (click)="DoSearchBrand(brand)">{{brand}}</div>
+                <div class="dropdown-item" style="cursor: pointer" (click)="DoSearchBrand(brand)">{{capitalizeFirstLetter(brand)}}</div>
               </li>
             </ul>
           </li>

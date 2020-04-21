@@ -35,10 +35,10 @@ export class HeaderComponent implements OnInit {
     {name: 'Eyeliner', value: 'eyeliner', category: ['Liquid', 'Pencil', 'Gel', 'Cream']},
     {name: 'Eyeshadow', value: 'eyeshadow', category: ['Palette', 'Pencil', 'Cream']}, // TODO: blank field
     {name: 'Foundation', value: 'foundation', category: ['Liquid', 'Contour', 'Bb cc', 'Concealer', 'Cream', 'Mineral', 'Powder', 'Highlighter']},
-    {name: 'Lip liner', value: 'lip liner', category: ['Pencil']},
+    {name: 'Lip liner', value: 'lip_liner', category: ['Pencil']},
     {name: 'Lipstick', value: 'lipstick', category: ['Lipstick', 'Lip gloss', 'Liquid', 'Lip stain']},
     {name: 'Mascara', value: 'mascara', category: null},
-    {name: 'Nail polish', value: 'nail polish', category: null}];
+    {name: 'Nail polish', value: 'nail_polish', category: null}];
   brandlist: string[] = ['almay', 'alva', 'anna sui', 'annabelle', 'benefit', 'boosh',
     'burt\'s bees', 'butter london', 'c\'est moi', 'cargo cosmetics', 'china glaze', 'clinique',
     'coastal classic creation', 'colourpop', 'covergirl', 'dalish', 'deciem', 'dior', 'dr. hauschka',
@@ -48,19 +48,6 @@ export class HeaderComponent implements OnInit {
     'pure anada', 'rejuva minerals', 'revlon', 'sally b\'s skin yummies', 'salon perfect', 'sante',
     'sinful colours', 'smashbox', 'stila', 'suncoat', 'w3llpeople', 'wet n wild', 'zorah',
     'zorah biocosmetiques'];
-
-   // persons = [
-   //      {name: 'John',
-   //          age: '35'},
-   //      {name: 'Peter',
-   //          age: '14'},
-   //      {name: 'Amanda',
-   //          age: '23'},
-   //      {name: 'Joseph',
-   //          age: '17'},
-   //      {name: 'Juliet',
-   //          age: '2'}
-   //  ];
 
   ngOnInit(){
     this.loginForm = this.formBuilder.group({
@@ -160,7 +147,7 @@ export class HeaderComponent implements OnInit {
     this.query.ProductType = type.value;
     console.log(type.value);
     console.log(category);
-    this.query.ProductCategory = category.toLowerCase();
+    this.query.ProductCategory = category.toLowerCase().split(' ').join('_');;
     this.query.input = '';
     console.log(this.query);
     this.productService.getProductsInfo(this.query);
@@ -171,13 +158,15 @@ export class HeaderComponent implements OnInit {
     this.query.ProductTags = '';
     this.query.brand = brand;
     this.query.ProductType = '';
-    // console.log(type.value);
-    // console.log(category);
     this.query.ProductCategory = '';
     this.query.input = '';
     console.log(this.query);
     this.productService.getProductsInfo(this.query);
     this.router.navigate(['/search-result'], {queryParams: this.query});
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }
 
