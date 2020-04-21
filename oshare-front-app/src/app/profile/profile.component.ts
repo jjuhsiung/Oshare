@@ -27,12 +27,12 @@ export class ProfileComponent implements OnInit {
   constructor(private formbuilder: FormBuilder, private router: Router,
     private userService: UserService, private profileService: ProfileService) {
     this.form = this.formbuilder.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      username: ['', Validators.required],
+      first_name: ['', [Validators.required, Validators.maxLength(30)]],
+      last_name: ['', [Validators.required, Validators.maxLength(150)]],
+      username: ['', [Validators.required, Validators.maxLength(150)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
-      address: ['', Validators.required],
+      address: ['', [Validators.required, Validators.maxLength(60)]],
     })
   }
   get first_name() {

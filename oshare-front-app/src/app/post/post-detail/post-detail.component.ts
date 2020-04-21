@@ -1,16 +1,15 @@
 import { CommentService } from './../../_services/comment.service';
 import { UserService } from './../../_services/user.service';
 import { PostService } from './../../_services/post.service';
-import { Component, OnInit, Input, SystemJsNgModuleLoader } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit} from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Comment } from 'src/app/_models/comment.model';
-import { Product } from 'src/app/_models/product.model';
 import { Post } from 'src/app/_models/post.model';
 import { User } from 'src/app/_models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Profile } from 'src/app/_models/profile.model';
 import { ProfileService } from 'src/app/_services/profile.service';
 import { ProductService } from "../../_services/product.service";
+
 
 @Component({
   selector: 'app-post-detail',
@@ -52,13 +51,17 @@ export class PostDetailComponent implements OnInit {
     this.post = new Post(this.postId, this.user)
 
     this.commentForm = this.formBuilder.group({
-      newComment: ''
+      newComment: ['', [Validators.required, Validators.maxLength(300)]]
     });
 
     this.likesNum = this.likesNum;
 
   }
 
+
+  get newComment() {
+    return this.commentForm.get('newComment');
+  }
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(
@@ -136,25 +139,43 @@ export class PostDetailComponent implements OnInit {
     );
   }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
   onCommentSubmit() {
+
+    if(localStorage.getItem('userId')==null){
+      alert('Required Login.');
+    }
+
+    if(!this.commentForm.valid){
+      this.validateAllFormFields(this.commentForm);
+      return;
+    }
+
     const formdata = new FormData();
     formdata.append('user', this.userService.getUserURLById(localStorage.getItem('userId')));
     formdata.append('post', this.postService.getPostUrlById(this.postId));
     var comment = this.commentForm.get('newComment').value
     formdata.append('text', comment);
-    if (comment == null || comment.trim(' ') == '') {
-      alert("Please add a valid comment!")
-      this.commentForm.reset();
-      return;
-    }
+
     this.commentService.writeComment(formdata).subscribe(
       response => {
+        alert("Comment submit!")
+        window.location.reload();
       }, error => {
         console.log(error);
       }
     );
-    alert("Comment submit!")
-    window.location.reload();
+
   }
 
   toDetail(id): void {

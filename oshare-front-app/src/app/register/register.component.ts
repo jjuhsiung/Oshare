@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import PlaceResult = google.maps.places.PlaceResult;
-import {baseurl} from "../MockComments";
+import { baseurl } from "../MockComments";
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,7 @@ import {baseurl} from "../MockComments";
   providers: [UserService],
 })
 export class RegisterComponent implements OnInit {
-
+  message: any;
   form;
   baseurl = baseurl;
   // baseurl = 'http://127.0.0.1:8000';
@@ -82,13 +82,13 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private http: HttpClient) {
     this.form = fb.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.maxLength(150)]],
       password: ['', Validators.required],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      first_name: ['', [Validators.required, Validators.maxLength(30)]],
+      last_name: ['', [Validators.required, Validators.maxLength(150)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
-      address: ['', Validators.required],
+      address: ['', [Validators.required, Validators.maxLength(60)]],
     });
   }
 
@@ -129,19 +129,19 @@ export class RegisterComponent implements OnInit {
                 }
               )
             }, error => {
-              console.log(error);
+              this.message = error;
+              console.log(this.message)
             }
           )
-
         },
         error => {
-          console.log(error);
+          this.message = error;
+          console.log(this.message);
         }
       );
     } else {
       this.validateAllFormFields(this.form);
     }
-
 
   }
   validateAllFormFields(formGroup: FormGroup) {
@@ -154,7 +154,7 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-  
+
   formChange(result: PlaceResult) {
 
     var address;

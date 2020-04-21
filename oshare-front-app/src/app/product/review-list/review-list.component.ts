@@ -56,7 +56,7 @@ export class ReviewListComponent implements OnInit {
 
   checkImg(img): string{
     console.log(img);
-    if(img!="")
+    if(img!=null)
     {
       return img;
     }
