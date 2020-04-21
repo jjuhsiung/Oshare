@@ -9,7 +9,7 @@
                     <img class="rounded float-left" alt="profile-image"
                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" src="{{profile_picture}}">&nbsp;&nbsp;
                     <span> {{post.user.firstName}} {{post.user.lastName}}</span>&nbsp;&nbsp;
-                    <span style="font-size: 12px;"> {{post.postDate | date:'yyyy-MM-dd-mm:ss'}} </span><br>
+                    <span style="font-size: 12px;"> {{post.postDate | date:'yyyy-MM-hh:mm'}} </span><br>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <ul *ngFor="let cmt of post.comments" style="margin: 5px; font-size: 18px;">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{cmt.commentText}} </span>
                 <span class="lead">{{cmt.user.firstName}} {{cmt.user.lastName}}
-                    at {{cmt.commentTime | date:'yyyy-MM-dd-mm:ss'}}</span>
+                    at {{cmt.commentTime | date:'yyyy-MM-dd-hh:mm'}}</span>
             </ul>
         </div><br><br>
         <h3 class="page-header" for="newComment">Leave Comment:</h3>
