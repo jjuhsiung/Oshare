@@ -44,11 +44,6 @@ export class ProductListComponent implements OnInit {
   updateData(data: object): void {
     this.Products = data['response'];
     this.productNum = this.Products.length;
-    // for(let product_data of data['response'])
-    // {
-    //   var product = new Product(product_data.name,product_data.rating, product_data.price, "", product_data.img_link, product_data.id);
-    //   this.Products.push(product);
-    // }
     console.log(this.Products);
     this.MaxPageSize = this.Products.length/this.pageSize + 1;
     this.pagelist = [];
@@ -108,7 +103,7 @@ export class ProductListComponent implements OnInit {
   }
 
   SortbySelling(): void {
-    this.Products.sort((a,b)=>parseInt(b['bought_num'])-parseFloat(a['Bought_num']));
+    this.Products.sort((a,b)=>parseInt(b['bought_num'])-parseFloat(a['bought_num']));
   }
 
   showPage(i): boolean {
@@ -117,4 +112,25 @@ export class ProductListComponent implements OnInit {
     return false;
   }
 
+  imageExists(url, callback) {
+    var img = new Image();
+    img.src = url;
+    img.onload = function() { callback=true;};
+    img.onerror = function() { callback=false; };
+  }
+
+  checkImage(imageUrl, exists: boolean) {
+    exists=true;
+    console.log('RESULT: url=' + imageUrl + ', exists=' + exists);
+  }
+  // imageExists(url): boolean {
+  //   var img = new Image();
+  //   img.src = url;
+  //
+  //   if(img.onerror)
+  //     return false;
+  //   return true;
+  //   // img.onload = function() { callback(true); };
+  //   // img.onerror = function() { callback(false); };
+  // }
 }

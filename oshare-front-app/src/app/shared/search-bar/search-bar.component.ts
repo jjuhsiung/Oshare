@@ -79,4 +79,10 @@ export class SearchBarComponent implements OnInit {
     console.log('current url is /search');
     this.router.navigate(['/search-result'], {queryParams: this.query});
   }
+
+  // onClick()
+  // {
+  //   this.placeHolder='Search';
+  //   console.log(this.placeHolder);
+  // }
 }
