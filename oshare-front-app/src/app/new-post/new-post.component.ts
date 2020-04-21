@@ -34,7 +34,7 @@ export class NewPostComponent implements OnInit {
   MaxPageSize = 1;
   pagelist = [];
 
-  input = '';
+  textInput = '';
   brand = '';
   price = '';
   ProductType = '';
@@ -51,6 +51,7 @@ export class NewPostComponent implements OnInit {
 'zorah biocosmetiques'];
 
   checked_status: boolean[] = [];
+  productName = new FormControl('');
 
   constructor(
     fb: FormBuilder,
@@ -124,25 +125,15 @@ export class NewPostComponent implements OnInit {
 
   DoSearch(): void {
     // this.query = new ProductQuery();
-    console.log(this.brand);
-    console.log(this.input);
+    // console.log(this.brand);
+    // console.log(this.input);
     this.query.ProductTags = '';
-    this.query.ProductType = this.ProductType;
-    this.query.brand = this.brand;
+    this.query.ProductType = '';
+    this.query.brand = '';
     this.query.ProductCategory = '';
-    this.query.input = this.input;
-    if (this.price !== '') {
-      if (this.price === 'high') {
-        this.query.PriceGreaterThan = 30;
-        this.query.PriceLessThan = 0;
-      } else if (this.price === 'medium') {
-        this.query.PriceGreaterThan = 10;
-        this.query.PriceLessThan = 30;
-      } else if (this.price === 'low') {
-        this.query.PriceLessThan = 10;
-        this.query.PriceGreaterThan = 0;
-      }
-    }
+    console.log(this.productName.value);
+    this.query.input = this.productName.value;
+    console.log(this.query);
     this.productService.getProductsInfo(this.query);
     this.to_result = false;
     if (location.pathname != '/new-post') {
