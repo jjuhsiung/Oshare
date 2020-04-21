@@ -33,7 +33,8 @@
                                     class="form-control form-control-lg"
                                     id="shipping_firstname">
                                 <div *ngIf="firstname.touched && firstname.invalid" class="alert alert-danger">
-                                    <div *ngIf="firstname.errors.required">First name is required.</div>
+                                    <div *ngIf="firstname.errors.required">Firstname is required.</div>
+                                    <div *ngIf="firstname.errors.maxlength">Firstname length should be less than 30.</div>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +47,10 @@
                                     type="text"
                                     class="form-control"
                                     id="shipping_lastname">
-                                <div *ngIf="lastname.touched && lastname.invalid" class="alert alert-danger">Last name is required.</div>
+                                <div *ngIf="lastname.touched && lastname.invalid" class="alert alert-danger">
+                                    <div *ngIf="lastname.errors.required">Lastname is required.</div>
+                                    <div *ngIf="lastname.errors.maxlength">Lastname length should be less than 100.</div>
+                                </div>
                             </div>
                         </div>
 

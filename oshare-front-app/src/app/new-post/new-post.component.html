@@ -20,6 +20,7 @@
                 id="title">
               <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
                 <div *ngIf="title.errors.required">Title is required.</div>
+                <div *ngIf="title.errors.maxlength">Title length should less than 200.</div>
               </div>
             </div>
           </div>
@@ -33,8 +34,11 @@
                     class="form-control"
                     id="text"
                     rows="15"></textarea>
-              <div *ngIf="text.touched && text.invalid" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
-              <div *ngIf="text.length > 2000" class="alert alert-danger" style="font-size: 150%;">Content is required.</div>
+              <div *ngIf="text.touched && text.invalid" class="alert alert-danger">
+                <div *ngIf="text.errors.required">Content is required.</div>
+                <div *ngIf="text.errors.maxlength">Content length should less than 5000.</div>
+              </div>
+              
             </div>
           </div>
 

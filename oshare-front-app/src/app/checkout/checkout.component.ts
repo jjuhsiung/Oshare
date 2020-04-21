@@ -38,10 +38,10 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.form = fb.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      firstname: ['',  [Validators.required, Validators.maxLength(30)]],
+      lastname: ['',  [Validators.required, Validators.maxLength(100)]],
       phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
-      address: ['', Validators.required]
+      address: ['',  [Validators.required, Validators.maxLength(100)]]
     });
 
     this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
