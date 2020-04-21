@@ -23,19 +23,22 @@
         <ng-template #thenBlock4><span class="fa fa-star checked" style="font-size: xx-large" (mouseover)="rating=4"></span></ng-template>
         <ng-template #elseBlock4><span class="fa fa-star" style="font-size: xx-large" (mouseover)="rating=4"></span></ng-template>
         <div *ngIf="rating>=5; then thenBlock5 else elseBlock5"></div>
-        <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: xx-large" (mouseover)="rating=5"></span></ng-template><br><br>
-        <ng-template #elseBlock5><span class="fa fa-star" style="font-size: xx-large" (mouseover)="rating=5"></span></ng-template><br><br>
-        <div class="form-group">
+        <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: xx-large" (mouseover)="rating=5"></span></ng-template>
+        <ng-template #elseBlock5><span class="fa fa-star" style="font-size: xx-large" (mouseover)="rating=5"></span></ng-template>
+        <div *ngIf="submitted && rating==null" class="alert alert-danger">
+          Rating is required.
+        </div>
+        <div class="form-group" style="margin-top: 30px">
           <label for="headline" class="label-text" style="font-size: 15px">Headline (optional)</label>
           <textarea formControlName="headline" class="form-control" rows="2" [ngClass]="{ 'is-invalid': submitted && f.headline.errors }"></textarea>
-<!--          <div *ngIf="submitted && f.headline.errors" class="invalid-feedback">-->
-<!--            <div *ngIf="f.headline.errors.required">headline is required</div>-->
-<!--          </div>-->
+          <!--          <div *ngIf="submitted && f.headline.errors" class="invalid-feedback">-->
+          <!--            <div *ngIf="f.headline.errors.required">headline is required</div>-->
+          <!--          </div>-->
         </div>
         <div class="form-group">
           <label for="review" class="label-text" style="font-size: 15px">Review</label>
-<!--          <input type="text" formControlName="review" class="form-control"-->
-<!--                 [ngClass]="{ 'is-invalid': submitted && f.review.errors }" />-->
+          <!--          <input type="text" formControlName="review" class="form-control"-->
+          <!--                 [ngClass]="{ 'is-invalid': submitted && f.review.errors }" />-->
           <textarea
             formControlName="review"
             class="form-control"
@@ -43,21 +46,21 @@
             [ngClass]="{ 'is-invalid': submitted && f.review.errors }"
             required
           ></textarea>
-          <div *ngIf="submitted && f.review.errors" class="invalid-feedback">
-            <div *ngIf="f.review.errors.required">review is required</div>
-          </div>
+          <!--          <div *ngIf="submitted && f.review.errors" class="invalid-feedback">-->
+          <!--            <div *ngIf="f.review.errors.required">review is required</div>-->
+          <!--          </div>-->
           <div *ngIf="f.review.touched && f.review.invalid" class="alert alert-danger">
-                <div *ngIf="f.review.errors.required">Review is required.</div>
-            </div>
+            <div *ngIf="f.review.errors.required">Review is required.</div>
+          </div>
         </div>
-<!--        <div class="form-group">-->
-<!--          <label for="rating" class="label-text">review</label>-->
-<!--          <input type="number" formControlName="rating" class="form-control" min="0" max="5"-->
-<!--                 [ngClass]="{ 'is-invalid': submitted && f.rating.errors }" />-->
-<!--          <div *ngIf="submitted && f.rating.errors" class="invalid-feedback">-->
-<!--            <div *ngIf="f.rating.errors.required">rating is required</div>-->
-<!--          </div>-->
-<!--        </div>-->
+        <!--        <div class="form-group">-->
+        <!--          <label for="rating" class="label-text">review</label>-->
+        <!--          <input type="number" formControlName="rating" class="form-control" min="0" max="5"-->
+        <!--                 [ngClass]="{ 'is-invalid': submitted && f.rating.errors }" />-->
+        <!--          <div *ngIf="submitted && f.rating.errors" class="invalid-feedback">-->
+        <!--            <div *ngIf="f.rating.errors.required">rating is required</div>-->
+        <!--          </div>-->
+        <!--        </div>-->
         <div class="form-group" style="margin-bottom: 20px">
           <button style="font-size: 15px;" class="btn btn-dark h3" id="submitBtn" data-toggle="modal" data-target="#exampleModal" type="submit">Add Review</button>
         </div>
@@ -72,7 +75,7 @@
         <div *ngIf="submitSuccess; then thenBlock6 else elseBlock6"></div>
         <ng-template #thenBlock6><h2 class="modal-title" id="exampleModalLabel" style="margin-top: 15px;margin-bottom: 15px">Thank You</h2></ng-template>
         <ng-template #elseBlock6><h2 class="modal-title" id="exampleModalLabel" style="margin-top: 15px;margin-bottom: 15px">Oops...</h2></ng-template>
-<!--        <h2 class="modal-title" id="exampleModalLabel" style="margin-top: 15px;margin-bottom: 15px">Thank You</h2>-->
+        <!--        <h2 class="modal-title" id="exampleModalLabel" style="margin-top: 15px;margin-bottom: 15px">Thank You</h2>-->
       </div>
       <div class="modal-body h4 justify-content-center center-block" style="margin-top: 30px;margin-bottom: 30px">
         <div *ngIf="submitSuccess; then thenBlock7 else elseBlock7"></div>
