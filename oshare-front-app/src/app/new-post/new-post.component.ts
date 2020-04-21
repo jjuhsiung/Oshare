@@ -2,7 +2,7 @@ import { PostImageService } from './../_services/post-image.service';
 import { UserService } from './../_services/user.service';
 import { Router } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild  } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { PostService } from '../_services/post.service';
 import { ProductService } from '../_services/product.service';
 import { ProductListService } from '../_services/product-list.service';
@@ -64,6 +64,7 @@ export class NewPostComponent implements OnInit {
     this.form = fb.group({
       title: ['', Validators.required],
       text: ['', Validators.required],
+      upload: ['', Validators.required]
     });
 
     console.log("init new post page");
@@ -92,6 +93,10 @@ export class NewPostComponent implements OnInit {
 
   get text(){
     return this.form.get('text');
+  }
+
+  get upload(){
+    return this.form.get('upload');
   }
 
   ngOnInit(): void {
@@ -179,7 +184,23 @@ export class NewPostComponent implements OnInit {
     this.file = <File[]>event.target.files;
   }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+  
   createPost(){
+
+    if(!this.form.valid){
+      this.validateAllFormFields(this.form);
+      return;
+    }
     this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
 
     const formData = new FormData();
