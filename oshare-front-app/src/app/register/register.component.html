@@ -12,15 +12,14 @@
             <form [formGroup]="form" (ngSubmit)="registerUser()" class="form-horizontal">
 
                 <div class="form-group">
-                    <label for="username" class="col-form-label col-lg-2"><h5>Username:</h5></label>
+                    <label for="username" class="col-form-label col-lg-2">
+                        <h5>Username:</h5>
+                    </label>
                     <div class="col-lg-10">
-                        <input
-                            formControlName="username"
-                            type="text"
-                            class="form-control form-control-lg"
-                            id="username"
+                        <input formControlName="username" type="text" class="form-control form-control-lg" id="username"
                             required UniqueUsername>
-                        <div *ngIf="(username.touched || username.dirty) && username.invalid" class="alert alert-danger">
+                        <div *ngIf="(username.touched || username.dirty) && username.invalid"
+                            class="alert alert-danger">
                             <div *ngIf="username.errors.required">Username is required.</div>
                             <div *ngIf="username.errors['UniqueUsername']">Username already exist.</div>
                             <div *ngIf="username.errors.maxlength">Username length should be less than 150.</div>
@@ -29,24 +28,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="col-form-label col-lg-2"><h5>Password:</h5></label>
+                    <label for="password" class="col-form-label col-lg-2">
+                        <h5>Password:</h5>
+                    </label>
                     <div class="col-lg-10">
-                        <input
-                            formControlName="password" 
-                            type="password"
-                            class="form-control form-control-lg"
+                        <input formControlName="password" type="password" class="form-control form-control-lg"
                             id="password">
-                        <div *ngIf="password.touched && password.invalid" class="alert alert-danger">Password is required.</div>
+                        <div *ngIf="password.touched && password.invalid" class="alert alert-danger">Password is
+                            required.</div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="first_name" class="col-form-label col-lg-2"><h5>First Name:</h5></label>
                     <div class="col-lg-10">
-                        <input
-                            formControlName="first_name"
-                            type="text"
-                            class="form-control form-control-lg" 
+                        <input formControlName="first_name" type="text" class="form-control form-control-lg"
                             id="first_name">
                         <div *ngIf="first_name.touched && first_name.invalid" class="alert alert-danger">
                             <div *ngIf="first_name.errors.required">First name is required.</div>
@@ -58,10 +54,7 @@
                 <div class="form-group">
                     <label for="last_name" class="col-form-label col-lg-2"><h5>Last Name:</h5></label>
                     <div class="col-lg-10">
-                        <input 
-                            formControlName="last_name"
-                            type="text" 
-                            class="form-control form-control-lg" 
+                        <input formControlName="last_name" type="text" class="form-control form-control-lg"
                             id="last_name">
                         <div *ngIf="last_name.touched && last_name.invalid" class="alert alert-danger">
                             <div *ngIf="last_name.errors.required">Last name is required.</div>
@@ -72,7 +65,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="col-form-label col-lg-2"><h5>Email:</h5></label>
+                    <label for="email" class="col-form-label col-lg-2">
+                        <h5>Email:</h5>
+                    </label>
                     <div class="col-lg-10">
                         <input
                             formControlName="email"
@@ -86,15 +81,13 @@
                         </div>
                     </div>
                 </div>
-
+                <span *ngIf="message" style="color: red;">{{message.error.email}}</span>
                 <div class="form-group">
-                    <label for="phone" class="col-form-label col-lg-2"><h5>Phone:</h5></label>
+                    <label for="phone" class="col-form-label col-lg-2">
+                        <h5>Phone:</h5>
+                    </label>
                     <div class="col-lg-10">
-                        <input
-                            formControlName="phone"
-                            type="text"
-                            class="form-control form-control-lg"
-                            id="phone"
+                        <input formControlName="phone" type="text" class="form-control form-control-lg" id="phone"
                             placeholder="Please enter 10 digit phone number">
                         <div *ngIf="phone.touched && phone.invalid" class="alert alert-danger">
                             <div *ngIf="phone.errors.required">Phone is required.</div>
@@ -102,23 +95,24 @@
                         </div>
                     </div>
                 </div>
-
+                <span *ngIf="message" style="color: red;">{{message.error.phone}}</span>
                 <div class="form-group">
-                    <label for="address" class="col-form-label col-lg-2"><h5>Address:</h5></label>
+                    <label for="address" class="col-form-label col-lg-2">
+                        <h5>Address:</h5>
+                    </label>
                     <div class="col-lg-10">
-                    <div style="font-size: 12px">
-                        <mat-google-maps-autocomplete country="us"
-                                                            type="address"
-                                                            appearance="outline"
-                                                            (onChange)="formChange($event)"
-                                                            addressLabelText=""
-                                                            (onAutocompleteSelected)="formChange($event)">
-                        ></mat-google-maps-autocomplete>
-                    </div>
+                        <div style="font-size: 12px">
+                            <mat-google-maps-autocomplete country="us" type="address" appearance="outline"
+                                (onChange)="formChange($event)" addressLabelText=""
+                                (onAutocompleteSelected)="formChange($event)">
+                                ></mat-google-maps-autocomplete>
+                        </div>
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-dark"><h5>Register</h5></button>
+                <div *ngIf="message" style="color: red;">{{message.error.address}}</div><br>
+                <button type="submit" class="btn btn-dark">
+                    <h5>Register</h5>
+                </button>
 
             </form>
 
