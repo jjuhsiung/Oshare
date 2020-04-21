@@ -368,7 +368,7 @@ class ProductViewSet(viewsets.ModelViewSet):
                 for product in result:  # TODO:any better ways?
                     match_dict[product]+=1
             queryMap={k: v for k, v in sorted(match_dict.items(), key=lambda item: item[1], reverse=True) if v!=0}
-            # queryset = tempset
+            print(queryMap)
             queryset = queryMap.keys()
         print("queryset in the search product", len(queryset))
         serializer = ProductSerializer(
