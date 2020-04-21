@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
       first_name: ['', [Validators.required, Validators.maxLength(30)]],
       last_name: ['', [Validators.required, Validators.maxLength(150)]],
       username: ['', [Validators.required, Validators.maxLength(150)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g)]],
       phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       address: ['', [Validators.required, Validators.maxLength(60)]],
     })
