@@ -420,9 +420,9 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
     #password = input("Type your password and press enter:")
     message_plain = """\
     Subject: Hi there
-    This message is sent from Python."""
+    This message is sent from Oshare."""
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    message["Subject"] = "Oshare Membership"
     message["From"] = sender_email
     message["To"] = receiver_email
 
@@ -435,7 +435,7 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
       <body>
         <p>Hi,<br>
            How are you?<br>
-           <a href="http://www.realpython.com">O'share</a>
+           <a href="http://osharecosmetics.herokuapp.com/">O'share</a>
            has many great products.
         </p>
       </body>
