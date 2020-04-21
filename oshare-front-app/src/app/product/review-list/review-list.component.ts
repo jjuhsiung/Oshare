@@ -18,7 +18,7 @@ export class ReviewListComponent implements OnInit {
   default_image = 'https://cdn.clipart.email/b40fc2605be10cd3ea8f2e5e1b5db9f4_profile-clipart-default-user-9-market-access-transformation_960-960.jpeg';
   // Reviews = REVIEWS;
   constructor(private api: ProductService, private reviewapi: ReviewService, private userService: UserService, private route: ActivatedRoute) {
-    // this.id = this.api.currentproduct;
+    console.log(this.route);
     this.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
     reviewapi.reviewsupdate.subscribe(data => {
       this.Reviews = [];
@@ -29,7 +29,7 @@ export class ReviewListComponent implements OnInit {
         };
         this.userService.getUserObjectByURL(review.review.user).subscribe(
           userdata => {
-            console.log(userdata.profile.profile_picture);
+            // console.log(userdata.profile.profile_picture);
             review.user.firstName = userdata.first_name;
             review.user.lastName = userdata.last_name;
             review.user.username = userdata.username;
@@ -50,7 +50,7 @@ export class ReviewListComponent implements OnInit {
   }
 
   checkReview(reviews): number {
-    console.log(reviews);
+    // console.log(reviews);
     return reviews.length;
   }
 

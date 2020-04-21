@@ -15,16 +15,13 @@ export class ProductService {
 
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   productsupdate = new Subject<any>();
-  // currentproduct: any;
+  currentQuery = new Subject<any>();
 
   constructor(private http: HttpClient) {
   }
 
-  // getProductInfo(): Observable<any> {
-  //   return this.http.get(this.baseurl + '/product/', {headers: this.httpHeaders});
-  // }
-
   getProductsInfo(query: ProductQuery) {
+    this.currentQuery.next(query);
     console.log(query);
     let para = new HttpParams();
     if (query.id != 0) {
@@ -63,14 +60,6 @@ export class ProductService {
       this.productsupdate.next(data);
     });
   }
-
-  // addToCart(id){
-  //   let para = new HttpParams();
-  //   para = para.set('id', id.toString());
-  //   this.http.get<any>(this.baseurl + '/add_to_cart', {headers: this.httpHeaders, params: para}).subscribe(data => {
-  //     this.productsupdate.next(data);
-  //   });
-  // }
 
   getPoplarProduct(user_id): Observable<any>{
     console.log("getPopularProduct");

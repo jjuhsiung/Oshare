@@ -16,6 +16,7 @@ export class SideBarComponent implements OnInit {
   price = '';
   ProductType = '';
   query = new ProductQuery();
+  originQuery = new ProductQuery();
   brandlist: Array<any> = [{name: 'almay', checked: false}, {name: 'alva', checked: false},
     {name: 'anna sui', checked: false}, {name: 'annabelle', checked: false}, {name: 'benefit', checked: false},
     {name: 'boosh', checked: false}, {name: 'burt\'s bees', checked: false}, {name: 'butter london', checked: false},
@@ -52,6 +53,8 @@ export class SideBarComponent implements OnInit {
     {name: 'Lipstick', value: 'lipstick', category: ['Lipstick', 'Lip gloss', 'Liquid', 'Lip stain']},
     {name: 'Mascara', value: 'mascara', category: null},
     {name: 'Nail polish', value: 'nail polish', category: null}];
+  // brandMap = new Map();
+
 
   lowValue = 0;
   highValue = 80;
@@ -63,69 +66,73 @@ export class SideBarComponent implements OnInit {
     animate: false,
   };
   checkedArray: Array<string>;
-  showBrand: boolean;
-  showType: boolean;
+  resetBrand: boolean;
+  resetType: boolean;
   selectedType: string;
+  brandSet = new Set();
 
-  // form: FormGroup;
-  // onCheckboxChange(e) {
-  //   for (let i = 0; i < this.brandlist.length; i++) {
-  //     console.log(this.brandlist[i].checked);
-  //     this.brandlist[i].checked = false;
-  //     console.log(this.brandlist[i].checked);
-  //   }
-  //   const checkArray: FormArray = this.form.get('checkArray') as FormArray;
-  //   console.log(e.target);
-  //   if (e.target.checked) {
-  //     checkArray.push(new FormControl(e.target.value));
-  //     console.log(checkArray.controls);
-  //     // checkArray.controls.reset();
-  //   } else {
-  //     let i = 0;
-  //     checkArray.controls.forEach((item: FormControl) => {
-  //       if (item.value == e.target.value) {
-  //         checkArray.removeAt(i);
-  //         return;
-  //       }
-  //       i++;
-  //     });
-  //   }
-  // }
   constructor(private fb: FormBuilder, private api: ProductService, private router: Router, private route: ActivatedRoute) {
-    // this.form = this.fb.group({
-    //   checkArray: this.fb.array([])
-    // });
-    // console.log(this.form);
+    // for(let brand of this.brandlist)
+    // {
+    //   this.brandMap.set(brand.name,false);
+    // }
+    this.api.currentQuery.subscribe(query => {
+      console.log(query);
+      this.originQuery=query;
+      this.ngOnInit();
+    });
+  }
+  checkExist(brand,brandlist): boolean{
+    for(let item of brandlist)
+    {
+      if(brand==item)
+        return true;
+    }
+    return false;
   }
 
   ngOnInit(): void {
+    const checkBrandExistence = brandParam => this.brandlist.some( ({brand}) => name == brandParam)
     console.log('on init');
-    const map = this.route.parent.snapshot.queryParamMap;
-    const query = new ProductQuery();
-    for (const x of map.keys) {
-      query[x] = map.get(x);
-    }
-    console.log(query);
-    this.query = query;
+    let query = this.originQuery;
+    this.query = this.originQuery;
 
     this.selectedType = '';
     if(query.ProductType!="")
     {
-      this.showType=false;
+      this.selectedType=query.ProductType.split("_").join(" ");
+      this.resetType=false;
     }
     else{
-      this.showType=true;
+      this.resetType=true;
     }
-    // this.showType=true;
+    this.checkedArray=[];
     if(query.brand!="")
     {
-      this.showBrand=false;
+      let currentBrand=query.brand.split(",");
+      console.log(currentBrand);
+      for(let brand of this.brandlist)
+      {
+        if(this.checkExist(brand.name,currentBrand))
+        {
+          brand.checked=true;
+          this.checkedArray.push(brand.name);
+        }
+        else
+        {
+          brand.checked=false;
+        }
+      }
+      this.resetBrand=false;
     }
     else
     {
-      this.showBrand=true;
+      for(let brand of this.brandlist)
+      {
+        brand.checked=false;
+      }
+      this.resetBrand=true;
     }
-    this.api.getProductsInfo(query);
   }
 
   capitalizeFirstLetter(string) {
@@ -144,8 +151,9 @@ export class SideBarComponent implements OnInit {
   }
 
   DoSearch(): void {
-    // if(this.showBrand)
-    // {
+    this.query.input = this.originQuery.input;
+    this.query.ProductCategory = this.originQuery.ProductCategory;
+    this.query.ProductTags = '';
     this.checkedArray = [];
     for(let brand of this.brandlist)
     {
@@ -155,37 +163,37 @@ export class SideBarComponent implements OnInit {
       }
     }
     console.log(this.checkedArray.toString());
-    if(this.checkedArray.length>0) {
+    if(this.checkedArray.length>0|| this.resetBrand) {
       this.query.brand = this.checkedArray.toString();
     }
+    else
+    {
+      this.query.brand = this.originQuery.brand;
+    }
 
-    // }
-
-    // this.query.brand = this.form.value.checkArray.toString();
-    // this.form.reset();
     this.query.PriceGreaterThan = this.lowValue;
     this.query.PriceLessThan = this.highValue;
-    // if(this.showType)
-    // {
-    if (this.selectedType!="") {
+    if (this.selectedType!=""||this.resetType) {
       this.query.ProductType = this.selectedType;
     }
-    // }
+    else
+    {
+      this.query.ProductType = this.originQuery.ProductType;
+    }
     console.log(this.query);
     this.api.getProductsInfo(this.query);
-    // this.form.value['checkArray']=[];
     this.router.navigate(['/search-result'], {queryParams: this.query});
   }
 
   ResetFilter() {
-    // console.log("reset filter");
-    // this.form.reset();
     this.lowValue = 0;
     this.highValue = 80;
     for (let i = 0; i < this.brandlist.length; i++) {
       this.brandlist[i].checked = false;
     }
     this.selectedType="";
-    this.ngOnInit();
+    this.resetType = true;
+    this.resetBrand = true;
+    this.DoSearch();
   }
 }
