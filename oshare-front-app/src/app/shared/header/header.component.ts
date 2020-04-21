@@ -118,7 +118,11 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem('userToken', response.token);
         localStorage.setItem('userId', response.id);
         alert('Logged in successfully!');
-        window.location.reload();
+        if (this.router.url === '/register') {
+          this.router.navigate(['/search']);
+        } else {
+          location.reload();
+        }
       },
       error => {
         console.log(error);

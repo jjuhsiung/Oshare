@@ -140,10 +140,6 @@ export class RegisterComponent implements OnInit {
         }
       );
     } else {
-      if (this.form.invalid()) {
-        this.message = 'Invalid input please try again';
-        return;
-      }
       this.validateAllFormFields(this.form);
     }
 
@@ -157,7 +153,6 @@ export class RegisterComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
-    this.router.navigate(['/search']);
   }
 
   formChange(result: PlaceResult) {
