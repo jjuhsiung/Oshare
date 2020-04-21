@@ -75,11 +75,12 @@
               </div>
           </div>
         </div>
-        <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize;let i = index;">
+        <div *ngFor="let productEl of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize; let i = index;">
           <div class="custom-control custom-checkbox" style="margin-bottom: 5px;" >
             <input class="custom-control-input" type="checkbox"
                    value="" [id]="i"
                    (click)="addToSelected($event.target, productEl.id, i)"
+                   [checked]="checked_status[productEl.id]"
                    style="transform : scale(10); width:50px">
 
             <label class="custom-control-label" [for]="i" style="font-size: 150%; color:dimgray;">

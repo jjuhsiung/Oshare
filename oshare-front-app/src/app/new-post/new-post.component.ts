@@ -50,6 +50,8 @@ export class NewPostComponent implements OnInit {
 'sinful colours', 'smashbox', 'stila', 'suncoat', 'w3llpeople', 'wet n wild', 'zorah',
 'zorah biocosmetiques'];
 
+  checked_status: boolean[] = [];
+
   constructor(
     fb: FormBuilder,
     private router: Router,
@@ -67,6 +69,14 @@ export class NewPostComponent implements OnInit {
     console.log("init new post page");
     this.productService.productsupdate.subscribe(data => {
       this.Products = data['response'];
+      this.checked_status.length = 0;
+      let max_product_id = 0;
+      for (let i=0; i<this.Products.length;i++){
+        max_product_id = Math.max(max_product_id, this.Products[i]['id']);
+      }
+      for (let i=0; i<max_product_id; i++) {
+        this.checked_status.push(false);
+      }
       console.log(this.Products);
       this.MaxPageSize = this.Products.length/this.pageSize + 1;
       this.pagelist = [];
@@ -157,11 +167,13 @@ export class NewPostComponent implements OnInit {
       this.Products_selected.splice(idx, 1);
 
       el.checked = false;
+      this.checked_status[product_idx] = false;
     } else {
       console.log("Have not selected yet, add in");
       this.Products_selected.push(this.Products[list_idx]);
 
       el.checked = true;
+      this.checked_status[product_idx] = true;
     }
 
     console.log(this.Products_selected);
