@@ -9,6 +9,7 @@ from .serializers import *
 from .models import Post, Comment, PostImage, UserProfile
 from rest_framework.response import Response
 from rest_framework.decorators import action
+# import http.client
 
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from .models import Product, ProductCount, Cart
@@ -180,7 +181,7 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
     # url = "http://makeup-api.herokuapp.com/api/v1/products.json"
     # url = requote_uri(url)
     # connection = urllib.request.urlopen(url)
-    with open('./oshare/makeup.json', encoding="utf8") as f:
+    with open('./oshare/makeup-new.json', encoding="utf8") as f:
         response = json.load(f)
     # response = json.load(connection)
     # print(response)
@@ -188,9 +189,15 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
         try:
             Product.objects.get(id=x['id'])
         except Product.DoesNotExist:
-            price = 0.0
+            # conn = http.client.HTTPConnection(x['image_link'])
+            # conn.request('HEAD', path)
+            # response = conn.getresponse()
+            # conn.close()
+            # if response.status != 200:
+            #     continue
+            price = 10.0
             # print(x)
-            if x['price'] != None:
+            if x['price'] != None and float(x['price'])>0:
                 price = float(x['price'])
             rating = 0.0
             if x['rating']!=None:
@@ -216,7 +223,7 @@ def update_products_view(request: HttpRequest) -> JsonResponse:
             if x['product_colors']!=None:
                 print(x['id'])
                 for colors in x['product_colors']:
-                    print("colors",colors)
+                    # print("colors",colors)
                     new_product_color = ProductColor(
                         hex_value=colors['hex_value'],
                         color_name=colors['colour_name'],
@@ -352,12 +359,17 @@ class ProductViewSet(viewsets.ModelViewSet):
         if 'input' in keys:
             print("input", request.GET['input'])
             str = request.GET['input'].split(" ")
+            match_dict = dict.fromkeys(queryset, 0)
             tempset = Product.objects.none()
             for word in str:
                 print("word in input", word)
                 result = queryset.filter(name__contains=word)
                 tempset = result.union(tempset)
-            queryset = tempset
+                for product in result:  # TODO:any better ways?
+                    match_dict[product]+=1
+            queryMap={k: v for k, v in sorted(match_dict.items(), key=lambda item: item[1], reverse=True) if v!=0}
+            # queryset = tempset
+            queryset = queryMap.keys()
         print("queryset in the search product", len(queryset))
         serializer = ProductSerializer(
             queryset, many=True, context={'request': request})
@@ -371,7 +383,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def add_review(self, request):
-
+        # print("add reivew")
         headline = request.data.get('headline')
         review = request.data.get('review')
         product_id = int(request.data.get('product_id'))
@@ -399,7 +411,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def get_product_reviews(self, request):
         product_id = int(request.GET['product_id'])
         product = Product.objects.get(id=product_id)
-        queryset = self.queryset.filter(product=product)
+        queryset = self.queryset.filter(product=product).order_by('-date')
         serializers = ReviewSerializer(
             queryset, many=True, context={'request': request}
         )
@@ -420,9 +432,9 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
     #password = input("Type your password and press enter:")
     message_plain = """\
     Subject: Hi there
-    This message is sent from Oshare."""
+    This message is sent from Python."""
     message = MIMEMultipart("alternative")
-    message["Subject"] = "Oshare Membership"
+    message["Subject"] = "multipart test"
     message["From"] = sender_email
     message["To"] = receiver_email
 
@@ -435,7 +447,7 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
       <body>
         <p>Hi,<br>
            How are you?<br>
-           <a href="http://osharecosmetics.herokuapp.com/">O'share</a>
+           <a href="http://www.realpython.com">O'share</a>
            has many great products.
         </p>
       </body>
