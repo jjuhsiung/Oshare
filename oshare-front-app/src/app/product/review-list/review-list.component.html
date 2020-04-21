@@ -8,7 +8,7 @@
         <div  *ngFor="let review of this.Reviews" class="d-flex" style="margin-bottom: 20px">
           <div class="col-sm-2">
             <img class="row" src="{{checkImg(review.user.profileImg)}}" width="35px" height="35px" style="margin-right: 5px">
-            <div class="row" style="font-size:16px;">{{review.user.firstName}} {{review.user.lastName}}</div>
+            <div class="row" style="font-size:16px;">{{review.user.firstName}} {{review.user.lastName}} {{review.review.date}}</div>
           </div>
           <div class="col-sm-10">
             <div class="row mt-3" style="font-size:15px;">
