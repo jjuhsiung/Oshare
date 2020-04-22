@@ -72,6 +72,7 @@ export class NewPostComponent implements OnInit {
 
     console.log("init new post page");
     this.productService.productsupdate.subscribe(data => {
+      this.pageNum = 1;
       this.Products = data['response'];
       this.checked_status.length = 0;
       let max_product_id = 0;
