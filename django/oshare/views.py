@@ -9,7 +9,7 @@ from .serializers import *
 from .models import Post, Comment, PostImage, UserProfile
 from rest_framework.response import Response
 from rest_framework.decorators import action
-# import http.client
+from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from .models import Product, ProductCount, Cart
@@ -55,6 +55,7 @@ class UserUpdateViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
+    @login_required
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
@@ -62,6 +63,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
 
+    @login_required
     def partial_update(self, request, *args, **kwargs):
         kwargs['partial'] = True
         return self.update(request, *args, **kwargs)
@@ -147,6 +149,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
+    @login_required
     @action(detail=False, methods=['post'])
     def checkout(self, request):
         userId = int(request.data.get("userId"))
@@ -245,6 +248,7 @@ class ProductCountViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
+    @login_required
     @action(detail=False, methods=['post'])
     def addToCart(self, request, *args, **kwargs):
         cartId = int(request.data.get("cartId"))
@@ -381,6 +385,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
+    @login_required
     @action(detail=False, methods=['post'])
     def add_review(self, request):
         # print("add reivew")
@@ -434,7 +439,7 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
     Subject: Hi there
     This message is sent from Python."""
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    message["Subject"] = "Welcome to O Sha'Re Cosmetics"
     message["From"] = sender_email
     message["To"] = receiver_email
 
@@ -447,7 +452,7 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
       <body>
         <p>Hi,<br>
            How are you?<br>
-           <a href="http://www.realpython.com">O'share</a>
+           <a href="https://osharecosmetics.herokuapp.com/">O'share</a>
            has many great products.
         </p>
       </body>
