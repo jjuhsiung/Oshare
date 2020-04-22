@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -10,7 +11,6 @@ from .models import Post, Comment, PostImage, UserProfile
 from rest_framework.response import Response
 from rest_framework.decorators import action
 # import http.client
-
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from .models import Product, ProductCount, Cart
 import json
@@ -22,7 +22,6 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from rest_framework.generics import get_object_or_404
-
 
 class CustomObtainAuthToken(ObtainAuthToken):
     @csrf_exempt
@@ -44,6 +43,16 @@ class UserViewSet(viewsets.ModelViewSet):
         try:
             user = get_object_or_404(queryset)
             return Response(UserSerializer(user, context={'request': request}).data, status=status.HTTP_200_OK)
+        except:
+            return JsonResponse({"detail":"Not Found"})
+
+    @action(detail=False, methods=['get'])
+    def get_current_user(self, request):
+        print(request.user)
+        
+        try:
+            return Response(
+                UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
         except:
             return JsonResponse({"detail":"Not Found"})
 
@@ -71,9 +80,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     # url: http://127.0.0.1:8000/posts/post_of_logged_in_user/
+
     @action(detail=False, methods=['get'])
     def post_of_logged_in_user(self, request):
-        print(request.data)
         user = request.user
         queryset = Post.objects.filter(user=user.id)
         serializer = PostSerializer(
