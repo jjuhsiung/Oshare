@@ -99,22 +99,10 @@ export class ProfileComponent implements OnInit {
   }
 
   fileChanged(event){
-    var files = <File[]>event.target.files;
-    this.checkImgFileTypes(files);
-  }
-
-  checkImgFileTypes(files){
-    this.imgTypeCheck = true;
-
-    if(files !=null){
-      for(var i=0; i<files.length; i++){
-        if(!this.checkExtension(files[i].name)){
-          this.imgTypeCheck = false;
-          return;
-        }
-      }
-      this.imgTypeCheck = true;
-      this.file = files;
+    var file = <File>event.target.files[0];
+    this.imgTypeCheck = this.checkExtension(file.name);
+    if(this.imgTypeCheck){
+      this.file = file;
     }
   }
 
