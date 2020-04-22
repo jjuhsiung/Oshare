@@ -23,7 +23,7 @@ export class CartDropdownComponent implements OnInit {
     private userService: UserService,
     private productService: ProductService,
     private router: Router) {
-    this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+    this.userService.getCurrentUser().subscribe(
       Response => {
         for (let i = 0; i < Response.cart.productCounts.length; i++) {
           this.productService.getProductByURL(Response.cart.productCounts[i].product).subscribe(
