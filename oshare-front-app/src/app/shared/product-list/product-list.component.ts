@@ -24,6 +24,7 @@ export class ProductListComponent implements OnInit {
   constructor(private api: ProductService, private router: Router, private  route: ActivatedRoute) {
     // this.productService = api;
     this.api.productsupdate.subscribe(data => {
+      this.pageNum = 1;
       this.updateData(data);
     });
   }
