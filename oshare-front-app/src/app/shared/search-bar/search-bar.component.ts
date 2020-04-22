@@ -30,9 +30,9 @@ export class SearchBarComponent implements OnInit {
   constructor(private api: ProductService, private router: Router) {
     this.api.currentQuery.subscribe(query => {
       console.log(query);
-      if(query.input!=null&&query.input!='')
+      if(query.input != null && query.input !== '' && this.router.url !== '/new-post')
       {
-        this.placeHolder=query.input;
+        this.placeHolder = query.input;
       }
     });
   }
