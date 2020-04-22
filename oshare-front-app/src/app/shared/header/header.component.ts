@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit {
           localStorage.removeItem('userToken');
           localStorage.removeItem('userId');
 
-          if (this.router.url === '/cart' || this.router.url === '/new-post') {
+          if (this.router.url === '/cart' || this.router.url === '/new-post' || this.router.url === '/account') {
             this.router.navigate(['/search']);
           } else {
             location.reload();
