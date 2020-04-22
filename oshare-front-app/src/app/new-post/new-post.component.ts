@@ -1,4 +1,3 @@
-import { FileTypeValidator } from './validators/ImageFileTypeValidator.validator';
 import { PostImageService } from './../_services/post-image.service';
 import { UserService } from './../_services/user.service';
 import { Router } from '@angular/router';
@@ -21,6 +20,8 @@ import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 export class NewPostComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport)
   viewport: CdkVirtualScrollViewport;
+
+  imgTypeCheck:boolean = true;
 
   form;
   file: File[] = null;
@@ -66,7 +67,7 @@ export class NewPostComponent implements OnInit {
     this.form = fb.group({
       title: ['', [Validators.required, Validators.maxLength(200)]],
       text: ['', [Validators.required, Validators.maxLength(5000)]],
-      upload: ['', [Validators.required, FileTypeValidator.validate]]
+      upload: ['', Validators.required]
     });
 
     console.log("init new post page");
@@ -173,7 +174,29 @@ export class NewPostComponent implements OnInit {
   }
 
   fileChanged(event){
-    this.file = <File[]>event.target.files;
+    var files = <File[]>event.target.files;
+    this.checkImgFileTypes(files);
+  }
+
+  checkImgFileTypes(files){
+    this.imgTypeCheck = true;
+
+    if(files !=null){
+      for(var i=0; i<files.length; i++){
+        if(!this.checkExtension(files[i].name)){
+          this.imgTypeCheck = false;
+          return;
+        }
+      }
+      this.imgTypeCheck = true;
+      this.file = files;
+    }
+  }
+
+  checkExtension(filename) {
+    let valToLower = filename.toLowerCase();
+    let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$"); //add or remove required extensions here
+    return regex.test(valToLower);
   }
 
   validateAllFormFields(formGroup: FormGroup) {
@@ -189,7 +212,7 @@ export class NewPostComponent implements OnInit {
   
   createPost(){
 
-    if(!this.form.valid){
+    if(!this.form.valid || !this.imgTypeCheck){
       this.validateAllFormFields(this.form);
       return;
     }

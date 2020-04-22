@@ -55,6 +55,7 @@
                 (change)="fileChanged($event)">
 
               <div *ngIf="upload.touched && upload.invalid" class="alert alert-danger">At least upload an image.</div>
+              <div *ngIf=!imgTypeCheck class="alert alert-danger">Please upload jpg, png, jpeg files.</div>
             </div>
           </div>
 

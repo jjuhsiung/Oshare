@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   userprofile: Profile = new Profile("", "", "");
   userProfileURL: string = "";
   user: User = new User();
+  imgTypeCheck:boolean = true;
   public selectedAddress: PlaceResult;
 
   constructor(private formbuilder: FormBuilder, private router: Router,
@@ -97,13 +98,35 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  fileChanged(event) {
-    this.file = <File>event.target.files[0];
+  fileChanged(event){
+    var files = <File[]>event.target.files;
+    this.checkImgFileTypes(files);
+  }
+
+  checkImgFileTypes(files){
+    this.imgTypeCheck = true;
+
+    if(files !=null){
+      for(var i=0; i<files.length; i++){
+        if(!this.checkExtension(files[i].name)){
+          this.imgTypeCheck = false;
+          return;
+        }
+      }
+      this.imgTypeCheck = true;
+      this.file = files;
+    }
+  }
+
+  checkExtension(filename) {
+    let valToLower = filename.toLowerCase();
+    let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$"); //add or remove required extensions here
+    return regex.test(valToLower);
   }
 
   OnEditUser() {
 
-    if(this.form.valid){
+    if(this.form.valid && this.imgTypeCheck){
       this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
       const formData = new FormData();
       formData.append('user', this.userURL);
