@@ -25,8 +25,6 @@ export class ProfileService {
   }
 
   editUser(formdata: any): Observable<any> {
-    console.log("--edit user--")
-    console.log(formdata)
     var id = localStorage.getItem("userId");
     return this.http.patch<any>(this.baseurl + '/update_user/' + id + '/', formdata);
   }
