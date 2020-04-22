@@ -65,7 +65,6 @@ class UserUpdateViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
-    @login_required
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
@@ -73,7 +72,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
 
-    @login_required
     def partial_update(self, request, *args, **kwargs):
         kwargs['partial'] = True
         return self.update(request, *args, **kwargs)
@@ -159,7 +157,6 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-    @login_required
     @action(detail=False, methods=['post'])
     def checkout(self, request):
         userId = int(request.data.get("userId"))
@@ -258,7 +255,6 @@ class ProductCountViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-    @login_required
     @action(detail=False, methods=['post'])
     def addToCart(self, request, *args, **kwargs):
         cartId = int(request.data.get("cartId"))
@@ -395,7 +391,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
-    @login_required
     @action(detail=False, methods=['post'])
     def add_review(self, request):
         # print("add reivew")

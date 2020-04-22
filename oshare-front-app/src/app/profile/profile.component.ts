@@ -67,8 +67,9 @@ export class ProfileComponent implements OnInit {
       this.router.navigate(['/search'])
     }
 
-    this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+    this.userService.getCurrentUser().subscribe(
       data => {
+        console.log(data);
         this.user.firstName = data.first_name;
         this.user.lastName = data.last_name;
         this.user.username = data.username;
