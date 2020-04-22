@@ -41,7 +41,7 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     fb: FormBuilder) {
 
-    if (localStorage.getItem('userId') == null) {
+    if (localStorage.getItem('userToken') == null) {
       alert('Required login.');
       this.router.navigate(['/search']);
     }
@@ -53,7 +53,7 @@ export class CheckoutComponent implements OnInit {
       address: ['', [Validators.required, Validators.maxLength(100)]]
     });
 
-    this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+    this.userService.getCurrentUser().subscribe(
       Response => {
         this.accountFormValue.firstname = Response.first_name;
         this.accountFormValue.lastname = Response.last_name;
@@ -187,13 +187,13 @@ placeOrderButtonClicked(){
 
   var cartId: number = 0;
 
-  this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+  this.userService.getCurrentUser().subscribe(
     response => {
       cartId = response.cart.id;
       console.log(response);
 
       var checkoutData = {
-        'userId': localStorage.getItem('userId'),
+        'userId': response.id,
         'cartId': cartId,
         'first_name': this.firstname.value,
         'last_name': this.lastname.value,

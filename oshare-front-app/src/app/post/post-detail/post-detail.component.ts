@@ -151,7 +151,7 @@ export class PostDetailComponent implements OnInit {
 
   onCommentSubmit() {
 
-    if(localStorage.getItem('userId')==null){
+    if(localStorage.getItem('userToken')==null){
       alert('Required Login.');
     }
 

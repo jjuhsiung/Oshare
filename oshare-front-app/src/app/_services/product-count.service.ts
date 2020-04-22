@@ -24,7 +24,7 @@ export class ProductCountService {
   addToCart(productId: number){
     var cartId: number=0;
 
-    this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+    this.userService.getCurrentUser().subscribe(
       response=>{
         cartId = response.cart.id;
         console.log(response);

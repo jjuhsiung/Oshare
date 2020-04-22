@@ -29,11 +29,11 @@ export class CartComponent implements OnInit {
     private productCountService: ProductCountService,
     private router: Router) { 
 
-      if(localStorage.getItem('userId')==null){
+      if(localStorage.getItem('userToken')==null){
         alert('Required login.');
         this.router.navigate(['/search']);
       }
-    this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+    this.userService.getCurrentUser().subscribe(
       Response =>{
         for(let i=0; i<Response.cart.productCounts.length; i++){
           this.productService.getProductByURL(Response.cart.productCounts[i].product).subscribe(
