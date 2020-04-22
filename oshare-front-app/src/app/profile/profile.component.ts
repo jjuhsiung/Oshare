@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   userprofile: Profile = new Profile("", "", "");
   userProfileURL: string = "";
   user: User = new User();
+  imgTypeCheck:boolean = true;
   public selectedAddress: PlaceResult;
 
   constructor(private formbuilder: FormBuilder, private router: Router,
@@ -30,7 +31,7 @@ export class ProfileComponent implements OnInit {
       first_name: ['', [Validators.required, Validators.maxLength(30)]],
       last_name: ['', [Validators.required, Validators.maxLength(150)]],
       username: ['', [Validators.required, Validators.maxLength(150)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(/^([a-z\d\.~]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/)]],
       phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       address: ['', [Validators.required, Validators.maxLength(60)]],
     })
@@ -97,13 +98,23 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  fileChanged(event) {
-    this.file = <File>event.target.files[0];
+  fileChanged(event){
+    var file = <File>event.target.files[0];
+    this.imgTypeCheck = this.checkExtension(file.name);
+    if(this.imgTypeCheck){
+      this.file = file;
+    }
+  }
+
+  checkExtension(filename) {
+    let valToLower = filename.toLowerCase();
+    let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$"); //add or remove required extensions here
+    return regex.test(valToLower);
   }
 
   OnEditUser() {
 
-    if(this.form.valid){
+    if(this.form.valid && this.imgTypeCheck){
       this.userURL = this.userService.getUserURLById(localStorage.getItem('userId'));
       const formData = new FormData();
       formData.append('user', this.userURL);

@@ -77,7 +77,7 @@
                             required>
                         <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
                             <div *ngIf="email.errors.required">Email is required.</div>
-                            <div *ngIf="email.errors?.email">Email is invalid.</div>
+                            <div *ngIf="email.invalid">Email is invalid.</div>
                         </div>
                     </div>
                 </div>

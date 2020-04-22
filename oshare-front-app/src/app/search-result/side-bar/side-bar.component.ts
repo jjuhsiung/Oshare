@@ -49,10 +49,10 @@ export class SideBarComponent implements OnInit {
     {name: 'Eyeliner', value: 'eyeliner', category: ['Liquid', 'Pencil', 'Gel', 'Cream']},
     {name: 'Eyeshadow', value: 'eyeshadow', category: ['Palette', 'Pencil', 'Cream']}, // TODO: blank field
     {name: 'Foundation', value: 'foundation', category: ['Liquid', 'Contour', 'Bb cc', 'Concealer', 'Cream', 'Mineral', 'Powder', 'Highlighter']},
-    {name: 'Lip liner', value: 'lip liner', category: ['Pencil']},
+    {name: 'Lip liner', value: 'lip_liner', category: ['Pencil']},
     {name: 'Lipstick', value: 'lipstick', category: ['Lipstick', 'Lip gloss', 'Liquid', 'Lip stain']},
     {name: 'Mascara', value: 'mascara', category: null},
-    {name: 'Nail polish', value: 'nail polish', category: null}];
+    {name: 'Nail polish', value: 'nail_polish', category: null}];
   // brandMap = new Map();
 
 
@@ -100,7 +100,8 @@ export class SideBarComponent implements OnInit {
     this.selectedType = '';
     if(query.ProductType!="")
     {
-      this.selectedType=query.ProductType.split("_").join(" ");
+      this.selectedType = query.ProductType;
+      // this.selectedType=query.ProductType.split("_").join(" ");
       this.resetType=false;
     }
     else{

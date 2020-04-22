@@ -21,6 +21,7 @@ export class ProductDetailComponent implements OnInit {
     'font-size': '20px',
     'font-weight': 'bold'
   }
+  localStorage = localStorage;
 
   constructor(private api: ProductService,
               private productCountService: ProductCountService,
@@ -33,46 +34,45 @@ export class ProductDetailComponent implements OnInit {
     api.getProductsInfo(query);
     api.productsupdate.subscribe(data=>{
       this.product = data['response'];
-      this.api.getProductColor(this.product.id).subscribe(
-        product_color => {
-          // console.log(product_data);
-          this.productColor = product_color;
-          console.log(this.productColor);
-        }, error => {
-          console.log(error);
-        }
-      )
+      console.log(this.product);
+      if (this.product.id!=null)
+      {
+        this.api.getProductColor(this.product.id).subscribe(
+          product_color => {
+            // console.log(product_data);
+            this.productColor = product_color;
+            console.log(this.productColor);
+          }, error => {
+            console.log(error);
+          }
+        )
+      }
     })
     console.log(this.product);
   }
 
   ngOnInit(): void {
-    console.log(this.router);
-    // this.api.getProductByURL(Response.cart.productCounts[i].product).subscribe(
-    //   product_data=>{
-    //     this.totalPrice += product_data.price * Response.cart.productCounts[i].count;
-    //     this.productSummary+= product_data.name + " x" + Response.cart.productCounts[i].count+", ";
-    //   }, error=>{
-    //     console.log(error);
+    // console.log(this.router);
+    // let query = new ProductQuery();
+    // // query.id = this.api.currentproduct;
+    // query.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
+    // this.api.getProductsInfo(query);
+    // this.api.productsupdate.subscribe(data=>{
+    //   this.product = data['response'];
+    //   console.log(this.product);
+    //   if(this.product.length==1 && this.product.id!=null) {
+    //     this.api.getProductColor(this.product.id).subscribe(
+    //       product_color => {
+    //         // console.log(product_data);
+    //         this.productColor = product_color;
+    //         console.log(this.productColor);
+    //       }, error => {
+    //         console.log(error);
+    //       }
+    //     )
     //   }
-    // )
-    let query = new ProductQuery();
-    // query.id = this.api.currentproduct;
-    query.id = parseInt(this.route.parent.snapshot.queryParamMap.get('product_id'));
-    this.api.getProductsInfo(query);
-    this.api.productsupdate.subscribe(data=>{
-      this.product = data['response'];
-      this.api.getProductColor(this.product.id).subscribe(
-        product_color => {
-          // console.log(product_data);
-          this.productColor = product_color;
-          console.log(this.productColor);
-        }, error => {
-          console.log(error);
-        }
-      )
-    })
-    console.log(this.product);
+    // })
+    // console.log(this.product);
   }
 
   setMyStyles(color) {
@@ -100,7 +100,8 @@ export class ProductDetailComponent implements OnInit {
   addReview() {
     if (localStorage.getItem('userToken') == null) {
       alert('Required Login!');
-      this.router.navigate(['/login']);
+      return;
+      // this.router.navigate(['/login']);
     }
     console.log("add review");
     this.router.navigate(['/add-review'], {

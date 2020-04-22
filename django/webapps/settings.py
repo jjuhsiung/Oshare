@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "ec2-54-183-253-130.us-west-1.compute.amazonaws.com",
     "ec2-54-153-122-82.us-west-1.compute.amazonaws.com",
+    "limitless-refuge-90440.herokuapp.com",
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -144,7 +145,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# STATIC_URL = '/static/'
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

@@ -21,6 +21,8 @@ export class NewPostComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport)
   viewport: CdkVirtualScrollViewport;
 
+  imgTypeCheck:boolean = true;
+
   form;
   file: File[] = null;
   userURL: string;
@@ -70,6 +72,7 @@ export class NewPostComponent implements OnInit {
 
     console.log("init new post page");
     this.productService.productsupdate.subscribe(data => {
+      this.pageNum = 1;
       this.Products = data['response'];
       this.checked_status.length = 0;
       let max_product_id = 0;
@@ -172,7 +175,29 @@ export class NewPostComponent implements OnInit {
   }
 
   fileChanged(event){
-    this.file = <File[]>event.target.files;
+    var files = <File[]>event.target.files;
+    this.checkImgFileTypes(files);
+  }
+
+  checkImgFileTypes(files){
+    this.imgTypeCheck = true;
+
+    if(files !=null){
+      for(var i=0; i<files.length; i++){
+        if(!this.checkExtension(files[i].name)){
+          this.imgTypeCheck = false;
+          return;
+        }
+      }
+      this.imgTypeCheck = true;
+      this.file = files;
+    }
+  }
+
+  checkExtension(filename) {
+    let valToLower = filename.toLowerCase();
+    let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$"); //add or remove required extensions here
+    return regex.test(valToLower);
   }
 
   validateAllFormFields(formGroup: FormGroup) {
@@ -188,7 +213,7 @@ export class NewPostComponent implements OnInit {
 
   createPost(){
 
-    if(!this.form.valid){
+    if(!this.form.valid || !this.imgTypeCheck){
       this.validateAllFormFields(this.form);
       return;
     }
