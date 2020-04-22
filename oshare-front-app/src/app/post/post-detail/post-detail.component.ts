@@ -1,7 +1,7 @@
 import { CommentService } from './../../_services/comment.service';
 import { UserService } from './../../_services/user.service';
 import { PostService } from './../../_services/post.service';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Comment } from 'src/app/_models/comment.model';
 import { Post } from 'src/app/_models/post.model';
@@ -36,6 +36,7 @@ export class PostDetailComponent implements OnInit {
   userProfileURL: string = "";
   class: string = ""
   postImages = []
+  textColor = ""
 
   constructor(
     private formBuilder: FormBuilder,
@@ -130,6 +131,9 @@ export class PostDetailComponent implements OnInit {
         }
         if (commentArr.length == 0) {
           this.post.comments.push(new Comment(null, 'No comments yet'));
+          this.textColor = "text-white"
+        } else {
+          this.textColor = "text-dark"
         }
         console.log(this.post.comments);
       }, error => {
@@ -151,11 +155,11 @@ export class PostDetailComponent implements OnInit {
 
   onCommentSubmit() {
 
-    if(localStorage.getItem('userToken')==null){
+    if (localStorage.getItem('userToken') == null) {
       alert('Required Login.');
     }
 
-    if(!this.commentForm.valid){
+    if (!this.commentForm.valid) {
       this.validateAllFormFields(this.commentForm);
       return;
     }
