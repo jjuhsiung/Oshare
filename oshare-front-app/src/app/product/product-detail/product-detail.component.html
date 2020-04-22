@@ -2,7 +2,7 @@
   <!--  <div class="jumbotron row justify-content-center">-->
   <div class="col-sm-5 justify-content-center">
     <div class="row justify-content-center">
-      <img class="product-left-img" src="{{this?.product?.img_link}}" alt="Card image">
+      <img class="product-left-img" src="{{this?.product?.img_link}}" onerror="this.src='https://bookingmoments.com/upload-nct/img-default.gif';" alt="">
     </div>
     <div class="justify-content-center" style="margin-top: 30px;max-height:190px;overflow-y: auto;overflow-x: hidden">
       <div style="margin-right: 0px;">
@@ -62,9 +62,6 @@
       <div class="col-sm-2" style="margin-right:20px;padding: 0px;margin-top: 10px;">
         <button class="btn btn-dark text-font" style="font-size:15px;margin-left: 0px;" data-toggle="modal" data-target="#exampleModal" (click)="add_to_cart()">Add to cart</button>
       </div>
-      <!--      <div class="col-sm-2" style="margin-right:30px;margin-top: 10px;">-->
-      <!--        <button style="font-size:15px;" class="btn btn-dark mx-2 text-font" routerLink="/cart">Check out</button>-->
-      <!--      </div>-->
       <div class="col-sm-2" style="margin-right:20px;margin-top: 10px;">
         <button style="font-size:15px;" class="btn btn-dark mx-2 text-font" (click)="addReview()">Write a review</button>
       </div>

@@ -33,7 +33,7 @@
     </nav>
     <div class="row row-cols-3 justify-content-center">
       <div *ngFor="let product of this.Products | slice: (pageNum-1) * pageSize : (pageNum-1) * pageSize + pageSize" class="gutters card col" style="max-width: 20rem;">
-        <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="150px" height="150px" alt="" (click)="toDetail(product.id)">
+        <img style="cursor: pointer" src="{{product.img_link}}" class="center-block mt-5" width="150px" height="150px" onerror="this.src='https://bookingmoments.com/upload-nct/img-default.gif';" alt="" (click)="toDetail(product.id)">
         <div style="font-size:12px" class="card-body border-1 p-2" >
           <div class="row border-2 d-flex justify-content-between" width="250px">
             <div class="card-title h5" style="max-width: 18rem;">
