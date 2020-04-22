@@ -100,7 +100,8 @@ export class SideBarComponent implements OnInit {
     this.selectedType = '';
     if(query.ProductType!="")
     {
-      this.selectedType=query.ProductType.split("_").join(" ");
+      this.selectedType = query.ProductType;
+      // this.selectedType=query.ProductType.split("_").join(" ");
       this.resetType=false;
     }
     else{
