@@ -39,7 +39,7 @@
         <div class="col">
             <ul *ngFor="let cmt of post.comments" style="margin: 5px; font-size: 18px;" class="page-header">
                 <span style="word-break: break-word;">{{cmt.commentText}} </span>
-                <p class="lead" style="white-space: nowrap; text-align: right;">{{cmt.user.firstName}} {{cmt.user.lastName}}
+                <p class="lead" style="white-space: nowrap; text-align: right;">{{cmt?.user?.firstName}} {{cmt?.user?.lastName}}
                     at {{cmt.commentTime | date:'yyyy-MM-dd-hh:mm'}}</p>
             </ul>
         </div><br><br>
