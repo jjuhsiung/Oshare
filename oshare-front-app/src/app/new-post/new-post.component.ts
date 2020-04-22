@@ -1,3 +1,4 @@
+import { FileTypeValidator } from './validators/ImageFileTypeValidator.validator';
 import { PostImageService } from './../_services/post-image.service';
 import { UserService } from './../_services/user.service';
 import { Router } from '@angular/router';
@@ -65,7 +66,7 @@ export class NewPostComponent implements OnInit {
     this.form = fb.group({
       title: ['', [Validators.required, Validators.maxLength(200)]],
       text: ['', [Validators.required, Validators.maxLength(5000)]],
-      upload: ['', Validators.required]
+      upload: ['', [Validators.required, FileTypeValidator.validate]]
     });
 
     console.log("init new post page");
