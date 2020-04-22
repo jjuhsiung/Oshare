@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {baseurl} from '../MockComments';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class UserService {
 
   
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router) {
 
    }
 
@@ -45,7 +46,6 @@ export class UserService {
         response=>{
           return response.id;
         }, error=>{
-          console.log(error);
           return null;
         }
       )
