@@ -16,13 +16,27 @@ export class ProductService {
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   productsupdate = new Subject<any>();
   currentQuery = new Subject<any>();
+  searchQuery = new ProductQuery();
+  pageNum: number;
 
   constructor(private http: HttpClient) {
   }
 
+  // compareQuery(query1,query2): boolean{
+  //   if(query1.id!=query2.id || query1.ProductType !=)
+  // }
+
   getProductsInfo(query: ProductQuery) {
     this.currentQuery.next(query);
     console.log(query);
+    if(query.id == 0 && JSON.stringify(query) !== JSON.stringify(this.searchQuery))
+    {
+      // console.log(this.searchQuery);
+      // console.log(query);
+      this.searchQuery = query;
+      this.pageNum=1;
+    }
+    console.log(this.pageNum);
     let para = new HttpParams();
     if (query.id != 0) {
       para = para.set('id', query.id.toString());

@@ -17,14 +17,13 @@ export class ProductListComponent implements OnInit {
   MaxPageSize = 1;
   pagelist = [];
   productNum: number;
-  // rating = 3;
-  // productService: ProductService;
+  default = 'https://bookingmoments.com/upload-nct/img-default.gif';
 
 
   constructor(private api: ProductService, private router: Router, private  route: ActivatedRoute) {
-    // this.productService = api;
+    console.log(this.api.pageNum);
     this.api.productsupdate.subscribe(data => {
-      this.pageNum = 1;
+      this.pageNum = this.api.pageNum;
       this.updateData(data);
     });
   }
@@ -65,16 +64,23 @@ export class ProductListComponent implements OnInit {
 
   PrePage(): void {
     if (this.pageNum>1)
+    {
       this.pageNum = this.pageNum -1;
+      this.api.pageNum = this.pageNum;
+    }
   }
 
   NextPage(): void {
     if (this.pageNum < this.MaxPageSize - 1)
+    {
       this.pageNum = this.pageNum + 1;
+      this.api.pageNum = this.pageNum;
+    }
   }
 
   ToPage(num): void {
     this.pageNum = num;
+    this.api.pageNum = this.pageNum;
   }
 
   SortbyPriceHtoL(): void {
@@ -124,14 +130,8 @@ export class ProductListComponent implements OnInit {
     exists=true;
     console.log('RESULT: url=' + imageUrl + ', exists=' + exists);
   }
-  // imageExists(url): boolean {
-  //   var img = new Image();
-  //   img.src = url;
-  //
-  //   if(img.onerror)
-  //     return false;
-  //   return true;
-  //   // img.onload = function() { callback(true); };
-  //   // img.onerror = function() { callback(false); };
-  // }
+
+  updateUrl(src) {
+    src = this.default;
+  }
 }
