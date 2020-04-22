@@ -31,13 +31,27 @@ export class UserService {
   }
 
   getCurrentUser(){
-    if(localStorage.getItem!=null){
+    if(localStorage.getItem('userToken')!=null){
       var authorize_header = new HttpHeaders({'Authorization':'Token '+ localStorage.getItem('userToken')})
       return this.httpClient.get<any>(this.baseurl + '/register/get_current_user/', {headers: authorize_header});
     }
     return null;
   }
 
+  getCurrentUserId(){
+    if(localStorage.getItem('userToken')!=null){
+      var authorize_header = new HttpHeaders({'Authorization':'Token '+ localStorage.getItem('userToken')})
+      this.httpClient.get<any>(this.baseurl + '/register/get_current_userid/', {headers: authorize_header}).subscribe(
+        response=>{
+          return response.id;
+        }, error=>{
+          console.log(error);
+          return null;
+        }
+      )
+    }
+    return null;
+  }
 
   getUserURLById(id) {
     return this.baseurl + '/register/' + id + '/';

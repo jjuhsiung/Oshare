@@ -49,13 +49,20 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def get_current_user(self, request):
-        print(request.user)
-        
         try:
             return Response(
                 UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
         except:
             return JsonResponse({"detail":"Not Found"})
+
+    @action(detail=False, methods=['get'])
+    def get_current_userid(self, request):
+        try:
+            return JsonResponse({"id": request.user.id})
+        except:
+            return JsonResponse({"detail":"Not Found"})
+            
+
 
 # url: http://127.0.0.1:8000/update_user/id/
 class UserUpdateViewSet(viewsets.ModelViewSet):

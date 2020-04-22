@@ -193,7 +193,7 @@ placeOrderButtonClicked(){
       console.log(response);
 
       var checkoutData = {
-        'userId': localStorage.getItem('userId'),
+        'userId': response.id,
         'cartId': cartId,
         'first_name': this.firstname.value,
         'last_name': this.lastname.value,
