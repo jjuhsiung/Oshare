@@ -185,7 +185,7 @@ export class NewPostComponent implements OnInit {
       }
     });
   }
-  
+
   createPost(){
 
     if(!this.form.valid){
@@ -205,6 +205,8 @@ export class NewPostComponent implements OnInit {
         console.log(this.Products);
         this.postURL = response.url;
         console.log(this.postURL);
+        var id = this.postURL.split('/')[4];
+        console.log(id);
 
         // add product to post
         this.postService.updatePostProduct(this.postURL, this.Products_selected).subscribe(data => {
@@ -226,7 +228,7 @@ export class NewPostComponent implements OnInit {
           }
         }
         alert('Post successfully create!');
-        this.router.navigate(['/search'])
+        this.router.navigate(['/post', id])
       },
 
       error =>{
