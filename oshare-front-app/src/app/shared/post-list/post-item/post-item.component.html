@@ -6,7 +6,7 @@
         <font color="000000">{{post.postTitle}}</font>
       </h1>
     </a>
-    <p class="card-text mb-auto" class="content">{{post.postText}}</p>
+    <p class="card-text mb-auto" class="content" style="white-space:pre-wrap;">{{post.postText}}</p>
     <a style="color: black;" [routerLink]="['/post', post.postId]" (click)="onSelected()" style="font-size: 150%;"><font color="000000">Continue reading</font></a>
   </div>
   <img class="card-img-right flex-auto d-none d-md-block"
