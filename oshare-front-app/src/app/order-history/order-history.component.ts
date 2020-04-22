@@ -15,7 +15,7 @@ export class OrderHistoryComponent implements OnInit {
   orders = []
 
   constructor(private userService: UserService, private productService: ProductService) {
-    this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+    this.userService.getCurrentUser().subscribe(
       response => {
         for (var i = 0; i < response.order.length; i++) {
           var order_json = response.order[i];

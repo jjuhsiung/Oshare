@@ -16,13 +16,18 @@
                         <h5>Username:</h5>
                     </label>
                     <div class="col-lg-10">
-                        <input formControlName="username" type="text" class="form-control form-control-lg" id="username"
+                        <input formControlName="username" 
+                            type="text" 
+                            class="form-control form-control-lg" 
+                            id="username"
                             required UniqueUsername>
                         <div *ngIf="(username.touched || username.dirty) && username.invalid"
                             class="alert alert-danger">
                             <div *ngIf="username.errors.required">Username is required.</div>
                             <div *ngIf="username.errors['UniqueUsername']">Username already exist.</div>
                             <div *ngIf="username.errors.maxlength">Username length should be less than 150.</div>
+                            <div *ngIf="username.errors.minlength">Username length should be larger than 3.</div>
+                            <div *ngIf="username.errors?.pattern">Username can only contain a->z, digits, _ and -.</div>
                         </div>
                     </div>
                 </div>

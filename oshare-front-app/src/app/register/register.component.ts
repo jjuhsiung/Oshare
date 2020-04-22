@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private http: HttpClient) {
     this.form = fb.group({
-      username: ['', [Validators.required, Validators.maxLength(150)]],
+      username: ['', [Validators.required, Validators.maxLength(150), Validators.minLength(3), Validators.pattern(/^[a-z0-9_-]+$/)]],
       password: ['', Validators.required],
       first_name: ['', [Validators.required, Validators.maxLength(30)]],
       last_name: ['', [Validators.required, Validators.maxLength(150)]],

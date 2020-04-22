@@ -2,7 +2,7 @@
   <!--  <div class="jumbotron row justify-content-center">-->
   <div class="col-sm-5 justify-content-center">
     <div class="row justify-content-center">
-      <img class="product-left-img" src="{{this?.product?.img_link}}" alt="Card image">
+      <img class="product-left-img" src="{{this?.product?.img_link}}" onerror="this.src='https://bookingmoments.com/upload-nct/img-default.gif';" alt="">
     </div>
     <div class="justify-content-center" style="margin-top: 30px;max-height:190px;overflow-y: auto;overflow-x: hidden">
       <div style="margin-right: 0px;">
@@ -20,19 +20,19 @@
     </div>
     <div class="row mt-3" style="font-size:15px;margin-top: 30px">
       <!--        <span>Rating: </span><span style="color:#000000;"> 10.0</span>-->
-      <div *ngIf="product.rating >=0.5; then thenBlock else elseBlock"></div>
+      <div *ngIf="product?.rating >=0.5; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock><span class="fa fa-star checked" style="font-size: large;"></span></ng-template>
       <ng-template #elseBlock><span class="fa fa-star" style="font-size: large;"></span></ng-template>
-      <div *ngIf="product.rating >=1.5; then thenBlock2 else elseBlock2"></div>
+      <div *ngIf="product?.rating >=1.5; then thenBlock2 else elseBlock2"></div>
       <ng-template #thenBlock2><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
       <ng-template #elseBlock2><span class="fa fa-star" style="font-size: large"></span></ng-template>
-      <div *ngIf="product.rating >=2.5; then thenBlock3 else elseBlock3"></div>
+      <div *ngIf="product?.rating >=2.5; then thenBlock3 else elseBlock3"></div>
       <ng-template #thenBlock3><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
       <ng-template #elseBlock3><span class="fa fa-star" style="font-size: large"></span></ng-template>
-      <div *ngIf="product.rating >=3.5; then thenBlock4 else elseBlock4"></div>
+      <div *ngIf="product?.rating >=3.5; then thenBlock4 else elseBlock4"></div>
       <ng-template #thenBlock4><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
       <ng-template #elseBlock4><span class="fa fa-star" style="font-size: large"></span></ng-template>
-      <div *ngIf="product.rating >=4.5; then thenBlock5 else elseBlock5"></div>
+      <div *ngIf="product?.rating >=4.5; then thenBlock5 else elseBlock5"></div>
       <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
       <ng-template #elseBlock5><span class="fa fa-star" style="font-size: large"></span></ng-template>
     </div>
@@ -44,10 +44,10 @@
       </p>
     </div>
     <div class="row mt-3">
-      <p style="margin-bottom: 0px"><span class="h3">Brand: </span><span style="font-size: 16px"> {{capitalizeFirstLetter(product.brand)}}</span></p>
+      <p style="margin-bottom: 0px"><span class="h3">Brand: </span><span *ngIf="product?.brand" style="font-size: 16px"> {{capitalizeFirstLetter(product?.brand)}}</span></p>
     </div>
     <div class="row mt-3">
-      <p style="margin-bottom: 0px"><span class="h3">Type: </span><span style="font-size: 16px"> {{capitalizeFirstLetter(product.product_type)}}</span></p>
+      <p style="margin-bottom: 0px"><span class="h3">Type: </span><span *ngIf="product?.product_type" style="font-size: 16px"> {{capitalizeFirstLetter(product?.product_type)}}</span></p>
 <!--      <p class="product-info h3"><span style="font-weight:bold">Type: </span><span>{{product.product_type}}</span></p>-->
     </div>
     <div class="row mt-3">
@@ -62,9 +62,6 @@
       <div class="col-sm-2" style="margin-right:20px;padding: 0px;margin-top: 10px;">
         <button class="btn btn-dark text-font" style="font-size:15px;margin-left: 0px;" data-toggle="modal" data-target="#exampleModal" (click)="add_to_cart()">Add to cart</button>
       </div>
-      <!--      <div class="col-sm-2" style="margin-right:30px;margin-top: 10px;">-->
-      <!--        <button style="font-size:15px;" class="btn btn-dark mx-2 text-font" routerLink="/cart">Check out</button>-->
-      <!--      </div>-->
       <div class="col-sm-2" style="margin-right:20px;margin-top: 10px;">
         <button style="font-size:15px;" class="btn btn-dark mx-2 text-font" (click)="addReview()">Write a review</button>
       </div>

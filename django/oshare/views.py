@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -9,7 +10,7 @@ from .serializers import *
 from .models import Post, Comment, PostImage, UserProfile
 from rest_framework.response import Response
 from rest_framework.decorators import action
-# import http.client
+from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from .models import Product, ProductCount, Cart
@@ -22,7 +23,6 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from rest_framework.generics import get_object_or_404
-
 
 class CustomObtainAuthToken(ObtainAuthToken):
     @csrf_exempt
@@ -46,6 +46,23 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(UserSerializer(user, context={'request': request}).data, status=status.HTTP_200_OK)
         except:
             return JsonResponse({"detail":"Not Found"})
+
+    @action(detail=False, methods=['get'])
+    def get_current_user(self, request):
+        try:
+            return Response(
+                UserSerializer(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
+        except:
+            return JsonResponse({"detail":"Not Found"})
+
+    @action(detail=False, methods=['get'])
+    def get_current_userid(self, request):
+        try:
+            return JsonResponse({"id": request.user.id})
+        except:
+            return JsonResponse({"detail":"Not Found"})
+            
+
 
 # url: http://127.0.0.1:8000/update_user/id/
 class UserUpdateViewSet(viewsets.ModelViewSet):
@@ -71,9 +88,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     # url: http://127.0.0.1:8000/posts/post_of_logged_in_user/
+
     @action(detail=False, methods=['get'])
     def post_of_logged_in_user(self, request):
-        print(request.data)
         user = request.user
         queryset = Post.objects.filter(user=user.id)
         serializer = PostSerializer(
@@ -434,7 +451,7 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
     Subject: Hi there
     This message is sent from Python."""
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    message["Subject"] = "Welcome to O Sha'Re Cosmetics"
     message["From"] = sender_email
     message["To"] = receiver_email
 
@@ -447,7 +464,7 @@ def send_template_email_view(request: HttpRequest) -> JsonResponse:
       <body>
         <p>Hi,<br>
            How are you?<br>
-           <a href="http://www.realpython.com">O'share</a>
+           <a href="https://osharecosmetics.herokuapp.com/">O'share</a>
            has many great products.
         </p>
       </body>

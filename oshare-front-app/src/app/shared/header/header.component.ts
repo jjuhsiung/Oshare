@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
     });
 
     if (this.checkLoginStatus()) {
-      this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+      this.userService.getCurrentUser().subscribe(
         data =>{
           this.firstname = data.first_name;
           this.lastname = data.last_name;

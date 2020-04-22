@@ -16,6 +16,8 @@ export class UserService {
   // baseUrl: 'http://ec2-54-183-253-130.us-west-1.compute.amazonaws.com:8000';
   httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  
+
   constructor(private httpClient: HttpClient) {
 
    }
@@ -26,6 +28,29 @@ export class UserService {
 
   loginUser(userData): Observable<any> {
     return this.httpClient.post(this.baseurl + '/auth/', userData, { headers: this.httpHeaders });
+  }
+
+  getCurrentUser(){
+    if(localStorage.getItem('userToken')!=null){
+      var authorize_header = new HttpHeaders({'Authorization':'Token '+ localStorage.getItem('userToken')})
+      return this.httpClient.get<any>(this.baseurl + '/register/get_current_user/', {headers: authorize_header});
+    }
+    return null;
+  }
+
+  getCurrentUserId(){
+    if(localStorage.getItem('userToken')!=null){
+      var authorize_header = new HttpHeaders({'Authorization':'Token '+ localStorage.getItem('userToken')})
+      this.httpClient.get<any>(this.baseurl + '/register/get_current_userid/', {headers: authorize_header}).subscribe(
+        response=>{
+          return response.id;
+        }, error=>{
+          console.log(error);
+          return null;
+        }
+      )
+    }
+    return null;
   }
 
   getUserURLById(id) {

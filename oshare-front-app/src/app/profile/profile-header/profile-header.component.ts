@@ -22,8 +22,7 @@ export class ProfileHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('userId'))
-    this.userservice.getUserObjectById(localStorage.getItem('userId')).subscribe(
+    this.userservice.getCurrentUser().subscribe(
       data => {
         this.userprofile.firstName = data.first_name;
         this.userprofile.lastName = data.last_name;

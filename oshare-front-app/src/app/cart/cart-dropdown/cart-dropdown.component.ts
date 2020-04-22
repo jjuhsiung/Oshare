@@ -5,6 +5,7 @@ import { Product } from 'src/app/_models/product.model';
 import { ProductCount } from 'src/app/_models/product-count.model';
 import { UserService } from 'src/app/_services/user.service';
 import { Router } from '@angular/router';
+import {ProductQuery} from "../../_models/ProductQuery";
 
 @Component({
   selector: 'app-cart-dropdown',
@@ -22,7 +23,7 @@ export class CartDropdownComponent implements OnInit {
     private userService: UserService,
     private productService: ProductService,
     private router: Router) {
-    this.userService.getUserObjectById(localStorage.getItem('userId')).subscribe(
+    this.userService.getCurrentUser().subscribe(
       Response => {
         for (let i = 0; i < Response.cart.productCounts.length; i++) {
           this.productService.getProductByURL(Response.cart.productCounts[i].product).subscribe(
@@ -44,6 +45,9 @@ export class CartDropdownComponent implements OnInit {
 
   }
   toDetail(id): void {
+    let query = new ProductQuery();
+    query.id = id;
+    this.productService.getProductsInfo(query);
     this.productService.ProductClick(id);
     this.router.navigate(['/product'], {
       queryParams: {
