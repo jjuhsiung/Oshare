@@ -81,7 +81,7 @@ export class CheckoutComponent implements OnInit {
         console.log(this.totalPrice);
 
     }, error => {
-    console.log(error);
+
   })
 }
 
@@ -218,7 +218,6 @@ placeOrderButtonClicked(){
 
     },
     error => {
-      console.log(error);
     }
   );
 

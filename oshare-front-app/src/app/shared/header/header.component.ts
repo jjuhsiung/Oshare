@@ -66,7 +66,15 @@ export class HeaderComponent implements OnInit {
           }
         },
         error =>{
-          console.log('fetch failed', error);
+          alert('Authentication Failed!');
+          localStorage.removeItem('userToken');
+          localStorage.removeItem('userId');
+
+          if (this.router.url === '/cart' || this.router.url === '/new-post') {
+            this.router.navigate(['/search']);
+          } else {
+            location.reload();
+          }
         }
       );
 

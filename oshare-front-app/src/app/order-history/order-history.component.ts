@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ProductService } from './../_services/product.service';
 import { ProductCount } from './../_models/product-count.model';
 import { Order } from './../_models/order.model';
@@ -14,7 +15,7 @@ export class OrderHistoryComponent implements OnInit {
 
   orders = []
 
-  constructor(private userService: UserService, private productService: ProductService) {
+  constructor(private userService: UserService, private productService: ProductService, private router: Router) {
     this.userService.getCurrentUser().subscribe(
       response => {
         for (var i = 0; i < response.order.length; i++) {
@@ -38,7 +39,6 @@ export class OrderHistoryComponent implements OnInit {
           order.total = total;
         }
       }, error => {
-        console.log(error);
       }
     );
 

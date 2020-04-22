@@ -93,7 +93,6 @@ export class ProfileComponent implements OnInit {
           }
         );
       }, error => {
-        console.log(error);
       }
     );
 

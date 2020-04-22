@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/_services/profile.service';
 import { User } from 'src/app/_models/user.model';
@@ -17,7 +18,9 @@ export class ProfileHeaderComponent implements OnInit {
   posts: Post[]
   default_image = 'https://cdn.clipart.email/b40fc2605be10cd3ea8f2e5e1b5db9f4_profile-clipart-default-user-9-market-access-transformation_960-960.jpeg'
 
-  constructor(private userservice: UserService, private profileService: ProfileService) {
+  constructor(private userservice: UserService, 
+    private profileService: ProfileService,
+    private router: Router) {
     this.userprofile = new User();
   }
 
