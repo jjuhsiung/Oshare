@@ -2,7 +2,7 @@
   <ul class="list-group">
     <!--      <h1 align="center" class="justify-content-center serif" >Rate &amp; Review</h1>-->
     <li align="center" class="list-group-item serif h1" style="margin-bottom: 0px"><span>Rate &amp; Review</span></li>
-    <div *ngIf="checkReview(this.Reviews)>0; then thenBlock else elseBlock"></div>
+    <div *ngIf="this.Reviews && checkReview(this.Reviews)>0; then thenBlock else elseBlock"></div>
     <ng-template #thenBlock>
       <li class="list-group-item">
         <div  *ngFor="let review of this.Reviews" class="d-flex" style="margin-bottom: 20px">

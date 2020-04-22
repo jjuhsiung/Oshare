@@ -20,19 +20,19 @@
     </div>
     <div class="row mt-3" style="font-size:15px;margin-top: 30px">
       <!--        <span>Rating: </span><span style="color:#000000;"> 10.0</span>-->
-      <div *ngIf="product.rating >=0.5; then thenBlock else elseBlock"></div>
+      <div *ngIf="product?.rating >=0.5; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock><span class="fa fa-star checked" style="font-size: large;"></span></ng-template>
       <ng-template #elseBlock><span class="fa fa-star" style="font-size: large;"></span></ng-template>
-      <div *ngIf="product.rating >=1.5; then thenBlock2 else elseBlock2"></div>
+      <div *ngIf="product?.rating >=1.5; then thenBlock2 else elseBlock2"></div>
       <ng-template #thenBlock2><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
       <ng-template #elseBlock2><span class="fa fa-star" style="font-size: large"></span></ng-template>
-      <div *ngIf="product.rating >=2.5; then thenBlock3 else elseBlock3"></div>
+      <div *ngIf="product?.rating >=2.5; then thenBlock3 else elseBlock3"></div>
       <ng-template #thenBlock3><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
       <ng-template #elseBlock3><span class="fa fa-star" style="font-size: large"></span></ng-template>
-      <div *ngIf="product.rating >=3.5; then thenBlock4 else elseBlock4"></div>
+      <div *ngIf="product?.rating >=3.5; then thenBlock4 else elseBlock4"></div>
       <ng-template #thenBlock4><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
       <ng-template #elseBlock4><span class="fa fa-star" style="font-size: large"></span></ng-template>
-      <div *ngIf="product.rating >=4.5; then thenBlock5 else elseBlock5"></div>
+      <div *ngIf="product?.rating >=4.5; then thenBlock5 else elseBlock5"></div>
       <ng-template #thenBlock5><span class="fa fa-star checked" style="font-size: large"></span></ng-template>
       <ng-template #elseBlock5><span class="fa fa-star" style="font-size: large"></span></ng-template>
     </div>
@@ -44,10 +44,10 @@
       </p>
     </div>
     <div class="row mt-3">
-      <p style="margin-bottom: 0px"><span class="h3">Brand: </span><span style="font-size: 16px"> {{capitalizeFirstLetter(product.brand)}}</span></p>
+      <p style="margin-bottom: 0px"><span class="h3">Brand: </span><span *ngIf="product?.brand" style="font-size: 16px"> {{capitalizeFirstLetter(product?.brand)}}</span></p>
     </div>
     <div class="row mt-3">
-      <p style="margin-bottom: 0px"><span class="h3">Type: </span><span style="font-size: 16px"> {{capitalizeFirstLetter(product.product_type)}}</span></p>
+      <p style="margin-bottom: 0px"><span class="h3">Type: </span><span *ngIf="product?.product_type" style="font-size: 16px"> {{capitalizeFirstLetter(product?.product_type)}}</span></p>
 <!--      <p class="product-info h3"><span style="font-weight:bold">Type: </span><span>{{product.product_type}}</span></p>-->
     </div>
     <div class="row mt-3">
